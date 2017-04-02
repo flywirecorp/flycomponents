@@ -1,0 +1,10 @@
+@import "../../../styles/config";
+
+.Autocomplete--noReadOnly .Autocomplete-search[readonly] {
+  background-color: #fff;
+  border-color: $form-field-border-color;
+
+  .has-error & {
+    border-color: $color-danger;
+  }
+}

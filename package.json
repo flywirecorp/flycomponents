@@ -1,0 +1,29 @@
+{
+  "name": "flycomponents",
+  "version": "1.0.0",
+  "description": "Flywire React components",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --opts tests/helpers/mocha.opts",
+    "test:watch": "mocha -w --opts tests/helpers/mocha.opts",
+    "lint": "eslint --ignore-path .gitignore --fix components"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javierarques/flycomponents.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/javierarques/flycomponents/issues"
+  },
+  "homepage": "https://github.com/javierarques/flycomponents#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "enzyme": "^2.8.0",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^6.10.3",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2"
+  }
+}

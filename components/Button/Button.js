@@ -1,0 +1,27 @@
+import React, { PropTypes } from 'react'
+
+export const Button = ({
+  children,
+  onClick,
+  type,
+  ...other
+}) => (
+  <button
+    className='Button'
+    onClick={onClick}
+    type={type}
+    {...other}
+  >
+    {children || 'Submit'}
+  </button>
+)
+
+const { array, func, object, oneOfType, string } = PropTypes
+
+Button.propTypes = {
+  children: oneOfType([array, object, string]),
+  onClick: func,
+  type: string.isRequired
+}
+
+export default Button
