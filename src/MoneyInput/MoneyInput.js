@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import InputGroup from '../InputGroup'
-import { toCents, toMoney } from '../../utils/money'
+import { toCents, toMoney } from '../utils/money'
 
 class MoneyInput extends Component {
   constructor (props) {

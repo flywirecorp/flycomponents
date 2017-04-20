@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import Week from '../Week'
-import { monthStartingWeekDates } from '../../../../utils/date'
+import { monthStartingWeekDates } from '../../../utils/date'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
 

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { daysOfWeek } from '../../../../utils/date'
+import { daysOfWeek } from '../../../utils/date'
 import './DayNames.scss'
 
 const DayNames = (props, { locale }) => {

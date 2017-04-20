@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import Select from '../../../Select'
-import { monthNames } from '../../../../utils/date'
+import { monthNames } from '../../../utils/date'
 import './Navigation.scss'
 
 const Navigation = ({
