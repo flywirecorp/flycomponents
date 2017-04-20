@@ -8,7 +8,6 @@ import PhoneInput from './PhoneInput'
 import Select from './Select'
 import Textarea from './Textarea'
 import TextInput from './TextInput'
-import './FormElements.scss'
 
 export {
   Autocomplete,

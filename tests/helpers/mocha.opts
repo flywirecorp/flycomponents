@@ -5,4 +5,4 @@
 --full-trace
 --reporter dot
 --require ignore-styles
-components/**/*-test.js
+src/**/*-test.js

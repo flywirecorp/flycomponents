@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Input from '../../components/Input'
+import Input from '../../src/Input'
 import './app.scss'
 
 const element = (

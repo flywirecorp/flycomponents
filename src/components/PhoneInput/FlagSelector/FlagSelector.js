@@ -205,7 +205,6 @@ export class FlagSelector extends Component {
 const { array, bool, func, string } = PropTypes
 
 FlagSelector.propTypes = {
-  label: string,
   name: string.isRequired,
   onChange: func,
   onFocus: func,
