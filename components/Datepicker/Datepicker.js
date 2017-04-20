@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import classNames from 'classnames'
-import { parseDateOrToday } from '../../../utils/date'
+import { parseDateOrToday } from '../../utils/date'
 import Calendar from './Calendar'
 import DateInput from './DateInput'
-import './Datepicker.scss'
 
 class Datepicker extends Component {
   constructor (props) {

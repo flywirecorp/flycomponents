@@ -7,7 +7,6 @@ import { escape } from './utils'
 import Option from './Option'
 import Options from './Options'
 import Input from '../Input'
-import './Autocomplete.scss'
 
 const INITIAL_INDEX = -1
 const KEYS = [13, 27, 38, 40]

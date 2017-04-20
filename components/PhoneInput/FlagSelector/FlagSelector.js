@@ -5,7 +5,6 @@ import classNames from 'classnames'
 import scrollIntoView from 'dom-scroll-into-view'
 import Option from './Option'
 import Options from './Options'
-import './FlagSelector.scss'
 
 const INITIAL_INDEX = -1
 const KEYS = [13, 27, 38, 40]

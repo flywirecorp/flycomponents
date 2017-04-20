@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import DayNames from './DayNames'
 import Month from './Month'
 import Navigation from './Navigation'
-import './Calendar.scss'
 
 const Calendar = ({
   onDateClick,

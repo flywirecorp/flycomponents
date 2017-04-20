@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import CalendarIcon from './CalendarIcon'
-import { applyPattern } from '../../../../utils/formatter'
+import { applyPattern } from '../../../utils/formatter'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
 const DATE_PATTERN = '../../....'

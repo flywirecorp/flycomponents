@@ -1,0 +1,8 @@
+--compilers js:babel-core/register
+--require tests/helpers/tests-dom.js
+--recursive
+--colors
+--full-trace
+--reporter dot
+--require ignore-styles
+components/**/*-test.js

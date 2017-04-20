@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import FlagSelector from './FlagSelector'
-import { applyPattern } from '../../../utils/formatter'
+import { applyPattern } from '../../utils/formatter'
 
 const NO_COUNTRY = {}
 const NO_VALUE = ''
