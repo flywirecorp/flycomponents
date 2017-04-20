@@ -2,14 +2,15 @@
   "name": "flycomponents",
   "version": "1.0.0",
   "description": "Flywire React components",
-  "main": "index.js",
+  "main": "./dist/flycomponents.js",
   "scripts": {
     "clean": "rm -rf dist",
     "prebuild": "npm run lint && npm run test && npm run clean",
     "build": "webpack",
     "test": "mocha --opts tests/helpers/mocha.opts",
     "test:watch": "mocha -w --opts tests/helpers/mocha.opts",
-    "lint": "eslint --ignore-path .gitignore --fix components"
+    "lint": "eslint --ignore-path .gitignore --fix components",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",

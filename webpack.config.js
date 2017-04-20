@@ -4,11 +4,13 @@ var path = require('path')
 module.exports = {
   context: __dirname,
   entry: {
-    main: path.join(__dirname, 'src', 'components', 'index.js')
+    main: path.join(__dirname, 'src', 'index.js')
   },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'flycomponents.js',
+    library:'flycomponents',
+    libraryTarget:'var'
   },
   plugins: [
     new webpack.DefinePlugin({
