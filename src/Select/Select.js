@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const Select = ({ className, selectedValue, onChange, onClick, values }) => {
   const options = values.map(option => (

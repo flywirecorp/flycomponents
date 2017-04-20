@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const CalendarIcon = ({ onClick }) => (
   <span className='Icon Icon--calendar' onClick={onClick} />

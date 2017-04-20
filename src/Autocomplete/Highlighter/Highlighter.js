@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 import { createMarkup, escape } from '../utils'
 
 const Highlighter = ({ text, subString }) => {

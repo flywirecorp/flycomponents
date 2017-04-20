@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 import DayNames from './DayNames'
 import Month from './Month'
 import Navigation from './Navigation'

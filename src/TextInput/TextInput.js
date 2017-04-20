@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import InputGroup from '../InputGroup'
 import Textarea from '../Textarea'
 import Input from '../Input'
