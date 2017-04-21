@@ -25,9 +25,7 @@ describe('monthStartingWeekDates', () => {
         '01/29/2017'
       ]
 
-      expect(
-        formatedWeeks
-      ).to.deep.equal(expectedWeeks)
+      expect(formatedWeeks).to.deep.equal(expectedWeeks)
     })
   })
 
@@ -45,9 +43,7 @@ describe('monthStartingWeekDates', () => {
         '12/25/2016'
       ]
 
-      expect(
-        formatedWeeks
-      ).to.deep.equal(expectedWeeks)
+      expect(formatedWeeks).to.deep.equal(expectedWeeks)
     })
   })
 
@@ -66,9 +62,7 @@ describe('monthStartingWeekDates', () => {
         '04/30/2017'
       ]
 
-      expect(
-        formatedWeeks
-      ).to.deep.equal(expectedWeeks)
+      expect(formatedWeeks).to.deep.equal(expectedWeeks)
     })
   })
 })
@@ -83,7 +77,15 @@ describe('daysOfWeek', () => {
 
   it('returns the days of week in the given locale', () => {
     const days = daysOfWeek('es')
-    const expectedDays = ['lun.', 'mar.', 'mié.', 'jue.', 'vie.', 'sáb.', 'dom.']
+    const expectedDays = [
+      'lun.',
+      'mar.',
+      'mié.',
+      'jue.',
+      'vie.',
+      'sáb.',
+      'dom.'
+    ]
 
     expect(days).to.deep.equal(expectedDays)
   })
@@ -92,7 +94,20 @@ describe('daysOfWeek', () => {
 describe('monthNames', () => {
   it('returs month names in the given locale', () => {
     const months = monthNames('es')
-    const expectedMonths = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+    const expectedMonths = [
+      'enero',
+      'febrero',
+      'marzo',
+      'abril',
+      'mayo',
+      'junio',
+      'julio',
+      'agosto',
+      'septiembre',
+      'octubre',
+      'noviembre',
+      'diciembre'
+    ]
 
     expect(months).to.deep.equal(expectedMonths)
   })
@@ -107,9 +122,7 @@ describe('parseDateOrToday', () => {
     it('returns a parsed date', () => {
       const expectedDate = moment('01/01/2016', dateFormat)
 
-      expect(
-        date.format(dateFormat)
-      ).to.equal(expectedDate.format(dateFormat))
+      expect(date.format(dateFormat)).to.equal(expectedDate.format(dateFormat))
     })
   })
 
@@ -119,9 +132,7 @@ describe('parseDateOrToday', () => {
     it('returns a parsed date', () => {
       const expectedDate = moment()
 
-      expect(
-        date.format(dateFormat)
-      ).to.equal(expectedDate.format(dateFormat))
+      expect(date.format(dateFormat)).to.equal(expectedDate.format(dateFormat))
     })
   })
 })

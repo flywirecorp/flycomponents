@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 
 class Option extends Component {
-  render () {
+  render() {
     const {
       country,
       dialingCode,
@@ -15,14 +15,18 @@ class Option extends Component {
 
     return (
       <li
-        className={classNames('Autocomplete-option', 'PhoneNumber-option', {'is-active': hasFocus})}
+        className={classNames('Autocomplete-option', 'PhoneNumber-option', {
+          'is-active': hasFocus
+        })}
         onClick={() => onClick(isoCode)}
         onMouseEnter={() => onMouseEnter(isoCode)}
         value={isoCode}
       >
-        <span className={`Flag Flag--${isoCode.toLowerCase()} PhoneNumber-option-flag`} />
-        <span className='PhoneNumber-option-country'>{country}</span>
-        <span className='PhoneNumber-option-dial'>+{dialingCode}</span>
+        <span
+          className={`Flag Flag--${isoCode.toLowerCase()} PhoneNumber-option-flag`}
+        />
+        <span className="PhoneNumber-option-country">{country}</span>
+        <span className="PhoneNumber-option-dial">+{dialingCode}</span>
       </li>
     )
   }

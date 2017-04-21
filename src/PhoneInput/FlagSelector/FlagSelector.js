@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import onClickOutside from 'react-onclickoutside'
 import classNames from 'classnames'
@@ -12,7 +12,7 @@ const KEYS = [13, 27, 38, 40]
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS
 
 export class FlagSelector extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -24,7 +24,7 @@ export class FlagSelector extends Component {
     this.typedQueryTimer = 0
   }
 
-  adjustOffet () {
+  adjustOffet() {
     const { selectedIndex } = this.state
     const optionSelected = findDOMNode(this.refs[`option-${selectedIndex}`])
     const optionList = findDOMNode(this.refs.optionList)
@@ -33,7 +33,7 @@ export class FlagSelector extends Component {
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true })
   }
 
-  handleClickOutside (e) {
+  handleClickOutside(e) {
     const { value } = this.props
     const selectedIndex = this.getOptionIndexByValue(value)
     this.setState(() => {
@@ -41,29 +41,36 @@ export class FlagSelector extends Component {
     })
   }
 
-  getOptionIndexByValue (value) {
+  getOptionIndexByValue(value) {
     const { options } = this.props
     return options.findIndex(option => option.value === value)
   }
 
-  handleMenuKeydown = (e) => {
-    if (KEYS.includes(e.keyCode)) { e.preventDefault() }
+  handleMenuKeydown = e => {
+    if (KEYS.includes(e.keyCode)) {
+      e.preventDefault()
+    }
     this.showOptions()
 
     switch (e.keyCode) {
-      case ARROW_DOWN: return this.moveIndexUp()
-      case ARROW_UP: return this.moveIndexDown()
-      case ENTER: return this.selectCurrentOption()
-      case ESC: return this.hideOptions()
-      default: return this.handleTypedChar(e.keyCode)
+      case ARROW_DOWN:
+        return this.moveIndexUp()
+      case ARROW_UP:
+        return this.moveIndexDown()
+      case ENTER:
+        return this.selectCurrentOption()
+      case ESC:
+        return this.hideOptions()
+      default:
+        return this.handleTypedChar(e.keyCode)
     }
   }
 
-  handleTypedChar (keyCode) {
+  handleTypedChar(keyCode) {
     const newChar = String.fromCharCode(keyCode).toLowerCase()
     clearTimeout(this.typedQueryTimer)
 
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { typedQuery: prevState.typedQuery.concat(newChar) }
     }, this.searchTypedCountry)
 
@@ -74,19 +81,22 @@ export class FlagSelector extends Component {
     }, 2000)
   }
 
-  searchTypedCountry () {
+  searchTypedCountry() {
     const { options } = this.props
     const { typedQuery } = this.state
 
-    const searchedOptionIndex = options.findIndex(
-      (option) => option.label.toLowerCase().startsWith(typedQuery)
+    const searchedOptionIndex = options.findIndex(option =>
+      option.label.toLowerCase().startsWith(typedQuery)
     )
-    this.setState({
-      selectedIndex: searchedOptionIndex
-    }, this.adjustOffet)
+    this.setState(
+      {
+        selectedIndex: searchedOptionIndex
+      },
+      this.adjustOffet
+    )
   }
 
-  handleOptionSelected = (value) => {
+  handleOptionSelected = value => {
     const selectedIndex = this.getOptionIndexByValue(value)
     this.hideOptions()
     this.setState(() => {
@@ -100,102 +110,118 @@ export class FlagSelector extends Component {
   handleMenuClick = () => {
     const { onFocus, readOnly } = this.props
     if (readOnly) return false
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { isOpen: !prevState.isOpen }
     }, onFocus)
   }
 
-  handleOptionHover (value) {
+  handleOptionHover(value) {
     const selectedIndex = this.getOptionIndexByValue(value)
     return this.setState({ selectedIndex })
   }
 
-  hideOptions () {
+  hideOptions() {
     this.setState({ isOpen: false })
   }
 
-  moveIndexDown () {
+  moveIndexDown() {
     this.moveIndex(-1)
   }
 
-  moveIndexUp () {
+  moveIndexUp() {
     this.moveIndex(1)
   }
 
-  moveIndex (offset) {
+  moveIndex(offset) {
     const { options } = this.props
     const optionsLength = options.length
-    const normalize = (index) => {
-      if (index < 0) { return optionsLength - 1 }
-      if (index >= optionsLength) { return 0 }
+    const normalize = index => {
+      if (index < 0) {
+        return optionsLength - 1
+      }
+      if (index >= optionsLength) {
+        return 0
+      }
       return index
     }
 
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { selectedIndex: normalize(prevState.selectedIndex + offset) }
     }, this.adjustOffet)
   }
 
-  showOptions () {
+  showOptions() {
     const { readOnly } = this.props
     if (readOnly) return false
 
     this.setState({ isOpen: true })
   }
 
-  selectCurrentOption () {
+  selectCurrentOption() {
     const { options } = this.props
     const { selectedIndex } = this.state
 
-    if (selectedIndex === INITIAL_INDEX) { return }
+    if (selectedIndex === INITIAL_INDEX) {
+      return
+    }
 
     const { value } = options[selectedIndex]
     return this.handleOptionSelected(value)
   }
 
-  sendChange (value) {
+  sendChange(value) {
     const { name, onChange } = this.props
 
-    if (typeof onChange === 'function') { onChange(name, value) }
+    if (typeof onChange === 'function') {
+      onChange(name, value)
+    }
   }
 
-  render () {
+  render() {
     const { value = '' } = this.props
     const { options } = this.props
     const { isOpen, selectedIndex } = this.state
 
-    const optionList = options.map((option, i) =>
+    const optionList = options.map((option, i) => (
       <Option
         country={option.label}
         dialingCode={option.dialingCode}
         hasFocus={selectedIndex === i}
         key={option.value}
-        onClick={(value) => this.handleOptionSelected(value)}
-        onMouseEnter={(value) => this.handleOptionHover(value)}
+        onClick={value => this.handleOptionSelected(value)}
+        onMouseEnter={value => this.handleOptionHover(value)}
         ref={`option-${i}`}
         value={option.value}
       />
-    )
+    ))
 
     return (
-      <div ref='phoneInput' className={classNames('Autocomplete', {'is-searching': isOpen}, 'PhoneNumber-menu')}>
-        <span
-          className='Autocomplete-search PhoneNumber-menu-input'
-        >
-          { value
-              ? <span className={classNames('Flag', {[`Flag--${value.toLowerCase()}`]: value})} />
-              : null
-          }
+      <div
+        ref="phoneInput"
+        className={classNames(
+          'Autocomplete',
+          { 'is-searching': isOpen },
+          'PhoneNumber-menu'
+        )}
+      >
+        <span className="Autocomplete-search PhoneNumber-menu-input">
+          {value
+            ? <span
+                className={classNames('Flag', {
+                  [`Flag--${value.toLowerCase()}`]: value
+                })}
+              />
+            : null}
         </span>
         <input
           autoComplete={false}
-          className='PhoneNumber-menu-fakeInput'
+          className="PhoneNumber-menu-fakeInput"
           onClick={this.handleMenuClick}
           onKeyDown={this.handleMenuKeydown}
-          type='text'
+          type="text"
         />
 
-        <Options ref='optionList'>
+        <Options ref="optionList">
           {optionList}
         </Options>
       </div>

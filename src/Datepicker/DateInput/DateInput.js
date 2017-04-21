@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import CalendarIcon from './CalendarIcon'
 import { applyPattern } from '../../utils/formatter'
 
@@ -8,7 +8,7 @@ const DATE_PATTERN = '../../....'
 const DELETE_KEYCODE = 8
 
 class DateInput extends Component {
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     const { selectedDate = '', setSelectedDate, readOnly } = this.props
     const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`
     let value = inputValue.replace(/\D/g, '')
@@ -24,18 +24,18 @@ class DateInput extends Component {
     setSelectedDate(formatedDate)
   }
 
-  handleFocus () {
+  handleFocus() {
     const input = this.refs.input
     input.focus()
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     const { onClick } = this.props
     this.handleFocus()
     onClick()
   }
 
-  render () {
+  render() {
     const {
       name,
       onCalendarIconClick,
@@ -46,10 +46,10 @@ class DateInput extends Component {
     const calendarIcon = <CalendarIcon onClick={onCalendarIconClick} />
 
     return (
-      <div className='InputGroup'>
+      <div className="InputGroup">
         <input
-          autoComplete='off'
-          className='Input InputGroup-input'
+          autoComplete="off"
+          className="Input InputGroup-input"
           id={name}
           onChange={() => {}}
           onClick={this.handleClick}
@@ -58,11 +58,11 @@ class DateInput extends Component {
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
-          ref='input'
-          type='text'
+          ref="input"
+          type="text"
           value={selectedDate}
         />
-        <span className='InputGroup-context'>{calendarIcon}</span>
+        <span className="InputGroup-context">{calendarIcon}</span>
       </div>
     )
   }

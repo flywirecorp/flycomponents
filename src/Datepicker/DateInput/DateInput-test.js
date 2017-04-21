@@ -6,7 +6,7 @@ import DateInput from './DateInput'
 
 describe('DateInput', () => {
   class DateInputComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         name: 'name',
         onCalendarIconClick: () => {},
@@ -19,24 +19,24 @@ describe('DateInput', () => {
       this.component = shallow(<DateInput {...props} />)
     }
 
-    input () {
+    input() {
       return this.component.find('input')
     }
 
-    simulateChange (value) {
+    simulateChange(value) {
       this.component.setState({ value })
       this.input().simulate('change')
     }
 
-    state () {
+    state() {
       return this.component.state()
     }
 
-    setState (state) {
+    setState(state) {
       this.component.setState(state)
     }
 
-    pressKey (k) {
+    pressKey(k) {
       const keys = {
         0: { which: 48 },
         delete: { which: 8 }
@@ -52,9 +52,7 @@ describe('DateInput', () => {
 
     component.pressKey(0)
 
-    expect(
-      setSelectedDate.calledWith('0')
-    ).to.be.true
+    expect(setSelectedDate.calledWith('0')).to.be.true
   })
 
   it('removes the last character when pressing delete key', () => {
@@ -64,19 +62,18 @@ describe('DateInput', () => {
 
     component.pressKey('delete')
 
-    expect(
-      setSelectedDate.calledWith('05/12/201')
-    ).to.be.true
+    expect(setSelectedDate.calledWith('05/12/201')).to.be.true
   })
 
   it('does not change input field if readOnly prop is passed in', () => {
     const setSelectedDate = sinon.spy()
-    const component = new DateInputComponent({ setSelectedDate, readOnly: true })
+    const component = new DateInputComponent({
+      setSelectedDate,
+      readOnly: true
+    })
 
     component.pressKey(0)
 
-    expect(
-      setSelectedDate.called
-    ).to.be.false
+    expect(setSelectedDate.called).to.be.false
   })
 })

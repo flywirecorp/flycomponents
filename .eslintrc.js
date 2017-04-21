@@ -4,20 +4,22 @@ module.exports = {
     "mocha": true,
     "node": true
   },
-  "extends": [
-    "standard",
-    "standard-react",
-    "plugin:react/recommended"
-  ],
   "parser": "babel-eslint",
   "plugins": [
-    "standard",
     "promise",
-    "react"
+    "react",
+    "prettier"
   ],
   "rules": {
     "strict": 0,
     "react/sort-comp": "error",
-    "react/sort-prop-types": "error"
+    "react/sort-prop-types": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false
+      }
+    ]
   }
 };

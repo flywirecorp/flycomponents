@@ -1,38 +1,42 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import InputGroup from '../InputGroup'
 import { toCents, toMoney } from '../utils/money'
 
 class MoneyInput extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = { amount: props.value }
   }
 
-  handleBlur = (e) => {
+  handleBlur = e => {
     const { onBlur } = this.props
     const { name } = e.target
 
-    if (typeof onBlur === 'function') { onBlur(name) }
+    if (typeof onBlur === 'function') {
+      onBlur(name)
+    }
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { decimalMark: decimal, onChange, subunitToUnit } = this.props
     let { name, value } = e.target
     value = toCents(value, { decimal, subunitToUnit })
 
-    if (typeof onChange === 'function') { onChange(name, value) }
+    if (typeof onChange === 'function') {
+      onChange(name, value)
+    }
     this.setState({ [name]: value })
   }
 
-  handleClick = (e) => {
+  handleClick = e => {
     const { target, target: { value } } = e
 
     target.setSelectionRange(0, value.length)
   }
 
-  render () {
+  render() {
     const { amount } = this.state
     const {
       currencySymbol: symbol,
@@ -52,7 +56,7 @@ class MoneyInput extends Component {
       thousand
     }
 
-    const inputAttrs = {...other, [symbolFirst ? 'prefix' : 'sufix']: symbol}
+    const inputAttrs = { ...other, [symbolFirst ? 'prefix' : 'sufix']: symbol }
 
     return (
       <InputGroup
@@ -60,7 +64,7 @@ class MoneyInput extends Component {
         onBlur={this.handleBlur}
         onClick={this.handleClick}
         onChange={this.handleChange}
-        type='text'
+        type="text"
         value={toMoney(amount, settings)}
       />
     )

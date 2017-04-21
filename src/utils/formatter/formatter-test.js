@@ -7,18 +7,14 @@ describe('applyPattern', () => {
     const text = applyPattern('', pattern)
     const expectedText = ''
 
-    expect(
-      text
-    ).to.equal(expectedText)
+    expect(text).to.equal(expectedText)
   })
 
   it('returns same text if no pattern', () => {
     const text = applyPattern('text')
     const expectedText = 'text'
 
-    expect(
-      text
-    ).to.equal(expectedText)
+    expect(text).to.equal(expectedText)
   })
 
   it('returns a formatted text', () => {
@@ -26,9 +22,7 @@ describe('applyPattern', () => {
     const text = applyPattern('166666666666', pattern)
     const expectedText = '+1 (666) 666-6666'
 
-    expect(
-      text
-    ).to.equal(expectedText)
+    expect(text).to.equal(expectedText)
   })
 
   it('returns a partial formatted text', () => {
@@ -36,9 +30,7 @@ describe('applyPattern', () => {
     const text = applyPattern('1212', pattern)
     const expectedText = '12/12'
 
-    expect(
-      text
-    ).to.equal(expectedText)
+    expect(text).to.equal(expectedText)
   })
 
   it('ignores exceding text', () => {
@@ -46,8 +38,6 @@ describe('applyPattern', () => {
     const text = applyPattern('12345', pattern)
     const expectedText = '123'
 
-    expect(
-      text
-    ).to.equal(expectedText)
+    expect(text).to.equal(expectedText)
   })
 })

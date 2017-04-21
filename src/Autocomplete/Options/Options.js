@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 
 class Options extends Component {
-  render () {
+  render() {
     return (
-      <ul className='Autocomplete-options'>
+      <ul className="Autocomplete-options">
         {this.props.children}
       </ul>
     )

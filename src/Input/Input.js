@@ -1,15 +1,10 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-const Input = ({
-  name,
-  required,
-  type,
-  ...other
-}) => (
+const Input = ({ name, required, type, ...other }) => (
   <input
-    autoComplete='off'
-    className='Input'
+    autoComplete="off"
+    className="Input"
     id={name}
     name={name}
     required={required}

@@ -8,7 +8,7 @@ import Options from './Options'
 
 describe('Autocomplete', () => {
   class AutocompleteComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         name: 'country',
         options: [
@@ -22,62 +22,65 @@ describe('Autocomplete', () => {
       this.component = shallow(<Autocomplete {...props} />)
     }
 
-    searchField () {
+    searchField() {
       return this.component.find(Input)
     }
 
-    spanField () {
+    spanField() {
       return this.component.find('span')
     }
 
-    options () {
+    options() {
       return this.component.find(Options).children()
     }
 
-    optionsListIsVisible () {
+    optionsListIsVisible() {
       return this.component.find('.Autocomplete').hasClass('is-searching')
     }
 
-    focusedOption () {
+    focusedOption() {
       const options = this.options()
       return options.filterWhere(option => option.prop('hasFocus'))
     }
 
-    selectedOption () {
+    selectedOption() {
       const options = this.options()
       return options.filterWhere(option => option.prop('selectedValue'))
     }
 
-    filterOption (token) {
+    filterOption(token) {
       this.searchField().simulate('change', { target: { value: token } })
     }
 
-    selectedIndex () {
+    selectedIndex() {
       return this.component.state('selectedIndex')
     }
 
-    simulateClick () {
+    simulateClick() {
       this.searchField().simulate('click')
     }
 
-    pressArrowDownKey () {
+    pressArrowDownKey() {
       this.simulateKeyDown(40)
     }
 
-    pressArrowUpKey () {
+    pressArrowUpKey() {
       this.simulateKeyDown(38)
     }
 
-    pressEscKey () {
+    pressEscKey() {
       this.simulateKeyDown(27)
     }
 
-    pressEnterKey () {
+    pressEnterKey() {
       this.simulateKeyDown(13)
     }
 
-    simulateKeyDown (keyCode) {
-      this.searchField().simulate('keyDown', { keyCode, preventDefault: () => {} })
+    simulateKeyDown(keyCode) {
+      this.searchField().simulate('keyDown', {
+        keyCode,
+        preventDefault: () => {}
+      })
     }
   }
 
@@ -94,9 +97,7 @@ describe('Autocomplete', () => {
   it('has a search input', () => {
     const component = new AutocompleteComponent()
 
-    expect(
-      component.searchField()
-    ).to.have.length(1)
+    expect(component.searchField()).to.have.length(1)
   })
 
   it('has a list with options', () => {
@@ -107,9 +108,7 @@ describe('Autocomplete', () => {
     ]
     const component = new AutocompleteComponent({ options })
 
-    expect(
-      component.options()
-    ).to.have.length(3)
+    expect(component.options()).to.have.length(3)
   })
 
   it('shows options when clicking the search input', () => {
@@ -117,9 +116,7 @@ describe('Autocomplete', () => {
 
     component.simulateClick()
 
-    expect(
-      component.optionsListIsVisible()
-    ).to.be.true
+    expect(component.optionsListIsVisible()).to.be.true
   })
 
   it('filters options based on the search value', () => {
@@ -132,13 +129,9 @@ describe('Autocomplete', () => {
 
     component.filterOption('st united')
 
-    expect(
-      component.options()
-    ).to.have.length(1)
+    expect(component.options()).to.have.length(1)
 
-    expect(
-      component.options().prop('label')
-    ).to.equal('United States')
+    expect(component.options().prop('label')).to.equal('United States')
   })
 
   it('moves the focus to the next option when pressing key down', () => {
@@ -152,9 +145,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey()
     component.pressArrowDownKey()
 
-    expect(
-      component.focusedOption().prop('value')
-    ).to.equal('US')
+    expect(component.focusedOption().prop('value')).to.equal('US')
   })
 
   it('moves the focus to the previous option when pressing key up', () => {
@@ -169,9 +160,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey()
     component.pressArrowUpKey()
 
-    expect(
-      component.focusedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.focusedOption().prop('value')).to.equal('ES')
   })
 
   it('hides options when pressing the esc key', () => {
@@ -180,9 +169,7 @@ describe('Autocomplete', () => {
     component.simulateClick()
     component.pressEscKey()
 
-    expect(
-      component.optionsListIsVisible()
-    ).to.be.false
+    expect(component.optionsListIsVisible()).to.be.false
   })
 
   it('gives focus to an option when mouse enters', () => {
@@ -197,16 +184,12 @@ describe('Autocomplete', () => {
     const firstOption = component.options().first()
     firstOption.simulate('mouseEnter', 'US')
 
-    expect(
-      component.selectedIndex()
-    ).to.equal(0)
+    expect(component.selectedIndex()).to.equal(0)
 
     const secondOption = component.options().last()
     secondOption.simulate('mouseEnter', 'UM')
 
-    expect(
-      component.selectedIndex()
-    ).to.equal(1)
+    expect(component.selectedIndex()).to.equal(1)
   })
 
   it('selects current option when pressing the enter key', () => {
@@ -220,9 +203,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey()
     component.pressEnterKey()
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('hides options when pressing the enter key', () => {
@@ -232,9 +213,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey()
     component.pressEnterKey()
 
-    expect(
-      component.optionsListIsVisible()
-    ).to.be.false
+    expect(component.optionsListIsVisible()).to.be.false
   })
 
   it('disables search according to the minimun options for search', () => {
@@ -244,11 +223,12 @@ describe('Autocomplete', () => {
       { label: 'China', value: 'CN' }
     ]
     const minOptionsForSearch = 4
-    const component = new AutocompleteComponent({ minOptionsForSearch, options })
+    const component = new AutocompleteComponent({
+      minOptionsForSearch,
+      options
+    })
 
-    expect(
-      component.searchField().prop('readOnly')
-    ).to.be.true
+    expect(component.searchField().prop('readOnly')).to.be.true
   })
 
   describe('having read-only property', () => {
@@ -260,16 +240,12 @@ describe('Autocomplete', () => {
     const component = new AutocompleteComponent({ readOnly: true, options })
 
     it('renders a read-only autocomplete search input', () => {
-      expect(
-        component.searchField().prop('readOnly')
-      ).to.be.true
+      expect(component.searchField().prop('readOnly')).to.be.true
     })
 
     it('does not show the options menu', () => {
       component.simulateClick()
-      expect(
-        component.optionsListIsVisible()
-      ).to.be.false
+      expect(component.optionsListIsVisible()).to.be.false
     })
   })
 })

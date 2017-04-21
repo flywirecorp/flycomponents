@@ -9,7 +9,7 @@ import Month from './Month'
 
 describe('Calendar', () => {
   class CalendarComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const FAKE_CALLBACK = () => {}
       const defaultProps = {
         onDateClick: FAKE_CALLBACK,
@@ -22,24 +22,22 @@ describe('Calendar', () => {
       }
       const props = { ...defaultProps, ...ownProps }
 
-      this.component = shallow(
-        <Calendar {...props} />
-      )
+      this.component = shallow(<Calendar {...props} />)
     }
 
-    calendar () {
+    calendar() {
       return this.component.find('.Calendar')
     }
 
-    navigation () {
+    navigation() {
       return this.calendar().find(Navigation)
     }
 
-    dayNames () {
+    dayNames() {
       return this.calendar().find(DayNames)
     }
 
-    month () {
+    month() {
       return this.calendar().find(Month)
     }
   }
@@ -47,24 +45,18 @@ describe('Calendar', () => {
   it('has a navigation bar', () => {
     const component = new CalendarComponent()
 
-    expect(
-      component.navigation()
-    ).to.have.length(1)
+    expect(component.navigation()).to.have.length(1)
   })
 
   it('has a day names header', () => {
     const component = new CalendarComponent()
 
-    expect(
-      component.dayNames()
-    ).to.have.length(1)
+    expect(component.dayNames()).to.have.length(1)
   })
 
   it('has a day month table', () => {
     const component = new CalendarComponent()
 
-    expect(
-      component.month()
-    ).to.have.length(1)
+    expect(component.month()).to.have.length(1)
   })
 })

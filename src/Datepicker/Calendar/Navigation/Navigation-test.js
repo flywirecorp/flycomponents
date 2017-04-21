@@ -7,7 +7,7 @@ import Navigation from './Navigation'
 
 describe('Navigation', () => {
   class NavigationComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const FAKE_CALLBACK = () => {}
       const defaultProps = {
         onMonthChange: FAKE_CALLBACK,
@@ -18,49 +18,48 @@ describe('Navigation', () => {
       }
       const props = { ...defaultProps, ...ownProps }
 
-      this.component = shallow(
-        <Navigation {...props} />,
-        { context: { locale: 'en' } }
-      )
+      this.component = shallow(<Navigation {...props} />, {
+        context: { locale: 'en' }
+      })
     }
 
-    navigation () {
+    navigation() {
       return this.component.find('.Calendar-header')
     }
 
-    prevMonthButton () {
+    prevMonthButton() {
       return this.navigation().find('.Calendar-header-nav--prev button')
     }
 
-    nextMonthButton () {
+    nextMonthButton() {
       return this.navigation().find('.Calendar-header-nav--next button')
     }
 
-    monthSelector () {
+    monthSelector() {
       return this.navigation().find('.Calendar-header-nav--month Select')
     }
 
-    monthSelectorLabels () {
+    monthSelectorLabels() {
       return this.monthSelector().prop('values').map(value => value.label)
     }
 
-    yearSelector () {
+    yearSelector() {
       return this.navigation().find('.Calendar-header-nav--year Select')
     }
 
-    yearSelectorLabels () {
+    yearSelectorLabels() {
       return this.yearSelector().prop('values').map(value => value.label)
     }
 
-    simulatePrevMonthClick () {
+    simulatePrevMonthClick() {
       this.prevMonthButton().simulate('click')
     }
 
-    simulateNextMonthClick () {
+    simulateNextMonthClick() {
       this.nextMonthButton().simulate('click')
     }
 
-    simulateSelectMonth (value) {
+    simulateSelectMonth(value) {
       this.monthSelector().simulate('change', { target: { value } })
     }
   }
@@ -71,9 +70,7 @@ describe('Navigation', () => {
 
     component.simulatePrevMonthClick()
 
-    expect(
-      onPrevMonthClick.called
-    ).to.be.true
+    expect(onPrevMonthClick.called).to.be.true
   })
 
   it('handles a next month button click', () => {
@@ -82,9 +79,7 @@ describe('Navigation', () => {
 
     component.simulateNextMonthClick()
 
-    expect(
-      onNextMonthClick.called
-    ).to.be.true
+    expect(onNextMonthClick.called).to.be.true
   })
 
   it('handles the onChange event', () => {
@@ -100,13 +95,9 @@ describe('Navigation', () => {
       const component = new NavigationComponent()
       const monthSelector = component.monthSelector()
 
-      expect(
-        monthSelector
-      ).to.have.length(1)
+      expect(monthSelector).to.have.length(1)
 
-      expect(
-        monthSelector.prop('values')
-      ).to.have.length(12)
+      expect(monthSelector.prop('values')).to.have.length(12)
     })
   })
 
@@ -114,9 +105,7 @@ describe('Navigation', () => {
     it('exists', () => {
       const component = new NavigationComponent()
 
-      expect(
-        component.yearSelector()
-      ).to.have.length(1)
+      expect(component.yearSelector()).to.have.length(1)
     })
 
     it('has a hundred of years', () => {

@@ -7,9 +7,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100001, options)
     const expectFormattedMoney = '$1,000'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('adds decimal mark', () => {
@@ -17,9 +15,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100001, options)
     const expectFormattedMoney = '$1,000.01'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('adds symbol', () => {
@@ -27,9 +23,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100000, options)
     const expectFormattedMoney = '€1,000'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('adds controls of symbol position', () => {
@@ -37,9 +31,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100000, options)
     const expectFormattedMoney = '1,000 €'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('hides symbol', () => {
@@ -47,9 +39,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100000, options)
     const expectFormattedMoney = '1,000'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('adds controls of thousand separator', () => {
@@ -57,9 +47,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(100000, options)
     const expectFormattedMoney = '€1.000'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 
   it('adds controls of decimal separator', () => {
@@ -67,9 +55,7 @@ describe('toMoney', () => {
     const formattedMoney = toMoney(10050, options)
     const expectFormattedMoney = '€100,50'
 
-    expect(
-      formattedMoney
-    ).to.equal(expectFormattedMoney)
+    expect(formattedMoney).to.equal(expectFormattedMoney)
   })
 })
 

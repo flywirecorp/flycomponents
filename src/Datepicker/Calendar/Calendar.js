@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 import DayNames from './DayNames'
 import Month from './Month'
 import Navigation from './Navigation'
@@ -13,9 +13,7 @@ const Calendar = ({
   selectedDate,
   startDate
 }) => (
-  <div
-    className='Calendar Datepicker-calendar'
-  >
+  <div className="Calendar Datepicker-calendar">
     <Navigation
       onMonthChange={onMonthChange}
       onNextMonthClick={onNextMonthClick}
@@ -23,7 +21,7 @@ const Calendar = ({
       onYearChange={onYearChange}
       startDate={startDate}
     />
-    <table className='Calendar-table'>
+    <table className="Calendar-table">
       <DayNames startDate={startDate} />
       <Month
         onDateClick={onDateClick}

@@ -7,7 +7,7 @@ import Week from '../Week'
 
 describe('Month', () => {
   class MonthComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         onDateClick: () => {},
         selectedDate: '',
@@ -15,16 +15,14 @@ describe('Month', () => {
       }
       const props = { ...defaultProps, ...ownProps }
 
-      this.component = shallow(
-        <Month {...props} />
-      )
+      this.component = shallow(<Month {...props} />)
     }
 
-    month () {
+    month() {
       return this.component.find('tbody')
     }
 
-    weeks () {
+    weeks() {
       return this.month().find(Week)
     }
   }
@@ -33,8 +31,6 @@ describe('Month', () => {
     const startDate = moment('2016-11-13')
     const component = new MonthComponent({ startDate })
 
-    expect(
-      component.weeks()
-    ).to.have.length(5)
+    expect(component.weeks()).to.have.length(5)
   })
 })

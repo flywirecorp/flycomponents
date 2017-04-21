@@ -7,7 +7,7 @@ import Option from './Option'
 
 describe('Option', () => {
   class OptionComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         hasFocus: false,
         label: 'Option',
@@ -21,19 +21,19 @@ describe('Option', () => {
       this.component = shallow(<Option {...props} />)
     }
 
-    option () {
+    option() {
       return this.component.find('li')
     }
 
-    simulateClick () {
+    simulateClick() {
       this.component.simulate('click')
     }
 
-    doMouseEnter () {
+    doMouseEnter() {
       this.option().simulate('mouseEnter')
     }
 
-    highlighText () {
+    highlighText() {
       return this.option().find(Highlighter)
     }
   }
@@ -41,18 +41,14 @@ describe('Option', () => {
   it('renders an option', () => {
     const component = new OptionComponent()
 
-    expect(
-      component.option()
-    ).to.have.length(1)
+    expect(component.option()).to.have.length(1)
   })
 
   it('has an active status when focus', () => {
     const hasFocus = true
     const component = new OptionComponent({ hasFocus })
 
-    expect(
-      component.option().prop('className')
-    ).to.include('is-active')
+    expect(component.option().prop('className')).to.include('is-active')
   })
 
   it('simulates click events', () => {
@@ -62,9 +58,7 @@ describe('Option', () => {
 
     component.simulateClick()
 
-    expect(
-      onClick.calledWith('optionValue')
-    ).to.be.true
+    expect(onClick.calledWith('optionValue')).to.be.true
   })
 
   it('simulates mouse enter events', () => {
@@ -74,9 +68,7 @@ describe('Option', () => {
 
     component.doMouseEnter()
 
-    expect(
-      onMouseEnter.calledWith('optionValue')
-    ).to.be.true
+    expect(onMouseEnter.calledWith('optionValue')).to.be.true
   })
 
   it('highlighs texts', () => {
@@ -85,25 +77,17 @@ describe('Option', () => {
     const component = new OptionComponent({ label, searchQuery })
     const highlighText = component.highlighText()
 
-    expect(
-      highlighText
-    ).to.have.length(1)
+    expect(highlighText).to.have.length(1)
 
-    expect(
-      highlighText.prop('text')
-    ).to.equal(label)
+    expect(highlighText.prop('text')).to.equal(label)
 
-    expect(
-      highlighText.prop('subString')
-    ).to.equal(searchQuery)
+    expect(highlighText.prop('subString')).to.equal(searchQuery)
   })
 
   it('disables highligh text', () => {
     const highlighText = false
     const component = new OptionComponent({ highlighText })
 
-    expect(
-      component.highlighText()
-    ).to.have.length(0)
+    expect(component.highlighText()).to.have.length(0)
   })
 })

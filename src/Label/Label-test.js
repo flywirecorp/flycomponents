@@ -5,11 +5,11 @@ import Label from './Label'
 
 describe('Label', () => {
   class LabelComponent {
-    constructor (props) {
+    constructor(props) {
       this.component = shallow(<Label {...props} />)
     }
 
-    label (name) {
+    label(name) {
       return this.component.find(`label[htmlFor="${name}"]`).text()
     }
   }
@@ -18,17 +18,13 @@ describe('Label', () => {
     const props = { htmlFor: 'amount', value: 'Amount' }
     const component = new LabelComponent(props)
 
-    expect(
-      component.label('amount')
-    ).to.equal('Amount')
+    expect(component.label('amount')).to.equal('Amount')
   })
 
   it('renders a required label', () => {
     const props = { htmlFor: 'amount', required: true, value: 'Amount' }
     const component = new LabelComponent(props)
 
-    expect(
-      component.label('amount')
-    ).to.equal('Amount (*)')
+    expect(component.label('amount')).to.equal('Amount (*)')
   })
 })

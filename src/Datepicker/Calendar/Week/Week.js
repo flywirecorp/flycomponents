@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 import Day from '../Day'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
@@ -24,7 +24,7 @@ const Week = ({ startingDate, month, onDateClick, selected }) => {
     })
 
   return (
-    <tr className='week'>
+    <tr className="week">
       {weekDays}
     </tr>
   )

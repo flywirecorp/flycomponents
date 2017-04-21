@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classNames from 'classnames'
 import onClickOutside from 'react-onclickoutside'
@@ -14,7 +14,7 @@ const KEYS = [13, 27, 38, 40]
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS
 
 export class Autocomplete extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     const { options, value } = this.props
 
@@ -26,22 +26,28 @@ export class Autocomplete extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
-    const { label: nextLabel, options: nextOptions, value: nextValue } = nextProps
+  componentWillReceiveProps(nextProps) {
+    const {
+      label: nextLabel,
+      options: nextOptions,
+      value: nextValue
+    } = nextProps
     const { label: currentLabel, value: currentValue } = this.props
 
-    if (nextLabel === currentLabel && nextValue === currentValue) { return }
+    if (nextLabel === currentLabel && nextValue === currentValue) {
+      return
+    }
 
     this.setState({
-      searchQuery: this.getOptionLabelByValue(nextOptions, nextValue) }
-    )
+      searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
+    })
   }
 
-  handleClickOutside () {
+  handleClickOutside() {
     const { isOpen: wasSearching } = this.state
     const { options } = this.props
 
-    return this.setState((prevState) => {
+    return this.setState(prevState => {
       const { selectedValue } = prevState
 
       return {
@@ -51,37 +57,44 @@ export class Autocomplete extends Component {
     }, wasSearching ? this.sendBlur : null)
   }
 
-  showOptions () {
+  showOptions() {
     const { isOpen } = this.state
     const { readOnly } = this.props
 
-    if (isOpen || readOnly) { return }
+    if (isOpen || readOnly) {
+      return
+    }
     this.setState({ isOpen: true })
   }
 
-  loadOptions () {
+  loadOptions() {
     const { options } = this.props
     const searchOff = !this.searchOn()
     const { searchQuery } = this.state
 
-    if (searchOff || !searchQuery) { return options }
+    if (searchOff || !searchQuery) {
+      return options
+    }
 
     const escapedSearchQuery = escape(searchQuery)
-    const pattern = escapedSearchQuery.split(' ').map(t => `(?=.*?${t})`).join('')
+    const pattern = escapedSearchQuery
+      .split(' ')
+      .map(t => `(?=.*?${t})`)
+      .join('')
 
-    return options.filter(option =>
-      option.label.toString().search(new RegExp(pattern, 'i')) !== -1
+    return options.filter(
+      option => option.label.toString().search(new RegExp(pattern, 'i')) !== -1
     )
   }
 
-  getOptionLabelByValue (options, value) {
+  getOptionLabelByValue(options, value) {
     const NO_LABEL = ''
     const selectedOption = options.find(option => option.value === value)
 
     return selectedOption ? selectedOption.label.toString() : NO_LABEL
   }
 
-  handleOptionSelected = (value) => {
+  handleOptionSelected = value => {
     const { selectedValue: previousSelectedValue } = this.state
     const { options } = this.props
 
@@ -103,19 +116,25 @@ export class Autocomplete extends Component {
     this.showOptions()
   }
 
-  handleSearchKeyDown = (e) => {
-    if (KEYS.includes(e.keyCode)) { e.preventDefault() }
+  handleSearchKeyDown = e => {
+    if (KEYS.includes(e.keyCode)) {
+      e.preventDefault()
+    }
     this.showOptions()
 
     switch (e.keyCode) {
-      case ARROW_DOWN: return this.moveIndexUp()
-      case ARROW_UP: return this.moveIndexDown()
-      case ENTER: return this.selectCurrentOption()
-      case ESC: return this.hideOptions()
+      case ARROW_DOWN:
+        return this.moveIndexUp()
+      case ARROW_UP:
+        return this.moveIndexDown()
+      case ENTER:
+        return this.selectCurrentOption()
+      case ESC:
+        return this.hideOptions()
     }
   }
 
-  handleSearchQueryChange = (e) => {
+  handleSearchQueryChange = e => {
     const { value } = e.target
 
     this.setState({
@@ -124,44 +143,48 @@ export class Autocomplete extends Component {
     })
   }
 
-  handleOptionHover (value) {
+  handleOptionHover(value) {
     const options = this.loadOptions()
-    const index = options.findIndex(option =>
-      option.value === value
-    )
+    const index = options.findIndex(option => option.value === value)
 
     return this.setState({ selectedIndex: index })
   }
 
-  hideOptions () {
+  hideOptions() {
     const { isOpen } = this.state
 
-    if (isOpen === false) { return }
+    if (isOpen === false) {
+      return
+    }
     this.setState({ isOpen: false })
   }
 
-  moveIndexDown () {
+  moveIndexDown() {
     this.moveIndex(-1)
   }
 
-  moveIndexUp () {
+  moveIndexUp() {
     this.moveIndex(1)
   }
 
-  moveIndex (offset) {
+  moveIndex(offset) {
     const optionsLength = this.loadOptions().length
-    const normalize = (index) => {
-      if (index < 0) { return optionsLength - 1 }
-      if (index >= optionsLength) { return 0 }
+    const normalize = index => {
+      if (index < 0) {
+        return optionsLength - 1
+      }
+      if (index >= optionsLength) {
+        return 0
+      }
       return index
     }
 
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { selectedIndex: normalize(prevState.selectedIndex + offset) }
     }, this.adjustOffet)
   }
 
-  adjustOffet () {
+  adjustOffet() {
     const { selectedIndex } = this.state
     const optionSelected = findDOMNode(this.refs[`option-${selectedIndex}`])
     const optionList = findDOMNode(this.refs.optionList)
@@ -170,53 +193,56 @@ export class Autocomplete extends Component {
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true })
   }
 
-  selectCurrentOption () {
+  selectCurrentOption() {
     const options = this.loadOptions()
     const { selectedIndex } = this.state
 
-    if (selectedIndex === INITIAL_INDEX || options.length === 0) { return }
+    if (selectedIndex === INITIAL_INDEX || options.length === 0) {
+      return
+    }
 
     const { value } = options[selectedIndex]
     return this.handleOptionSelected(value)
   }
 
-  sendBlur () {
+  sendBlur() {
     const { name, onBlur } = this.props
 
-    if (typeof onBlur === 'function') { onBlur(name) }
+    if (typeof onBlur === 'function') {
+      onBlur(name)
+    }
   }
 
-  sendChange (value) {
+  sendChange(value) {
     const { name, onChange } = this.props
 
-    if (typeof onChange === 'function') { onChange(name, value) }
+    if (typeof onChange === 'function') {
+      onChange(name, value)
+    }
   }
 
-  searchOn () {
+  searchOn() {
     const { minOptionsForSearch, options, readOnly } = this.props
 
     if (readOnly) return false
-    if (minOptionsForSearch === Infinity) { return true }
+    if (minOptionsForSearch === Infinity) {
+      return true
+    }
     return minOptionsForSearch < options.length
   }
 
-  render () {
+  render() {
     const { name, placeholder, readOnly } = this.props
     const options = this.loadOptions()
     const searchOn = this.searchOn()
-    const {
-      isOpen,
-      searchQuery,
-      selectedIndex,
-      selectedValue
-    } = this.state
+    const { isOpen, searchQuery, selectedIndex, selectedValue } = this.state
 
-    const optionList = options.map((option, i) =>
+    const optionList = options.map((option, i) => (
       <Option
         key={option.value}
         label={option.label.toString()}
-        onClick={(value) => this.handleOptionSelected(value)}
-        onMouseEnter={(value) => this.handleOptionHover(value)}
+        onClick={value => this.handleOptionSelected(value)}
+        onMouseEnter={value => this.handleOptionHover(value)}
         hasFocus={selectedIndex === i}
         ref={`option-${i}`}
         searchQuery={searchQuery.toString()}
@@ -224,12 +250,19 @@ export class Autocomplete extends Component {
         value={option.value}
         highlighText={searchOn}
       />
-    )
+    ))
 
     return (
-      <div ref='autocomplete' className={classNames('Autocomplete', {'is-searching': isOpen}, {'Autocomplete--noReadOnly': !readOnly})}>
+      <div
+        ref="autocomplete"
+        className={classNames(
+          'Autocomplete',
+          { 'is-searching': isOpen },
+          { 'Autocomplete--noReadOnly': !readOnly }
+        )}
+      >
         <Input
-          className='Autocomplete-search'
+          className="Autocomplete-search"
           name={name}
           onChange={this.handleSearchQueryChange}
           onClick={this.handleSearchClick}
@@ -237,10 +270,10 @@ export class Autocomplete extends Component {
           onKeyDown={this.handleSearchKeyDown}
           placeholder={placeholder}
           readOnly={!searchOn}
-          type='text'
+          type="text"
           value={searchQuery}
         />
-        <Options ref='optionList'>
+        <Options ref="optionList">
           {optionList}
         </Options>
       </div>

@@ -5,7 +5,7 @@ import Day from '../Day'
 
 describe('Day', () => {
   class DayComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         current: false,
         date: '',
@@ -16,28 +16,26 @@ describe('Day', () => {
       }
       const props = { ...defaultProps, ...ownProps }
 
-      this.component = shallow(
-        <Day {...props} />
-      )
+      this.component = shallow(<Day {...props} />)
     }
 
-    day () {
+    day() {
       return this.component.find('.Calendar-day')
     }
 
-    dayOfMonth () {
+    dayOfMonth() {
       return this.day().text()
     }
 
-    isDisabled () {
+    isDisabled() {
       return this.day().hasClass('is-disabled')
     }
 
-    isSelected () {
+    isSelected() {
       return this.day().hasClass('is-selected')
     }
 
-    isCurrent () {
+    isCurrent() {
       return this.day().hasClass('is-current')
     }
   }
@@ -45,32 +43,24 @@ describe('Day', () => {
   it('renders a day', () => {
     const component = new DayComponent({ dayOfMonth: 2 })
 
-    expect(
-      component.dayOfMonth()
-    ).to.equal('2')
+    expect(component.dayOfMonth()).to.equal('2')
   })
 
   it('sets day as current', () => {
     const component = new DayComponent({ current: true })
 
-    expect(
-      component.isCurrent()
-    ).to.true
+    expect(component.isCurrent()).to.true
   })
 
   it('sets day as disabled', () => {
     const component = new DayComponent({ disabled: true })
 
-    expect(
-      component.isDisabled()
-    ).to.true
+    expect(component.isDisabled()).to.true
   })
 
   it('sets day as selected', () => {
     const component = new DayComponent({ selected: true })
 
-    expect(
-      component.isSelected()
-    ).to.true
+    expect(component.isSelected()).to.true
   })
 })

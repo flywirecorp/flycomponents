@@ -5,7 +5,7 @@ import Highlighter from './Highlighter'
 
 describe('Highlighter', () => {
   class HighlighterComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         text: '',
         subString: ''
@@ -15,7 +15,7 @@ describe('Highlighter', () => {
       this.component = shallow(<Highlighter {...props} />)
     }
 
-    html () {
+    html() {
       return this.component.find('span').prop('dangerouslySetInnerHTML').__html
     }
   }
@@ -25,8 +25,8 @@ describe('Highlighter', () => {
     const subString = 'World'
     const component = new HighlighterComponent({ text, subString })
 
-    expect(
-      component.html()
-    ).to.equal('Hello <span class=\'is-highlighted\'>World</span>!')
+    expect(component.html()).to.equal(
+      "Hello <span class='is-highlighted'>World</span>!"
+    )
   })
 })

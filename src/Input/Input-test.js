@@ -5,7 +5,7 @@ import Input from './Input'
 
 describe('Input', () => {
   class InputComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         name: 'name',
         type: 'text'
@@ -15,7 +15,7 @@ describe('Input', () => {
       this.component = shallow(<Input {...props} />)
     }
 
-    input () {
+    input() {
       return this.component.find('input')
     }
   }
@@ -25,24 +25,16 @@ describe('Input', () => {
     const type = 'number'
     const component = new InputComponent({ name, type })
 
-    expect(
-      component.input()
-    ).to.have.length(1)
+    expect(component.input()).to.have.length(1)
 
-    expect(
-      component.input().prop('name')
-    ).to.equal('amount')
+    expect(component.input().prop('name')).to.equal('amount')
 
-    expect(
-      component.input().prop('type')
-    ).to.equal('number')
+    expect(component.input().prop('type')).to.equal('number')
   })
 
   it('renders a read-only input if the property is set', () => {
     const component = new InputComponent({ readOnly: true })
 
-    expect(
-      component.input().prop('readOnly')
-    ).to.be.true
+    expect(component.input().prop('readOnly')).to.be.true
   })
 })

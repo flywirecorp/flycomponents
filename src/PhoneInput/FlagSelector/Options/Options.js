@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import './Options.scss'
 
 class Options extends Component {
-  render () {
+  render() {
     return (
-      <ul className='Autocomplete-options PhoneNumber-menu-options'>
+      <ul className="Autocomplete-options PhoneNumber-menu-options">
         {this.props.children}
       </ul>
     )

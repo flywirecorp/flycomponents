@@ -22,7 +22,9 @@ const toMoney = (number, options) => {
   const precision = cents ? Math.log10(subunitToUnit) : 0
   const amount = number / subunitToUnit
   let format = '%v'
-  if (symbol) { format = symbolFirst ? '%s%v' : '%v %s' }
+  if (symbol) {
+    format = symbolFirst ? '%s%v' : '%v %s'
+  }
   const settings = { format, decimal, symbol, precision, thousand }
   return formatMoney(amount, settings)
 }
@@ -39,7 +41,4 @@ const toCents = (number, options) => {
   return unformat(number, decimal) * subunitToUnit
 }
 
-export {
-  toCents,
-  toMoney
-}
+export { toCents, toMoney }

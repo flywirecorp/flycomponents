@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import FlagSelector from './FlagSelector'
 import { applyPattern } from '../utils/formatter'
 
@@ -7,7 +7,7 @@ const NO_COUNTRY = {}
 const NO_VALUE = ''
 
 class PhoneInput extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { value = NO_VALUE } = this.props
@@ -24,12 +24,16 @@ class PhoneInput extends Component {
   handleBlur = () => {
     const { name, onBlur } = this.props
 
-    if (typeof onBlur === 'function') { onBlur(name) }
+    if (typeof onBlur === 'function') {
+      onBlur(name)
+    }
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     let { value: phoneNumber } = e.target
-    const { phonePattern, value: selectedCountry } = this.getCountryFrom(phoneNumber)
+    const { phonePattern, value: selectedCountry } = this.getCountryFrom(
+      phoneNumber
+    )
 
     phoneNumber = phoneNumber.replace(/(?!^\+)\D/gm, '')
 
@@ -42,13 +46,15 @@ class PhoneInput extends Component {
     }, this.sendChange(phoneNumber))
   }
 
-  handleCountryClick = (isoCode) => {
+  handleCountryClick = isoCode => {
     const {
       selectedCountry: currentSelectedCountry,
       formattedNumber: currentFormattedNumber
     } = this.state
 
-    const { dialingCode: currentDialingCode } = this.getCountry(currentSelectedCountry)
+    const { dialingCode: currentDialingCode } = this.getCountry(
+      currentSelectedCountry
+    )
     const { dialingCode, phonePattern } = this.getCountry(isoCode)
 
     let phoneNumber = (currentFormattedNumber || dialingCode)
@@ -62,15 +68,13 @@ class PhoneInput extends Component {
     })
   }
 
-  getCountry (isoCode) {
+  getCountry(isoCode) {
     const { countries } = this.props
 
-    return countries.find(country =>
-      country.value === isoCode
-    ) || NO_COUNTRY
+    return countries.find(country => country.value === isoCode) || NO_COUNTRY
   }
 
-  getCountryFrom (phoneNumber) {
+  getCountryFrom(phoneNumber) {
     const { countries } = this.props
     const { preferredCountryIsoCode } = this.state || {}
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, '')
@@ -79,23 +83,27 @@ class PhoneInput extends Component {
     })
 
     if (possibleCountries.length === 0) return NO_COUNTRY
-    return possibleCountries.find(country =>
-      country.value === preferredCountryIsoCode
-    ) || possibleCountries[0]
+    return (
+      possibleCountries.find(
+        country => country.value === preferredCountryIsoCode
+      ) || possibleCountries[0]
+    )
   }
 
-  sendChange (value) {
+  sendChange(value) {
     const { name, onChange } = this.props
 
-    if (typeof onChange === 'function') { onChange(name, value) }
+    if (typeof onChange === 'function') {
+      onChange(name, value)
+    }
   }
 
-  render () {
+  render() {
     const { countries, name, onFocus, readOnly } = this.props
     const { formattedNumber, selectedCountry } = this.state
 
     return (
-      <div className='PhoneNumber'>
+      <div className="PhoneNumber">
         <FlagSelector
           name={name}
           onChange={(name, value) => this.handleCountryClick(value)}
@@ -104,18 +112,18 @@ class PhoneInput extends Component {
           readOnly={readOnly}
           value={selectedCountry}
         />
-        <div className='PhoneNumber-input'>
+        <div className="PhoneNumber-input">
           <input
-            autoComplete='off'
-            className='Input PhoneNumber-input-inner'
+            autoComplete="off"
+            className="Input PhoneNumber-input-inner"
             id={name}
             name={name}
             onBlur={this.handleBlur}
             onChange={this.handleChange}
             onFocus={onFocus}
             readOnly={readOnly}
-            ref='input'
-            type='text'
+            ref="input"
+            type="text"
             value={formattedNumber}
           />
         </div>

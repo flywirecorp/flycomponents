@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import classNames from 'classnames'
 import Highlighter from '../Highlighter'
 
 class Option extends Component {
-  render () {
+  render() {
     const {
       hasFocus,
       highlighText,
@@ -17,16 +17,14 @@ class Option extends Component {
 
     return (
       <li
-        className={classNames('Autocomplete-option', {'is-active': hasFocus})}
+        className={classNames('Autocomplete-option', { 'is-active': hasFocus })}
         onClick={() => onClick(value)}
         onMouseEnter={() => onMouseEnter(value)}
         value={value}
       >
-        {
-          highlighText
-            ? <Highlighter text={label} subString={searchQuery} />
-            : label
-        }
+        {highlighText
+          ? <Highlighter text={label} subString={searchQuery} />
+          : label}
       </li>
     )
   }

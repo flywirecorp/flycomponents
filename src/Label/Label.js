@@ -1,13 +1,8 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 
-const Label = ({
-  htmlFor,
-  required,
-  value,
-  ...other
-}) => (
-  <label className='Label' {...other} htmlFor={htmlFor}>
+const Label = ({ htmlFor, required, value, ...other }) => (
+  <label className="Label" {...other} htmlFor={htmlFor}>
     {value}
     {required ? <span> (*)</span> : null}
   </label>

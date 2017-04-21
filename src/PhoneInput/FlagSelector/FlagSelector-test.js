@@ -7,7 +7,7 @@ import Options from './Options'
 
 describe('FlagSelector', () => {
   class FlagSelectorComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         name: 'country',
         options: []
@@ -17,47 +17,47 @@ describe('FlagSelector', () => {
       this.component = shallow(<FlagSelector {...props} />)
     }
 
-    menu () {
+    menu() {
       return this.component.find('.PhoneNumber-menu-fakeInput')
     }
 
-    options () {
+    options() {
       return this.component.find(Options).children()
     }
 
-    state (key) {
+    state(key) {
       return this.component.state(key)
     }
 
-    selectedOption () {
+    selectedOption() {
       return this.options().filterWhere(option => option.prop('hasFocus'))
     }
 
-    simulateKeyPress (keyCode) {
+    simulateKeyPress(keyCode) {
       this.menu().simulate('keyDown', { keyCode, preventDefault: () => {} })
     }
 
-    simulateMenuClick () {
+    simulateMenuClick() {
       this.menu().simulate('click')
     }
 
-    pressArrowDownKey () {
+    pressArrowDownKey() {
       this.simulateKeyPress(40)
     }
 
-    pressArrowUpKey () {
+    pressArrowUpKey() {
       this.simulateKeyPress(38)
     }
 
-    pressEscKey () {
+    pressEscKey() {
       this.simulateKeyPress(27)
     }
 
-    pressEnterKey () {
+    pressEnterKey() {
       this.simulateKeyPress(13)
     }
 
-    typeSpa () {
+    typeSpa() {
       this.simulateKeyPress(83)
       this.simulateKeyPress(80)
       this.simulateKeyPress(65)
@@ -76,48 +76,65 @@ describe('FlagSelector', () => {
 
   it('has a list with options', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' },
-      { label: 'United States', value: 'US', dialingCode: '1', phonePattern: '+. (...) ...-....' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: '1',
+        phonePattern: '+. (...) ...-....'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
-    expect(
-      component.options()
-    ).to.have.length(2)
+    expect(component.options()).to.have.length(2)
   })
 
   it('displays options when clicking the menu', () => {
     const component = new FlagSelectorComponent()
 
-    expect(
-      component.state('isOpen')
-    ).to.be.false
+    expect(component.state('isOpen')).to.be.false
 
     component.simulateMenuClick()
 
-    expect(
-      component.state('isOpen')
-    ).to.be.true
+    expect(component.state('isOpen')).to.be.true
   })
 
   it('moves the focus to the next option when pressing key down', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
     component.simulateMenuClick()
     component.pressArrowDownKey()
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('moves the focus to the previous option when pressing key up', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' },
-      { label: 'United States', value: 'US', dialingCode: '1', phonePattern: '+. (...) ...-....' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: '1',
+        phonePattern: '+. (...) ...-....'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
@@ -126,9 +143,7 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey()
     component.pressArrowUpKey()
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('hides options when pressing the esc key', () => {
@@ -137,28 +152,34 @@ describe('FlagSelector', () => {
     component.simulateMenuClick()
     component.pressEscKey()
 
-    expect(
-      component.state('isOpen')
-    ).to.be.false
+    expect(component.state('isOpen')).to.be.false
   })
 
   it('gives focus to an option when mouse enters', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
     const option = component.options().last()
     option.simulate('mouseEnter', 'ES')
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('selects current option when pressing the enter key', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
@@ -166,14 +187,17 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey()
     component.pressEnterKey()
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('hides options when pressing the enter key', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
@@ -181,37 +205,51 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey()
     component.pressEnterKey()
 
-    expect(
-      component.state('isOpen')
-    ).to.be.false
+    expect(component.state('isOpen')).to.be.false
   })
 
   it('focus the country when typing', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' },
-      { label: 'United States', value: 'US', dialingCode: '1', phonePattern: '+. (...) ...-....' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: '1',
+        phonePattern: '+. (...) ...-....'
+      }
     ]
     const component = new FlagSelectorComponent({ options })
 
     component.simulateMenuClick()
     component.typeSpa()
 
-    expect(
-      component.selectedOption().prop('value')
-    ).to.equal('ES')
+    expect(component.selectedOption().prop('value')).to.equal('ES')
   })
 
   it('does not open the menu when read-only param is received', () => {
     const options = [
-      { label: 'Spain', value: 'ES', dialingCode: '34', phonePattern: '+.. ... ... ...' },
-      { label: 'United States', value: 'US', dialingCode: '1', phonePattern: '+. (...) ...-....' }
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: '1',
+        phonePattern: '+. (...) ...-....'
+      }
     ]
     const component = new FlagSelectorComponent({ options, readOnly: true })
 
     component.simulateMenuClick()
 
-    expect(
-      component.state('isOpen')
-    ).to.be.false
+    expect(component.state('isOpen')).to.be.false
   })
 })

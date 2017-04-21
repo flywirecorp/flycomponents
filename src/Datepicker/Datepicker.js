@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 import classNames from 'classnames'
 import { parseDateOrToday } from '../utils/date'
@@ -7,7 +7,7 @@ import Calendar from './Calendar'
 import DateInput from './DateInput'
 
 class Datepicker extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     const { locale, value } = this.props
@@ -21,25 +21,27 @@ class Datepicker extends Component {
     }
   }
 
-  getChildContext () {
+  getChildContext() {
     const { locale } = this.props
     return { locale }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     document.addEventListener('click', this.hideOnDocumentClick)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     document.removeEventListener('click', this.hideOnDocumentClick)
   }
 
-  hideOnDocumentClick = (e) => {
+  hideOnDocumentClick = e => {
     const { isOpen: wasOpen } = this.state
     const { target } = e
     const parentElement = findDOMNode(this)
 
-    if (parentElement.contains(target)) { return }
+    if (parentElement.contains(target)) {
+      return
+    }
 
     const { selectedDate } = this.state
     const startDate = parseDateOrToday(selectedDate)
@@ -52,59 +54,65 @@ class Datepicker extends Component {
   handleCalendarIconClick = () => {
     const { readOnly } = this.props
 
-    if (readOnly) { return }
+    if (readOnly) {
+      return
+    }
 
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { isOpen: !prevState.isOpen }
     })
   }
 
-  sendBlur () {
+  sendBlur() {
     const { name, onBlur } = this.props
 
-    if (typeof onBlur === 'function') { onBlur(name) }
+    if (typeof onBlur === 'function') {
+      onBlur(name)
+    }
   }
 
   handleDateInputClick = () => {
     const { isOpen } = this.state
     const { readOnly } = this.props
 
-    if (isOpen || readOnly) { return }
+    if (isOpen || readOnly) {
+      return
+    }
     this.setState({ isOpen: true })
   }
 
-  handleMonthChange = (month) => {
-    this.setState((prevState) => {
+  handleMonthChange = month => {
+    this.setState(prevState => {
       return { startDate: prevState.startDate.set('month', month) }
     })
   }
 
   handleNextMonthClick = () => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { startDate: prevState.startDate.add(1, 'month') }
     })
   }
 
   handlePrevMonthClick = () => {
-    this.setState((prevState) => {
+    this.setState(prevState => {
       return { startDate: prevState.startDate.subtract(1, 'month') }
     })
   }
 
-  handleYearChange = (year) => {
-    this.setState((prevState) => {
+  handleYearChange = year => {
+    this.setState(prevState => {
       return { startDate: prevState.startDate.set('year', year) }
     })
   }
 
-  setSelectedDate = (date) => {
+  setSelectedDate = date => {
     const { name, onChange } = this.props
 
     this.setState({ selectedDate: date })
     onChange(name, date)
   }
 
-  setSelectedDateAndCloseCalendar = (date) => {
+  setSelectedDateAndCloseCalendar = date => {
     this.setSelectedDate(date)
 
     this.setState(() => {
@@ -112,12 +120,12 @@ class Datepicker extends Component {
     }, this.sendBlur)
   }
 
-  render () {
+  render() {
     const { name, onFocus, readOnly, value } = this.props
     const { isOpen, selectedDate, startDate } = this.state
 
     return (
-      <div className={classNames('Datepicker', {'is-open': isOpen})}>
+      <div className={classNames('Datepicker', { 'is-open': isOpen })}>
         <DateInput
           name={name}
           onChange={() => {}}
@@ -127,7 +135,7 @@ class Datepicker extends Component {
           selectedDate={selectedDate}
           setSelectedDate={this.setSelectedDate}
           readOnly={readOnly}
-          ref='dateInput'
+          ref="dateInput"
           value={value}
         />
         <Calendar

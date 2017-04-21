@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 import classNames from 'classnames'
 
 const Day = ({
@@ -11,10 +11,11 @@ const Day = ({
   selected
 }) => (
   <td
-    className={classNames('Calendar-day',
-      {'is-current': current},
-      {'is-disabled': disabled},
-      {'is-selected': selected}
+    className={classNames(
+      'Calendar-day',
+      { 'is-current': current },
+      { 'is-disabled': disabled },
+      { 'is-selected': selected }
     )}
     onClick={disabled ? null : () => onDateClick(date)}
   >

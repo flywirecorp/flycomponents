@@ -11,8 +11,6 @@ describe('Options', () => {
       </Options>
     )
 
-    expect(
-      component.contains('An option')
-    ).to.be.true
+    expect(component.contains('An option')).to.be.true
   })
 })

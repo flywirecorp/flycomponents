@@ -1,15 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 import './Textarea.scss'
 
-const Textarea = ({
-  name,
-  required,
-  ...other
-}) => (
+const Textarea = ({ name, required, ...other }) => (
   <textarea
-    autoComplete='off'
-    className='Textarea'
+    autoComplete="off"
+    className="Textarea"
     id={name}
     name={name}
     required={required}

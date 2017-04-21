@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from 'prop-types'
+import React from 'react'
 import { daysOfWeek } from '../../../utils/date'
 import './DayNames.scss'
 
@@ -9,9 +9,9 @@ const DayNames = (props, { locale }) => {
   return (
     <thead>
       <tr>
-        {dayNames.map(day =>
-          <th key={day} className='Calendar-weekday'>{day}</th>
-        )}
+        {dayNames.map(day => (
+          <th key={day} className="Calendar-weekday">{day}</th>
+        ))}
       </tr>
     </thead>
   )

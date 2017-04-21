@@ -5,7 +5,7 @@ import Textarea from './Textarea'
 
 describe('Textarea', () => {
   class TextareaComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = {
         name: 'name'
       }
@@ -14,7 +14,7 @@ describe('Textarea', () => {
       this.component = shallow(<Textarea {...props} />)
     }
 
-    textarea () {
+    textarea() {
       return this.component.find('textarea')
     }
   }
@@ -23,20 +23,14 @@ describe('Textarea', () => {
     const name = 'address'
     const component = new TextareaComponent({ name })
 
-    expect(
-      component.textarea()
-    ).to.have.length(1)
+    expect(component.textarea()).to.have.length(1)
 
-    expect(
-      component.textarea().prop('name')
-    ).to.equal('address')
+    expect(component.textarea().prop('name')).to.equal('address')
   })
 
   it('renders a read-only textarea if the property is set', () => {
     const component = new TextareaComponent({ readOnly: true })
 
-    expect(
-      component.textarea().prop('readOnly')
-    ).to.be.true
+    expect(component.textarea().prop('readOnly')).to.be.true
   })
 })

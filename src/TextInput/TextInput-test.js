@@ -9,32 +9,32 @@ import Input from '../Input'
 
 describe('TextInput', () => {
   class TextInputComponent {
-    constructor (ownProps) {
+    constructor(ownProps) {
       const defaultProps = { name: 'name' }
       const props = { ...defaultProps, ...ownProps }
 
       this.component = shallow(<TextInput {...props} />)
     }
 
-    inputGroup () {
+    inputGroup() {
       return this.component.find(InputGroup)
     }
 
-    textarea () {
+    textarea() {
       return this.component.find(Textarea)
     }
 
-    input () {
+    input() {
       return this.component.find(Input)
     }
 
-    simulateBlur (name) {
+    simulateBlur(name) {
       this.input().simulate('blur', {
         target: { name }
       })
     }
 
-    simulateChange (name, value) {
+    simulateChange(name, value) {
       this.input().simulate('change', {
         target: { name, value }
       })
@@ -44,25 +44,19 @@ describe('TextInput', () => {
   it('renders an input text', () => {
     const component = new TextInputComponent()
 
-    expect(
-      component.input()
-    ).to.have.length(1)
+    expect(component.input()).to.have.length(1)
   })
 
   it('renders a textarea', () => {
     const component = new TextInputComponent({ multiline: true })
 
-    expect(
-      component.textarea()
-    ).to.have.length(1)
+    expect(component.textarea()).to.have.length(1)
   })
 
   it('renders a input group with prefix', () => {
     const component = new TextInputComponent({ prefix: 'PREFIX' })
 
-    expect(
-      component.inputGroup()
-    ).to.have.length(1)
+    expect(component.inputGroup()).to.have.length(1)
   })
 
   it('handles on change events in input', () => {
@@ -73,9 +67,7 @@ describe('TextInput', () => {
 
     component.simulateChange('name', 'Dolores')
 
-    expect(
-      onChange.calledWith('name', 'Dolores')
-    ).to.be.true
+    expect(onChange.calledWith('name', 'Dolores')).to.be.true
   })
 
   it('handles on blur events in input', () => {
@@ -84,8 +76,6 @@ describe('TextInput', () => {
 
     component.simulateBlur('name')
 
-    expect(
-      onBlur.called
-    ).to.be.true
+    expect(onBlur.called).to.be.true
   })
 })

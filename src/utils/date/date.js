@@ -7,12 +7,14 @@ export const isWeekInMonth = (weekDate, month) => {
   const date = weekDate.clone()
   const startingWeekDateMonth = date.startOf('week').month()
   const endingWeekDateMonth = date.endOf('week').month()
-  if (startingWeekDateMonth === month || endingWeekDateMonth === month) { return true }
+  if (startingWeekDateMonth === month || endingWeekDateMonth === month) {
+    return true
+  }
 
   return false
 }
 
-export const monthStartingWeekDates = (monthDate) => {
+export const monthStartingWeekDates = monthDate => {
   const currentMonth = monthDate.month()
   const weekStartingDate = monthDate.clone().startOf('month').startOf('week')
 
@@ -30,7 +32,10 @@ export const daysOfWeek = (locale = 'en') => {
   const firstDayOfWeek = momentInLocale.firstDayOfWeek()
   const dayNames = momentInLocale.weekdaysShort()
 
-  return [...dayNames.slice(firstDayOfWeek), ...dayNames.slice(0, firstDayOfWeek)]
+  return [
+    ...dayNames.slice(firstDayOfWeek),
+    ...dayNames.slice(0, firstDayOfWeek)
+  ]
 }
 
 export const monthNames = (locale = 'en') => {
@@ -39,10 +44,12 @@ export const monthNames = (locale = 'en') => {
   return momentInLocale.months()
 }
 
-export const parseDateOrToday = (stringDate) => {
+export const parseDateOrToday = stringDate => {
   const DATE_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/
   const parsedDate = moment(stringDate, DATE_FORMAT)
-  if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) { return parsedDate }
+  if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) {
+    return parsedDate
+  }
 
   return moment()
 }
