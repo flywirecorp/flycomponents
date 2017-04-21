@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Flycomponents</title>
+    <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script src="./dist/flycomponents.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="text/babel">
+      ReactDOM.render(
+        <flycomponents.Datepicker name="birthday" />,
+        document.getElementById("app")
+      );
+    </script>
+  </body>
+</html>
