@@ -68,7 +68,7 @@ function buildConfig (options) {
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: /node_modules/
+          exclude: path.join(__dirname, 'node_modules'),
         },
         {
           test: /\.scss$/,
