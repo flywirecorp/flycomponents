@@ -63,18 +63,6 @@ function buildConfig (options) {
         amd: 'react-onclickoutside'
       }
     },
-    devServer: {
-      inline: true,
-      host: options.ip,
-      hot: true,
-      noInfo: false,
-      port: options.port,
-      stats: {
-        colors: true,
-        reasons: true,
-        chunks: true
-      }
-    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
