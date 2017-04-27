@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import './Options.scss'
 
 class Options extends Component {
   render() {

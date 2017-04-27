@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Select from '../../../Select'
 import { monthNames } from '../../../utils/date'
-import './Navigation.scss'
 
 const Navigation = (
   {

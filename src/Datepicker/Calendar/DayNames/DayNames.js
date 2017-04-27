@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { daysOfWeek } from '../../../utils/date'
-import './DayNames.scss'
 
 const DayNames = (props, { locale }) => {
   const dayNames = daysOfWeek(locale)
