@@ -9,6 +9,7 @@ var settings = {
 function buildConfig (options) {
   return {
     context: __dirname,
+    target: 'node',
     entry: {
       main: path.join(__dirname, 'src', 'index.js')
     },
