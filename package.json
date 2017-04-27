@@ -4,14 +4,14 @@
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {
-    "install": "npm install",
-    "postinstall": "npm run build",
     "clean": "rm -rf dist",
     "prebuild": "npm run lint && npm run test && npm run clean",
     "build": "cross-env NODE_ENV=production webpack",
     "test": "mocha --opts tests/helpers/mocha.opts",
     "test:watch": "mocha -w --opts tests/helpers/mocha.opts",
-    "lint": "eslint --fix src"
+    "lint": "eslint --fix src",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
