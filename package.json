@@ -56,5 +56,33 @@
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2",
     "webpack-hot-middleware": "^2.18.0"
+  },
+  "babel": {
+    "presets": ["es2015", "stage-2", "react"]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "mocha": true,
+      "node": true
+    },
+    "parser": "babel-eslint",
+    "plugins": [
+      "promise",
+      "react",
+      "prettier"
+    ],
+    "rules": {
+      "strict": 0,
+      "react/sort-comp": "error",
+      "react/sort-prop-types": "error",
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "semi": false
+        }
+      ]
+    }
   }
 }
