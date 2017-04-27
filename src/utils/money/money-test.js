@@ -21,7 +21,7 @@ describe('toMoney', () => {
   it('adds symbol', () => {
     const options = { symbol: '€' }
     const formattedMoney = toMoney(100000, options)
-    const expectFormattedMoney = '€1,000'
+    const expectFormattedMoney = '€1,000.00'
 
     expect(formattedMoney).to.equal(expectFormattedMoney)
   })
@@ -29,7 +29,7 @@ describe('toMoney', () => {
   it('adds controls of symbol position', () => {
     const options = { symbol: '€', symbolFirst: false }
     const formattedMoney = toMoney(100000, options)
-    const expectFormattedMoney = '1,000 €'
+    const expectFormattedMoney = '1,000.00 €'
 
     expect(formattedMoney).to.equal(expectFormattedMoney)
   })
@@ -37,7 +37,7 @@ describe('toMoney', () => {
   it('hides symbol', () => {
     const options = { symbol: false }
     const formattedMoney = toMoney(100000, options)
-    const expectFormattedMoney = '1,000'
+    const expectFormattedMoney = '1,000.00'
 
     expect(formattedMoney).to.equal(expectFormattedMoney)
   })
@@ -45,7 +45,7 @@ describe('toMoney', () => {
   it('adds controls of thousand separator', () => {
     const options = { symbol: '€', thousand: '.' }
     const formattedMoney = toMoney(100000, options)
-    const expectFormattedMoney = '€1.000'
+    const expectFormattedMoney = '€1.000.00'
 
     expect(formattedMoney).to.equal(expectFormattedMoney)
   })

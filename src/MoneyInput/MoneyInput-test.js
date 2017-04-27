@@ -11,8 +11,10 @@ describe('MoneyInput', () => {
       const defaultProps = {
         currencySymbol: '$',
         decimalMark: '.',
+        maxLength: 10,
         name: 'name',
         onChange: () => {},
+        subunitToUnit: 100,
         thousandsSeparator: ','
       }
       const props = { ...defaultProps, ...ownProps }
@@ -24,9 +26,9 @@ describe('MoneyInput', () => {
       return this.component.find(InputGroup)
     }
 
-    simulateBlur(name) {
+    simulateBlur(name, value) {
       this.input().simulate('blur', {
-        target: { name }
+        target: { name, value }
       })
     }
 
@@ -42,6 +44,12 @@ describe('MoneyInput', () => {
       })
     }
   }
+
+  it('formats the default value', () => {
+    const component = new MoneyInputComponent({ value: 5025 })
+
+    expect(component.input().prop('defaultValue')).to.equal('50.25')
+  })
 
   it('handles on change events in input', () => {
     const onChange = sinon.spy()
@@ -65,9 +73,17 @@ describe('MoneyInput', () => {
     const onBlur = sinon.spy()
     const component = new MoneyInputComponent({ onBlur })
 
-    component.simulateBlur('amount')
+    component.simulateBlur('amount', 100000)
 
     expect(onBlur.called).to.be.true
+  })
+
+  it('formats the amount when on blur', () => {
+    const component = new MoneyInputComponent()
+
+    component.simulateBlur('amount', 1000)
+
+    expect(component.input().prop('defaultValue')).to.equal('1,000.00')
   })
 
   it('selects the input value when click', () => {

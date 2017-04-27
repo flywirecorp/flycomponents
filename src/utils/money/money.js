@@ -2,7 +2,7 @@ import { formatMoney, unformat } from 'accounting'
 
 const toMoney = (number, options) => {
   const defaults = {
-    cents: false,
+    cents: true,
     decimal: '.',
     thousand: ',',
     subunitToUnit: 100,

@@ -1,33 +1,32 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import InputGroup from '../InputGroup'
 import { toCents, toMoney } from '../utils/money'
 
 class MoneyInput extends Component {
   constructor(props) {
     super(props)
-
     this.state = { amount: props.value }
   }
 
   handleBlur = e => {
     const { onBlur } = this.props
-    const { name } = e.target
+    const { target: { name, value: amount } } = e
+    const amountInCents = this.convertToCents(amount)
 
     if (typeof onBlur === 'function') {
       onBlur(name)
     }
+    this.setState({ amount: amountInCents })
   }
 
   handleChange = e => {
-    const { decimalMark: decimal, onChange, subunitToUnit } = this.props
-    let { name, value } = e.target
-    value = toCents(value, { decimal, subunitToUnit })
+    const { onChange } = this.props
+    const { name, value: amount } = e.target
+    const amountInCents = this.convertToCents(amount)
 
     if (typeof onChange === 'function') {
-      onChange(name, value)
+      onChange(name, amountInCents)
     }
-    this.setState({ [name]: value })
   }
 
   handleClick = e => {
@@ -36,36 +35,76 @@ class MoneyInput extends Component {
     target.setSelectionRange(0, value.length)
   }
 
+  handleKeyDown = e => {
+    const DELETE = 8
+    const RIGHT_ARROW = 37
+    const LEFT_ARROW = 39
+    const COMMA = 188
+    const PERIOD = 190
+    const isNumber = /\d/.test(String.fromCharCode(e.keyCode))
+    const allowedChars = [
+      COMMA,
+      PERIOD,
+      RIGHT_ARROW,
+      LEFT_ARROW,
+      DELETE
+    ].includes(e.keyCode)
+
+    if (!isNumber && !allowedChars) {
+      e.preventDefault()
+    }
+  }
+
+  convertToCents(amount) {
+    const { decimalMark: decimal, subunitToUnit } = this.props
+
+    return toCents(amount, { decimal, subunitToUnit })
+  }
+
+  format(cents) {
+    const {
+      decimalMark: decimal,
+      subunitToUnit,
+      thousandsSeparator: thousand
+    } = this.props
+
+    const settings = {
+      decimal,
+      subunitToUnit,
+      symbol: false,
+      thousand
+    }
+
+    return toMoney(cents, settings)
+  }
+
   render() {
     const { amount } = this.state
     const {
       currencySymbol: symbol,
-      decimalMark: decimal,
-      subunitToUnit,
-      symbolFirst,
-      thousandsSeparator: thousand,
-      ...other
+      maxLength,
+      name,
+      readOnly,
+      symbolFirst
     } = this.props
 
-    const settings = {
-      cents: false,
-      decimal,
-      subunitToUnit,
-      symbol: false,
-      symbolFirst,
-      thousand
+    const inputAttrs = {
+      [symbolFirst ? 'prefix' : 'sufix']: symbol,
+      maxLength,
+      name,
+      readOnly
     }
-
-    const inputAttrs = { ...other, [symbolFirst ? 'prefix' : 'sufix']: symbol }
 
     return (
       <InputGroup
         {...inputAttrs}
         onBlur={this.handleBlur}
-        onClick={this.handleClick}
         onChange={this.handleChange}
+        onClick={this.handleClick}
+        onKeyDown={this.handleKeyDown}
         type="text"
-        value={toMoney(amount, settings)}
+        defaultValue={this.format(amount)}
+        key={amount}
       />
     )
   }
@@ -76,13 +115,25 @@ const { bool, func, number, oneOfType, string } = PropTypes
 MoneyInput.propTypes = {
   currencySymbol: string,
   decimalMark: string,
-  name: string,
+  maxLength: oneOfType([number, string]),
+  name: string.isRequired,
   onBlur: func,
   onChange: func,
+  prefix: string,
+  readOnly: bool,
   subunitToUnit: number,
   symbolFirst: bool,
   thousandsSeparator: string,
   value: oneOfType([number, string])
+}
+
+MoneyInput.defaultProps = {
+  currencySymbol: '$',
+  decimalMark: '.',
+  maxLength: 10,
+  subunitToUnit: 100,
+  symbolFirst: true,
+  thousandsSeparator: ','
 }
 
 export default MoneyInput

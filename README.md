@@ -51,6 +51,7 @@ By default the format is set to follow USD standard.
 |--------------------|-----|----------------|-----------------------------------------------------|---------------|
 | currencySymbol     | no  | string         | Currency symbol                                     | `"$"`         |
 | decimalMark        | no  | string         | How decimal are marked                              | `"."`         |
+| maxLength          | no  | string, number | Input max length                                    | `9`           |
 | name               | yes | string         | Input `name` and `id`                               |               |
 | onBlur             | no  | func           | Function executed on blur                           |               |
 | onChange           | no  | func           | Function executed when the value changes            |               |
