@@ -18,6 +18,50 @@ function buildConfig (options) {
       libraryTarget: 'umd',
       library: 'flycomponents'
     },
+    externals: {
+      accounting: {
+        root: 'accounting',
+        commonjs2: 'accounting',
+        commonjs: 'accounting',
+        amd: 'accounting'
+      },
+      classnames: {
+        root: 'classNames',
+        commonjs2: 'classnames',
+        commonjs: 'classnames',
+        amd: 'classnames'
+      },
+      'dom-scroll-into-view': {
+        root: 'dom-scroll-into-view',
+        commonjs2: 'dom-scroll-into-view',
+        commonjs: 'dom-scroll-into-view',
+        amd: 'dom-scroll-into-view'
+      },
+      moment: {
+        root: 'moment',
+        commonjs2: 'moment',
+        commonjs: 'moment',
+        amd: 'moment'
+      },
+      react: {
+        root: 'React',
+        commonjs2: 'react',
+        commonjs: 'react',
+        amd: 'react'
+      },
+      'react-dom': {
+        root: 'ReactDOM',
+        commonjs2: 'react-dom',
+        commonjs: 'react-dom',
+        amd: 'react-dom'
+      },
+      'react-onclickoutside': {
+        root: 'react-onclickoutside',
+        commonjs2: 'react-onclickoutside',
+        commonjs: 'react-onclickoutside',
+        amd: 'react-onclickoutside'
+      }
+    },
     devServer: {
       inline: true,
       host: options.ip,
@@ -30,7 +74,6 @@ function buildConfig (options) {
         chunks: true
       }
     },
-
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
