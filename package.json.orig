@@ -7,8 +7,13 @@
     "install": "npm install",
     "postinstall": "npm run build",
     "clean": "rm -rf dist",
+<<<<<<< HEAD
+    "prebuild": "npm run clean",
+    "build": "NODE_ENV=production webpack",
+=======
     "prebuild": "npm run lint && npm run test && npm run clean",
     "build": "cross-env NODE_ENV=production webpack",
+>>>>>>> Configure cross-env
     "test": "mocha --opts tests/helpers/mocha.opts",
     "test:watch": "mocha -w --opts tests/helpers/mocha.opts",
     "start": "NODE_ENV=development webpack-dev-server",
