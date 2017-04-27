@@ -32,4 +32,8 @@ FormGroup.propTypes = {
   required: bool
 }
 
+FormGroup.defaultProps = {
+  required: false
+}
+
 export default FormGroup
