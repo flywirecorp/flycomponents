@@ -14,7 +14,7 @@ class MoneyInput extends Component {
     const amountInCents = this.convertToCents(amount)
 
     if (typeof onBlur === 'function') {
-      onBlur(name)
+      onBlur(name, amountInCents)
     }
     this.setState({ amount: amountInCents })
   }
