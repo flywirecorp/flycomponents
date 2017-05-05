@@ -15,17 +15,14 @@ class TextInput extends Component {
     const { onBlur } = this.props
     const { name } = e.target
 
-    if (typeof onBlur === 'function') {
-      onBlur(name)
-    }
+    onBlur(name)
   }
 
   handleChange = e => {
     const { onChange } = this.props
     let { name, value } = e.target
-    if (typeof onChange === 'function') {
-      onChange(name, value)
-    }
+
+    onChange(name, value)
     this.setState({ value })
   }
 
@@ -75,4 +72,8 @@ TextInput.propTypes = {
   value: string
 }
 
+TextInput.defaultProps = {
+  onBlur: () => {},
+  onChange: () => {}
+}
 export default TextInput

@@ -24,9 +24,7 @@ class MoneyInput extends Component {
     const { name, value: amount } = e.target
     const amountInCents = this.convertToCents(amount)
 
-    if (typeof onChange === 'function') {
-      onChange(name, amountInCents)
-    }
+    onChange(name, amountInCents)
   }
 
   handleClick = e => {
@@ -133,6 +131,8 @@ MoneyInput.defaultProps = {
   currencySymbol: '$',
   decimalMark: '.',
   maxLength: 10,
+  onBlur: () => {},
+  onChange: () => {},
   subunitToUnit: 100,
   symbolFirst: true,
   thousandsSeparator: ','
