@@ -15,4 +15,8 @@ Button.propTypes = {
   type: string.isRequired
 }
 
+Button.defaultProps = {
+  onClick: () => {}
+}
+
 export default Button

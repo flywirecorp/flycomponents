@@ -30,4 +30,9 @@ Select.propTypes = {
   values: array.isRequired
 }
 
+Select.defaultProps = {
+  onChange: () => {},
+  onClick: () => {}
+}
+
 export default Select

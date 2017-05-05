@@ -23,10 +23,7 @@ class PhoneInput extends Component {
 
   handleBlur = () => {
     const { name, onBlur } = this.props
-
-    if (typeof onBlur === 'function') {
-      onBlur(name)
-    }
+    onBlur(name)
   }
 
   handleChange = e => {
@@ -93,9 +90,7 @@ class PhoneInput extends Component {
   sendChange(value) {
     const { name, onChange } = this.props
 
-    if (typeof onChange === 'function') {
-      onChange(name, value)
-    }
+    onChange(name, value)
   }
 
   render() {
@@ -142,6 +137,12 @@ PhoneInput.propTypes = {
   onFocus: func,
   readOnly: bool,
   value: string
+}
+
+PhoneInput.defaultProps = {
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {}
 }
 
 export default PhoneInput

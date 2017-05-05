@@ -207,18 +207,12 @@ export class Autocomplete extends Component {
 
   sendBlur() {
     const { name, onBlur } = this.props
-
-    if (typeof onBlur === 'function') {
-      onBlur(name)
-    }
+    onBlur(name)
   }
 
   sendChange(value) {
     const { name, onChange } = this.props
-
-    if (typeof onChange === 'function') {
-      onChange(name, value)
-    }
+    onChange(name, value)
   }
 
   searchOn() {
@@ -284,7 +278,10 @@ export class Autocomplete extends Component {
 const { array, bool, func, number, string } = PropTypes
 
 Autocomplete.defaultProps = {
-  minOptionsForSearch: Infinity
+  minOptionsForSearch: Infinity,
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {}
 }
 
 Autocomplete.propTypes = {

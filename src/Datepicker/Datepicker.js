@@ -65,10 +65,7 @@ class Datepicker extends Component {
 
   sendBlur() {
     const { name, onBlur } = this.props
-
-    if (typeof onBlur === 'function') {
-      onBlur(name)
-    }
+    onBlur(name)
   }
 
   handleDateInputClick = () => {
@@ -157,11 +154,17 @@ const { bool, func, number, oneOfType, string } = PropTypes
 Datepicker.propTypes = {
   locale: string,
   name: string,
-  onBlur: func.isRequired,
-  onChange: func.isRequired,
+  onBlur: func,
+  onChange: func,
   onFocus: func,
   readOnly: bool,
   value: oneOfType([number, string])
+}
+
+Datepicker.defaultProps = {
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {}
 }
 
 Datepicker.childContextTypes = {
