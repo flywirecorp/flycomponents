@@ -10,7 +10,25 @@ const countries = [
   { label: 'China', value: 'CN' }
 ]
 
-<Autocomplete name='country' options={countries} />
+<FormGroup
+  name="country"
+  label="Search enabled"
+  className="FormGroup GridColumn"
+>
+  <Autocomplete name="country" options={countries} />
+</FormGroup>
+
+<FormGroup
+  name="country"
+  label="Search disabled"
+  className="FormGroup GridColumn"
+>
+  <Autocomplete
+    name="country"
+    options={countries}
+    minOptionsForSearch={10}
+  />
+</FormGroup>
 ```
 
 ## Properties

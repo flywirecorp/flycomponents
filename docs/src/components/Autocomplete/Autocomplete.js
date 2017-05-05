@@ -1,5 +1,5 @@
 import React from 'react'
-import { Autocomplete } from '../../../../src'
+import { Autocomplete, FormGroup } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
@@ -12,7 +12,24 @@ export default () => {
 
   return (
     <Component readme={README}>
-      <Autocomplete name="country" options={countries} />
+      <FormGroup
+        name="country"
+        label="Search enabled"
+        className="FormGroup GridColumn"
+      >
+        <Autocomplete name="country" options={countries} />
+      </FormGroup>
+      <FormGroup
+        name="country"
+        label="Search disabled"
+        className="FormGroup GridColumn"
+      >
+        <Autocomplete
+          name="country"
+          options={countries}
+          minOptionsForSearch={10}
+        />
+      </FormGroup>
     </Component>
   )
 }
