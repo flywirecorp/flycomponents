@@ -20,13 +20,13 @@ const Select = ({ className, selectedValue, onChange, onClick, values }) => {
   )
 }
 
-const { array, func, number, string } = PropTypes
+const { array, func, number, oneOfType, string } = PropTypes
 
 Select.propTypes = {
   className: string,
   onChange: func.isRequired,
   onClick: func.isRequired,
-  selectedValue: number.isRequired,
+  selectedValue: oneOfType([number, string]),
   values: array.isRequired
 }
 
