@@ -104,6 +104,7 @@ const App = () => (
             component={route.component}
           />
         ))}
+        <Route path="/flycomponents" component={Home} />
       </div>
     </div>
   </Router>
