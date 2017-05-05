@@ -1,0 +1,33 @@
+.Component {
+  display: flex;
+  flex-direction: column;
+}
+.Component-readme {
+  padding: 0 2rem;
+}
+.Component-example {
+  padding: 2rem;
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+}
+.Component-exampleTitle {
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .Component {
+    display: flex;
+    flex-direction: row;
+  }
+  .Component-readme {
+    width: 65%;
+    padding: 0 2rem;
+  }
+  .Component-example {
+    width: 35%;
+    margin-top: 0;
+    border-top: none;
+    border-left: 1px solid #eee;
+    padding: 2rem;
+  }
+}
