@@ -140,6 +140,7 @@ PhoneInput.propTypes = {
 }
 
 PhoneInput.defaultProps = {
+  countries: [],
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {}
