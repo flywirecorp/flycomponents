@@ -49,6 +49,8 @@ class TextInput extends Component {
           {...inputAttrs}
           onBlur={this.handleBlur}
           onChange={this.handleChange}
+          prefix={prefix}
+          sufix={sufix}
           type="text"
           value={value}
         />

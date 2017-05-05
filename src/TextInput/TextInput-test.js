@@ -55,8 +55,18 @@ describe('TextInput', () => {
 
   it('renders a input group with prefix', () => {
     const component = new TextInputComponent({ prefix: 'PREFIX' })
+    const inputGroup = component.inputGroup()
 
-    expect(component.inputGroup()).to.have.length(1)
+    expect(inputGroup).to.have.length(1)
+    expect(inputGroup.prop('prefix')).to.eq('PREFIX')
+  })
+
+  it('renders a input group with sufix', () => {
+    const component = new TextInputComponent({ sufix: 'SUFIX' })
+    const inputGroup = component.inputGroup()
+
+    expect(inputGroup).to.have.length(1)
+    expect(inputGroup.prop('sufix')).to.eq('SUFIX')
   })
 
   it('handles on change events in input', () => {
