@@ -12,11 +12,12 @@ const { array, func, object, oneOfType, string } = PropTypes
 Button.propTypes = {
   children: oneOfType([array, object, string]),
   onClick: func,
-  type: string.isRequired
+  type: string
 }
 
 Button.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  type: 'button'
 }
 
 export default Button
