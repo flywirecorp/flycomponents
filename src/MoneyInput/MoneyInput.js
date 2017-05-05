@@ -36,18 +36,20 @@ class MoneyInput extends Component {
   }
 
   handleKeyDown = e => {
-    const DELETE = 8
-    const RIGHT_ARROW = 37
-    const LEFT_ARROW = 39
     const COMMA = 188
+    const DELETE = 8
+    const LEFT_ARROW = 39
     const PERIOD = 190
+    const RIGHT_ARROW = 37
+    const TAB = 9
     const isNumber = /\d/.test(String.fromCharCode(e.keyCode))
     const allowedChars = [
       COMMA,
+      DELETE,
+      LEFT_ARROW,
       PERIOD,
       RIGHT_ARROW,
-      LEFT_ARROW,
-      DELETE
+      TAB
     ].includes(e.keyCode)
 
     if (!isNumber && !allowedChars) {
