@@ -153,7 +153,7 @@ const { bool, func, number, oneOfType, string } = PropTypes
 
 Datepicker.propTypes = {
   locale: string,
-  name: string,
+  name: string.isRequired,
   onBlur: func,
   onChange: func,
   onFocus: func,

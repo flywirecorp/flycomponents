@@ -56,15 +56,11 @@ class TextInput extends Component {
   }
 }
 
-TextInput.defaultProps = {
-  multiline: false
-}
-
 const { bool, func, string } = PropTypes
 
 TextInput.propTypes = {
   multiline: bool,
-  name: string,
+  name: string.isRequired,
   onBlur: func,
   onChange: func,
   prefix: string,
@@ -73,6 +69,7 @@ TextInput.propTypes = {
 }
 
 TextInput.defaultProps = {
+  multiline: false,
   onBlur: () => {},
   onChange: () => {}
 }
