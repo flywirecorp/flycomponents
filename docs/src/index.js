@@ -1,6 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Link
+} from 'react-router-dom'
 import Autocomplete from './components/Autocomplete'
 import Button from './components/Button'
 import Datepicker from './components/Datepicker'
@@ -14,48 +19,48 @@ import './index.css'
 
 const routes = [
   {
-    path: '/',
+    path: '/flycomponents',
     exact: true,
     label: 'Home',
     component: Home
   },
   {
-    path: '/autocomplete',
+    path: '/flycomponents/autocomplete',
     label: 'Autocomplete',
     component: Autocomplete
   },
   {
-    path: '/button',
+    path: '/flycomponents/button',
     label: 'Button',
     component: Button
   },
   {
-    path: '/datepicker',
+    path: '/flycomponents/datepicker',
     label: 'Datepicker',
     component: Datepicker
   },
   {
-    path: '/form-group',
+    path: '/flycomponents/form-group',
     label: 'FormGroup',
     component: FormGroup
   },
   {
-    path: '/money-input',
+    path: '/flycomponents/money-input',
     label: 'MoneyInput',
     component: MoneyInput
   },
   {
-    path: '/phone-input',
+    path: '/flycomponents/phone-input',
     label: 'PhoneInput',
     component: PhoneInput
   },
   {
-    path: '/textarea',
+    path: '/flycomponents/textarea',
     label: 'Textarea',
     component: Textarea
   },
   {
-    path: '/text-input',
+    path: '/flycomponents/text-input',
     label: 'TextInput',
     component: TextInput
   }
@@ -98,7 +103,7 @@ const App = () => (
             component={route.component}
           />
         ))}
-        <Route path="/flycomponents" component={Home} />
+        <Redirect from="/" to="flycomponents" />
       </div>
     </div>
   </Router>

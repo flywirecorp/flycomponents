@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "b4357baf03325c567402"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5679b635c5c5c0bb1562"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -30758,40 +30758,40 @@ __webpack_require__(238);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var routes = [{
-  path: '/',
+  path: '/flycomponents',
   exact: true,
   label: 'Home',
   component: _Home2.default
 }, {
-  path: '/autocomplete',
+  path: '/flycomponents/autocomplete',
   label: 'Autocomplete',
   component: _Autocomplete2.default
 }, {
-  path: '/button',
+  path: '/flycomponents/button',
   label: 'Button',
   component: _Button2.default
 }, {
-  path: '/datepicker',
+  path: '/flycomponents/datepicker',
   label: 'Datepicker',
   component: _Datepicker2.default
 }, {
-  path: '/form-group',
+  path: '/flycomponents/form-group',
   label: 'FormGroup',
   component: _FormGroup2.default
 }, {
-  path: '/money-input',
+  path: '/flycomponents/money-input',
   label: 'MoneyInput',
   component: _MoneyInput2.default
 }, {
-  path: '/phone-input',
+  path: '/flycomponents/phone-input',
   label: 'PhoneInput',
   component: _PhoneInput2.default
 }, {
-  path: '/textarea',
+  path: '/flycomponents/textarea',
   label: 'Textarea',
   component: _Textarea2.default
 }, {
-  path: '/text-input',
+  path: '/flycomponents/text-input',
   label: 'TextInput',
   component: _TextInput2.default
 }];
@@ -30857,7 +30857,7 @@ var App = function App() {
             component: route.component
           });
         }),
-        _react2.default.createElement(_reactRouterDom.Route, { path: '/flycomponents', component: _Home2.default })
+        _react2.default.createElement(_reactRouterDom.Redirect, { from: '/', to: 'flycomponents' })
       )
     )
   );
