@@ -2,9 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import {
   BrowserRouter as Router,
+  Link,
   Route,
   Redirect,
-  Link
+  Switch
 } from 'react-router-dom'
 import Autocomplete from './components/Autocomplete'
 import Button from './components/Button'
@@ -95,15 +96,17 @@ const App = () => (
         </ul>
       </div>
       <div className="Docs-content">
-        {routes.map((route, index) => (
-          <Route
-            exact={route.exact}
-            key={index}
-            path={route.path}
-            component={route.component}
-          />
-        ))}
-        <Redirect from="/" to="flycomponents" />
+        <Switch>
+          {routes.map((route, index) => (
+            <Route
+              exact={route.exact}
+              key={index}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+          <Redirect from="/" to="/flycomponents" exact />
+        </Switch>
       </div>
     </div>
   </Router>
