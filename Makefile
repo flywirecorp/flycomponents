@@ -15,4 +15,7 @@ bash:
 logs:
 	docker-compose logs -f dev
 
+build:
+	docker-compose run --rm dev yarn build
+
 default: up
