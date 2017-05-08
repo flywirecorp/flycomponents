@@ -26,7 +26,7 @@ This will bump the `package.json` version, build a new bundle, commit and push t
 
 ## Documentation
 
-[https://peertransfer.github.io/flycomponents](https://peertransfer.github.io/flycomponents)
+[http://flycomponents.flywire.lol](http://flycomponents.flywire.lol)
 
 The documentation source is under the `docs` folder.
 To update the documentation and publish the changes to Github Pages:

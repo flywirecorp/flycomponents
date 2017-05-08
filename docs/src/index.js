@@ -20,48 +20,48 @@ import './index.css'
 
 const routes = [
   {
-    path: '/flycomponents',
+    path: '/',
     exact: true,
     label: 'Home',
     component: Home
   },
   {
-    path: '/flycomponents/autocomplete',
+    path: '/autocomplete',
     label: 'Autocomplete',
     component: Autocomplete
   },
   {
-    path: '/flycomponents/button',
+    path: '/button',
     label: 'Button',
     component: Button
   },
   {
-    path: '/flycomponents/datepicker',
+    path: '/datepicker',
     label: 'Datepicker',
     component: Datepicker
   },
   {
-    path: '/flycomponents/form-group',
+    path: '/form-group',
     label: 'FormGroup',
     component: FormGroup
   },
   {
-    path: '/flycomponents/money-input',
+    path: '/money-input',
     label: 'MoneyInput',
     component: MoneyInput
   },
   {
-    path: '/flycomponents/phone-input',
+    path: '/phone-input',
     label: 'PhoneInput',
     component: PhoneInput
   },
   {
-    path: '/flycomponents/textarea',
+    path: '/textarea',
     label: 'Textarea',
     component: Textarea
   },
   {
-    path: '/flycomponents/text-input',
+    path: '/text-input',
     label: 'TextInput',
     component: TextInput
   }
@@ -105,7 +105,6 @@ const App = () => (
               component={route.component}
             />
           ))}
-          <Redirect from="/" to="/flycomponents" exact />
         </Switch>
       </div>
     </div>
