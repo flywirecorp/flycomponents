@@ -16,6 +16,7 @@ import PhoneInput from './components/PhoneInput'
 import Select from './components/Select'
 import Textarea from './components/Textarea'
 import TextInput from './components/TextInput'
+import Title from './components/Title'
 import Home from './components/Home'
 import './index.css'
 
@@ -89,7 +90,7 @@ const App = () => (
   <Router hashType="noslash">
     <div className="Docs">
       <div className="Docs-nav">
-        <h3 className="Docs-navTitle">Flycomponents</h3>
+        <Title />
         <ul className="Docs-navMenu">
           {routes.map((route, index) => (
             <MenuLink
