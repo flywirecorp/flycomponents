@@ -1,2 +1,8 @@
+config
+docs
 src
-example
+tests
+Dockerfile
+Makefile
+docker-compose.yml
+webpack.config.js
