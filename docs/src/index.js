@@ -13,6 +13,7 @@ import Datepicker from './components/Datepicker'
 import FormGroup from './components/FormGroup'
 import MoneyInput from './components/MoneyInput'
 import PhoneInput from './components/PhoneInput'
+import Select from './components/Select'
 import Textarea from './components/Textarea'
 import TextInput from './components/TextInput'
 import Home from './components/Home'
@@ -54,6 +55,11 @@ const routes = [
     path: '/phone-input',
     label: 'PhoneInput',
     component: PhoneInput
+  },
+  {
+    path: '/select',
+    label: 'Select',
+    component: Select
   },
   {
     path: '/textarea',
