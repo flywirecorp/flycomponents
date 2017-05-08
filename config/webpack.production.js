@@ -3,12 +3,12 @@ var path = require('path')
 
 function buildConfig () {
   return {
-    context: __dirname,
+    context: path.resolve(__dirname, '..'),
     entry: {
-      main: path.join(__dirname, 'src', 'index.js')
+      main: path.join(__dirname, '..', 'src', 'index.js')
     },
     output: {
-      path: path.join(__dirname, 'dist'),
+      path: path.join(__dirname, '..', 'dist'),
       filename: 'flycomponents.js',
       libraryTarget: 'umd',
       library: 'flycomponents'

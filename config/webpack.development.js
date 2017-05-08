@@ -7,13 +7,13 @@ var settings = {
 
 function buildConfig (options) {
   return {
-    context: __dirname,
+    context: path.resolve(__dirname, '..'),
     target: 'web',
     entry: {
-      main: path.join(__dirname, 'docs', 'src', 'index.js')
+      main: path.join(__dirname, '..', 'docs', 'src', 'index.js')
     },
     output: {
-      path: path.join(__dirname, 'docs', 'dist'),
+      path: path.join(__dirname, '..', 'docs', 'dist'),
       filename: 'bundle.js',
       publicPath: '/flycomponents/dist',
     },
