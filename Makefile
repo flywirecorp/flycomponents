@@ -1,18 +1,18 @@
 .PHONY: up down test bash logs e2e
 
 up:
-	docker-compose up --build -d docs
+	docker-compose up --build -d dev
 
 down:
 	docker-compose down
 
 test:
-	docker-compose run --rm docs yarn test
+	docker-compose run --rm dev yarn test
 
 bash:
-	docker-compose exec docs bash
+	docker-compose exec dev bash
 
 logs:
-	docker-compose logs -f docs
+	docker-compose logs -f dev
 
 default: up
