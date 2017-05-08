@@ -15,7 +15,7 @@ function buildConfig (options) {
     output: {
       path: path.join(__dirname, '..', 'docs', 'dist'),
       filename: 'bundle.js',
-      publicPath: '/flycomponents/dist',
+      publicPath: '/dist',
     },
     devServer: {
       contentBase: './docs',

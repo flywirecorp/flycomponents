@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eb66a325b746c34d42e9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "76f5636d4d4d23884aac"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -698,7 +698,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/flycomponents/dist";
+/******/ 	__webpack_require__.p = "/dist";
 /******/
 /******/ 	// __webpack_hash__
 /******/ 	__webpack_require__.h = function() { return hotCurrentHash; };
@@ -32516,8 +32516,8 @@ var MenuLink = function MenuLink(_ref) {
 
 var App = function App() {
   return _react2.default.createElement(
-    _reactRouterDom.BrowserRouter,
-    null,
+    _reactRouterDom.HashRouter,
+    { hashType: 'noslash' },
     _react2.default.createElement(
       'div',
       { className: 'Docs' },

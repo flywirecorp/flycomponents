@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Link,
   Route,
   Redirect,
@@ -86,7 +86,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
 )
 
 const App = () => (
-  <Router>
+  <Router hashType="noslash">
     <div className="Docs">
       <div className="Docs-nav">
         <h3 className="Docs-navTitle">Flycomponents</h3>
