@@ -3,7 +3,7 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import Alert from './Alert'
 
-describe.only('Alert', () => {
+describe('Alert', () => {
   class AlertComponent {
     constructor({ children, ...ownProps }) {
       const defaultProps = {}
