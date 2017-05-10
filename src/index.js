@@ -1,3 +1,4 @@
+import Alert from './Alert'
 import Autocomplete from './Autocomplete'
 import Button from './Button'
 import Datepicker from './Datepicker'
@@ -10,6 +11,7 @@ import Textarea from './Textarea'
 import TextInput from './TextInput'
 
 export {
+  Alert,
   Autocomplete,
   Button,
   Datepicker,

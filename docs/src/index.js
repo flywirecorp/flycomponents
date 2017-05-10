@@ -7,6 +7,7 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom'
+import Alert from './components/Alert'
 import Autocomplete from './components/Autocomplete'
 import Button from './components/Button'
 import Datepicker from './components/Datepicker'
@@ -26,6 +27,11 @@ const routes = [
     exact: true,
     label: 'Home',
     component: Home
+  },
+  {
+    path: '/alert',
+    label: 'Alert',
+    component: Alert
   },
   {
     path: '/autocomplete',
