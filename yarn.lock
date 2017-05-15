@@ -2123,9 +2123,9 @@ flow-parser@0.45.0:
   version "0.45.0"
   resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.45.0.tgz#aa29d4ae27f06aa02817772bba0fcbefef7e62f0"
 
-flystyles@^1.2.2:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/flystyles/-/flystyles-1.2.2.tgz#7a3e1108c6e4ab962c4f482003e1f9e2ee865093"
+flystyles@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/flystyles/-/flystyles-1.2.5.tgz#40b63fc1f7d79dec27717c21830633de961069fd"
 
 for-in@^1.0.1:
   version "1.0.2"
