@@ -41,7 +41,7 @@ const countries = [
 | onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |
 | onChange            | no    | func       | Callback function that is fired when the components's value changes |           |
 | onFocus             | no    | func       | Callback function that is fired when component is focused           |           |
-| options             | no    | array      | Array representing all items                                        |           |
+| options             | yes   | array      | Array representing all items                                        |           |
 | placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |
 | readOnly            | no    | bool       | Input field is read-only                                            |           |
 | value               | no    | bool       | Default value                                                       |           |
