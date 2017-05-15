@@ -52,7 +52,7 @@
     "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.3",
-    "flystyles": "^1.2.2",
+    "flystyles": "^1.2.5",
     "github-markdown-css": "^2.6.0",
     "ignore-styles": "^5.0.1",
     "marked": "^0.3.6",
