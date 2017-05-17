@@ -12,7 +12,7 @@
     "test": "mocha --opts tests/helpers/mocha.opts",
     "test:watch": "mocha -w --opts tests/helpers/mocha.opts",
     "lint": "eslint --fix src docs/src",
-    "version": "npm run build && git add -A dist",
+    "version": "npm run build && npm run build:docs && git add -A dist docs/dist",
     "postversion": "git push && git push --tags"
   },
   "repository": {

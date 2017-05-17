@@ -7,7 +7,17 @@ export default () => {
   const countries = [
     { label: 'Spain', value: 'ES' },
     { label: 'United States', value: 'US' },
-    { label: 'China', value: 'CN' }
+    { label: 'China', value: 'CN' },
+    { label: 'France', value: 'FR' },
+    { label: 'Italy', value: 'IT' },
+    { label: 'Germany', value: 'DEU' },
+    { label: 'United Kingdom', value: 'GB' },
+    { label: 'Andorra', value: 'AN' },
+    { label: 'Greece', value: 'GR' },
+    { label: 'Morocco', value: 'MOR' },
+    { label: 'Cuba', value: 'CUB' },
+    { label: 'Korea', value: 'KO' },
+    { label: 'Japan', value: 'JP' }
   ]
 
   return (
