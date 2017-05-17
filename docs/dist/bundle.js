@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "29f90ba3cede2f053c16"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bd540533ff44520b3213"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -12746,7 +12746,7 @@ exports.i(__webpack_require__(446), "");
 exports.i(__webpack_require__(447), "");
 
 // module
-exports.push([module.i, ".Docs {\n  display: flex;\n  min-height: 100%;\n  flex-direction: row;\n}\n\n.Docs-nav {\n  width: 160px;\n  padding: 2rem 1rem;\n  border-right: 1px solid #eee;\n}\n.Docs-content {\n  width: calc(100% - 160px);\n}\n\n@media (min-width: 500px) {\n  .Docs-nav {\n    width: 180px;\n  }\n  .Docs-content {\n    width: calc(100% - 180px);\n  }\n}\n\n.Docs-navMenu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.Docs-navTitle {\n  margin-bottom: 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n}\n\n.Docs-navVersion {\n  font-size: .5rem;\n}\n\n@media (min-width: 500px) {\n  font-size: 1.2rem;\n}\n\n.MenuLink {\n  margin-bottom: .6rem;\n  font-weight: 400;\n  font-size: .96rem;\n  transition: all 200ms;\n}\n\n.MenuLink.is-active a, .MenuLink:hover a {\n  text-decoration: underline;\n}\n\n.fullHeight {\n  height: 100%;\n  min-height: 100%;\n}\n", ""]);
+exports.push([module.i, ".Docs {\n  display: flex;\n  min-height: 100%;\n  flex-direction: row;\n}\n\n.Docs-nav {\n  width: 160px;\n  padding: 2rem 1rem;\n  border-right: 1px solid #eee;\n}\n.Docs-content {\n  width: calc(100% - 160px);\n}\n\n@media (min-width: 500px) {\n  .Docs-nav {\n    width: 180px;\n  }\n  .Docs-content {\n    width: calc(100% - 180px);\n  }\n}\n\n.Docs-navMenu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n}\n\n.Docs-navTitle {\n  margin-bottom: 2rem;\n  font-size: 1rem;\n  font-weight: 600;\n}\n\n.Docs-navVersion {\n  font-size: .5rem;\n}\n\n@media (min-width: 500px) {\n  font-size: 1.2rem;\n}\n\n.MenuLink {\n  margin-bottom: .6rem;\n  font-weight: 400;\n  font-size: .96rem;\n  transition: all 200ms;\n}\n\n.MenuLink.is-active a, .MenuLink:hover a {\n  text-decoration: underline;\n}\n\n.fullHeight {\n  height: 100%;\n  min-height: 100%;\n}\n\n.Autocomplete-options {\n  transition: none;\n}\n", ""]);
 
 // exports
 
@@ -31900,7 +31900,7 @@ var _README2 = _interopRequireDefault(_README);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var countries = [{ label: 'Spain', value: 'ES' }, { label: 'United States', value: 'US' }, { label: 'China', value: 'CN' }];
+  var countries = [{ label: 'Spain', value: 'ES' }, { label: 'United States', value: 'US' }, { label: 'China', value: 'CN' }, { label: 'France', value: 'FR' }, { label: 'Italy', value: 'IT' }, { label: 'Germany', value: 'DEU' }, { label: 'United Kingdom', value: 'GB' }, { label: 'Andorra', value: 'AN' }, { label: 'Greece', value: 'GR' }, { label: 'Morocco', value: 'MOR' }, { label: 'Cuba', value: 'CUB' }, { label: 'Korea', value: 'KO' }, { label: 'Japan', value: 'JP' }];
 
   return _react2.default.createElement(
     _Component2.default,
@@ -32340,7 +32340,9 @@ exports.default = function () {
       name: 'amount',
       symbolFirst: false,
       thousandsSeparator: '.'
-    })
+    }),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(_src.MoneyInput, { disabled: true, name: 'disabled' })
   );
 };
 
@@ -32856,11 +32858,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var INITIAL_INDEX = -1;
-var KEYS = [13, 27, 38, 40];
+var KEYS = [13, 27, 38, 40, 9];
 var ENTER = KEYS[0],
     ESC = KEYS[1],
     ARROW_UP = KEYS[2],
-    ARROW_DOWN = KEYS[3];
+    ARROW_DOWN = KEYS[3],
+    TAB = KEYS[4];
 
 var Autocomplete = exports.Autocomplete = function (_Component) {
   _inherits(Autocomplete, _Component);
@@ -32927,14 +32930,22 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
   }, {
     key: 'showOptions',
     value: function showOptions() {
-      var isOpen = this.state.isOpen;
-      var readOnly = this.props.readOnly;
+      var _state = this.state,
+          isOpen = _state.isOpen,
+          selectedIndex = _state.selectedIndex,
+          selectedValue = _state.selectedValue;
+      var _props2 = this.props,
+          options = _props2.options,
+          readOnly = _props2.readOnly;
 
 
       if (isOpen || readOnly) {
         return;
       }
-      this.setState({ isOpen: true });
+      this.setState({
+        isOpen: true,
+        selectedIndex: this.getOptionIndexByValue(options, selectedValue)
+      }, this.adjustOffset);
     }
   }, {
     key: 'loadOptions',
@@ -32967,6 +32978,23 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
       });
 
       return selectedOption ? selectedOption.label.toString() : NO_LABEL;
+    }
+  }, {
+    key: 'getOptionIndexByValue',
+    value: function getOptionIndexByValue(options, value) {
+      var selectedOptionIndex = options.findIndex(function (option) {
+        return option.value === value;
+      });
+      return selectedOptionIndex === -1 ? INITIAL_INDEX : selectedOptionIndex;
+    }
+  }, {
+    key: 'resetSearchQuery',
+    value: function resetSearchQuery() {
+      return this.setState(function () {
+        return {
+          searchQuery: ''
+        };
+      });
     }
   }, {
     key: 'handleOptionHover',
@@ -33015,14 +33043,17 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
 
       this.setState(function (prevState) {
         return { selectedIndex: normalize(prevState.selectedIndex + offset) };
-      }, this.adjustOffet);
+      }, this.adjustOffset);
     }
   }, {
-    key: 'adjustOffet',
-    value: function adjustOffet() {
+    key: 'adjustOffset',
+    value: function adjustOffset() {
       var selectedIndex = this.state.selectedIndex;
 
       var optionSelected = (0, _reactDom.findDOMNode)(this.refs['option-' + selectedIndex]);
+
+      if (!optionSelected) return;
+
       var optionList = (0, _reactDom.findDOMNode)(this.refs.optionList);
 
       if (selectedIndex === INITIAL_INDEX) return;
@@ -33035,7 +33066,7 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
       var selectedIndex = this.state.selectedIndex;
 
 
-      if (selectedIndex === INITIAL_INDEX || options.length === 0) {
+      if (selectedIndex === INITIAL_INDEX || !options[selectedIndex]) {
         return;
       }
 
@@ -33046,28 +33077,28 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
   }, {
     key: 'sendBlur',
     value: function sendBlur() {
-      var _props2 = this.props,
-          name = _props2.name,
-          onBlur = _props2.onBlur;
+      var _props3 = this.props,
+          name = _props3.name,
+          onBlur = _props3.onBlur;
 
       onBlur(name);
     }
   }, {
     key: 'sendChange',
     value: function sendChange(value) {
-      var _props3 = this.props,
-          name = _props3.name,
-          onChange = _props3.onChange;
+      var _props4 = this.props,
+          name = _props4.name,
+          onChange = _props4.onChange;
 
       onChange(name, value);
     }
   }, {
     key: 'searchOn',
     value: function searchOn() {
-      var _props4 = this.props,
-          minOptionsForSearch = _props4.minOptionsForSearch,
-          options = _props4.options,
-          readOnly = _props4.readOnly;
+      var _props5 = this.props,
+          minOptionsForSearch = _props5.minOptionsForSearch,
+          options = _props5.options,
+          readOnly = _props5.readOnly;
 
 
       if (readOnly) return false;
@@ -33077,22 +33108,28 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
       return minOptionsForSearch < options.length;
     }
   }, {
+    key: 'blurSearchInput',
+    value: function blurSearchInput() {
+      this.searchInput.blur();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this3 = this;
 
-      var _props5 = this.props,
-          name = _props5.name,
-          placeholder = _props5.placeholder,
-          readOnly = _props5.readOnly;
+      var _props6 = this.props,
+          name = _props6.name,
+          onFocus = _props6.onFocus,
+          placeholder = _props6.placeholder,
+          readOnly = _props6.readOnly;
 
       var options = this.loadOptions();
       var searchOn = this.searchOn();
-      var _state = this.state,
-          isOpen = _state.isOpen,
-          searchQuery = _state.searchQuery,
-          selectedIndex = _state.selectedIndex,
-          selectedValue = _state.selectedValue;
+      var _state2 = this.state,
+          isOpen = _state2.isOpen,
+          searchQuery = _state2.searchQuery,
+          selectedIndex = _state2.selectedIndex,
+          selectedValue = _state2.selectedValue;
 
 
       var optionList = options.map(function (option, i) {
@@ -33120,13 +33157,17 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
           ref: 'autocomplete',
           className: (0, _classnames2.default)('Autocomplete', { 'is-searching': isOpen }, { 'Autocomplete--noReadOnly': !readOnly })
         },
-        _react2.default.createElement(_Input2.default, {
+        _react2.default.createElement('input', {
           className: 'Autocomplete-search',
+          id: name,
           name: name,
           onChange: this.handleSearchQueryChange,
           onClick: this.handleSearchClick,
-          onFocus: this.props.onFocus,
+          onFocus: onFocus,
           onKeyDown: this.handleSearchKeyDown,
+          ref: function ref(input) {
+            return _this3.searchInput = input;
+          },
           placeholder: placeholder,
           readOnly: !searchOn,
           type: 'text',
@@ -33152,21 +33193,20 @@ var _initialiseProps = function _initialiseProps() {
     var options = _this4.props.options;
 
 
-    if (previousSelectedValue === value) {
-      return _this4.hideOptions();
-    }
-
     _this4.setState(function () {
       return {
         isOpen: false,
         searchQuery: _this4.getOptionLabelByValue(options, value),
-        selectedIndex: INITIAL_INDEX,
         selectedValue: value
       };
-    }, _this4.sendChange(value));
+    }, function () {
+      _this4.sendChange(value);
+      _this4.blurSearchInput();
+    });
   };
 
   this.handleSearchClick = function () {
+    _this4.resetSearchQuery();
     _this4.showOptions();
   };
 
@@ -33182,6 +33222,8 @@ var _initialiseProps = function _initialiseProps() {
       case ARROW_UP:
         return _this4.moveIndexDown();
       case ENTER:
+        return _this4.selectCurrentOption();
+      case TAB:
         return _this4.selectCurrentOption();
       case ESC:
         return _this4.hideOptions();
@@ -35139,13 +35181,14 @@ var MoneyInput = function (_Component) {
       var amount = this.state.amount;
       var _props3 = this.props,
           symbol = _props3.currencySymbol,
+          disabled = _props3.disabled,
           maxLength = _props3.maxLength,
           name = _props3.name,
           readOnly = _props3.readOnly,
           symbolFirst = _props3.symbolFirst;
 
 
-      var inputAttrs = (_inputAttrs = {}, _defineProperty(_inputAttrs, symbolFirst ? 'prefix' : 'sufix', symbol), _defineProperty(_inputAttrs, 'maxLength', maxLength), _defineProperty(_inputAttrs, 'name', name), _defineProperty(_inputAttrs, 'readOnly', readOnly), _inputAttrs);
+      var inputAttrs = (_inputAttrs = {}, _defineProperty(_inputAttrs, symbolFirst ? 'prefix' : 'sufix', symbol), _defineProperty(_inputAttrs, 'maxLength', maxLength), _defineProperty(_inputAttrs, 'name', name), _defineProperty(_inputAttrs, 'readOnly', readOnly), _defineProperty(_inputAttrs, 'disabled', disabled), _inputAttrs);
 
       return _react2.default.createElement(_InputGroup2.default, _extends({}, inputAttrs, {
         onBlur: this.handleBlur,
@@ -35172,6 +35215,7 @@ var bool = _propTypes2.default.bool,
 MoneyInput.propTypes = {
   currencySymbol: string,
   decimalMark: string,
+  disabled: bool,
   maxLength: oneOfType([number, string]),
   name: string.isRequired,
   onBlur: func,
@@ -35187,6 +35231,7 @@ MoneyInput.propTypes = {
 MoneyInput.defaultProps = {
   currencySymbol: '$',
   decimalMark: '.',
+  disabled: false,
   maxLength: 10,
   onBlur: function onBlur() {},
   onChange: function onChange() {},
@@ -51578,7 +51623,7 @@ module.exports = "# Flycomponents\n\nFlycomponents is a set a react UI component
 /* 455 */
 /***/ (function(module, exports) {
 
-module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
+module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n\n<MoneyInput disabled name=\"disabled\" />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
 
 /***/ }),
 /* 456 */
@@ -51641,7 +51686,7 @@ if(true) {
 
 module.exports = {
 	"name": "Flycomponents",
-	"version": "1.0.5",
+	"version": "1.0.7",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
@@ -51653,7 +51698,7 @@ module.exports = {
 		"test": "mocha --opts tests/helpers/mocha.opts",
 		"test:watch": "mocha -w --opts tests/helpers/mocha.opts",
 		"lint": "eslint --fix src docs/src",
-		"version": "npm run build && git add -A dist",
+		"version": "npm run build && npm run build:docs && git add -A dist docs/dist",
 		"postversion": "git push && git push --tags"
 	},
 	"repository": {
