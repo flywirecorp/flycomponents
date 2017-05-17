@@ -12,5 +12,7 @@ export default () => (
       symbolFirst={false}
       thousandsSeparator="."
     />
+    <br />
+    <MoneyInput disabled name="disabled" />
   </Component>
 )

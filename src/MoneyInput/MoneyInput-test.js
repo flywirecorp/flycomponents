@@ -100,4 +100,10 @@ describe('MoneyInput', () => {
 
     expect(component.input().prop('readOnly')).to.be.true
   })
+
+  it('is disabled if property is set', () => {
+    const component = new MoneyInputComponent({ disabled: true })
+
+    expect(component.input().prop('disabled')).to.exist
+  })
 })

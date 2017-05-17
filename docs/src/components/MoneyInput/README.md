@@ -11,6 +11,8 @@ An input field to type a money amount. The amount is autoformated when the input
   symbolFirst={false}
   thousandsSeparator='.'
 />
+
+<MoneyInput disabled name="disabled" />
 ```
 
 ## Properties
@@ -19,6 +21,7 @@ An input field to type a money amount. The amount is autoformated when the input
 | -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |
 | currencySymbol       | no    | string           | Currency symbol                                                     | `"$"`           |
 | decimalMark          | no    | string           | Decimal separator                                                   | `"."`           |
+| disabled             | no    | bool             | Disable input                                                       | `false`         |
 | maxLength            | no    | string, number   | Input max length                                                    | `9`             |
 | name                 | yes   | string           | Input `name` and `id`                                               |                 |
 | onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |

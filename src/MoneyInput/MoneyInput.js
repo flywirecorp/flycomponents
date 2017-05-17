@@ -81,6 +81,7 @@ class MoneyInput extends Component {
     const { amount } = this.state
     const {
       currencySymbol: symbol,
+      disabled,
       maxLength,
       name,
       readOnly,
@@ -91,7 +92,8 @@ class MoneyInput extends Component {
       [symbolFirst ? 'prefix' : 'sufix']: symbol,
       maxLength,
       name,
-      readOnly
+      readOnly,
+      disabled
     }
 
     return (
@@ -114,6 +116,7 @@ const { bool, func, number, oneOfType, string } = PropTypes
 MoneyInput.propTypes = {
   currencySymbol: string,
   decimalMark: string,
+  disabled: bool,
   maxLength: oneOfType([number, string]),
   name: string.isRequired,
   onBlur: func,
@@ -129,6 +132,7 @@ MoneyInput.propTypes = {
 MoneyInput.defaultProps = {
   currencySymbol: '$',
   decimalMark: '.',
+  disabled: false,
   maxLength: 10,
   onBlur: () => {},
   onChange: () => {},
