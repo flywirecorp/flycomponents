@@ -23,7 +23,7 @@ describe('Autocomplete', () => {
     }
 
     searchField() {
-      return this.component.find(Input)
+      return this.component.find('input')
     }
 
     spanField() {
@@ -84,14 +84,16 @@ describe('Autocomplete', () => {
     }
   }
 
-  let adjustOffetStub
+  let adjustOffsetStub, blurSearchInputStub
 
   beforeEach(() => {
-    adjustOffetStub = sinon.stub(Autocomplete.prototype, 'adjustOffet')
+    adjustOffsetStub = sinon.stub(Autocomplete.prototype, 'adjustOffset')
+    blurSearchInputStub = sinon.stub(Autocomplete.prototype, 'blurSearchInput')
   })
 
   afterEach(() => {
-    adjustOffetStub.restore()
+    adjustOffsetStub.restore()
+    blurSearchInputStub.restore()
   })
 
   it('has a search input', () => {
@@ -229,6 +231,53 @@ describe('Autocomplete', () => {
     })
 
     expect(component.searchField().prop('readOnly')).to.be.true
+  })
+
+  it('shows all options if one is selected', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ]
+    const component = new AutocompleteComponent(options)
+
+    component.simulateClick()
+    component.pressArrowDownKey()
+    component.pressEnterKey()
+    component.simulateClick()
+
+    expect(component.options().length).to.equal(options.length)
+  })
+
+  it('focus the last selected option', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ]
+    const component = new AutocompleteComponent(options)
+
+    component.simulateClick()
+    component.filterOption('China')
+    component.pressEnterKey()
+    component.simulateClick()
+
+    expect(component.selectedIndex()).to.equal(2)
+  })
+
+  it('blurs the search field when an option is selected', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ]
+    const component = new AutocompleteComponent(options)
+
+    component.simulateClick()
+    component.filterOption('China')
+    component.pressEnterKey()
+
+    expect(blurSearchInputStub.called).to.be.true
   })
 
   describe('having read-only property', () => {
