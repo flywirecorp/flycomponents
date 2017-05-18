@@ -13,6 +13,6 @@ export default () => (
       thousandsSeparator="."
     />
     <br />
-    <MoneyInput disabled name="disabled" />
+    <MoneyInput readOnly name="readOnly" value="12345" />
   </Component>
 )

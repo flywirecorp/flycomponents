@@ -43,6 +43,10 @@ describe('MoneyInput', () => {
         target: { value: '', setSelectionRange: callback }
       })
     }
+
+    setValue(value) {
+      return this.component.setProps({ value: value })
+    }
   }
 
   it('formats the default value', () => {
@@ -105,5 +109,13 @@ describe('MoneyInput', () => {
     const component = new MoneyInputComponent({ disabled: true })
 
     expect(component.input().prop('disabled')).to.exist
+  })
+
+  it('changes the value when a new amount is passed by props', () => {
+    const component = new MoneyInputComponent()
+
+    component.setValue(2000)
+
+    expect(component.input().prop('defaultValue')).to.equal('20.00')
   })
 })

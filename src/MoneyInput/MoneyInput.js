@@ -9,6 +9,10 @@ class MoneyInput extends Component {
     this.state = { amount: props.value }
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ amount: nextProps.value })
+  }
+
   handleBlur = e => {
     const { onBlur } = this.props
     const { target: { name, value: amount } } = e
@@ -136,6 +140,7 @@ MoneyInput.defaultProps = {
   maxLength: 10,
   onBlur: () => {},
   onChange: () => {},
+  readOnly: false,
   subunitToUnit: 100,
   symbolFirst: true,
   thousandsSeparator: ','
