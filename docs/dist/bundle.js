@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "bd540533ff44520b3213"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "ed29229d288b02761e7d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -32342,7 +32342,7 @@ exports.default = function () {
       thousandsSeparator: '.'
     }),
     _react2.default.createElement('br', null),
-    _react2.default.createElement(_src.MoneyInput, { disabled: true, name: 'disabled' })
+    _react2.default.createElement(_src.MoneyInput, { readOnly: true, name: 'readOnly', value: '12345' })
   );
 };
 
@@ -35146,6 +35146,11 @@ var MoneyInput = function (_Component) {
   }
 
   _createClass(MoneyInput, [{
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      this.setState({ amount: nextProps.value });
+    }
+  }, {
     key: 'convertToCents',
     value: function convertToCents(amount) {
       var _props = this.props,
@@ -35235,6 +35240,7 @@ MoneyInput.defaultProps = {
   maxLength: 10,
   onBlur: function onBlur() {},
   onChange: function onChange() {},
+  readOnly: false,
   subunitToUnit: 100,
   symbolFirst: true,
   thousandsSeparator: ','
@@ -51623,7 +51629,7 @@ module.exports = "# Flycomponents\n\nFlycomponents is a set a react UI component
 /* 455 */
 /***/ (function(module, exports) {
 
-module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n\n<MoneyInput disabled name=\"disabled\" />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
+module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n\n<MoneyInput disabled name=\"disabled\" />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| readOnly             | no    | bool             | Show read only input                                                | `false`         |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
 
 /***/ }),
 /* 456 */
@@ -51686,7 +51692,7 @@ if(true) {
 
 module.exports = {
 	"name": "Flycomponents",
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
