@@ -26,7 +26,6 @@ An input field to type a money amount. The amount is autoformated when the input
 | name                 | yes   | string           | Input `name` and `id`                                               |                 |
 | onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |
 | onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |
-| readOnly             | no    | bool             | Show read only input                                                | `false`         |
 | subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |
 | symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |
 | thousandsSeparator   | no    | string           | Thousands separator                                                 | `","`           |
