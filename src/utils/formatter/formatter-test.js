@@ -19,7 +19,7 @@ describe('applyPattern', () => {
 
   it('returns a formatted text', () => {
     const pattern = '+. (...) ...-....'
-    const text = applyPattern('166666666666', pattern)
+    const text = applyPattern('16666666666', pattern)
     const expectedText = '+1 (666) 666-6666'
 
     expect(text).to.equal(expectedText)
@@ -34,9 +34,19 @@ describe('applyPattern', () => {
   })
 
   it('ignores exceding text', () => {
-    const pattern = '...'
-    const text = applyPattern('12345', pattern)
-    const expectedText = '123'
+    const pattern = '../../....'
+    const text = applyPattern('121220120', pattern)
+    const expectedText = '12/12/2012'
+
+    expect(text).to.equal(expectedText)
+  })
+
+  it('appends exceding text', () => {
+    const pattern = '../../....'
+    const text = applyPattern('121220120', pattern, {
+      ignoreExcedingText: false
+    })
+    const expectedText = '12/12/20120'
 
     expect(text).to.equal(expectedText)
   })

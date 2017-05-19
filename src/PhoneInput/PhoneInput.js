@@ -12,13 +12,17 @@ class PhoneInput extends Component {
 
     const { value = NO_VALUE } = this.props
     const { value: isoCode, phonePattern } = this.getCountryFrom(value)
-    const formattedNumber = applyPattern(value, phonePattern)
+    const formattedNumber = this.formatNumber(value, phonePattern)
 
     this.state = {
       formattedNumber,
       preferredCountryIsoCode: null,
       selectedCountry: isoCode
     }
+  }
+
+  formatNumber(value, phonePattern) {
+    return applyPattern(value, phonePattern, { ignoreExcedingText: false })
   }
 
   handleBlur = () => {
@@ -35,7 +39,7 @@ class PhoneInput extends Component {
     phoneNumber = phoneNumber.replace(/(?!^\+)\D/gm, '')
 
     if (phonePattern) {
-      phoneNumber = applyPattern(phoneNumber, phonePattern)
+      phoneNumber = this.formatNumber(phoneNumber, phonePattern)
     }
 
     this.setState(() => {
@@ -61,7 +65,7 @@ class PhoneInput extends Component {
     this.setState({
       preferredCountryIsoCode: isoCode,
       selectedCountry: isoCode,
-      formattedNumber: applyPattern(phoneNumber, phonePattern)
+      formattedNumber: this.formatNumber(phoneNumber, phonePattern)
     })
   }
 
