@@ -1,7 +1,9 @@
-export const applyPattern = (text, pattern) => {
+export const applyPattern = (text, pattern, options = {}) => {
   if (text.length === 0 || !pattern) return text
 
   const sanitizedText = text.replace(/\D/g, '')
+  const defaults = { ignoreExcedingText: true }
+  const settings = { ...defaults, ...options }
 
   const formattedObject = pattern.split('').reduce((acc, character) => {
     if (acc.remainingText.length === 0) {
@@ -21,5 +23,7 @@ export const applyPattern = (text, pattern) => {
     }
   }, { formattedText: '', remainingText: sanitizedText.split('') })
 
-  return formattedObject.formattedText
+  return settings.ignoreExcedingText
+    ? formattedObject.formattedText
+    : formattedObject.formattedText + formattedObject.remainingText.join('')
 }
