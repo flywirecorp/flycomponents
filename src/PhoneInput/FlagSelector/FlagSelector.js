@@ -10,6 +10,19 @@ import Options from './Options'
 const INITIAL_INDEX = -1
 const KEYS = [13, 27, 38, 40]
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS
+const styles = {
+  menu: {
+    position: 'relative'
+  },
+  fakeInput: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0
+  }
+}
 
 export class FlagSelector extends Component {
   constructor(props) {
@@ -203,6 +216,7 @@ export class FlagSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
+        style={styles.menu}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
           {value
@@ -218,6 +232,7 @@ export class FlagSelector extends Component {
           className="PhoneNumber-menu-fakeInput"
           onClick={this.handleMenuClick}
           onKeyDown={this.handleMenuKeydown}
+          style={styles.fakeInput}
           type="text"
         />
 
