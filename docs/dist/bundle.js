@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4302cd4084ed9f1aee23"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "31c56edaf89b8cc79b37"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -31900,7 +31900,7 @@ var _README2 = _interopRequireDefault(_README);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
-  var countries = [{ label: 'Spain', value: 'ES' }, { label: 'United States', value: 'US' }, { label: 'China', value: 'CN' }, { label: 'France', value: 'FR' }, { label: 'Italy', value: 'IT' }, { label: 'Germany', value: 'DEU' }, { label: 'United Kingdom', value: 'GB' }, { label: 'Andorra', value: 'AN' }, { label: 'Greece', value: 'GR' }, { label: 'Morocco', value: 'MOR' }, { label: 'Cuba', value: 'CUB' }, { label: 'Korea', value: 'KO' }, { label: 'Japan', value: 'JP' }];
+  var countries = [{ label: 'Andorra', value: 'AN' }, { label: 'China', value: 'CN' }, { label: 'Cuba', value: 'CUB' }, { label: 'France', value: 'FR' }, { label: 'Germany', value: 'DEU' }, { label: 'Greece', value: 'GR' }, { label: 'Italy', value: 'IT' }, { label: 'Japan', value: 'JP' }, { label: 'Korea', value: 'KO' }, { label: 'Morocco', value: 'MOR' }, { label: 'Spain', value: 'ES' }, { label: 'United Kingdom', value: 'GB' }, { label: 'United States', value: 'US' }];
 
   return _react2.default.createElement(
     _Component2.default,
@@ -31924,7 +31924,7 @@ exports.default = function () {
       _react2.default.createElement(_src.Autocomplete, {
         name: 'country',
         options: countries,
-        minOptionsForSearch: 10
+        minOptionsForSearch: 25
       })
     )
   );
@@ -51621,7 +51621,7 @@ module.exports = "# Alert\nProvide contextual feedback messages for typical user
 /* 450 */
 /***/ (function(module, exports) {
 
-module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete name=\"country\" options={countries} />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={10}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                         | Default   |\n| ------------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element               |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                     | Infinity  |\n| name                | yes   | string     | The name of input element                                           |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused           |           |\n| options             | yes   | array      | Array representing all items                                        |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |\n| readOnly            | no    | bool       | Input field is read-only                                            |           |\n| value               | no    | bool       | Default value                                                       |           |\n"
+module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n]\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete name=\"country\" options={countries} />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={25}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                         | Default   |\n| ------------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element               |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                     | Infinity  |\n| name                | yes   | string     | The name of input element                                           |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused           |           |\n| options             | yes   | array      | Array representing all items                                        |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |\n| readOnly            | no    | bool       | Input field is read-only                                            |           |\n| value               | no    | bool       | Default value                                                       |           |\n"
 
 /***/ }),
 /* 451 */

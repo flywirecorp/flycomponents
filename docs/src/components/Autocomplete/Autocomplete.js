@@ -5,19 +5,19 @@ import README from './README.md'
 
 export default () => {
   const countries = [
-    { label: 'Spain', value: 'ES' },
-    { label: 'United States', value: 'US' },
-    { label: 'China', value: 'CN' },
-    { label: 'France', value: 'FR' },
-    { label: 'Italy', value: 'IT' },
-    { label: 'Germany', value: 'DEU' },
-    { label: 'United Kingdom', value: 'GB' },
     { label: 'Andorra', value: 'AN' },
-    { label: 'Greece', value: 'GR' },
-    { label: 'Morocco', value: 'MOR' },
+    { label: 'China', value: 'CN' },
     { label: 'Cuba', value: 'CUB' },
+    { label: 'France', value: 'FR' },
+    { label: 'Germany', value: 'DEU' },
+    { label: 'Greece', value: 'GR' },
+    { label: 'Italy', value: 'IT' },
+    { label: 'Japan', value: 'JP' },
     { label: 'Korea', value: 'KO' },
-    { label: 'Japan', value: 'JP' }
+    { label: 'Morocco', value: 'MOR' },
+    { label: 'Spain', value: 'ES' },
+    { label: 'United Kingdom', value: 'GB' },
+    { label: 'United States', value: 'US' }
   ]
 
   return (
@@ -37,7 +37,7 @@ export default () => {
         <Autocomplete
           name="country"
           options={countries}
-          minOptionsForSearch={10}
+          minOptionsForSearch={25}
         />
       </FormGroup>
     </Component>

@@ -5,9 +5,19 @@ An input field with a set of predeterminated labeled values. When it's focused i
 
 ```javascript
 const countries = [
+  { label: 'Andorra', value: 'AN' },
+  { label: 'China', value: 'CN' },
+  { label: 'Cuba', value: 'CUB' },
+  { label: 'France', value: 'FR' },
+  { label: 'Germany', value: 'DEU' },
+  { label: 'Greece', value: 'GR' },
+  { label: 'Italy', value: 'IT' },
+  { label: 'Japan', value: 'JP' },
+  { label: 'Korea', value: 'KO' },
+  { label: 'Morocco', value: 'MOR' },
   { label: 'Spain', value: 'ES' },
-  { label: 'United States', value: 'US' },
-  { label: 'China', value: 'CN' }
+  { label: 'United Kingdom', value: 'GB' },
+  { label: 'United States', value: 'US' }
 ]
 
 <FormGroup
@@ -26,7 +36,7 @@ const countries = [
   <Autocomplete
     name="country"
     options={countries}
-    minOptionsForSearch={10}
+    minOptionsForSearch={25}
   />
 </FormGroup>
 ```
