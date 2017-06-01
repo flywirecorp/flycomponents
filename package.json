@@ -18,14 +18,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/javierarques/flycomponents.git"
+    "url": "git+https://github.com/peertransfer/flycomponents.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/javierarques/flycomponents/issues"
+    "url": "https://github.com/peertransfer/flycomponents/issues"
   },
-  "homepage": "https://github.com/javierarques/flycomponents#readme",
+  "homepage": "https://github.com/peertransfer/flycomponents#readme",
   "dependencies": {
     "accounting": "^0.4.1",
     "classnames": "^2.2.5",

@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "31c56edaf89b8cc79b37"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cef13623ece4b2c61b53"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -51732,14 +51732,14 @@ module.exports = {
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/javierarques/flycomponents.git"
+		"url": "git+https://github.com/peertransfer/flycomponents.git"
 	},
 	"author": "",
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/javierarques/flycomponents/issues"
+		"url": "https://github.com/peertransfer/flycomponents/issues"
 	},
-	"homepage": "https://github.com/javierarques/flycomponents#readme",
+	"homepage": "https://github.com/peertransfer/flycomponents#readme",
 	"dependencies": {
 		"accounting": "^0.4.1",
 		"classnames": "^2.2.5",
