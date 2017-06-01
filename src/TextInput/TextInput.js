@@ -26,32 +26,63 @@ class TextInput extends Component {
     this.setState({ value })
   }
 
-  render() {
-    const { value } = this.state
+  fieldValue() {
+    return this.state.value
+  }
+
+  textArea() {
     const { multiline, prefix, sufix, ...inputAttrs } = this.props
 
+    return (
+      <Textarea
+        {...inputAttrs}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        value={this.fieldValue()}
+      />
+    )
+  }
+
+  inputGroup() {
+    const { multiline, prefix, sufix, ...inputAttrs } = this.props
+
+    return (
+      <InputGroup
+        {...inputAttrs}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        prefix={prefix}
+        sufix={sufix}
+        type="text"
+        value={this.fieldValue()}
+      />
+    )
+  }
+
+  input() {
+    const { multiline, sufix, prefix, ...inputAttrs } = this.props
+
+    return (
+      <Input
+        {...inputAttrs}
+        onBlur={this.handleBlur}
+        onChange={this.handleChange}
+        type="text"
+        value={this.fieldValue()}
+      />
+    )
+  }
+
+  render() {
+    const { multiline, prefix, sufix } = this.props
+
     if (multiline) {
-      return (
-        <Textarea
-          {...inputAttrs}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          value={value}
-        />
-      )
+      return this.textArea()
+    }
+    if (sufix || prefix) {
+      return this.inputGroup()
     } else {
-      const Tag = sufix || prefix ? InputGroup : Input
-      return (
-        <Tag
-          {...inputAttrs}
-          onBlur={this.handleBlur}
-          onChange={this.handleChange}
-          prefix={prefix}
-          sufix={sufix}
-          type="text"
-          value={value}
-        />
-      )
+      return this.input()
     }
   }
 }
