@@ -37,4 +37,22 @@ describe('Input', () => {
 
     expect(component.input().prop('readOnly')).to.be.true
   })
+
+  context('when value property is given', () => {
+    it('sets default value', () => {
+      const component = componentWithValue('Something')
+
+      expect(component.input().prop('defaultValue')).to.equal('Something')
+    })
+
+    it('never sets value property', () => {
+      const component = componentWithValue()
+
+      expect(component.input().prop('value')).to.be.undefined
+    })
+
+    function componentWithValue(value = 'anything') {
+      return new InputComponent({ value })
+    }
+  })
 })
