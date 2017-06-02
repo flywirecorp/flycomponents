@@ -65,6 +65,7 @@
     "react-test-renderer": "^15.5.4",
     "sinon": "^2.2.0",
     "style-loader": "^0.17.0",
+    "url-loader": "^0.5.8",
     "webpack": "^2.5.0",
     "webpack-dev-server": "^2.4.5",
     "webpack-hot-middleware": "^2.18.0"

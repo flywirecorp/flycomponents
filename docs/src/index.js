@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { render } from 'react-dom'
 import {
   HashRouter as Router,
@@ -19,6 +19,7 @@ import Textarea from './components/Textarea'
 import TextInput from './components/TextInput'
 import Title from './components/Title'
 import Home from './components/Home'
+import icon from './images/hamburger-menu.svg'
 import './index.css'
 
 const routes = [
@@ -92,10 +93,26 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
   />
 )
 
-const App = () => (
-  <Router hashType="noslash">
-    <div className="Docs">
+class NavBar extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { open: false }
+  }
+
+  handleClick = () => {
+    this.setState(
+      prevState => ({ open: !prevState.open }),
+      () => {
+        this.props.onChange(this.state.open)
+      }
+    )
+  }
+
+  render() {
+    return (
       <div className="Docs-nav">
+        <img className="Docs-icon" src={icon} onClick={this.handleClick} />
         <Title />
         <ul className="Docs-navMenu">
           {routes.map((route, index) => (
@@ -108,20 +125,48 @@ const App = () => (
           ))}
         </ul>
       </div>
-      <div className="Docs-content">
-        <Switch>
-          {routes.map((route, index) => (
-            <Route
-              exact={route.exact}
-              key={index}
-              path={route.path}
-              component={route.component}
-            />
-          ))}
-        </Switch>
-      </div>
-    </div>
-  </Router>
+    )
+  }
+}
+
+const Content = () => (
+  <div className="Docs-content">
+    <Switch>
+      {routes.map((route, index) => (
+        <Route
+          exact={route.exact}
+          key={index}
+          path={route.path}
+          component={route.component}
+        />
+      ))}
+    </Switch>
+  </div>
 )
+
+class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { open: false }
+  }
+
+  onChange = open => {
+    this.setState({
+      open: open
+    })
+  }
+
+  render() {
+    return (
+      <Router hashType="noslash">
+        <div className={`Docs ${this.state.open ? 'is-open' : ''}`}>
+          <NavBar onChange={this.onChange} />
+          <Content />
+        </div>
+      </Router>
+    )
+  }
+}
 
 render(<App />, document.getElementById('app'))
