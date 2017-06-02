@@ -61,6 +61,15 @@ function buildConfig (options) {
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader']
+        },
+        {
+          test: /\.(svg)$/,
+          use: {
+            loader: 'url-loader',
+            options: {
+              name: 'assets/media/[name].[ext]'
+            }
+          }
         }
       ]
     }
