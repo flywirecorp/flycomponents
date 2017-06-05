@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "5cd52ad661a4b136eba6"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "4b3ba5a3ca2cc799728e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -631,7 +631,9 @@
 /******/ 		}
 /******/ 	
 /******/ 		hotSetStatus("idle");
-/******/ 		return Promise.resolve(outdatedModules);
+/******/ 		return new Promise(function(resolve) {
+/******/ 			resolve(outdatedModules);
+/******/ 		});
 /******/ 	}
 /******/
 /******/ 	// The module cache
@@ -51876,7 +51878,7 @@ if(true) {
 
 module.exports = {
 	"name": "Flycomponents",
-	"version": "1.0.10",
+	"version": "1.0.11",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
@@ -51889,8 +51891,8 @@ module.exports = {
 		"test": "mocha --opts tests/helpers/mocha.opts",
 		"test:watch": "mocha -w --opts tests/helpers/mocha.opts",
 		"lint": "eslint --fix src docs/src",
-		"version": "npm run build && npm run build:docs && git add -A dist",
-		"postversion": "git push && git push --tags && npm run build:docs && npm run docs:push"
+		"version": "npm run build && git add -A dist && git push && git push --tags",
+		"postversion": "npm run build:docs && npm run docs:push"
 	},
 	"repository": {
 		"type": "git",
