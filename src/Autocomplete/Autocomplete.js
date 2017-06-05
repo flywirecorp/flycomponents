@@ -263,7 +263,7 @@ export class Autocomplete extends Component {
     const searchOn = this.searchOn()
     const { isOpen, searchQuery, selectedIndex, selectedValue } = this.state
 
-    const optionList = options.map((option, i) => (
+    const optionList = options.map((option, i) =>
       <Option
         key={option.value}
         label={option.label.toString()}
@@ -276,7 +276,7 @@ export class Autocomplete extends Component {
         value={option.value}
         highlighText={searchOn}
       />
-    ))
+    )
 
     return (
       <div

@@ -3,7 +3,7 @@ import { TextInput, FormGroup } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () => (
+export default () =>
   <Component readme={README}>
     <FormGroup name="default" label="Default" className="FormGroup GridColumn">
       <TextInput name="default" />
@@ -37,4 +37,3 @@ export default () => (
       <TextInput name="multiline" multiline={true} />
     </FormGroup>
   </Component>
-)

@@ -2,7 +2,7 @@ import React from 'react'
 import Markdown from './Markdown'
 import './component.css'
 
-export default ({ children, readme }) => (
+export default ({ children, readme }) =>
   <section className="Component">
     <div className="Component-readme">
       {readme && <Markdown source={readme} />}
@@ -12,4 +12,3 @@ export default ({ children, readme }) => (
       {children}
     </div>
   </section>
-)

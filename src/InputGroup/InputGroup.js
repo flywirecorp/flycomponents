@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Input from '../Input'
 
-const InputGroup = ({ name, prefix, required, sufix, type, ...other }) => (
+const InputGroup = ({ name, prefix, required, sufix, type, ...other }) =>
   <div className="InputGroup">
     {prefix ? <span className="InputGroup-context">{prefix}</span> : null}
     <Input
@@ -15,7 +15,6 @@ const InputGroup = ({ name, prefix, required, sufix, type, ...other }) => (
     />
     {sufix ? <span className="InputGroup-context">{sufix}</span> : null}
   </div>
-)
 
 const { bool, oneOfType, node, string } = PropTypes
 

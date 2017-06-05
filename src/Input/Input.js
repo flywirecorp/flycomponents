@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Input = ({ name, required, type, value, ...other }) => (
+const Input = ({ name, required, type, value, ...other }) =>
   <input
     autoComplete="off"
     className="Input"
@@ -12,7 +12,6 @@ const Input = ({ name, required, type, value, ...other }) => (
     defaultValue={value}
     {...other}
   />
-)
 
 const { bool, string } = PropTypes
 

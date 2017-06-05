@@ -3,7 +3,7 @@ import { FormGroup, Input, MoneyInput } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () => (
+export default () =>
   <Component readme={README}>
     <FormGroup
       name="amount"
@@ -22,4 +22,3 @@ export default () => (
       <Input type="text" name="amount" />
     </FormGroup>
   </Component>
-)

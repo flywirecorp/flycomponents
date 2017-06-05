@@ -81,17 +81,15 @@ const routes = [
   }
 ]
 
-const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
+const MenuLink = ({ label, to, activeOnlyWhenExact }) =>
   <Route
     path={to}
     exact={activeOnlyWhenExact}
-    children={({ match }) => (
+    children={({ match }) =>
       <li className={match ? 'MenuLink is-active' : 'MenuLink'}>
         <Link to={to}>{label}</Link>
-      </li>
-    )}
+      </li>}
   />
-)
 
 class NavBar extends Component {
   constructor(props) {
@@ -115,34 +113,33 @@ class NavBar extends Component {
         <img className="Docs-icon" src={icon} onClick={this.handleClick} />
         <Title />
         <ul className="Docs-navMenu">
-          {routes.map((route, index) => (
+          {routes.map((route, index) =>
             <MenuLink
               key={index}
               activeOnlyWhenExact={route.exact}
               to={route.path}
               label={route.label}
             />
-          ))}
+          )}
         </ul>
       </div>
     )
   }
 }
 
-const Content = () => (
+const Content = () =>
   <div className="Docs-content">
     <Switch>
-      {routes.map((route, index) => (
+      {routes.map((route, index) =>
         <Route
           exact={route.exact}
           key={index}
           path={route.path}
           component={route.component}
         />
-      ))}
+      )}
     </Switch>
   </div>
-)
 
 class App extends Component {
   constructor(props) {

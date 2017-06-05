@@ -195,7 +195,7 @@ export class FlagSelector extends Component {
     const { options } = this.props
     const { isOpen, selectedIndex } = this.state
 
-    const optionList = options.map((option, i) => (
+    const optionList = options.map((option, i) =>
       <Option
         country={option.label}
         dialingCode={option.dialingCode}
@@ -206,7 +206,7 @@ export class FlagSelector extends Component {
         ref={`option-${i}`}
         value={option.value}
       />
-    ))
+    )
 
     return (
       <div

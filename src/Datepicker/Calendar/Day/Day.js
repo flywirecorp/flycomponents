@@ -2,14 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import classNames from 'classnames'
 
-const Day = ({
-  current,
-  date,
-  dayOfMonth,
-  disabled,
-  onDateClick,
-  selected
-}) => (
+const Day = ({ current, date, dayOfMonth, disabled, onDateClick, selected }) =>
   <td
     className={classNames(
       'Calendar-day',
@@ -21,7 +14,6 @@ const Day = ({
   >
     {dayOfMonth}
   </td>
-)
 
 const { bool, func, number, string } = PropTypes
 
