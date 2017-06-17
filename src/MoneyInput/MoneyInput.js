@@ -121,7 +121,6 @@ MoneyInput.propTypes = {
   name: string.isRequired,
   onBlur: func,
   onChange: func,
-  prefix: string,
   readOnly: bool,
   subunitToUnit: number,
   symbolFirst: bool,

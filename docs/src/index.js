@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import {
-  HashRouter as Router,
-  Link,
-  Route,
-  Redirect,
-  Switch
-} from 'react-router-dom'
+import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import Alert from './components/Alert'
 import Autocomplete from './components/Autocomplete'
 import Button from './components/Button'

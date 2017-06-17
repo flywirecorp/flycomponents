@@ -3,7 +3,6 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Autocomplete } from './Autocomplete'
-import Input from '../Input'
 import Options from './Options'
 
 describe('Autocomplete', () => {

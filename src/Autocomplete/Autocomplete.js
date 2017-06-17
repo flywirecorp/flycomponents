@@ -7,7 +7,6 @@ import scrollIntoView from 'dom-scroll-into-view'
 import { escape } from './utils'
 import Option from './Option'
 import Options from './Options'
-import Input from '../Input'
 
 const INITIAL_INDEX = -1
 const KEYS = [13, 27, 38, 40, 9]
@@ -58,7 +57,7 @@ export class Autocomplete extends Component {
   }
 
   showOptions() {
-    const { isOpen, selectedIndex, selectedValue } = this.state
+    const { isOpen, selectedValue } = this.state
     const { options, readOnly } = this.props
 
     if (isOpen || readOnly) {
@@ -108,7 +107,6 @@ export class Autocomplete extends Component {
   }
 
   handleOptionSelected = value => {
-    const { selectedValue: previousSelectedValue } = this.state
     const { options } = this.props
 
     this.setState(
@@ -151,7 +149,6 @@ export class Autocomplete extends Component {
       case ARROW_UP:
         return this.moveIndexDown()
       case ENTER:
-        return this.selectCurrentOption()
       case TAB:
         return this.selectCurrentOption()
       case ESC:

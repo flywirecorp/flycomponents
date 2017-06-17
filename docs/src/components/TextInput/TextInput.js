@@ -34,6 +34,6 @@ export default () =>
       label="Multiline"
       className="FormGroup GridColumn"
     >
-      <TextInput name="multiline" multiline={true} />
+      <TextInput name="multiline" multiline />
     </FormGroup>
   </Component>
