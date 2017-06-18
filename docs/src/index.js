@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
@@ -15,6 +16,8 @@ import Title from './components/Title'
 import Home from './components/Home'
 import icon from './images/hamburger-menu.svg'
 import './index.css'
+
+const { bool, func, string } = PropTypes
 
 const routes = [
   {
@@ -85,6 +88,12 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) =>
       </li>}
   />
 
+MenuLink.propTypes = {
+  activeOnlyWhenExact: bool,
+  label: string,
+  to: string
+}
+
 class NavBar extends Component {
   constructor(props) {
     super(props)
@@ -119,6 +128,10 @@ class NavBar extends Component {
       </div>
     )
   }
+}
+
+NavBar.propTypes = {
+  onChange: func
 }
 
 const Content = () =>

@@ -6,9 +6,10 @@ const Alert = ({ children, type }) =>
     {children}
   </div>
 
-const { node } = PropTypes
+const { node, string } = PropTypes
 Alert.propTypes = {
-  children: node.isRequired
+  children: node.isRequired,
+  type: string
 }
 
 Alert.defaultProps = {

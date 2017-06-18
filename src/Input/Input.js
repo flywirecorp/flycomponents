@@ -18,7 +18,8 @@ const { bool, string } = PropTypes
 Input.propTypes = {
   name: string.isRequired,
   required: bool,
-  type: string.isRequired
+  type: string.isRequired,
+  value: string
 }
 
 export default Input

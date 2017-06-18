@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import Markdown from './Markdown'
 import './component.css'
 
-export default ({ children, readme }) =>
+const Component = ({ children, readme }) =>
   <section className="Component">
     <div className="Component-readme">
       {readme && <Markdown source={readme} />}
@@ -12,3 +13,12 @@ export default ({ children, readme }) =>
       {children}
     </div>
   </section>
+
+const { node, string } = PropTypes
+
+Component.propTypes = {
+  children: node.isRequired,
+  readme: string
+}
+
+export default Component

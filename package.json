@@ -49,16 +49,22 @@
     "css-loader": "^0.28.1",
     "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
+    "eslint-config-prettier": "^2.2.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-config-standard-react": "^5.0.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-prettier": "^2.1.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-react": "^7.1.0",
+    "eslint-plugin-standard": "^3.0.1",
     "flystyles": "^1.2.5",
     "github-markdown-css": "^2.6.0",
     "ignore-styles": "^5.0.1",
     "marked": "^0.3.6",
     "mocha": "^3.3.0",
-    "prettier": "^1.4.2",
+    "prettier": "^1.4.4",
     "raw-loader": "^0.5.1",
     "react-addons-test-utils": "^15.5.1",
     "react-router-dom": "^4.1.1",
@@ -82,19 +88,25 @@
     ]
   },
   "eslintConfig": {
+    "parser": "babel-eslint",
     "env": {
       "browser": true,
       "mocha": true,
       "node": true
     },
-    "parser": "babel-eslint",
+    "extends": [
+      "standard",
+      "standard-react",
+      "prettier",
+      "prettier/react"
+    ],
     "plugins": [
-      "promise",
       "react",
       "prettier"
     ],
     "rules": {
       "strict": 0,
+      "no-unused-expressions": 0,
       "react/sort-comp": "error",
       "react/sort-prop-types": "error",
       "prettier/prettier": [

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 import marked from 'marked'
 
@@ -23,6 +24,12 @@ const Markdown = ({ source }) => {
       <div dangerouslySetInnerHTML={createMarkup(html)} />
     </div>
   )
+}
+
+const { string } = PropTypes
+
+Markdown.propTypes = {
+  source: string.isRequired
 }
 
 export default Markdown
