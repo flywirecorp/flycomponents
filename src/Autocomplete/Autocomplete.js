@@ -285,6 +285,7 @@ export class Autocomplete extends Component {
         )}
       >
         <input
+          autoComplete="off"
           className="Autocomplete-search"
           id={name}
           name={name}
