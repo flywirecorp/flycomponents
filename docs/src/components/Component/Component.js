@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Markdown from './Markdown'
+import Markdown from '../Markdown'
 import './component.css'
 
 const Component = ({ children, readme }) =>
