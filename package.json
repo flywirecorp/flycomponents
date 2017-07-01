@@ -1,5 +1,5 @@
 {
-  "name": "Flycomponents",
+  "name": "flycomponents",
   "version": "1.0.12",
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
