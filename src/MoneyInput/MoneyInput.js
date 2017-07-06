@@ -36,6 +36,16 @@ class MoneyInput extends Component {
     const COMMA = 188
     const DELETE = 8
     const LEFT_ARROW = 39
+    const NUMPAD_0 = 96
+    const NUMPAD_1 = 97
+    const NUMPAD_2 = 98
+    const NUMPAD_3 = 99
+    const NUMPAD_4 = 100
+    const NUMPAD_5 = 101
+    const NUMPAD_6 = 102
+    const NUMPAD_7 = 103
+    const NUMPAD_8 = 103
+    const NUMPAD_9 = 105
     const PERIOD = 190
     const RIGHT_ARROW = 37
     const TAB = 9
@@ -44,6 +54,16 @@ class MoneyInput extends Component {
       COMMA,
       DELETE,
       LEFT_ARROW,
+      NUMPAD_0,
+      NUMPAD_1,
+      NUMPAD_2,
+      NUMPAD_3,
+      NUMPAD_4,
+      NUMPAD_5,
+      NUMPAD_6,
+      NUMPAD_6,
+      NUMPAD_8,
+      NUMPAD_9,
       PERIOD,
       RIGHT_ARROW,
       TAB
