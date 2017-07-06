@@ -61,7 +61,7 @@ class MoneyInput extends Component {
       NUMPAD_4,
       NUMPAD_5,
       NUMPAD_6,
-      NUMPAD_6,
+      NUMPAD_7,
       NUMPAD_8,
       NUMPAD_9,
       PERIOD,
