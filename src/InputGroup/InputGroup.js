@@ -4,7 +4,11 @@ import Input from '../Input'
 
 const InputGroup = ({ name, prefix, required, sufix, type, ...other }) =>
   <div className="InputGroup">
-    {prefix ? <span className="InputGroup-context">{prefix}</span> : null}
+    {prefix
+      ? <span className="InputGroup-context">
+          {prefix}
+        </span>
+      : null}
     <Input
       autoComplete="off"
       className="Input InputGroup-input"
@@ -13,7 +17,11 @@ const InputGroup = ({ name, prefix, required, sufix, type, ...other }) =>
       id={name}
       {...other}
     />
-    {sufix ? <span className="InputGroup-context">{sufix}</span> : null}
+    {sufix
+      ? <span className="InputGroup-context">
+          {sufix}
+        </span>
+      : null}
   </div>
 
 const { bool, oneOfType, node, string } = PropTypes

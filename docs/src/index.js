@@ -84,7 +84,9 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) =>
     exact={activeOnlyWhenExact}
     children={({ match }) =>
       <li className={match ? 'MenuLink is-active' : 'MenuLink'}>
-        <Link to={to}>{label}</Link>
+        <Link to={to}>
+          {label}
+        </Link>
       </li>}
   />
 

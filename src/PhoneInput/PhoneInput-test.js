@@ -30,9 +30,8 @@ describe('PhoneInput', () => {
 
     pressKey(key) {
       const prevValue = this.input().prop('value')
-      const nextValue = key === 'delete'
-        ? prevValue.slice(0, -1)
-        : `${prevValue}${key}`
+      const nextValue =
+        key === 'delete' ? prevValue.slice(0, -1) : `${prevValue}${key}`
 
       this.input().simulate('change', { target: { value: nextValue } })
     }

@@ -9,7 +9,9 @@ const DayNames = (props, { locale }) => {
     <thead>
       <tr>
         {dayNames.map(day =>
-          <th key={day} className="Calendar-weekday">{day}</th>
+          <th key={day} className="Calendar-weekday">
+            {day}
+          </th>
         )}
       </tr>
     </thead>

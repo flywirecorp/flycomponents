@@ -10,20 +10,17 @@ export default () =>
     </Alert>
 
     <Alert type="success">
-      <strong>Well done!</strong>
-      {' '}
-      You successfully read this important alert message.
+      <strong>Well done!</strong> You successfully read this important alert
+      message.
     </Alert>
 
     <Alert type="warning">
-      <strong>Warning!</strong>
-      {' '}
-      Better check yourself, you're not looking too good.
+      <strong>Warning!</strong> Better check yourself, you're not looking too
+      good.
     </Alert>
 
     <Alert type="info">
-      <strong>Heads up!</strong>
-      {' '}
-      This alert needs your attention, but it's not super important.
+      <strong>Heads up!</strong> This alert needs your attention, but it's not
+      super important.
     </Alert>
   </Component>

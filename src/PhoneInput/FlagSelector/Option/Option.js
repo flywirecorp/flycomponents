@@ -25,8 +25,12 @@ class Option extends Component {
         <span
           className={`Flag Flag--${isoCode.toLowerCase()} PhoneNumber-option-flag`}
         />
-        <span className="PhoneNumber-option-country">{country}</span>
-        <span className="PhoneNumber-option-dial">+{dialingCode}</span>
+        <span className="PhoneNumber-option-country">
+          {country}
+        </span>
+        <span className="PhoneNumber-option-dial">
+          +{dialingCode}
+        </span>
       </li>
     )
   }
