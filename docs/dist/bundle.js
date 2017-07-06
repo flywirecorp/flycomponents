@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fffc1b68c1aae9516e0a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "572e47cb945078b1a4e8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -2539,7 +2539,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         if (!locales[name] && typeof module !== 'undefined' && module && module.exports) {
             try {
                 oldLocale = globalLocale._abbr;
-                __webpack_require__(445)("./" + name);
+                __webpack_require__(446)("./" + name);
                 // because defineLocale currently also sets the global locale, we
                 // want to undo that for lazy loaded locales
                 getSetGlobalLocale(oldLocale);
@@ -5071,7 +5071,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return hooks;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(442)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(443)(module)))
 
 /***/ }),
 /* 1 */
@@ -6012,15 +6012,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.MemoryRouter = undefined;
 
-var _MemoryRouter2 = __webpack_require__(419);
+var _MemoryRouter2 = __webpack_require__(420);
 
 var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
 
-var _Prompt2 = __webpack_require__(420);
+var _Prompt2 = __webpack_require__(421);
 
 var _Prompt3 = _interopRequireDefault(_Prompt2);
 
-var _Redirect2 = __webpack_require__(421);
+var _Redirect2 = __webpack_require__(422);
 
 var _Redirect3 = _interopRequireDefault(_Redirect2);
 
@@ -6032,11 +6032,11 @@ var _Router2 = __webpack_require__(65);
 
 var _Router3 = _interopRequireDefault(_Router2);
 
-var _StaticRouter2 = __webpack_require__(422);
+var _StaticRouter2 = __webpack_require__(423);
 
 var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
 
-var _Switch2 = __webpack_require__(423);
+var _Switch2 = __webpack_require__(424);
 
 var _Switch3 = _interopRequireDefault(_Switch2);
 
@@ -6044,7 +6044,7 @@ var _matchPath2 = __webpack_require__(66);
 
 var _matchPath3 = _interopRequireDefault(_matchPath2);
 
-var _withRouter2 = __webpack_require__(424);
+var _withRouter2 = __webpack_require__(425);
 
 var _withRouter3 = _interopRequireDefault(_withRouter2);
 
@@ -7917,16 +7917,16 @@ module.exports = ReactReconciler;
 
 var _assign = __webpack_require__(6);
 
-var ReactChildren = __webpack_require__(427);
+var ReactChildren = __webpack_require__(428);
 var ReactComponent = __webpack_require__(67);
-var ReactPureComponent = __webpack_require__(432);
-var ReactClass = __webpack_require__(428);
-var ReactDOMFactories = __webpack_require__(429);
+var ReactPureComponent = __webpack_require__(433);
+var ReactClass = __webpack_require__(429);
+var ReactDOMFactories = __webpack_require__(430);
 var ReactElement = __webpack_require__(21);
-var ReactPropTypes = __webpack_require__(430);
-var ReactVersion = __webpack_require__(433);
+var ReactPropTypes = __webpack_require__(431);
+var ReactVersion = __webpack_require__(434);
 
-var onlyChild = __webpack_require__(436);
+var onlyChild = __webpack_require__(437);
 var warning = __webpack_require__(4);
 
 var createElement = ReactElement.createElement;
@@ -10275,11 +10275,11 @@ var _extends = Object.assign || function (target) {
   }return target;
 };
 
-var _resolvePathname = __webpack_require__(438);
+var _resolvePathname = __webpack_require__(439);
 
 var _resolvePathname2 = _interopRequireDefault(_resolvePathname);
 
-var _valueEqual = __webpack_require__(440);
+var _valueEqual = __webpack_require__(441);
 
 var _valueEqual2 = _interopRequireDefault(_valueEqual);
 
@@ -12744,8 +12744,8 @@ exports.push([module.i, ".Component {\n  display: flex;\n  flex-direction: colum
 
 exports = module.exports = __webpack_require__(34)(undefined);
 // imports
-exports.i(__webpack_require__(443), "");
 exports.i(__webpack_require__(444), "");
+exports.i(__webpack_require__(445), "");
 
 // module
 exports.push([module.i, ":root {\n  --transition: all 200ms ease-out;\n}\n\n.Docs {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.Docs-nav {\n  display: block;\n  width: 100%;\n  padding: 1rem 2rem 0 2rem;\n  transition: var(--transition);\n}\n.is-open .Docs-nav {\n  padding-left: 190px;\n}\n\n.Docs-navMenu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  display: block;\n  position: absolute;\n  height: 100%;\n  top: 0;\n  left: 0;\n  padding: 2rem;\n  transform: translateX(-100%);\n  transition: var(--transition);\n}\n\n.is-open .Docs-navMenu {\n  display: block;\n  transform: translateX(0);\n}\n\n.Docs-icon {\n  display: inline-block;\n  margin-right: 1rem;\n  cursor: pointer;\n}\n\n.Docs-navTitle {\n  display: inline-block;\n  font-size: 1rem;\n  font-weight: 600;\n}\n\n.Docs-content {\n  width: 100%;\n  transition: var(--transition);\n}\n.is-open .Docs-content {\n  padding-left: 160px;\n}\n\n.Docs-navVersion {\n  font-size: .5rem;\n}\n\n@media (min-width: 767px) {\n  .Docs {\n    flex-wrap: nowrap;\n  }\n\n  .Docs-nav {\n    display: block;\n    width: 180px;\n    padding: 2rem 1rem;\n    border-right: 1px solid #eee;\n  }\n\n  .Docs-navMenu {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    display: block;\n    position: relative !important;\n    transform: none !important;\n    background: white;\n  }\n\n  .Docs-icon {\n    display: none;\n  }\n\n  .Docs-content {\n    width: calc(100% - 180px);\n  }\n}\n\n.MenuLink {\n  margin-bottom: .6rem;\n  font-weight: 400;\n  font-size: .96rem;\n  transition: all 200ms;\n}\n\n.MenuLink.is-active a, .MenuLink:hover a {\n  text-decoration: underline;\n}\n\n.fullHeight {\n  height: 100%;\n  min-height: 100%;\n}\n\n.Autocomplete-options {\n  transition: none;\n}\n", ""]);
@@ -26835,7 +26835,7 @@ var ReactCompositeComponent = __webpack_require__(349);
 var ReactEmptyComponent = __webpack_require__(204);
 var ReactHostComponent = __webpack_require__(206);
 
-var getNextDebugID = __webpack_require__(435);
+var getNextDebugID = __webpack_require__(436);
 var invariant = __webpack_require__(3);
 var warning = __webpack_require__(4);
 
@@ -27245,144 +27245,137 @@ module.exports = traverseAllChildren;
 /* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function (global, factory) {
-   true ? factory(exports, __webpack_require__(1), __webpack_require__(27)) : typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) : factory(global.onClickOutside = global.onClickOutside || {}, global.React, global.ReactDOM);
-})(this, function (exports, react, reactDom) {
-  'use strict';
+"use strict";
 
-  /**
-   * Check whether some DOM node is our Component's node.
-   */
 
-  function isNodeFound(current, componentNode, ignoreClass) {
-    if (current === componentNode) {
-      return true;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.default = onClickOutsideHOC;
+
+var _react = __webpack_require__(1);
+
+var _reactDom = __webpack_require__(27);
+
+var _generateOutsideCheck = __webpack_require__(407);
+
+var _generateOutsideCheck2 = _interopRequireDefault(_generateOutsideCheck);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);
     }
-    // SVG <use/> elements do not technically reside in the rendered DOM, so
-    // they do not have classList directly, but they offer a link to their
-    // corresponding element, which can have classList. This extra check is for
-    // that case.
-    // See: http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGUseElement
-    // Discussion: https://github.com/Pomax/react-onclickoutside/pull/17
-    if (current.correspondingElement) {
-      return current.correspondingElement.classList.contains(ignoreClass);
-    }
-    return current.classList.contains(ignoreClass);
+  }return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;
+  };
+}();
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
   }
+}
 
-  /**
-   * Try to find our node in a hierarchy of nodes, returning the document
-   * node as highest node if our node is not found in the path up.
-   */
-  function findHighest(current, componentNode, ignoreClass) {
-    if (current === componentNode) {
-      return true;
-    }
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }return call && ((typeof call === "undefined" ? "undefined" : _typeof(call)) === "object" || typeof call === "function") ? call : self;
+}
 
-    // If source=local then this event came from 'somewhere'
-    // inside and should be ignored. We could handle this with
-    // a layered approach, too, but that requires going back to
-    // thinking in terms of Dom node nesting, running counter
-    // to React's 'you shouldn't care about the DOM' philosophy.
-    while (current.parentNode) {
-      if (isNodeFound(current, componentNode, ignoreClass)) {
-        return true;
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + (typeof superClass === "undefined" ? "undefined" : _typeof(superClass)));
+  }subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+}
+
+/**
+ * A higher-order-component for handling onClickOutside for React components.
+ */
+var registeredComponents = [];
+var handlers = [];
+
+/**
+ * This function generates the HOC function that you'll use
+ * in order to impart onOutsideClick listening to an
+ * arbitrary component. It gets called at the end of the
+ * bootstrapping code to yield an instance of the
+ * onClickOutsideHOC function defined inside setupHOC().
+ */
+function onClickOutsideHOC(WrappedComponent, config) {
+  var _class, _temp2;
+
+  return _temp2 = _class = function (_Component) {
+    _inherits(onClickOutside, _Component);
+
+    function onClickOutside() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      _classCallCheck(this, onClickOutside);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
       }
-      current = current.parentNode;
-    }
-    return current;
-  }
 
-  /**
-   * Check if the browser scrollbar was clicked
-   */
-  function clickedScrollbar(evt) {
-    return document.documentElement.clientWidth <= evt.clientX || document.documentElement.clientHeight <= evt.clientY;
-  }
-
-  /**
-   * Generate the event handler that checks whether a clicked DOM node
-   * is inside of, or lives outside of, our Component's node tree.
-   */
-  function generateOutsideCheck(componentNode, eventHandler, ignoreClass, excludeScrollbar, preventDefault, stopPropagation) {
-    return function (evt) {
-      if (preventDefault) {
-        evt.preventDefault();
-      }
-      if (stopPropagation) {
-        evt.stopPropagation();
-      }
-      const current = evt.target;
-      if (excludeScrollbar && clickedScrollbar(evt) || findHighest(current, componentNode, ignoreClass) !== document) {
-        return;
-      }
-      eventHandler(evt);
-    };
-  }
-
-  /**
-   * A higher-order-component for handling onClickOutside for React components.
-   */
-  const registeredComponents = [];
-  const handlers = [];
-
-  /**
-   * This function generates the HOC function that you'll use
-   * in order to impart onOutsideClick listening to an
-   * arbitrary component. It gets called at the end of the
-   * bootstrapping code to yield an instance of the
-   * onClickOutsideHOC function defined inside setupHOC().
-   */
-  function onClickOutsideHOC(WrappedComponent, config) {
-    var _class, _temp2;
-
-    return _temp2 = _class = class onClickOutside extends react.Component {
-      constructor(...args) {
-        var _temp;
-
-        return _temp = super(...args), this.__outsideClickHandler = null, this.enableOnClickOutside = () => {
-          const fn = this.__outsideClickHandler;
-          if (fn && typeof document !== 'undefined') {
-            let events = this.props.eventTypes;
-            if (!events.forEach) {
-              events = [events];
-            }
-            events.forEach(eventName => {
-              const handlerOptions = !this.props.preventDefault && ['touchstart', 'touchmove'].indexOf(eventName) !== -1 ? { passive: true } : null;
-              document.addEventListener(eventName, fn, handlerOptions);
-            });
+      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = onClickOutside.__proto__ || Object.getPrototypeOf(onClickOutside)).call.apply(_ref, [this].concat(args))), _this), _this.__outsideClickHandler = null, _this.enableOnClickOutside = function () {
+        var fn = _this.__outsideClickHandler;
+        if (fn && typeof document !== 'undefined') {
+          var events = _this.props.eventTypes;
+          if (!events.forEach) {
+            events = [events];
           }
-        }, this.disableOnClickOutside = () => {
-          const fn = this.__outsideClickHandler;
-          if (fn && typeof document !== 'undefined') {
-            let events = this.props.eventTypes;
-            if (!events.forEach) {
-              events = [events];
-            }
-            events.forEach(eventName => document.removeEventListener(eventName, fn));
+          events.forEach(function (eventName) {
+            var handlerOptions = !_this.props.preventDefault && ['touchstart', 'touchmove'].indexOf(eventName) !== -1 ? { passive: true } : null;
+            document.addEventListener(eventName, fn, handlerOptions);
+          });
+        }
+      }, _this.disableOnClickOutside = function () {
+        var fn = _this.__outsideClickHandler;
+        if (fn && typeof document !== 'undefined') {
+          var events = _this.props.eventTypes;
+          if (!events.forEach) {
+            events = [events];
           }
-        }, this.getRef = ref => this.instanceRef = ref, _temp;
-      }
+          events.forEach(function (eventName) {
+            return document.removeEventListener(eventName, fn);
+          });
+        }
+      }, _this.getRef = function (ref) {
+        return _this.instanceRef = ref;
+      }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(onClickOutside, [{
+      key: 'getInstance',
 
       /**
        * Access the WrappedComponent's instance.
        */
-      getInstance() {
+      value: function getInstance() {
         if (!WrappedComponent.prototype.isReactComponent) {
           return this;
         }
-        const ref = this.instanceRef;
+        var ref = this.instanceRef;
         return ref.getInstance ? ref.getInstance() : ref;
       }
 
       // this is given meaning in componentDidMount/componentDidUpdate
 
+    }, {
+      key: 'componentDidMount',
 
       /**
        * Add click listeners to the current document,
        * linked to this component's state.
        */
-      componentDidMount() {
+      value: function componentDidMount() {
         // If we are in an environment without a DOM such
         // as shallow rendering or snapshots then we exit
         // early to prevent any unhandled errors being thrown.
@@ -27390,7 +27383,7 @@ module.exports = traverseAllChildren;
           return;
         }
 
-        const instance = this.getInstance();
+        var instance = this.getInstance();
 
         if (config && typeof config.handleClickOutside === 'function') {
           this.__clickOutsideHandlerProp = config.handleClickOutside(instance);
@@ -27398,7 +27391,7 @@ module.exports = traverseAllChildren;
             throw new Error('WrappedComponent lacks a function for processing outside click events specified by the handleClickOutside config option.');
           }
         } else if (typeof instance.handleClickOutside === 'function') {
-          if (react.Component.prototype.isPrototypeOf(instance)) {
+          if (_react.Component.prototype.isPrototypeOf(instance)) {
             this.__clickOutsideHandlerProp = instance.handleClickOutside.bind(instance);
           } else {
             this.__clickOutsideHandlerProp = instance.handleClickOutside;
@@ -27410,7 +27403,7 @@ module.exports = traverseAllChildren;
         }
 
         // TODO: try to get rid of this, could be done with function ref, might be problematic for SFC though, they do not expose refs
-        if (reactDom.findDOMNode(instance) === null) {
+        if ((0, _reactDom.findDOMNode)(instance) === null) {
           return;
         }
 
@@ -27420,16 +27413,20 @@ module.exports = traverseAllChildren;
       /**
       * Track for disableOnClickOutside props changes and enable/disable click outside
       */
-      componentWillReceiveProps(nextProps) {
+
+    }, {
+      key: 'componentWillReceiveProps',
+      value: function componentWillReceiveProps(nextProps) {
         if (this.props.disableOnClickOutside && !nextProps.disableOnClickOutside) {
           this.enableOnClickOutside();
         } else if (!this.props.disableOnClickOutside && nextProps.disableOnClickOutside) {
           this.disableOnClickOutside();
         }
       }
-
-      componentDidUpdate() {
-        const componentNode = reactDom.findDOMNode(this.getInstance());
+    }, {
+      key: 'componentDidUpdate',
+      value: function componentDidUpdate() {
+        var componentNode = (0, _reactDom.findDOMNode)(this.getInstance());
 
         if (componentNode === null && this.__outsideClickHandler) {
           this.removeOutsideClickHandler();
@@ -27445,7 +27442,10 @@ module.exports = traverseAllChildren;
       /**
        * Remove all document's event listeners for this component
        */
-      componentWillUnmount() {
+
+    }, {
+      key: 'componentWillUnmount',
+      value: function componentWillUnmount() {
         this.removeOutsideClickHandler();
       }
 
@@ -27459,10 +27459,12 @@ module.exports = traverseAllChildren;
        * for clicks and touches outside of this element.
        */
 
-      addOutsideClickHandler() {
-        const fn = this.__outsideClickHandler = generateOutsideCheck(reactDom.findDOMNode(this.getInstance()), this.__clickOutsideHandlerProp, this.props.outsideClickIgnoreClass, this.props.excludeScrollbar, this.props.preventDefault, this.props.stopPropagation);
+    }, {
+      key: 'addOutsideClickHandler',
+      value: function addOutsideClickHandler() {
+        var fn = this.__outsideClickHandler = (0, _generateOutsideCheck2.default)((0, _reactDom.findDOMNode)(this.getInstance()), this.__clickOutsideHandlerProp, this.props.outsideClickIgnoreClass, this.props.excludeScrollbar, this.props.preventDefault, this.props.stopPropagation);
 
-        const pos = registeredComponents.length;
+        var pos = registeredComponents.length;
         registeredComponents.push(this);
         handlers[pos] = fn;
 
@@ -27472,8 +27474,9 @@ module.exports = traverseAllChildren;
           this.enableOnClickOutside();
         }
       }
-
-      removeOutsideClickHandler() {
+    }, {
+      key: 'removeOutsideClickHandler',
+      value: function removeOutsideClickHandler() {
         this.disableOnClickOutside();
         this.__outsideClickHandler = false;
 
@@ -27487,13 +27490,19 @@ module.exports = traverseAllChildren;
           registeredComponents.splice(pos, 1);
         }
       }
+    }, {
+      key: 'render',
 
       /**
        * Pass-through render
        */
-      render() {
-        var props = Object.keys(this.props).filter(prop => prop !== 'excludeScrollbar').reduce((props, prop) => {
-          props[prop] = this.props[prop];
+      value: function render() {
+        var _this2 = this;
+
+        var props = Object.keys(this.props).filter(function (prop) {
+          return prop !== 'excludeScrollbar';
+        }).reduce(function (props, prop) {
+          props[prop] = _this2.props[prop];
           return props;
         }, {});
 
@@ -27506,21 +27515,22 @@ module.exports = traverseAllChildren;
         props.disableOnClickOutside = this.disableOnClickOutside;
         props.enableOnClickOutside = this.enableOnClickOutside;
 
-        return react.createElement(WrappedComponent, props);
+        return (0, _react.createElement)(WrappedComponent, props);
       }
-    }, _class.displayName = `OnClickOutside(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`, _class.defaultProps = {
-      eventTypes: ['mousedown', 'touchstart'],
-      excludeScrollbar: config && config.excludeScrollbar || false,
-      outsideClickIgnoreClass: 'ignore-react-onclickoutside',
-      preventDefault: false,
-      stopPropagation: false
-    }, _class.getClass = () => WrappedComponent.getClass ? WrappedComponent.getClass() : WrappedComponent, _temp2;
-  }
+    }]);
 
-  exports['default'] = onClickOutsideHOC;
-
-  Object.defineProperty(exports, '__esModule', { value: true });
-});
+    return onClickOutside;
+  }(_react.Component), _class.displayName = 'OnClickOutside(' + (WrappedComponent.displayName || WrappedComponent.name || 'Component') + ')', _class.defaultProps = {
+    eventTypes: ['mousedown', 'touchstart'],
+    excludeScrollbar: config && config.excludeScrollbar || false,
+    outsideClickIgnoreClass: 'ignore-react-onclickoutside',
+    preventDefault: false,
+    stopPropagation: false
+  }, _class.getClass = function () {
+    return WrappedComponent.getClass ? WrappedComponent.getClass() : WrappedComponent;
+  }, _temp2;
+}
+module.exports = exports["default"];
 
 /***/ }),
 /* 221 */
@@ -27891,7 +27901,7 @@ var ReactCurrentOwner = __webpack_require__(16);
 var ReactComponentTreeHook = __webpack_require__(9);
 var ReactElement = __webpack_require__(21);
 
-var checkReactTypeSpec = __webpack_require__(434);
+var checkReactTypeSpec = __webpack_require__(435);
 
 var canDefineProperty = __webpack_require__(44);
 var getIteratorFn = __webpack_require__(226);
@@ -28244,7 +28254,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(439);
+var	fixUrls = __webpack_require__(440);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -28369,10 +28379,10 @@ function insertStyleElement (options, style) {
 }
 
 function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
 	style.parentNode.removeChild(style);
 
 	var idx = stylesInsertedAtTop.indexOf(style);
-
 	if(idx >= 0) {
 		stylesInsertedAtTop.splice(idx, 1);
 	}
@@ -28817,11 +28827,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.NavLink = exports.MemoryRouter = exports.Link = exports.HashRouter = exports.BrowserRouter = undefined;
 
-var _BrowserRouter2 = __webpack_require__(407);
+var _BrowserRouter2 = __webpack_require__(408);
 
 var _BrowserRouter3 = _interopRequireDefault(_BrowserRouter2);
 
-var _HashRouter2 = __webpack_require__(408);
+var _HashRouter2 = __webpack_require__(409);
 
 var _HashRouter3 = _interopRequireDefault(_HashRouter2);
 
@@ -28829,43 +28839,43 @@ var _Link2 = __webpack_require__(221);
 
 var _Link3 = _interopRequireDefault(_Link2);
 
-var _MemoryRouter2 = __webpack_require__(409);
+var _MemoryRouter2 = __webpack_require__(410);
 
 var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
 
-var _NavLink2 = __webpack_require__(410);
+var _NavLink2 = __webpack_require__(411);
 
 var _NavLink3 = _interopRequireDefault(_NavLink2);
 
-var _Prompt2 = __webpack_require__(411);
+var _Prompt2 = __webpack_require__(412);
 
 var _Prompt3 = _interopRequireDefault(_Prompt2);
 
-var _Redirect2 = __webpack_require__(412);
+var _Redirect2 = __webpack_require__(413);
 
 var _Redirect3 = _interopRequireDefault(_Redirect2);
 
-var _Route2 = __webpack_require__(413);
+var _Route2 = __webpack_require__(414);
 
 var _Route3 = _interopRequireDefault(_Route2);
 
-var _Router2 = __webpack_require__(414);
+var _Router2 = __webpack_require__(415);
 
 var _Router3 = _interopRequireDefault(_Router2);
 
-var _StaticRouter2 = __webpack_require__(415);
+var _StaticRouter2 = __webpack_require__(416);
 
 var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
 
-var _Switch2 = __webpack_require__(416);
+var _Switch2 = __webpack_require__(417);
 
 var _Switch3 = _interopRequireDefault(_Switch2);
 
-var _matchPath2 = __webpack_require__(417);
+var _matchPath2 = __webpack_require__(418);
 
 var _matchPath3 = _interopRequireDefault(_matchPath2);
 
-var _withRouter2 = __webpack_require__(418);
+var _withRouter2 = __webpack_require__(419);
 
 var _withRouter3 = _interopRequireDefault(_withRouter2);
 
@@ -29948,7 +29958,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(446);
+var _README = __webpack_require__(447);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -29976,8 +29986,7 @@ exports.default = function () {
         null,
         'Well done!'
       ),
-      ' ',
-      'You successfully read this important alert message.'
+      ' You successfully read this important alert message.'
     ),
     _react2.default.createElement(
       _src.Alert,
@@ -29987,8 +29996,7 @@ exports.default = function () {
         null,
         'Warning!'
       ),
-      ' ',
-      'Better check yourself, you\'re not looking too good.'
+      ' Better check yourself, you\'re not looking too good.'
     ),
     _react2.default.createElement(
       _src.Alert,
@@ -29998,8 +30006,7 @@ exports.default = function () {
         null,
         'Heads up!'
       ),
-      ' ',
-      'This alert needs your attention, but it\'s not super important.'
+      ' This alert needs your attention, but it\'s not super important.'
     )
   );
 };
@@ -30027,7 +30034,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(447);
+var _README = __webpack_require__(448);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30087,7 +30094,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(448);
+var _README = __webpack_require__(449);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30132,7 +30139,7 @@ var _Markdown = __webpack_require__(72);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
-__webpack_require__(457);
+__webpack_require__(458);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30193,7 +30200,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(449);
+var _README = __webpack_require__(450);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30238,7 +30245,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(450);
+var _README = __webpack_require__(451);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30292,7 +30299,7 @@ var _Markdown = __webpack_require__(72);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
-var _README = __webpack_require__(451);
+var _README = __webpack_require__(452);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30397,7 +30404,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(452);
+var _README = __webpack_require__(453);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30442,7 +30449,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(453);
+var _README = __webpack_require__(454);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30491,7 +30498,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(454);
+var _README = __webpack_require__(455);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30536,7 +30543,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(455);
+var _README = __webpack_require__(456);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30613,7 +30620,7 @@ var _Component = __webpack_require__(13);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(456);
+var _README = __webpack_require__(457);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -30644,7 +30651,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _package = __webpack_require__(458);
+var _package = __webpack_require__(459);
 
 var _package2 = _interopRequireDefault(_package);
 
@@ -33332,11 +33339,21 @@ var MoneyInput = function (_Component) {
       var COMMA = 188;
       var DELETE = 8;
       var LEFT_ARROW = 39;
+      var NUMPAD_0 = 96;
+      var NUMPAD_1 = 97;
+      var NUMPAD_2 = 98;
+      var NUMPAD_3 = 99;
+      var NUMPAD_4 = 100;
+      var NUMPAD_5 = 101;
+      var NUMPAD_6 = 102;
+      var NUMPAD_7 = 103;
+      var NUMPAD_8 = 103;
+      var NUMPAD_9 = 105;
       var PERIOD = 190;
       var RIGHT_ARROW = 37;
       var TAB = 9;
       var isNumber = /\d/.test(String.fromCharCode(e.keyCode));
-      var allowedChars = [COMMA, DELETE, LEFT_ARROW, PERIOD, RIGHT_ARROW, TAB].includes(e.keyCode);
+      var allowedChars = [COMMA, DELETE, LEFT_ARROW, NUMPAD_0, NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9, PERIOD, RIGHT_ARROW, TAB].includes(e.keyCode);
 
       if (!isNumber && !allowedChars) {
         e.preventDefault();
@@ -37661,7 +37678,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(function () {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(441)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(442)))
 
 /***/ }),
 /* 334 */
@@ -47595,6 +47612,87 @@ module.exports = ReactMount.renderSubtreeIntoContainer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = generateOutsideCheck;
+/**
+ * Check whether some DOM node is our Component's node.
+ */
+function isNodeFound(current, componentNode, ignoreClass) {
+  if (current === componentNode) {
+    return true;
+  }
+  // SVG <use/> elements do not technically reside in the rendered DOM, so
+  // they do not have classList directly, but they offer a link to their
+  // corresponding element, which can have classList. This extra check is for
+  // that case.
+  // See: http://www.w3.org/TR/SVG11/struct.html#InterfaceSVGUseElement
+  // Discussion: https://github.com/Pomax/react-onclickoutside/pull/17
+  if (current.correspondingElement) {
+    return current.correspondingElement.classList.contains(ignoreClass);
+  }
+  return current.classList.contains(ignoreClass);
+}
+
+/**
+ * Try to find our node in a hierarchy of nodes, returning the document
+ * node as highest node if our node is not found in the path up.
+ */
+function findHighest(current, componentNode, ignoreClass) {
+  if (current === componentNode) {
+    return true;
+  }
+
+  // If source=local then this event came from 'somewhere'
+  // inside and should be ignored. We could handle this with
+  // a layered approach, too, but that requires going back to
+  // thinking in terms of Dom node nesting, running counter
+  // to React's 'you shouldn't care about the DOM' philosophy.
+  while (current.parentNode) {
+    if (isNodeFound(current, componentNode, ignoreClass)) {
+      return true;
+    }
+    current = current.parentNode;
+  }
+  return current;
+}
+
+/**
+ * Check if the browser scrollbar was clicked
+ */
+function clickedScrollbar(evt) {
+  return document.documentElement.clientWidth <= evt.clientX || document.documentElement.clientHeight <= evt.clientY;
+}
+
+/**
+ * Generate the event handler that checks whether a clicked DOM node
+ * is inside of, or lives outside of, our Component's node tree.
+ */
+function generateOutsideCheck(componentNode, eventHandler, ignoreClass, excludeScrollbar, preventDefault, stopPropagation) {
+  return function (evt) {
+    if (preventDefault) {
+      evt.preventDefault();
+    }
+    if (stopPropagation) {
+      evt.stopPropagation();
+    }
+    var current = evt.target;
+    if (excludeScrollbar && clickedScrollbar(evt) || findHighest(current, componentNode, ignoreClass) !== document) {
+      return;
+    }
+    eventHandler(evt);
+  };
+}
+module.exports = exports["default"];
+
+/***/ }),
+/* 408 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -47670,7 +47768,7 @@ exports.default = BrowserRouter;
 module.exports = exports["default"];
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47753,7 +47851,7 @@ exports.default = HashRouter;
 module.exports = exports["default"];
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47774,7 +47872,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47881,7 +47979,7 @@ exports.default = NavLink;
 module.exports = exports["default"];
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47902,7 +48000,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47923,7 +48021,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47944,7 +48042,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47965,7 +48063,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47986,7 +48084,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48007,7 +48105,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48028,7 +48126,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48049,7 +48147,7 @@ Object.defineProperty(exports, 'default', {
 module.exports = exports['default'];
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48135,7 +48233,7 @@ exports.default = MemoryRouter;
 module.exports = exports["default"];
 
 /***/ }),
-/* 420 */
+/* 421 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48244,7 +48342,7 @@ exports.default = Prompt;
 module.exports = exports["default"];
 
 /***/ }),
-/* 421 */
+/* 422 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48352,7 +48450,7 @@ exports.default = Redirect;
 module.exports = exports["default"];
 
 /***/ }),
-/* 422 */
+/* 423 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48564,7 +48662,7 @@ exports.default = StaticRouter;
 module.exports = exports["default"];
 
 /***/ }),
-/* 423 */
+/* 424 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48676,7 +48774,7 @@ exports.default = Switch;
 module.exports = exports["default"];
 
 /***/ }),
-/* 424 */
+/* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48746,7 +48844,7 @@ exports.default = withRouter;
 module.exports = exports['default'];
 
 /***/ }),
-/* 425 */
+/* 426 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48810,7 +48908,7 @@ var KeyEscapeUtils = {
 module.exports = KeyEscapeUtils;
 
 /***/ }),
-/* 426 */
+/* 427 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48927,7 +49025,7 @@ var PooledClass = {
 module.exports = PooledClass;
 
 /***/ }),
-/* 427 */
+/* 428 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48943,11 +49041,11 @@ module.exports = PooledClass;
 
 
 
-var PooledClass = __webpack_require__(426);
+var PooledClass = __webpack_require__(427);
 var ReactElement = __webpack_require__(21);
 
 var emptyFunction = __webpack_require__(12);
-var traverseAllChildren = __webpack_require__(437);
+var traverseAllChildren = __webpack_require__(438);
 
 var twoArgumentPooler = PooledClass.twoArgumentPooler;
 var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -49122,7 +49220,7 @@ var ReactChildren = {
 module.exports = ReactChildren;
 
 /***/ }),
-/* 428 */
+/* 429 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49851,7 +49949,7 @@ var ReactClass = {
 module.exports = ReactClass;
 
 /***/ }),
-/* 429 */
+/* 430 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50026,7 +50124,7 @@ var ReactDOMFactories = {
 module.exports = ReactDOMFactories;
 
 /***/ }),
-/* 430 */
+/* 431 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50050,7 +50148,7 @@ var factory = __webpack_require__(196);
 module.exports = factory(isValidElement);
 
 /***/ }),
-/* 431 */
+/* 432 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50072,7 +50170,7 @@ var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 module.exports = ReactPropTypesSecret;
 
 /***/ }),
-/* 432 */
+/* 433 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50119,7 +50217,7 @@ ReactPureComponent.prototype.isPureReactComponent = true;
 module.exports = ReactPureComponent;
 
 /***/ }),
-/* 433 */
+/* 434 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50138,7 +50236,7 @@ module.exports = ReactPureComponent;
 module.exports = '15.5.4';
 
 /***/ }),
-/* 434 */
+/* 435 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50159,7 +50257,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 var _prodInvariant = __webpack_require__(22);
 
 var ReactPropTypeLocationNames = __webpack_require__(225);
-var ReactPropTypesSecret = __webpack_require__(431);
+var ReactPropTypesSecret = __webpack_require__(432);
 
 var invariant = __webpack_require__(3);
 var warning = __webpack_require__(4);
@@ -50233,7 +50331,7 @@ module.exports = checkReactTypeSpec;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
-/* 435 */
+/* 436 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50259,7 +50357,7 @@ function getNextDebugID() {
 module.exports = getNextDebugID;
 
 /***/ }),
-/* 436 */
+/* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50302,7 +50400,7 @@ function onlyChild(children) {
 module.exports = onlyChild;
 
 /***/ }),
-/* 437 */
+/* 438 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50327,7 +50425,7 @@ var REACT_ELEMENT_TYPE = __webpack_require__(223);
 
 var getIteratorFn = __webpack_require__(226);
 var invariant = __webpack_require__(3);
-var KeyEscapeUtils = __webpack_require__(425);
+var KeyEscapeUtils = __webpack_require__(426);
 var warning = __webpack_require__(4);
 
 var SEPARATOR = '.';
@@ -50485,7 +50583,7 @@ function traverseAllChildren(children, callback, traverseContext) {
 module.exports = traverseAllChildren;
 
 /***/ }),
-/* 438 */
+/* 439 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50561,7 +50659,7 @@ var resolvePathname = function resolvePathname(to) {
 module.exports = resolvePathname;
 
 /***/ }),
-/* 439 */
+/* 440 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50656,7 +50754,7 @@ module.exports = function (css) {
 };
 
 /***/ }),
-/* 440 */
+/* 441 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50708,7 +50806,7 @@ var valueEqual = function valueEqual(a, b) {
 exports.default = valueEqual;
 
 /***/ }),
-/* 441 */
+/* 442 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50738,7 +50836,7 @@ try {
 module.exports = g;
 
 /***/ }),
-/* 442 */
+/* 443 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50768,7 +50866,7 @@ module.exports = function (module) {
 };
 
 /***/ }),
-/* 443 */
+/* 444 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(34)(undefined);
@@ -50782,7 +50880,7 @@ exports.push([module.i, "/*! normalize.css v5.0.0 | MIT License | github.com/nec
 
 
 /***/ }),
-/* 444 */
+/* 445 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(34)(undefined);
@@ -50796,7 +50894,7 @@ exports.push([module.i, "@font-face {\n  font-family: octicons-link;\n  src: url
 
 
 /***/ }),
-/* 445 */
+/* 446 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -51045,76 +51143,76 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 445;
-
-/***/ }),
-/* 446 */
-/***/ (function(module, exports) {
-
-module.exports = "# Alert\nProvide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.\n\n## Example\n\n```javascript\n<Alert type=\"danger\">\n  <strong>Oh snap!</strong> Change a few things up and try submitting again.\n</Alert>\n\n<Alert type=\"success\">\n  <strong>Well done!</strong>\n  {' '}\n  You successfully read this important alert message.\n</Alert>\n\n<Alert type=\"warning\">\n  <strong>Warning!</strong>\n  {' '}\n  Better check yourself, you're not looking too good.\n</Alert>\n\n<Alert type=\"info\">\n  <strong>Heads up!</strong>\n  {' '}\n  This alert needs your attention, but it's not super important.\n</Alert>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | yes   | node \t\t             | Children node                                             |           |\n| type             | no    | string                | the alert type, can be `danger`, `success`, `warning` or `info` | `info` |\n"
+webpackContext.id = 446;
 
 /***/ }),
 /* 447 */
 /***/ (function(module, exports) {
 
-module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n]\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete name=\"country\" options={countries} />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={25}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                         | Default   |\n| ------------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element               |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                     | Infinity  |\n| name                | yes   | string     | The name of input element                                           |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused           |           |\n| options             | yes   | array      | Array representing all items                                        |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |\n| readOnly            | no    | bool       | Input field is read-only                                            |           |\n| value               | no    | bool       | Default value                                                       |           |\n"
+module.exports = "# Alert\nProvide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.\n\n## Example\n\n```javascript\n<Alert type=\"danger\">\n  <strong>Oh snap!</strong> Change a few things up and try submitting again.\n</Alert>\n\n<Alert type=\"success\">\n  <strong>Well done!</strong>\n  {' '}\n  You successfully read this important alert message.\n</Alert>\n\n<Alert type=\"warning\">\n  <strong>Warning!</strong>\n  {' '}\n  Better check yourself, you're not looking too good.\n</Alert>\n\n<Alert type=\"info\">\n  <strong>Heads up!</strong>\n  {' '}\n  This alert needs your attention, but it's not super important.\n</Alert>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | yes   | node \t\t             | Children node                                             |           |\n| type             | no    | string                | the alert type, can be `danger`, `success`, `warning` or `info` | `info` |\n"
 
 /***/ }),
 /* 448 */
 /***/ (function(module, exports) {
 
-module.exports = "# Button\nButton element\n\n## Example\n\n```javascript\n<Button onClick={() => alert('You clicked me!')}>Click Me!</Button>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | array, object, string | Children node                                             | `Submit`  |\n| onBlur           | no    | func                  | Callback function that is fired when component is clicked |           |\n| type             | yes   | string                | Button type f.e button, submit, reset                     |           |\n"
+module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n]\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete name=\"country\" options={countries} />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={25}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                         | Default   |\n| ------------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element               |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                     | Infinity  |\n| name                | yes   | string     | The name of input element                                           |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused           |           |\n| options             | yes   | array      | Array representing all items                                        |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |\n| readOnly            | no    | bool       | Input field is read-only                                            |           |\n| value               | no    | bool       | Default value                                                       |           |\n"
 
 /***/ }),
 /* 449 */
 /***/ (function(module, exports) {
 
-module.exports = "# Datepicker\nDatepickers are used to select a single date for an input.\n\n## Example\n\n```javascript\n<Datepicker\n  locale='ES'\n  name='birthday'\n  onBlur={() => {})\n  onChange={(name, date) => alert(`Your ${name} is the ${date}`)}\n  value='04/21/1979'\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| locale           | no    | string         | Locale                                                              | EN        |\n| name             | yes   | string         | Name and id of the input element                                    |           |\n| onBlur           | no    | func           | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func           | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool           | Input field is read-only                                            |           |\n| value            | no    | number, string | Default value                                                       |           |\n"
+module.exports = "# Button\nButton element\n\n## Example\n\n```javascript\n<Button onClick={() => alert('You clicked me!')}>Click Me!</Button>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | array, object, string | Children node                                             | `Submit`  |\n| onBlur           | no    | func                  | Callback function that is fired when component is clicked |           |\n| type             | yes   | string                | Button type f.e button, submit, reset                     |           |\n"
 
 /***/ }),
 /* 450 */
 /***/ (function(module, exports) {
 
-module.exports = "# FormGroup\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\n<FormGroup\n  name=\"amount\"\n  label=\"Payment Amount\"\n  className=\"FormGroup GridColumn\"\n  hint=\"This is a hint text\"\n>\n  <MoneyInput name=\"amount\" />\n</FormGroup>\n\n<FormGroup\n  name=\"error\"\n  label=\"Field with error\"\n  className=\"FormGroup GridColumn\"\n  error=\"The amount is too low\"\n>\n  <Input type=\"text\" name=\"amount\" />\n</FormGroup>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                            | Default   |\n| ---------------- | ----- | ---------- | -------------------------------------- | --------- |\n| children         | yes   | node       | Children node                          |           |\n| className        | no    | string     | Rewrite default CSS class              |           |\n| error            | no    | string     | Error message                          |           |\n| hint             | no    | string     | Shows help message                     |           |\n| label            | no    | string     | Label tag text                         |           |\n| name             | yes   | string     | Name and id of the children            |           |\n| required         | no    | bool       | Set the field to required              | false     |\n"
+module.exports = "# Datepicker\nDatepickers are used to select a single date for an input.\n\n## Example\n\n```javascript\n<Datepicker\n  locale='ES'\n  name='birthday'\n  onBlur={() => {})\n  onChange={(name, date) => alert(`Your ${name} is the ${date}`)}\n  value='04/21/1979'\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| locale           | no    | string         | Locale                                                              | EN        |\n| name             | yes   | string         | Name and id of the input element                                    |           |\n| onBlur           | no    | func           | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func           | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool           | Input field is read-only                                            |           |\n| value            | no    | number, string | Default value                                                       |           |\n"
 
 /***/ }),
 /* 451 */
 /***/ (function(module, exports) {
 
-module.exports = "# Flycomponents\n\nFlycomponents is a set a react UI components used to create payment forms in Flywire.\n\n## Installation\n\nFlycomponents is a private repository and haven't been published to npm yet, so to add the dependency to your project you have to add to your `package.json`:\n\n```javascript\n\"flycomponents\": \"git+https://<github_token>:x-oauth-basic@github.com/peertransfer/flycomponents.git/<version>\"\n```\n"
+module.exports = "# FormGroup\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\n<FormGroup\n  name=\"amount\"\n  label=\"Payment Amount\"\n  className=\"FormGroup GridColumn\"\n  hint=\"This is a hint text\"\n>\n  <MoneyInput name=\"amount\" />\n</FormGroup>\n\n<FormGroup\n  name=\"error\"\n  label=\"Field with error\"\n  className=\"FormGroup GridColumn\"\n  error=\"The amount is too low\"\n>\n  <Input type=\"text\" name=\"amount\" />\n</FormGroup>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                            | Default   |\n| ---------------- | ----- | ---------- | -------------------------------------- | --------- |\n| children         | yes   | node       | Children node                          |           |\n| className        | no    | string     | Rewrite default CSS class              |           |\n| error            | no    | string     | Error message                          |           |\n| hint             | no    | string     | Shows help message                     |           |\n| label            | no    | string     | Label tag text                         |           |\n| name             | yes   | string     | Name and id of the children            |           |\n| required         | no    | bool       | Set the field to required              | false     |\n"
 
 /***/ }),
 /* 452 */
 /***/ (function(module, exports) {
 
-module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n\n<MoneyInput disabled name=\"disabled\" />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
+module.exports = "# Flycomponents\n\nFlycomponents is a set a react UI components used to create payment forms in Flywire.\n\n## Installation\n\nFlycomponents is a private repository and haven't been published to npm yet, so to add the dependency to your project you have to add to your `package.json`:\n\n```javascript\n\"flycomponents\": \"git+https://<github_token>:x-oauth-basic@github.com/peertransfer/flycomponents.git/<version>\"\n```\n"
 
 /***/ }),
 /* 453 */
 /***/ (function(module, exports) {
 
-module.exports = "# PhoneInput\nInput for entering and validating international telephone numbers\n\n## Example\n\n```javascript\nconst countries = [\n  {\n    label: 'Spain (+34)',\n    value: 'es',\n    dialingCode: '34',\n    phonePattern: '+.. ... ... ...'\n  },\n  {\n    label: 'United States (+1)',\n    value: 'us',\n    dialingCode: '1',\n    phonePattern: '+. (...) ...-....'\n  }\n]\n\n<PhoneInput countries={countries} name=\"phone\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| countries        | yes   | array      | Array of countries                                                  |           |\n| name             | yes   | string     | Name and id of the input element                                    |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool       | Input field is read-only                                            |           |\n| value            | no    | bool       | Default value                                                       |           |\n"
+module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol='€'\n  decimalMark=','\n  name='amount'\n  symbolFirst={false}\n  thousandsSeparator='.'\n/>\n\n<MoneyInput disabled name=\"disabled\" />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
 
 /***/ }),
 /* 454 */
 /***/ (function(module, exports) {
 
-module.exports = "# Select\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\nconst values = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<Select\n  name=\"country\"\n  onChange={() => {}}\n  onClick={() => {}}\n  selectedValue=\"US\"\n  values={values}\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| className        | no    | string         | CSS class name                                                      |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onClick          | no    | func           | Callback function that is fired when component is clicked           |           |\n| selectedValue    | yes   | number, string | Default selected value                                              |           |\n| values           | yes   | array          | Array representing all select options                               |           |\n"
+module.exports = "# PhoneInput\nInput for entering and validating international telephone numbers\n\n## Example\n\n```javascript\nconst countries = [\n  {\n    label: 'Spain (+34)',\n    value: 'es',\n    dialingCode: '34',\n    phonePattern: '+.. ... ... ...'\n  },\n  {\n    label: 'United States (+1)',\n    value: 'us',\n    dialingCode: '1',\n    phonePattern: '+. (...) ...-....'\n  }\n]\n\n<PhoneInput countries={countries} name=\"phone\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| countries        | yes   | array      | Array of countries                                                  |           |\n| name             | yes   | string     | Name and id of the input element                                    |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool       | Input field is read-only                                            |           |\n| value            | no    | bool       | Default value                                                       |           |\n"
 
 /***/ }),
 /* 455 */
 /***/ (function(module, exports) {
 
-module.exports = "# TextInput\nSpecifies an input field where the user can enter data.\n\n## Example\n\n```javascript\n<TextInput name=\"twitter\" prefix=\"@\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| multiline        | no    | bool       | Enable or disable multiline                                         |           |\n| name             | no    | string     | Name and id of the element                                          |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| prefix           | no    | string     | Button group                                                        |           |\n| sufix            | no    | string     | Button group                                                        |           |\n| value            | no    | string     | Default value                                                       |           |\n"
+module.exports = "# Select\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\nconst values = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<Select\n  name=\"country\"\n  onChange={() => {}}\n  onClick={() => {}}\n  selectedValue=\"US\"\n  values={values}\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| className        | no    | string         | CSS class name                                                      |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onClick          | no    | func           | Callback function that is fired when component is clicked           |           |\n| selectedValue    | yes   | number, string | Default selected value                                              |           |\n| values           | yes   | array          | Array representing all select options                               |           |\n"
 
 /***/ }),
 /* 456 */
 /***/ (function(module, exports) {
 
-module.exports = "# Textarea\nDefines a multi-line text input control\n\n## Example\n\n```javascript\n<Textarea name=\"about\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                            | Default   |\n| ---------------- | ----- | ---------- | -------------------------------------- | --------- |\n| name             | yes   | string     | Name and id of the element             |           |\n| required         | no    | bool       | Set the field to required              | false     |\n"
+module.exports = "# TextInput\nSpecifies an input field where the user can enter data.\n\n## Example\n\n```javascript\n<TextInput name=\"twitter\" prefix=\"@\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| multiline        | no    | bool       | Enable or disable multiline                                         |           |\n| name             | no    | string     | Name and id of the element                                          |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| prefix           | no    | string     | Button group                                                        |           |\n| sufix            | no    | string     | Button group                                                        |           |\n| value            | no    | string     | Default value                                                       |           |\n"
 
 /***/ }),
 /* 457 */
+/***/ (function(module, exports) {
+
+module.exports = "# Textarea\nDefines a multi-line text input control\n\n## Example\n\n```javascript\n<Textarea name=\"about\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                            | Default   |\n| ---------------- | ----- | ---------- | -------------------------------------- | --------- |\n| name             | yes   | string     | Name and id of the element             |           |\n| required         | no    | bool       | Set the field to required              | false     |\n"
+
+/***/ }),
+/* 458 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -51145,12 +51243,12 @@ if(true) {
 }
 
 /***/ }),
-/* 458 */
+/* 459 */
 /***/ (function(module, exports) {
 
 module.exports = {
-	"name": "Flycomponents",
-	"version": "1.0.12",
+	"name": "flycomponents",
+	"version": "1.0.13",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
