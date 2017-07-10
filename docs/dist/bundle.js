@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "572e47cb945078b1a4e8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "a7cbe8721a9f06a34f14"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -33337,6 +33337,7 @@ var MoneyInput = function (_Component) {
 
     _this.handleKeyDown = function (e) {
       var COMMA = 188;
+      var DECIMAL_POINT = 110;
       var DELETE = 8;
       var LEFT_ARROW = 39;
       var NUMPAD_0 = 96;
@@ -33353,7 +33354,7 @@ var MoneyInput = function (_Component) {
       var RIGHT_ARROW = 37;
       var TAB = 9;
       var isNumber = /\d/.test(String.fromCharCode(e.keyCode));
-      var allowedChars = [COMMA, DELETE, LEFT_ARROW, NUMPAD_0, NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9, PERIOD, RIGHT_ARROW, TAB].includes(e.keyCode);
+      var allowedChars = [COMMA, DECIMAL_POINT, DELETE, LEFT_ARROW, NUMPAD_0, NUMPAD_1, NUMPAD_2, NUMPAD_3, NUMPAD_4, NUMPAD_5, NUMPAD_6, NUMPAD_7, NUMPAD_8, NUMPAD_9, PERIOD, RIGHT_ARROW, TAB].includes(e.keyCode);
 
       if (!isNumber && !allowedChars) {
         e.preventDefault();
