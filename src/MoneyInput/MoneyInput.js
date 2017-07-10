@@ -34,6 +34,7 @@ class MoneyInput extends Component {
 
   handleKeyDown = e => {
     const COMMA = 188
+    const DECIMAL_POINT = 110
     const DELETE = 8
     const LEFT_ARROW = 39
     const NUMPAD_0 = 96
@@ -52,6 +53,7 @@ class MoneyInput extends Component {
     const isNumber = /\d/.test(String.fromCharCode(e.keyCode))
     const allowedChars = [
       COMMA,
+      DECIMAL_POINT,
       DELETE,
       LEFT_ARROW,
       NUMPAD_0,
