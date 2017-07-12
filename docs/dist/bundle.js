@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a7cbe8721a9f06a34f14"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "db142002103732f1036d"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -51249,7 +51249,7 @@ if(true) {
 
 module.exports = {
 	"name": "flycomponents",
-	"version": "1.0.13",
+	"version": "1.0.14",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
