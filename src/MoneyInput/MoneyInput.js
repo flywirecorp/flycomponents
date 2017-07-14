@@ -45,7 +45,7 @@ class MoneyInput extends Component {
     const NUMPAD_5 = 101
     const NUMPAD_6 = 102
     const NUMPAD_7 = 103
-    const NUMPAD_8 = 103
+    const NUMPAD_8 = 104
     const NUMPAD_9 = 105
     const PERIOD = 190
     const RIGHT_ARROW = 37
