@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "db142002103732f1036d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "bbc732631f5e7c184f20"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -33348,7 +33348,7 @@ var MoneyInput = function (_Component) {
       var NUMPAD_5 = 101;
       var NUMPAD_6 = 102;
       var NUMPAD_7 = 103;
-      var NUMPAD_8 = 103;
+      var NUMPAD_8 = 104;
       var NUMPAD_9 = 105;
       var PERIOD = 190;
       var RIGHT_ARROW = 37;
@@ -51249,7 +51249,7 @@ if(true) {
 
 module.exports = {
 	"name": "flycomponents",
-	"version": "1.0.14",
+	"version": "1.0.16",
 	"description": "Flywire React components",
 	"main": "./dist/flycomponents.js",
 	"scripts": {
