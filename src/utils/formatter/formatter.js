@@ -1,5 +1,5 @@
 export const applyPattern = (text, pattern, options = {}) => {
-  if (text.length === 0 || !pattern) return text
+  if (!text || text.length === 0 || !pattern) return text
 
   const sanitizedText = text.replace(/\D/g, '')
   const defaults = { ignoreExcedingText: true }

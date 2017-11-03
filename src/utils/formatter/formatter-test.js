@@ -2,6 +2,14 @@ import { expect } from 'chai'
 import { applyPattern } from './formatter'
 
 describe('applyPattern', () => {
+  it('returns same text if text is undefined', () => {
+    const pattern = '+.. ... ... ...'
+    const text = applyPattern(undefined, pattern)
+    const expectedText = undefined
+
+    expect(text).to.equal(expectedText)
+  })
+
   it('returns same text if text is blank', () => {
     const pattern = '+.. ... ... ...'
     const text = applyPattern('', pattern)
