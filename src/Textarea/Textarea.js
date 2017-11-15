@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Textarea = ({ name, required, ...other }) =>
+const Textarea = ({ name, required, ...other }) => (
   <textarea
     autoComplete="off"
     className="Textarea"
@@ -10,6 +10,7 @@ const Textarea = ({ name, required, ...other }) =>
     required={required}
     {...other}
   />
+)
 
 const { bool, string } = PropTypes
 

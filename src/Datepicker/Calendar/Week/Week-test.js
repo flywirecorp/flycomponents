@@ -39,7 +39,12 @@ describe('Week', () => {
 
     expect(component.days()).to.have.length(7)
 
-    expect(component.days().first().prop('dayOfMonth')).to.equal(20)
+    expect(
+      component
+        .days()
+        .first()
+        .prop('dayOfMonth')
+    ).to.equal(20)
   })
 
   it('sets current day', () => {

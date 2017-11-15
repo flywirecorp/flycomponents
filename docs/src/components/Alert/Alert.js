@@ -3,7 +3,7 @@ import { Alert } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () =>
+export default () => (
   <Component readme={README}>
     <Alert type="danger">
       <strong>Oh snap!</strong> Change a few things up and try submitting again.
@@ -24,3 +24,4 @@ export default () =>
       super important.
     </Alert>
   </Component>
+)

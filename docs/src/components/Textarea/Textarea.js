@@ -3,7 +3,8 @@ import { Textarea } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () =>
+export default () => (
   <Component readme={README}>
     <Textarea name="about" />
   </Component>
+)

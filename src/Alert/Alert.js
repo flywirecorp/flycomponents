@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Alert = ({ children, type }) =>
+const Alert = ({ children, type }) => (
   <div className={`Alert Alert--${type}`} role="alert">
     {children}
   </div>
+)
 
 const { node, string } = PropTypes
 Alert.propTypes = {

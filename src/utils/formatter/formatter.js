@@ -5,23 +5,26 @@ export const applyPattern = (text, pattern, options = {}) => {
   const defaults = { ignoreExcedingText: true }
   const settings = { ...defaults, ...options }
 
-  const formattedObject = pattern.split('').reduce((acc, character) => {
-    if (acc.remainingText.length === 0) {
-      return acc
-    }
-
-    if (character !== '.') {
-      return {
-        formattedText: acc.formattedText + character,
-        remainingText: acc.remainingText
+  const formattedObject = pattern.split('').reduce(
+    (acc, character) => {
+      if (acc.remainingText.length === 0) {
+        return acc
       }
-    }
 
-    return {
-      formattedText: acc.formattedText + acc.remainingText[0],
-      remainingText: acc.remainingText.slice(1)
-    }
-  }, { formattedText: '', remainingText: sanitizedText.split('') })
+      if (character !== '.') {
+        return {
+          formattedText: acc.formattedText + character,
+          remainingText: acc.remainingText
+        }
+      }
+
+      return {
+        formattedText: acc.formattedText + acc.remainingText[0],
+        remainingText: acc.remainingText.slice(1)
+      }
+    },
+    { formattedText: '', remainingText: sanitizedText.split('') }
+  )
 
   return settings.ignoreExcedingText
     ? formattedObject.formattedText

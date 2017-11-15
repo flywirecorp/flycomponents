@@ -62,9 +62,7 @@ class DateInput extends Component {
           type="text"
           value={selectedDate}
         />
-        <span className="InputGroup-context">
-          {calendarIcon}
-        </span>
+        <span className="InputGroup-context">{calendarIcon}</span>
       </div>
     )
   }

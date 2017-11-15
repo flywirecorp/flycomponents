@@ -10,21 +10,19 @@ class Month extends Component {
     const { onDateClick, selectedDate, startDate } = this.props
     const currentMonth = startDate.month()
 
-    const monthWeeks = monthStartingWeekDates(startDate).map(weekStartingDate =>
-      <Week
-        key={weekStartingDate.format(DATE_FORMAT)}
-        startingDate={weekStartingDate.clone()}
-        month={currentMonth}
-        onDateClick={onDateClick}
-        selected={selectedDate}
-      />
+    const monthWeeks = monthStartingWeekDates(startDate).map(
+      weekStartingDate => (
+        <Week
+          key={weekStartingDate.format(DATE_FORMAT)}
+          startingDate={weekStartingDate.clone()}
+          month={currentMonth}
+          onDateClick={onDateClick}
+          selected={selectedDate}
+        />
+      )
     )
 
-    return (
-      <tbody>
-        {monthWeeks}
-      </tbody>
-    )
+    return <tbody>{monthWeeks}</tbody>
   }
 }
 

@@ -1,11 +1,12 @@
-FROM node:7.9
+FROM node:9.1.0
 
 ENV APP /docs
 RUN mkdir -p $APP
 
 COPY package.json $APP/package.json
-COPY yarn.lock $APP/yarn.lock
+COPY package-lock.json $APP/package-lock.json
 
 WORKDIR $APP
 
-RUN yarn install --pure-lockfile
+RUN npm install
+CMD ["npm", "run", "start"]

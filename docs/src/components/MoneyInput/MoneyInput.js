@@ -3,7 +3,7 @@ import { MoneyInput } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () =>
+export default () => (
   <Component readme={README}>
     <MoneyInput
       currencySymbol="€"
@@ -15,3 +15,4 @@ export default () =>
     <br />
     <MoneyInput disabled name="disabled" />
   </Component>
+)

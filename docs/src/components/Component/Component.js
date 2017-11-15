@@ -3,7 +3,7 @@ import React from 'react'
 import Markdown from '../Markdown'
 import './component.css'
 
-const Component = ({ children, readme }) =>
+const Component = ({ children, readme }) => (
   <section className="Component">
     <div className="Component-readme">
       {readme && <Markdown source={readme} />}
@@ -13,6 +13,7 @@ const Component = ({ children, readme }) =>
       {children}
     </div>
   </section>
+)
 
 const { node, string } = PropTypes
 

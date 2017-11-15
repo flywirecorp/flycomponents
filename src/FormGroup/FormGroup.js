@@ -11,19 +11,14 @@ const FormGroup = ({
   label,
   name,
   required
-}) =>
+}) => (
   <div className={classNames(className || 'FormGroup', { 'has-error': error })}>
     {label && <Label htmlFor={name} required={required} value={label} />}
     {children}
-    {error &&
-      <p className="FormGroup-feedback">
-        {error}
-      </p>}
-    {hint &&
-      <p className="FormGroup-hint">
-        {hint}
-      </p>}
+    {error && <p className="FormGroup-feedback">{error}</p>}
+    {hint && <p className="FormGroup-hint">{hint}</p>}
   </div>
+)
 
 const { bool, node, string } = PropTypes
 

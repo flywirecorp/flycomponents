@@ -195,7 +195,7 @@ export class FlagSelector extends Component {
     const { options } = this.props
     const { isOpen, selectedIndex } = this.state
 
-    const optionList = options.map((option, i) =>
+    const optionList = options.map((option, i) => (
       <Option
         country={option.label}
         dialingCode={option.dialingCode}
@@ -206,7 +206,7 @@ export class FlagSelector extends Component {
         ref={`option-${i}`}
         value={option.value}
       />
-    )
+    ))
 
     return (
       <div
@@ -219,13 +219,13 @@ export class FlagSelector extends Component {
         style={styles.menu}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
-          {value
-            ? <span
-                className={classNames('Flag', {
-                  [`Flag--${value.toLowerCase()}`]: value
-                })}
-              />
-            : null}
+          {value ? (
+            <span
+              className={classNames('Flag', {
+                [`Flag--${value.toLowerCase()}`]: value
+              })}
+            />
+          ) : null}
         </span>
         <input
           autoComplete={false}
@@ -236,9 +236,7 @@ export class FlagSelector extends Component {
           type="text"
         />
 
-        <Options ref="optionList">
-          {optionList}
-        </Options>
+        <Options ref="optionList">{optionList}</Options>
       </div>
     )
   }

@@ -40,7 +40,9 @@ describe('Navigation', () => {
     }
 
     monthSelectorLabels() {
-      return this.monthSelector().prop('values').map(value => value.label)
+      return this.monthSelector()
+        .prop('values')
+        .map(value => value.label)
     }
 
     yearSelector() {
@@ -48,7 +50,9 @@ describe('Navigation', () => {
     }
 
     yearSelectorLabels() {
-      return this.yearSelector().prop('values').map(value => value.label)
+      return this.yearSelector()
+        .prop('values')
+        .map(value => value.label)
     }
 
     simulatePrevMonthClick() {

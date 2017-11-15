@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const Select = ({ className, selectedValue, onChange, onClick, values }) => {
-  const options = values.map(option =>
+  const options = values.map(option => (
     <option key={option.value} value={option.value}>
       {option.label}
     </option>
-  )
+  ))
 
   return (
     <select

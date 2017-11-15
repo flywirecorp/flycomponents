@@ -16,7 +16,10 @@ export const isWeekInMonth = (weekDate, month) => {
 
 export const monthStartingWeekDates = monthDate => {
   const currentMonth = monthDate.month()
-  const weekStartingDate = monthDate.clone().startOf('month').startOf('week')
+  const weekStartingDate = monthDate
+    .clone()
+    .startOf('month')
+    .startOf('week')
 
   const monthWeeks = []
   while (isWeekInMonth(weekStartingDate, currentMonth)) {

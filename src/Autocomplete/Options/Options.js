@@ -3,11 +3,7 @@ import React, { Component } from 'react'
 
 class Options extends Component {
   render() {
-    return (
-      <ul className="Autocomplete-options">
-        {this.props.children}
-      </ul>
-    )
+    return <ul className="Autocomplete-options">{this.props.children}</ul>
   }
 }
 

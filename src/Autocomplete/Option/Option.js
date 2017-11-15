@@ -22,9 +22,11 @@ class Option extends Component {
         onMouseEnter={() => onMouseEnter(value)}
         value={value}
       >
-        {highlighText
-          ? <Highlighter text={label} subString={searchQuery} />
-          : label}
+        {highlighText ? (
+          <Highlighter text={label} subString={searchQuery} />
+        ) : (
+          label
+        )}
       </li>
     )
   }

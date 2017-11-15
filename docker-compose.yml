@@ -7,7 +7,7 @@ services:
       - npm-app:/docs/node_modules
     ports:
       - '8080:8080'
-    command: bash -c 'yarn start'
+    command: 'npm run start'
 
 volumes:
   npm-app:

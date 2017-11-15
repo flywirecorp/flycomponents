@@ -12,7 +12,7 @@ const Calendar = ({
   onYearChange,
   selectedDate,
   startDate
-}) =>
+}) => (
   <div className="Calendar Datepicker-calendar">
     <Navigation
       onMonthChange={onMonthChange}
@@ -30,6 +30,7 @@ const Calendar = ({
       />
     </table>
   </div>
+)
 
 const { func, object, string } = PropTypes
 

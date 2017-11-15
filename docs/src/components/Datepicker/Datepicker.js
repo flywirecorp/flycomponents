@@ -3,7 +3,7 @@ import { Datepicker } from '../../../../src'
 import Component from '../Component'
 import README from './README.md'
 
-export default () =>
+export default () => (
   <Component readme={README}>
     <Datepicker
       locale="ES"
@@ -13,3 +13,4 @@ export default () =>
       value="04/21/1979"
     />
   </Component>
+)
