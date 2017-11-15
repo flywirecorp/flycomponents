@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2988e02aedc8fc900ddf"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3c9c3939d2015a1ea6a8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -29754,7 +29754,8 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
           name = _props6.name,
           onFocus = _props6.onFocus,
           placeholder = _props6.placeholder,
-          readOnly = _props6.readOnly;
+          readOnly = _props6.readOnly,
+          template = _props6.template;
 
       var options = this.loadOptions();
       var searchOn = this.searchOn();
@@ -29768,7 +29769,6 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
       var optionList = options.map(function (option, i) {
         return _react2.default.createElement(_Option2.default, {
           key: option.value,
-          label: option.label.toString(),
           onClick: function onClick(value) {
             return _this3.handleOptionSelected(value);
           },
@@ -29776,10 +29776,11 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
             return _this3.handleOptionHover(value);
           },
           hasFocus: selectedIndex === i,
+          option: option,
           ref: 'option-' + i,
           searchQuery: searchQuery.toString(),
           selectedValue: new RegExp('^' + selectedValue + '$', 'i').test(option.value),
-          value: option.value,
+          template: template,
           highlighText: searchOn
         });
       });
@@ -29818,6 +29819,26 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
 
   return Autocomplete;
 }(_react.Component);
+
+Autocomplete.defaultProps = {
+  minOptionsForSearch: Infinity,
+  onBlur: function onBlur() {},
+  onChange: function onChange() {},
+  onFocus: function onFocus() {}
+};
+Autocomplete.propTypes = {
+  label: _propTypes2.default.string,
+  minOptionsForSearch: _propTypes2.default.number,
+  name: _propTypes2.default.string.isRequired,
+  onBlur: _propTypes2.default.func,
+  onChange: _propTypes2.default.func,
+  onFocus: _propTypes2.default.func,
+  options: _propTypes2.default.array.isRequired,
+  placeholder: _propTypes2.default.string,
+  readOnly: _propTypes2.default.bool,
+  template: _propTypes2.default.func,
+  value: _propTypes2.default.string
+};
 
 var _initialiseProps = function _initialiseProps() {
   var _this4 = this;
@@ -29871,33 +29892,6 @@ var _initialiseProps = function _initialiseProps() {
       selectedIndex: 0
     });
   };
-};
-
-var array = _propTypes2.default.array,
-    bool = _propTypes2.default.bool,
-    func = _propTypes2.default.func,
-    number = _propTypes2.default.number,
-    string = _propTypes2.default.string;
-
-
-Autocomplete.defaultProps = {
-  minOptionsForSearch: Infinity,
-  onBlur: function onBlur() {},
-  onChange: function onChange() {},
-  onFocus: function onFocus() {}
-};
-
-Autocomplete.propTypes = {
-  label: string,
-  minOptionsForSearch: number,
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  onFocus: func,
-  options: array.isRequired,
-  placeholder: string,
-  readOnly: bool,
-  value: string
 };
 
 var AutocompleteWithClickOutside = exports.AutocompleteWithClickOutside = (0, _reactOnclickoutside2.default)(Autocomplete);
@@ -30527,6 +30521,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _propTypes = __webpack_require__(2);
@@ -30568,12 +30564,18 @@ var Option = function (_Component) {
       var _props = this.props,
           hasFocus = _props.hasFocus,
           highlighText = _props.highlighText,
-          label = _props.label,
           _onClick = _props.onClick,
           _onMouseEnter = _props.onMouseEnter,
+          option = _props.option,
+          _props$option = _props.option,
+          label = _props$option.label,
+          value = _props$option.value,
           searchQuery = _props.searchQuery,
-          value = _props.value;
+          template = _props.template;
 
+
+      var text = label.toString();
+      var highlighedText = highlighText ? _react2.default.createElement(_Highlighter2.default, { text: text, subString: searchQuery }) : text;
 
       return _react2.default.createElement(
         'li',
@@ -30587,7 +30589,7 @@ var Option = function (_Component) {
           },
           value: value
         },
-        highlighText ? _react2.default.createElement(_Highlighter2.default, { text: label, subString: searchQuery }) : label
+        typeof template === 'function' ? template(_extends({}, option, { label: highlighedText })) : highlighedText
       );
     }
   }]);
@@ -30595,25 +30597,21 @@ var Option = function (_Component) {
   return Option;
 }(_react.Component);
 
-var bool = _propTypes2.default.bool,
-    func = _propTypes2.default.func,
-    string = _propTypes2.default.string;
-
-
 Option.defaultProps = {
   highlighText: true
 };
-
 Option.propTypes = {
-  hasFocus: bool.isRequired,
-  highlighText: bool,
-  label: string.isRequired,
-  onClick: func.isRequired,
-  onMouseEnter: func.isRequired,
-  searchQuery: string,
-  value: string.isRequired
+  hasFocus: _propTypes2.default.bool.isRequired,
+  highlighText: _propTypes2.default.bool,
+  onClick: _propTypes2.default.func.isRequired,
+  onMouseEnter: _propTypes2.default.func.isRequired,
+  option: _propTypes2.default.shape({
+    label: _propTypes2.default.string.isRequired,
+    value: _propTypes2.default.string.isRequired
+  }),
+  searchQuery: _propTypes2.default.string,
+  template: _propTypes2.default.func
 };
-
 exports.default = Option;
 module.exports = exports['default'];
 
@@ -36045,6 +36043,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = function () {
   var countries = [{ label: 'Andorra', value: 'AN' }, { label: 'China', value: 'CN' }, { label: 'Cuba', value: 'CUB' }, { label: 'France', value: 'FR' }, { label: 'Germany', value: 'DEU' }, { label: 'Greece', value: 'GR' }, { label: 'Italy', value: 'IT' }, { label: 'Japan', value: 'JP' }, { label: 'Korea', value: 'KO' }, { label: 'Morocco', value: 'MOR' }, { label: 'Spain', value: 'ES' }, { label: 'United Kingdom', value: 'GB' }, { label: 'United States', value: 'US' }];
 
+  var countryTemplate = function countryTemplate(country) {
+    return _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement('img', { src: 'http://via.placeholder.com/30x30' }),
+      ' ',
+      country.label
+    );
+  };
+
   return _react2.default.createElement(
     _Component2.default,
     { readme: _README2.default },
@@ -36055,7 +36063,11 @@ exports.default = function () {
         label: 'Search enabled',
         className: 'FormGroup GridColumn'
       },
-      _react2.default.createElement(_src.Autocomplete, { name: 'country', options: countries })
+      _react2.default.createElement(_src.Autocomplete, {
+        name: 'country',
+        options: countries,
+        template: countryTemplate
+      })
     ),
     _react2.default.createElement(
       _src.FormGroup,
@@ -36079,7 +36091,7 @@ module.exports = exports['default'];
 /* 277 */
 /***/ (function(module, exports) {
 
-module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n]\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete name=\"country\" options={countries} />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={25}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                         | Default   |\n| ------------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element               |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                     | Infinity  |\n| name                | yes   | string     | The name of input element                                           |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused           |           |\n| options             | yes   | array      | Array representing all items                                        |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field     |           |\n| readOnly            | no    | bool       | Input field is read-only                                            |           |\n| value               | no    | bool       | Default value                                                       |           |\n"
+module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n];\n\nconst countryTemplate = country => (\n  <div>\n    <img src=\"http://via.placeholder.com/30x30\" /> {country.label}\n  </div>\n);\n\n<FormGroup\n  name=\"country\"\n  label=\"Search enabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    template={countryTemplate}\n  />\n</FormGroup>\n\n<FormGroup\n  name=\"country\"\n  label=\"Search disabled\"\n  className=\"FormGroup GridColumn\"\n>\n  <Autocomplete\n    name=\"country\"\n    options={countries}\n    minOptionsForSearch={25}\n  />\n</FormGroup>\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                            | Default   |\n| ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |\n| label               | no    | string     | The text string to use for the floating label element                  |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                        | Infinity  |\n| name                | yes   | string     | The name of input element                                              |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred              |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes    |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused              |           |\n| options             | yes   | array      | Array representing all items                                           |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field        |           |\n| readOnly            | no    | bool       | Input field is read-only                                               |           |\n| template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |\n| value               | no    | bool       | Default value                                                          |           |\n"
 
 /***/ }),
 /* 278 */
@@ -36747,7 +36759,7 @@ module.exports = exports['default'];
 /* 304 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.0.0","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"mocha --opts tests/helpers/mocha.opts","test:watch":"mocha -w --opts tests/helpers/mocha.opts","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","moment":"^2.19.2","prop-types":"^15.6.0","react":"^16.1.1","react-dom":"^16.1.1","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","chai":"^4.0.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.11.0","eslint-config-prettier":"^2.2.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.1.0","eslint-plugin-standard":"^3.0.1","flystyles":"^1.2.5","github-markdown-css":"^2.6.0","ignore-styles":"^5.0.1","jsdom":"11.3.0","jsdom-global":"3.0.2","marked":"^0.3.6","mocha":"^4.0.1","prettier":"^1.4.4","raw-loader":"^0.5.1","react-addons-test-utils":"^15.5.1","react-router-dom":"^4.1.1","react-test-renderer":"^16.1.1","sinon":"^4.1.2","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.8.1","webpack-dev-server":"^2.4.5","webpack-hot-middleware":"^2.18.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}}}
+module.exports = {"name":"flycomponents","version":"2.1.0","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"mocha --opts tests/helpers/mocha.opts","test:watch":"mocha -w --opts tests/helpers/mocha.opts","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","moment":"^2.19.2","prop-types":"^15.6.0","react":"^16.1.1","react-dom":"^16.1.1","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","chai":"^4.0.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.11.0","eslint-config-prettier":"^2.2.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.1.0","eslint-plugin-standard":"^3.0.1","flystyles":"^1.2.5","github-markdown-css":"^2.6.0","ignore-styles":"^5.0.1","jsdom":"11.3.0","jsdom-global":"3.0.2","marked":"^0.3.6","mocha":"^4.0.1","prettier":"^1.4.4","raw-loader":"^0.5.1","react-addons-test-utils":"^15.5.1","react-router-dom":"^4.1.1","react-test-renderer":"^16.1.1","sinon":"^4.1.2","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.8.1","webpack-dev-server":"^2.4.5","webpack-hot-middleware":"^2.18.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}}}
 
 /***/ }),
 /* 305 */
