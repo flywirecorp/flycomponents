@@ -1,4 +1,6 @@
---compilers js:babel-core/register
+--require babel-core/register
+--require tests/helpers/enzyme.js
+--require jsdom-global/register
 --recursive
 --colors
 --full-trace

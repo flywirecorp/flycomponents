@@ -34,21 +34,19 @@ class Datepicker extends Component {
     document.removeEventListener('click', this.hideOnDocumentClick)
   }
 
-  hideOnDocumentClick = e => {
-    const { isOpen: wasOpen } = this.state
-    const { target } = e
-    const parentElement = findDOMNode(this)
+  setSelectedDate = date => {
+    const { name, onChange } = this.props
 
-    if (parentElement.contains(target)) {
-      return
-    }
+    this.setState({ selectedDate: date })
+    onChange(name, date)
+  }
 
-    const { selectedDate } = this.state
-    const startDate = parseDateOrToday(selectedDate)
+  setSelectedDateAndCloseCalendar = date => {
+    this.setSelectedDate(date)
 
     this.setState(() => {
-      return { isOpen: false, startDate }
-    }, wasOpen ? this.sendBlur : null)
+      return { isOpen: false }
+    }, this.sendBlur)
   }
 
   handleCalendarIconClick = () => {
@@ -61,11 +59,6 @@ class Datepicker extends Component {
     this.setState(prevState => {
       return { isOpen: !prevState.isOpen }
     })
-  }
-
-  sendBlur() {
-    const { name, onBlur } = this.props
-    onBlur(name)
   }
 
   handleDateInputClick = () => {
@@ -102,19 +95,26 @@ class Datepicker extends Component {
     })
   }
 
-  setSelectedDate = date => {
-    const { name, onChange } = this.props
+  hideOnDocumentClick = e => {
+    const { isOpen: wasOpen } = this.state
+    const { target } = e
+    const parentElement = findDOMNode(this)
 
-    this.setState({ selectedDate: date })
-    onChange(name, date)
-  }
+    if (parentElement.contains(target)) {
+      return
+    }
 
-  setSelectedDateAndCloseCalendar = date => {
-    this.setSelectedDate(date)
+    const { selectedDate } = this.state
+    const startDate = parseDateOrToday(selectedDate)
 
     this.setState(() => {
-      return { isOpen: false }
-    }, this.sendBlur)
+      return { isOpen: false, startDate }
+    }, wasOpen ? this.sendBlur : null)
+  }
+
+  sendBlur() {
+    const { name, onBlur } = this.props
+    onBlur(name)
   }
 
   render() {

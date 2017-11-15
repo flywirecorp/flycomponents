@@ -9,6 +9,29 @@ class MoneyInput extends Component {
     this.state = { amount: props.value }
   }
 
+  convertToCents(amount) {
+    const { decimalMark: decimal, subunitToUnit } = this.props
+
+    return toCents(amount, { decimal, subunitToUnit })
+  }
+
+  format(cents) {
+    const {
+      decimalMark: decimal,
+      subunitToUnit,
+      thousandsSeparator: thousand
+    } = this.props
+
+    const settings = {
+      decimal,
+      subunitToUnit,
+      symbol: false,
+      thousand
+    }
+
+    return toMoney(cents, settings)
+  }
+
   handleBlur = e => {
     const { onBlur } = this.props
     const { target: { name, value: amount } } = e
@@ -74,29 +97,6 @@ class MoneyInput extends Component {
     if (!isNumber && !allowedChars) {
       e.preventDefault()
     }
-  }
-
-  convertToCents(amount) {
-    const { decimalMark: decimal, subunitToUnit } = this.props
-
-    return toCents(amount, { decimal, subunitToUnit })
-  }
-
-  format(cents) {
-    const {
-      decimalMark: decimal,
-      subunitToUnit,
-      thousandsSeparator: thousand
-    } = this.props
-
-    const settings = {
-      decimal,
-      subunitToUnit,
-      symbol: false,
-      thousand
-    }
-
-    return toMoney(cents, settings)
   }
 
   render() {

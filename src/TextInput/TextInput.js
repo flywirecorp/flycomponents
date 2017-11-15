@@ -11,6 +11,10 @@ class TextInput extends Component {
     this.state = { value: props.value }
   }
 
+  fieldValue() {
+    return this.state.value
+  }
+
   handleBlur = e => {
     const { onBlur } = this.props
     const { name } = e.target
@@ -26,18 +30,15 @@ class TextInput extends Component {
     this.setState({ value })
   }
 
-  fieldValue() {
-    return this.state.value
-  }
-
-  textArea() {
-    const { multiline, prefix, sufix, ...inputAttrs } = this.props
+  input() {
+    const { multiline, sufix, prefix, ...inputAttrs } = this.props
 
     return (
-      <Textarea
+      <Input
         {...inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
+        type="text"
         value={this.fieldValue()}
       />
     )
@@ -59,15 +60,14 @@ class TextInput extends Component {
     )
   }
 
-  input() {
-    const { multiline, sufix, prefix, ...inputAttrs } = this.props
+  textArea() {
+    const { multiline, prefix, sufix, ...inputAttrs } = this.props
 
     return (
-      <Input
+      <Textarea
         {...inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
-        type="text"
         value={this.fieldValue()}
       />
     )

@@ -8,6 +8,17 @@ const DATE_PATTERN = '../../....'
 const DELETE_KEYCODE = 8
 
 class DateInput extends Component {
+  handleClick = e => {
+    const { onClick } = this.props
+    this.handleFocus()
+    onClick()
+  }
+
+  handleFocus() {
+    const input = this.refs.input
+    input.focus()
+  }
+
   handleKeyDown = e => {
     const { selectedDate = '', setSelectedDate, readOnly } = this.props
     const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`
@@ -22,17 +33,6 @@ class DateInput extends Component {
     const formatedDate = applyPattern(value, DATE_PATTERN)
 
     setSelectedDate(formatedDate)
-  }
-
-  handleFocus() {
-    const input = this.refs.input
-    input.focus()
-  }
-
-  handleClick = e => {
-    const { onClick } = this.props
-    this.handleFocus()
-    onClick()
   }
 
   render() {

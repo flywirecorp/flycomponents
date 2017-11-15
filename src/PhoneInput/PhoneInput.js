@@ -21,6 +21,28 @@ class PhoneInput extends Component {
     }
   }
 
+  getCountry(isoCode) {
+    const { countries } = this.props
+
+    return countries.find(country => country.value === isoCode) || NO_COUNTRY
+  }
+
+  getCountryFrom(phoneNumber) {
+    const { countries } = this.props
+    const { preferredCountryIsoCode } = this.state || {}
+    const cleanPhoneNumber = phoneNumber.replace(/\D/g, '')
+    const possibleCountries = countries.filter(country => {
+      return cleanPhoneNumber.startsWith(country.dialingCode)
+    })
+
+    if (possibleCountries.length === 0) return NO_COUNTRY
+    return (
+      possibleCountries.find(
+        country => country.value === preferredCountryIsoCode
+      ) || possibleCountries[0]
+    )
+  }
+
   formatNumber(value, phonePattern) {
     return applyPattern(value, phonePattern, { ignoreExcedingText: false })
   }
@@ -67,28 +89,6 @@ class PhoneInput extends Component {
       selectedCountry: isoCode,
       formattedNumber: this.formatNumber(phoneNumber, phonePattern)
     })
-  }
-
-  getCountry(isoCode) {
-    const { countries } = this.props
-
-    return countries.find(country => country.value === isoCode) || NO_COUNTRY
-  }
-
-  getCountryFrom(phoneNumber) {
-    const { countries } = this.props
-    const { preferredCountryIsoCode } = this.state || {}
-    const cleanPhoneNumber = phoneNumber.replace(/\D/g, '')
-    const possibleCountries = countries.filter(country => {
-      return cleanPhoneNumber.startsWith(country.dialingCode)
-    })
-
-    if (possibleCountries.length === 0) return NO_COUNTRY
-    return (
-      possibleCountries.find(
-        country => country.value === preferredCountryIsoCode
-      ) || possibleCountries[0]
-    )
   }
 
   sendChange(value) {

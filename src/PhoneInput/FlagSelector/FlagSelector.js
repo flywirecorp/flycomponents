@@ -37,6 +37,11 @@ export class FlagSelector extends Component {
     this.typedQueryTimer = 0
   }
 
+  getOptionIndexByValue(value) {
+    const { options } = this.props
+    return options.findIndex(option => option.value === value)
+  }
+
   adjustOffet() {
     const { selectedIndex } = this.state
     const optionSelected = findDOMNode(this.refs[`option-${selectedIndex}`])
@@ -54,9 +59,12 @@ export class FlagSelector extends Component {
     })
   }
 
-  getOptionIndexByValue(value) {
-    const { options } = this.props
-    return options.findIndex(option => option.value === value)
+  handleMenuClick = () => {
+    const { onFocus, readOnly } = this.props
+    if (readOnly) return false
+    this.setState(prevState => {
+      return { isOpen: !prevState.isOpen }
+    }, onFocus)
   }
 
   handleMenuKeydown = e => {
@@ -79,6 +87,22 @@ export class FlagSelector extends Component {
     }
   }
 
+  handleOptionHover(value) {
+    const selectedIndex = this.getOptionIndexByValue(value)
+    return this.setState({ selectedIndex })
+  }
+
+  handleOptionSelected = value => {
+    const selectedIndex = this.getOptionIndexByValue(value)
+    this.hideOptions()
+    this.setState(() => {
+      return {
+        isOpen: false,
+        selectedIndex
+      }
+    }, this.sendChange(value))
+  }
+
   handleTypedChar(keyCode) {
     const newChar = String.fromCharCode(keyCode).toLowerCase()
     clearTimeout(this.typedQueryTimer)
@@ -94,55 +118,8 @@ export class FlagSelector extends Component {
     }, 2000)
   }
 
-  searchTypedCountry() {
-    const { options } = this.props
-    const { typedQuery } = this.state
-
-    const searchedOptionIndex = options.findIndex(option =>
-      option.label.toLowerCase().startsWith(typedQuery)
-    )
-    this.setState(
-      {
-        selectedIndex: searchedOptionIndex
-      },
-      this.adjustOffet
-    )
-  }
-
-  handleOptionSelected = value => {
-    const selectedIndex = this.getOptionIndexByValue(value)
-    this.hideOptions()
-    this.setState(() => {
-      return {
-        isOpen: false,
-        selectedIndex
-      }
-    }, this.sendChange(value))
-  }
-
-  handleMenuClick = () => {
-    const { onFocus, readOnly } = this.props
-    if (readOnly) return false
-    this.setState(prevState => {
-      return { isOpen: !prevState.isOpen }
-    }, onFocus)
-  }
-
-  handleOptionHover(value) {
-    const selectedIndex = this.getOptionIndexByValue(value)
-    return this.setState({ selectedIndex })
-  }
-
   hideOptions() {
     this.setState({ isOpen: false })
-  }
-
-  moveIndexDown() {
-    this.moveIndex(-1)
-  }
-
-  moveIndexUp() {
-    this.moveIndex(1)
   }
 
   moveIndex(offset) {
@@ -163,11 +140,27 @@ export class FlagSelector extends Component {
     }, this.adjustOffet)
   }
 
-  showOptions() {
-    const { readOnly } = this.props
-    if (readOnly) return false
+  moveIndexDown() {
+    this.moveIndex(-1)
+  }
 
-    this.setState({ isOpen: true })
+  moveIndexUp() {
+    this.moveIndex(1)
+  }
+
+  searchTypedCountry() {
+    const { options } = this.props
+    const { typedQuery } = this.state
+
+    const searchedOptionIndex = options.findIndex(option =>
+      option.label.toLowerCase().startsWith(typedQuery)
+    )
+    this.setState(
+      {
+        selectedIndex: searchedOptionIndex
+      },
+      this.adjustOffet
+    )
   }
 
   selectCurrentOption() {
@@ -188,6 +181,13 @@ export class FlagSelector extends Component {
     if (typeof onChange === 'function') {
       onChange(name, value)
     }
+  }
+
+  showOptions() {
+    const { readOnly } = this.props
+    if (readOnly) return false
+
+    this.setState({ isOpen: true })
   }
 
   render() {
@@ -228,7 +228,7 @@ export class FlagSelector extends Component {
           ) : null}
         </span>
         <input
-          autoComplete={false}
+          autoComplete="off"
           className="PhoneNumber-menu-fakeInput"
           onClick={this.handleMenuClick}
           onKeyDown={this.handleMenuKeydown}
