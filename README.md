@@ -4,10 +4,10 @@ Flycomponents is a set a react UI components used to create payment forms in Fly
 
 ## Installation
 
-Flycomponents is a private repository and haven't been published to npm yet, so to add the dependency to your project you have to add to your `package.json`:
+Add the dependency to your project adding to your `package.json`:
 
 ```javascript
-"flycomponents": "git+https://<github_token>:x-oauth-basic@github.com/peertransfer/flycomponents.git/<version>"
+"flycomponents": "git+https://github.com/peertransfer/flycomponents.git"
 ```
 
 ## Create a new release
@@ -22,7 +22,7 @@ For example:
 ```bash
 npm version patch
 ```
-This will bump the `package.json` version, build a new bundle, commit and push the changes tagging them to a new release.
+This will bump the `package.json` version, build a new bundle, commit,push the changes tagging them to a new release and update the documentation.
 
 ## Documentation
 
@@ -33,6 +33,6 @@ To update the documentation and publish the changes to Github Pages:
 
 ```
 > make bash
-docs# yarn build:doc
+docs# npm run build:doc
 > # commit the changes
 ```
