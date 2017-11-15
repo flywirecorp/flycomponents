@@ -1,6 +1,6 @@
 import React from 'react';
 import Markdown from '../Markdown';
-import README from './README.md';
+import README from '../../../../README.md';
 
 const styles = {
   container: {
