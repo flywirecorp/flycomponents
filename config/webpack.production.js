@@ -1,7 +1,7 @@
-var webpack = require('webpack')
-var path = require('path')
+var webpack = require('webpack');
+var path = require('path');
 
-function buildConfig () {
+function buildConfig() {
   return {
     context: path.resolve(__dirname, '..'),
     entry: {
@@ -75,7 +75,7 @@ function buildConfig () {
           screw_ie8: true
         },
         output: {
-          comments: false,
+          comments: false
         }
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),
@@ -96,13 +96,13 @@ function buildConfig () {
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: path.join(__dirname, 'node_modules'),
+          exclude: /node_modules/
         }
       ]
     }
-  }
+  };
 }
 
-module.exports = (function () {
-  return buildConfig()
-})()
+module.exports = (function() {
+  return buildConfig();
+})();

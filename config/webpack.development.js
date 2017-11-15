@@ -1,11 +1,11 @@
-var webpack = require('webpack')
-var path = require('path')
+var webpack = require('webpack');
+var path = require('path');
 var settings = {
   ip: process.env.IP || '0.0.0.0',
   port: process.env.PORT || 8080
-}
+};
 
-function buildConfig (options) {
+function buildConfig(options) {
   return {
     context: path.resolve(__dirname, '..'),
     target: 'web',
@@ -15,7 +15,7 @@ function buildConfig (options) {
     output: {
       path: path.join(__dirname, '..', 'docs', 'dist'),
       filename: 'bundle.js',
-      publicPath: '/dist',
+      publicPath: '/dist'
     },
     devServer: {
       contentBase: './docs',
@@ -56,7 +56,7 @@ function buildConfig (options) {
         {
           test: /\.js$/,
           use: 'babel-loader',
-          exclude: path.join(__dirname, 'node_modules'),
+          exclude: /node_modules/
         },
         {
           test: /\.css$/,
@@ -73,9 +73,9 @@ function buildConfig (options) {
         }
       ]
     }
-  }
+  };
 }
 
-module.exports = (function (options) {
-  return buildConfig(options)
-})(settings)
+module.exports = (function(options) {
+  return buildConfig(options);
+})(settings);
