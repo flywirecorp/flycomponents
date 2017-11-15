@@ -7,7 +7,7 @@ down:
 	docker-compose down
 
 test:
-	docker-compose run --rm dev yarn test
+	docker-compose run --rm dev npm run test
 
 bash:
 	docker-compose exec dev bash
@@ -16,9 +16,9 @@ logs:
 	docker-compose logs -f dev
 
 build:
-	docker-compose run --rm dev yarn build
+	docker-compose run --rm dev npm run build
 
 build-docs:
-	docker-compose run --rm dev yarn build:docs
+	docker-compose run --rm dev npm run build:docs
 
 default: up
