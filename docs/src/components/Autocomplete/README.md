@@ -1,5 +1,6 @@
 # Autocomplete
-An input field with a set of predeterminated labeled values. When it's focused it shows a list of options that are filtered by label as the user types.
+An input field with a set of predeterminated labeled values. When it's focused
+it shows a list of options that are filtered by label as the user types.
 
 ## Example
 
@@ -26,36 +27,38 @@ const countryTemplate = country => (
   </div>
 );
 
-<FormGroup
-  name="country"
+<Autocomplete
   label="Search enabled"
-  className="FormGroup GridColumn"
->
-  <Autocomplete
-    name="country"
-    options={countries}
-    template={countryTemplate}
-  />
-</FormGroup>
-
-<FormGroup
   name="country"
+  options={countries}
+  placeholder="Select a country"
+  required
+  template={countryTemplate}
+/>
+<Autocomplete
+  hint="You can't search here, It's like a dropdown"
   label="Search disabled"
-  className="FormGroup GridColumn"
->
-  <Autocomplete
-    name="country"
-    options={countries}
-    minOptionsForSearch={25}
-  />
-</FormGroup>
+  minOptionsForSearch={25}
+  name="country"
+  options={countries}
+  placeholder="Select a country"
+/>
+<Autocomplete
+  error="This field is required"
+  label="Autocomplete with error"
+  name="country"
+  options={countries}
+  placeholder="Select a country"
+/>
 ```
 
 ## Properties
 
 | Property            | Req   | Type       | Description                                                            | Default   |
 | ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |
-| label               | no    | string     | The text string to use for the floating label element                  |           |
+| error               | no    | string     | Error message                                                          |           |
+| hint                | no    | string     | Help message below the autocomplete                                    |           |
+| label               | no    | string     | The text string to use for HTML label tag                              |           |
 | minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                        | Infinity  |
 | name                | yes   | string     | The name of input element                                              |           |
 | onBlur              | no    | func       | Callback function that is fired when component is blurred              |           |
@@ -65,4 +68,4 @@ const countryTemplate = country => (
 | placeholder         | no    | string     | Short hint that describes the expected value of the input field        |           |
 | readOnly            | no    | bool       | Input field is read-only                                               |           |
 | template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |
-| value               | no    | bool       | Default value                                                          |           |
+| value               | no    | string     | Default value                                                          | null      |

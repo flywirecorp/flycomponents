@@ -1,5 +1,5 @@
 import React from 'react';
-import { Autocomplete, FormGroup } from '../../../../src';
+import { Autocomplete } from '../../../../src';
 import Component from '../Component';
 import README from './README.md';
 
@@ -28,28 +28,29 @@ export default () => {
 
   return (
     <Component readme={README}>
-      <FormGroup
+      <Autocomplete
         name="country"
+        options={countries}
+        template={countryTemplate}
         label="Search enabled"
-        className="FormGroup GridColumn"
-      >
-        <Autocomplete
-          name="country"
-          options={countries}
-          template={countryTemplate}
-        />
-      </FormGroup>
-      <FormGroup
-        name="country"
+        required
+        placeholder="Select a country"
+      />
+      <Autocomplete
         label="Search disabled"
-        className="FormGroup GridColumn"
-      >
-        <Autocomplete
-          name="country"
-          options={countries}
-          minOptionsForSearch={25}
-        />
-      </FormGroup>
+        name="country"
+        options={countries}
+        minOptionsForSearch={25}
+        hint="You can't search here, It's like a dropdown"
+        placeholder="Select a country"
+      />
+      <Autocomplete
+        error="This field is required"
+        label="Autocomplete with error"
+        name="country"
+        options={countries}
+        placeholder="Select a country"
+      />
     </Component>
   );
 };
