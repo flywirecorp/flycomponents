@@ -20,6 +20,12 @@ export default () => {
     { label: 'United States', value: 'US' }
   ];
 
+  const countryTemplate = country => (
+    <div>
+      <img src="http://via.placeholder.com/30x30" /> {country.label}
+    </div>
+  );
+
   return (
     <Component readme={README}>
       <FormGroup
@@ -27,7 +33,11 @@ export default () => {
         label="Search enabled"
         className="FormGroup GridColumn"
       >
-        <Autocomplete name="country" options={countries} />
+        <Autocomplete
+          name="country"
+          options={countries}
+          template={countryTemplate}
+        />
       </FormGroup>
       <FormGroup
         name="country"

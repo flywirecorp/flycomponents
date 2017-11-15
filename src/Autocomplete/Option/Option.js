@@ -4,16 +4,41 @@ import classNames from 'classnames';
 import Highlighter from '../Highlighter';
 
 class Option extends Component {
+  static defaultProps = {
+    highlighText: true
+  };
+
+  static propTypes = {
+    hasFocus: PropTypes.bool.isRequired,
+    highlighText: PropTypes.bool,
+    onClick: PropTypes.func.isRequired,
+    onMouseEnter: PropTypes.func.isRequired,
+    option: PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }),
+    searchQuery: PropTypes.string,
+    template: PropTypes.func
+  };
+
   render() {
     const {
       hasFocus,
       highlighText,
-      label,
       onClick,
       onMouseEnter,
+      option,
+      option: { label, value },
       searchQuery,
-      value
+      template
     } = this.props;
+
+    const text = label.toString();
+    const highlighedText = highlighText ? (
+      <Highlighter text={text} subString={searchQuery} />
+    ) : (
+      text
+    );
 
     return (
       <li
@@ -22,30 +47,12 @@ class Option extends Component {
         onMouseEnter={() => onMouseEnter(value)}
         value={value}
       >
-        {highlighText ? (
-          <Highlighter text={label} subString={searchQuery} />
-        ) : (
-          label
-        )}
+        {typeof template === 'function'
+          ? template({ ...option, label: highlighedText })
+          : highlighedText}
       </li>
     );
   }
 }
-
-const { bool, func, string } = PropTypes;
-
-Option.defaultProps = {
-  highlighText: true
-};
-
-Option.propTypes = {
-  hasFocus: bool.isRequired,
-  highlighText: bool,
-  label: string.isRequired,
-  onClick: func.isRequired,
-  onMouseEnter: func.isRequired,
-  searchQuery: string,
-  value: string.isRequired
-};
 
 export default Option;

@@ -13,6 +13,27 @@ const KEYS = [13, 27, 38, 40, 9];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class Autocomplete extends Component {
+  static defaultProps = {
+    minOptionsForSearch: Infinity,
+    onBlur: () => {},
+    onChange: () => {},
+    onFocus: () => {}
+  };
+
+  static propTypes = {
+    label: PropTypes.string,
+    minOptionsForSearch: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    options: PropTypes.array.isRequired,
+    placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
+    template: PropTypes.func,
+    value: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
     const { options, value } = this.props;
@@ -255,7 +276,7 @@ export class Autocomplete extends Component {
   }
 
   render() {
-    const { name, onFocus, placeholder, readOnly } = this.props;
+    const { name, onFocus, placeholder, readOnly, template } = this.props;
     const options = this.loadOptions();
     const searchOn = this.searchOn();
     const { isOpen, searchQuery, selectedIndex, selectedValue } = this.state;
@@ -263,14 +284,14 @@ export class Autocomplete extends Component {
     const optionList = options.map((option, i) => (
       <Option
         key={option.value}
-        label={option.label.toString()}
         onClick={value => this.handleOptionSelected(value)}
         onMouseEnter={value => this.handleOptionHover(value)}
         hasFocus={selectedIndex === i}
+        option={option}
         ref={`option-${i}`}
         searchQuery={searchQuery.toString()}
         selectedValue={new RegExp(`^${selectedValue}$`, 'i').test(option.value)}
-        value={option.value}
+        template={template}
         highlighText={searchOn}
       />
     ));
@@ -304,27 +325,5 @@ export class Autocomplete extends Component {
     );
   }
 }
-
-const { array, bool, func, number, string } = PropTypes;
-
-Autocomplete.defaultProps = {
-  minOptionsForSearch: Infinity,
-  onBlur: () => {},
-  onChange: () => {},
-  onFocus: () => {}
-};
-
-Autocomplete.propTypes = {
-  label: string,
-  minOptionsForSearch: number,
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  onFocus: func,
-  options: array.isRequired,
-  placeholder: string,
-  readOnly: bool,
-  value: string
-};
 
 export const AutocompleteWithClickOutside = onClickOutside(Autocomplete);

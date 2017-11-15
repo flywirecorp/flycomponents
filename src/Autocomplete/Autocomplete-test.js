@@ -132,7 +132,7 @@ describe('Autocomplete', () => {
 
     expect(component.options()).to.have.length(1);
 
-    expect(component.options().prop('label')).to.equal('United States');
+    expect(component.options().prop('option').label).to.equal('United States');
   });
 
   it('moves the focus to the next option when pressing key down', () => {
@@ -146,7 +146,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressArrowDownKey();
 
-    expect(component.focusedOption().prop('value')).to.equal('US');
+    expect(component.focusedOption().prop('option').value).to.equal('US');
   });
 
   it('moves the focus to the previous option when pressing key up', () => {
@@ -161,7 +161,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressArrowUpKey();
 
-    expect(component.focusedOption().prop('value')).to.equal('ES');
+    expect(component.focusedOption().prop('option').value).to.equal('ES');
   });
 
   it('hides options when pressing the esc key', () => {
@@ -204,7 +204,7 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('option').value).to.equal('ES');
   });
 
   it('hides options when pressing the enter key', () => {

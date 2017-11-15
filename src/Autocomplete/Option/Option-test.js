@@ -10,11 +10,11 @@ describe('Option', () => {
     constructor(ownProps) {
       const defaultProps = {
         hasFocus: false,
-        label: 'Option',
+        highlighText: true,
         onClick: () => {},
         onMouseEnter: () => {},
-        searchQuery: '',
-        value: 'opt'
+        option: { label: 'Option', value: 'opt' },
+        searchQuery: null
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -53,34 +53,32 @@ describe('Option', () => {
 
   it('simulates click events', () => {
     const onClick = sinon.spy();
-    const value = 'optionValue';
-    const component = new OptionComponent({ onClick, value });
+    const option = { label: 'Option', value: 'opt' };
+    const component = new OptionComponent({ onClick, option });
 
     component.simulateClick();
 
-    expect(onClick.calledWith('optionValue')).to.be.true;
+    expect(onClick.calledWith('opt')).to.be.true;
   });
 
   it('simulates mouse enter events', () => {
     const onMouseEnter = sinon.spy();
-    const value = 'optionValue';
-    const component = new OptionComponent({ onMouseEnter, value });
+    const option = { label: 'Option', value: 'opt' };
+    const component = new OptionComponent({ onMouseEnter, option });
 
     component.doMouseEnter();
 
-    expect(onMouseEnter.calledWith('optionValue')).to.be.true;
+    expect(onMouseEnter.calledWith('opt')).to.be.true;
   });
 
   it('highlighs texts', () => {
-    const label = 'Hello World!';
+    const option = { label: 'Hello World!', value: 'hw' };
     const searchQuery = 'World';
-    const component = new OptionComponent({ label, searchQuery });
+    const component = new OptionComponent({ option, searchQuery });
     const highlighText = component.highlighText();
 
     expect(highlighText).to.have.length(1);
-
-    expect(highlighText.prop('text')).to.equal(label);
-
+    expect(highlighText.prop('text')).to.equal(option.label);
     expect(highlighText.prop('subString')).to.equal(searchQuery);
   });
 
@@ -89,5 +87,15 @@ describe('Option', () => {
     const component = new OptionComponent({ highlighText });
 
     expect(component.highlighText()).to.have.length(0);
+  });
+
+  it('renders custom templates', () => {
+    const customTemplate = sinon.spy();
+    // eslint-disable-next-line
+    new OptionComponent({
+      template: customTemplate
+    });
+
+    expect(customTemplate.called).to.be.true;
   });
 });
