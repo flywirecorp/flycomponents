@@ -4,7 +4,7 @@ Flycomponents is a set a react UI components used to create payment forms in Fly
 
 ## Installation
 
-Add the dependency to your project adding to your `package.json`:
+Add the dependency to your `package.json`:
 
 ```javascript
 "flycomponents": "git+https://github.com/peertransfer/flycomponents.git"
