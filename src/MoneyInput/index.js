@@ -1,3 +1,3 @@
-import MoneyInput from './MoneyInput'
+import MoneyInput from './MoneyInput';
 
-export default MoneyInput
+export default MoneyInput;

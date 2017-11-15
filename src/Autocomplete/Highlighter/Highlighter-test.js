@@ -1,7 +1,7 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import Highlighter from './Highlighter'
+import React from 'react';
+import { shallow } from 'enzyme';
+import { expect } from 'chai';
+import Highlighter from './Highlighter';
 
 describe('Highlighter', () => {
   class HighlighterComponent {
@@ -9,24 +9,24 @@ describe('Highlighter', () => {
       const defaultProps = {
         text: '',
         subString: ''
-      }
-      const props = { ...defaultProps, ...ownProps }
+      };
+      const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Highlighter {...props} />)
+      this.component = shallow(<Highlighter {...props} />);
     }
 
     html() {
-      return this.component.find('span').prop('dangerouslySetInnerHTML').__html
+      return this.component.find('span').prop('dangerouslySetInnerHTML').__html;
     }
   }
 
   it('highlights a substring in string', () => {
-    const text = 'Hello World!'
-    const subString = 'World'
-    const component = new HighlighterComponent({ text, subString })
+    const text = 'Hello World!';
+    const subString = 'World';
+    const component = new HighlighterComponent({ text, subString });
 
     expect(component.html()).to.equal(
       "Hello <span class='is-highlighted'>World</span>!"
-    )
-  })
-})
+    );
+  });
+});

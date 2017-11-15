@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 
 class Options extends Component {
   render() {
@@ -7,14 +7,14 @@ class Options extends Component {
       <ul className="Autocomplete-options PhoneNumber-menu-options">
         {this.props.children}
       </ul>
-    )
+    );
   }
 }
 
-const { node } = PropTypes
+const { node } = PropTypes;
 
 Options.propTypes = {
   children: node.isRequired
-}
+};
 
-export default Options
+export default Options;

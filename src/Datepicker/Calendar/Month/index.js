@@ -1,3 +1,3 @@
-import Month from './Month'
+import Month from './Month';
 
-export default Month
+export default Month;

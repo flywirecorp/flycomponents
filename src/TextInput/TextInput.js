@@ -1,37 +1,37 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import InputGroup from '../InputGroup'
-import Textarea from '../Textarea'
-import Input from '../Input'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import InputGroup from '../InputGroup';
+import Textarea from '../Textarea';
+import Input from '../Input';
 
 class TextInput extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { value: props.value }
+    this.state = { value: props.value };
   }
 
   fieldValue() {
-    return this.state.value
+    return this.state.value;
   }
 
   handleBlur = e => {
-    const { onBlur } = this.props
-    const { name } = e.target
+    const { onBlur } = this.props;
+    const { name } = e.target;
 
-    onBlur(name)
-  }
+    onBlur(name);
+  };
 
   handleChange = e => {
-    const { onChange } = this.props
-    let { name, value } = e.target
+    const { onChange } = this.props;
+    let { name, value } = e.target;
 
-    onChange(name, value)
-    this.setState({ value })
-  }
+    onChange(name, value);
+    this.setState({ value });
+  };
 
   input() {
-    const { multiline, sufix, prefix, ...inputAttrs } = this.props
+    const { multiline, sufix, prefix, ...inputAttrs } = this.props;
 
     return (
       <Input
@@ -41,11 +41,11 @@ class TextInput extends Component {
         type="text"
         value={this.fieldValue()}
       />
-    )
+    );
   }
 
   inputGroup() {
-    const { multiline, prefix, sufix, ...inputAttrs } = this.props
+    const { multiline, prefix, sufix, ...inputAttrs } = this.props;
 
     return (
       <InputGroup
@@ -57,11 +57,11 @@ class TextInput extends Component {
         type="text"
         value={this.fieldValue()}
       />
-    )
+    );
   }
 
   textArea() {
-    const { multiline, prefix, sufix, ...inputAttrs } = this.props
+    const { multiline, prefix, sufix, ...inputAttrs } = this.props;
 
     return (
       <Textarea
@@ -70,24 +70,24 @@ class TextInput extends Component {
         onChange={this.handleChange}
         value={this.fieldValue()}
       />
-    )
+    );
   }
 
   render() {
-    const { multiline, prefix, sufix } = this.props
+    const { multiline, prefix, sufix } = this.props;
 
     if (multiline) {
-      return this.textArea()
+      return this.textArea();
     }
     if (sufix || prefix) {
-      return this.inputGroup()
+      return this.inputGroup();
     } else {
-      return this.input()
+      return this.input();
     }
   }
 }
 
-const { bool, func, string } = PropTypes
+const { bool, func, string } = PropTypes;
 
 TextInput.propTypes = {
   multiline: bool,
@@ -97,11 +97,11 @@ TextInput.propTypes = {
   prefix: string,
   sufix: string,
   value: string
-}
+};
 
 TextInput.defaultProps = {
   multiline: false,
   onBlur: () => {},
   onChange: () => {}
-}
-export default TextInput
+};
+export default TextInput;

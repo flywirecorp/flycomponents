@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import classNames from 'classnames'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import classNames from 'classnames';
 
 class Option extends Component {
   render() {
@@ -11,7 +11,7 @@ class Option extends Component {
       onClick,
       onMouseEnter,
       value: isoCode
-    } = this.props
+    } = this.props;
 
     return (
       <li
@@ -28,11 +28,11 @@ class Option extends Component {
         <span className="PhoneNumber-option-country">{country}</span>
         <span className="PhoneNumber-option-dial">+{dialingCode}</span>
       </li>
-    )
+    );
   }
 }
 
-const { bool, func, string } = PropTypes
+const { bool, func, string } = PropTypes;
 
 Option.propTypes = {
   country: string.isRequired,
@@ -41,6 +41,6 @@ Option.propTypes = {
   onClick: func.isRequired,
   onMouseEnter: func.isRequired,
   value: string.isRequired
-}
+};
 
-export default Option
+export default Option;

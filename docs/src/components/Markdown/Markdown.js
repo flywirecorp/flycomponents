@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import marked from 'marked'
+import PropTypes from 'prop-types';
+import React from 'react';
+import marked from 'marked';
 
 function createMarkup(html) {
-  return { __html: html }
+  return { __html: html };
 }
 
 const Markdown = ({ source }) => {
@@ -16,20 +16,20 @@ const Markdown = ({ source }) => {
     sanitize: false,
     smartLists: true,
     smartypants: false
-  })
-  const html = marked(source)
+  });
+  const html = marked(source);
 
   return (
     <div className="markdown-body">
       <div dangerouslySetInnerHTML={createMarkup(html)} />
     </div>
-  )
-}
+  );
+};
 
-const { string } = PropTypes
+const { string } = PropTypes;
 
 Markdown.propTypes = {
   source: string.isRequired
-}
+};
 
-export default Markdown
+export default Markdown;

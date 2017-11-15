@@ -1,3 +1,3 @@
-import FlagSelector from './FlagSelector'
+import FlagSelector from './FlagSelector';
 
-export default FlagSelector
+export default FlagSelector;

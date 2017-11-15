@@ -1,3 +1,3 @@
-import { AutocompleteWithClickOutside } from './Autocomplete'
+import { AutocompleteWithClickOutside } from './Autocomplete';
 
-export default AutocompleteWithClickOutside
+export default AutocompleteWithClickOutside;

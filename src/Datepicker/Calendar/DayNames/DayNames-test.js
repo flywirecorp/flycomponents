@@ -1,14 +1,14 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import { expect } from 'chai'
-import DayNames from './DayNames'
+import React from 'react';
+import { shallow } from 'enzyme';
+import { expect } from 'chai';
+import DayNames from './DayNames';
 
 describe('DayNames', () => {
   it('renders the days of the week', () => {
-    const component = shallow(<DayNames />, { context: { locale: 'en' } })
-    const days = component.find('.Calendar-weekday').map(d => d.text())
-    const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    const component = shallow(<DayNames />, { context: { locale: 'en' } });
+    const days = component.find('.Calendar-weekday').map(d => d.text());
+    const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    expect(days).to.deep.equal(expectedDays)
-  })
-})
+    expect(days).to.deep.equal(expectedDays);
+  });
+});

@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const Textarea = ({ name, required, ...other }) => (
   <textarea
@@ -10,13 +10,13 @@ const Textarea = ({ name, required, ...other }) => (
     required={required}
     {...other}
   />
-)
+);
 
-const { bool, string } = PropTypes
+const { bool, string } = PropTypes;
 
 Textarea.propTypes = {
   name: string.isRequired,
   required: bool
-}
+};
 
-export default Textarea
+export default Textarea;

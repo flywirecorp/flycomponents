@@ -1,4 +1,4 @@
-import { formatMoney, unformat } from 'accounting'
+import { formatMoney, unformat } from 'accounting';
 
 const toMoney = (number, options) => {
   const defaults = {
@@ -8,9 +8,9 @@ const toMoney = (number, options) => {
     subunitToUnit: 100,
     symbol: '$',
     symbolFirst: true
-  }
+  };
 
-  const config = { ...defaults, ...options }
+  const config = { ...defaults, ...options };
   const {
     cents,
     decimal,
@@ -18,27 +18,27 @@ const toMoney = (number, options) => {
     symbol,
     symbolFirst,
     thousand
-  } = config
-  const precision = cents ? Math.log10(subunitToUnit) : 0
-  const amount = number / subunitToUnit
-  let format = '%v'
+  } = config;
+  const precision = cents ? Math.log10(subunitToUnit) : 0;
+  const amount = number / subunitToUnit;
+  let format = '%v';
   if (symbol) {
-    format = symbolFirst ? '%s%v' : '%v %s'
+    format = symbolFirst ? '%s%v' : '%v %s';
   }
-  const settings = { format, decimal, symbol, precision, thousand }
-  return formatMoney(amount, settings)
-}
+  const settings = { format, decimal, symbol, precision, thousand };
+  return formatMoney(amount, settings);
+};
 
 const toCents = (number, options) => {
   const defaults = {
     decimal: '.',
     subunitToUnit: 100
-  }
+  };
 
-  const config = { ...defaults, ...options }
-  const { decimal, subunitToUnit } = config
+  const config = { ...defaults, ...options };
+  const { decimal, subunitToUnit } = config;
 
-  return unformat(number, decimal) * subunitToUnit
-}
+  return unformat(number, decimal) * subunitToUnit;
+};
 
-export { toCents, toMoney }
+export { toCents, toMoney };

@@ -1,3 +1,3 @@
-import Options from './Options'
+import Options from './Options';
 
-export default Options
+export default Options;

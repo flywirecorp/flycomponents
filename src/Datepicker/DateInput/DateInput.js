@@ -1,39 +1,39 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import CalendarIcon from './CalendarIcon'
-import { applyPattern } from '../../utils/formatter'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import CalendarIcon from './CalendarIcon';
+import { applyPattern } from '../../utils/formatter';
 
-const DATE_FORMAT = 'MM/DD/YYYY'
-const DATE_PATTERN = '../../....'
-const DELETE_KEYCODE = 8
+const DATE_FORMAT = 'MM/DD/YYYY';
+const DATE_PATTERN = '../../....';
+const DELETE_KEYCODE = 8;
 
 class DateInput extends Component {
   handleClick = e => {
-    const { onClick } = this.props
-    this.handleFocus()
-    onClick()
-  }
+    const { onClick } = this.props;
+    this.handleFocus();
+    onClick();
+  };
 
   handleFocus() {
-    const input = this.refs.input
-    input.focus()
+    const input = this.refs.input;
+    input.focus();
   }
 
   handleKeyDown = e => {
-    const { selectedDate = '', setSelectedDate, readOnly } = this.props
-    const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`
-    let value = inputValue.replace(/\D/g, '')
+    const { selectedDate = '', setSelectedDate, readOnly } = this.props;
+    const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`;
+    let value = inputValue.replace(/\D/g, '');
 
-    if (readOnly) return false
+    if (readOnly) return false;
 
     if (e.which === DELETE_KEYCODE) {
-      value = value.slice(0, -1)
+      value = value.slice(0, -1);
     }
 
-    const formatedDate = applyPattern(value, DATE_PATTERN)
+    const formatedDate = applyPattern(value, DATE_PATTERN);
 
-    setSelectedDate(formatedDate)
-  }
+    setSelectedDate(formatedDate);
+  };
 
   render() {
     const {
@@ -42,8 +42,8 @@ class DateInput extends Component {
       onFocus,
       readOnly,
       selectedDate
-    } = this.props
-    const calendarIcon = <CalendarIcon onClick={onCalendarIconClick} />
+    } = this.props;
+    const calendarIcon = <CalendarIcon onClick={onCalendarIconClick} />;
 
     return (
       <div className="InputGroup">
@@ -64,11 +64,11 @@ class DateInput extends Component {
         />
         <span className="InputGroup-context">{calendarIcon}</span>
       </div>
-    )
+    );
   }
 }
 
-const { bool, func, string } = PropTypes
+const { bool, func, string } = PropTypes;
 
 DateInput.propTypes = {
   name: string.isRequired,
@@ -78,6 +78,6 @@ DateInput.propTypes = {
   readOnly: bool,
   selectedDate: string,
   setSelectedDate: func.isRequired
-}
+};
 
-export default DateInput
+export default DateInput;

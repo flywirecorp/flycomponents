@@ -1,125 +1,125 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { findDOMNode } from 'react-dom'
-import classNames from 'classnames'
-import { parseDateOrToday } from '../utils/date'
-import Calendar from './Calendar'
-import DateInput from './DateInput'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { findDOMNode } from 'react-dom';
+import classNames from 'classnames';
+import { parseDateOrToday } from '../utils/date';
+import Calendar from './Calendar';
+import DateInput from './DateInput';
 
 class Datepicker extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    const { locale, value } = this.props
-    const startDate = parseDateOrToday(value)
-    startDate.locale(locale)
+    const { locale, value } = this.props;
+    const startDate = parseDateOrToday(value);
+    startDate.locale(locale);
 
     this.state = {
       isOpen: false,
       selectedDate: value,
       startDate
-    }
+    };
   }
 
   getChildContext() {
-    const { locale } = this.props
-    return { locale }
+    const { locale } = this.props;
+    return { locale };
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.hideOnDocumentClick)
+    document.addEventListener('click', this.hideOnDocumentClick);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.hideOnDocumentClick)
+    document.removeEventListener('click', this.hideOnDocumentClick);
   }
 
   setSelectedDate = date => {
-    const { name, onChange } = this.props
+    const { name, onChange } = this.props;
 
-    this.setState({ selectedDate: date })
-    onChange(name, date)
-  }
+    this.setState({ selectedDate: date });
+    onChange(name, date);
+  };
 
   setSelectedDateAndCloseCalendar = date => {
-    this.setSelectedDate(date)
+    this.setSelectedDate(date);
 
     this.setState(() => {
-      return { isOpen: false }
-    }, this.sendBlur)
-  }
+      return { isOpen: false };
+    }, this.sendBlur);
+  };
 
   handleCalendarIconClick = () => {
-    const { readOnly } = this.props
+    const { readOnly } = this.props;
 
     if (readOnly) {
-      return
+      return;
     }
 
     this.setState(prevState => {
-      return { isOpen: !prevState.isOpen }
-    })
-  }
+      return { isOpen: !prevState.isOpen };
+    });
+  };
 
   handleDateInputClick = () => {
-    const { isOpen } = this.state
-    const { readOnly } = this.props
+    const { isOpen } = this.state;
+    const { readOnly } = this.props;
 
     if (isOpen || readOnly) {
-      return
+      return;
     }
-    this.setState({ isOpen: true })
-  }
+    this.setState({ isOpen: true });
+  };
 
   handleMonthChange = month => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.set('month', month) }
-    })
-  }
+      return { startDate: prevState.startDate.set('month', month) };
+    });
+  };
 
   handleNextMonthClick = () => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.add(1, 'month') }
-    })
-  }
+      return { startDate: prevState.startDate.add(1, 'month') };
+    });
+  };
 
   handlePrevMonthClick = () => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.subtract(1, 'month') }
-    })
-  }
+      return { startDate: prevState.startDate.subtract(1, 'month') };
+    });
+  };
 
   handleYearChange = year => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.set('year', year) }
-    })
-  }
+      return { startDate: prevState.startDate.set('year', year) };
+    });
+  };
 
   hideOnDocumentClick = e => {
-    const { isOpen: wasOpen } = this.state
-    const { target } = e
-    const parentElement = findDOMNode(this)
+    const { isOpen: wasOpen } = this.state;
+    const { target } = e;
+    const parentElement = findDOMNode(this);
 
     if (parentElement.contains(target)) {
-      return
+      return;
     }
 
-    const { selectedDate } = this.state
-    const startDate = parseDateOrToday(selectedDate)
+    const { selectedDate } = this.state;
+    const startDate = parseDateOrToday(selectedDate);
 
     this.setState(() => {
-      return { isOpen: false, startDate }
-    }, wasOpen ? this.sendBlur : null)
-  }
+      return { isOpen: false, startDate };
+    }, wasOpen ? this.sendBlur : null);
+  };
 
   sendBlur() {
-    const { name, onBlur } = this.props
-    onBlur(name)
+    const { name, onBlur } = this.props;
+    onBlur(name);
   }
 
   render() {
-    const { name, onFocus, readOnly, value } = this.props
-    const { isOpen, selectedDate, startDate } = this.state
+    const { name, onFocus, readOnly, value } = this.props;
+    const { isOpen, selectedDate, startDate } = this.state;
 
     return (
       <div className={classNames('Datepicker', { 'is-open': isOpen })}>
@@ -145,11 +145,11 @@ class Datepicker extends Component {
           startDate={startDate}
         />
       </div>
-    )
+    );
   }
 }
 
-const { bool, func, number, oneOfType, string } = PropTypes
+const { bool, func, number, oneOfType, string } = PropTypes;
 
 Datepicker.propTypes = {
   locale: string,
@@ -159,16 +159,16 @@ Datepicker.propTypes = {
   onFocus: func,
   readOnly: bool,
   value: oneOfType([number, string])
-}
+};
 
 Datepicker.defaultProps = {
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {}
-}
+};
 
 Datepicker.childContextTypes = {
   locale: string
-}
+};
 
-export default Datepicker
+export default Datepicker;

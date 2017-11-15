@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import DayNames from './DayNames'
-import Month from './Month'
-import Navigation from './Navigation'
+import PropTypes from 'prop-types';
+import React from 'react';
+import DayNames from './DayNames';
+import Month from './Month';
+import Navigation from './Navigation';
 
 const Calendar = ({
   onDateClick,
@@ -30,9 +30,9 @@ const Calendar = ({
       />
     </table>
   </div>
-)
+);
 
-const { func, object, string } = PropTypes
+const { func, object, string } = PropTypes;
 
 Calendar.propTypes = {
   onDateClick: func.isRequired,
@@ -42,6 +42,6 @@ Calendar.propTypes = {
   onYearChange: func.isRequired,
   selectedDate: string,
   startDate: object.isRequired
-}
+};
 
-export default Calendar
+export default Calendar;

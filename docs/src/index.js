@@ -1,23 +1,23 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { render } from 'react-dom'
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom'
-import Alert from './components/Alert'
-import Autocomplete from './components/Autocomplete'
-import Button from './components/Button'
-import Datepicker from './components/Datepicker'
-import FormGroup from './components/FormGroup'
-import MoneyInput from './components/MoneyInput'
-import PhoneInput from './components/PhoneInput'
-import Select from './components/Select'
-import Textarea from './components/Textarea'
-import TextInput from './components/TextInput'
-import Title from './components/Title'
-import Home from './components/Home'
-import icon from './images/hamburger-menu.svg'
-import './index.css'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import Alert from './components/Alert';
+import Autocomplete from './components/Autocomplete';
+import Button from './components/Button';
+import Datepicker from './components/Datepicker';
+import FormGroup from './components/FormGroup';
+import MoneyInput from './components/MoneyInput';
+import PhoneInput from './components/PhoneInput';
+import Select from './components/Select';
+import Textarea from './components/Textarea';
+import TextInput from './components/TextInput';
+import Title from './components/Title';
+import Home from './components/Home';
+import icon from './images/hamburger-menu.svg';
+import './index.css';
 
-const { bool, func, string } = PropTypes
+const { bool, func, string } = PropTypes;
 
 const routes = [
   {
@@ -76,7 +76,7 @@ const routes = [
     label: 'TextInput',
     component: TextInput
   }
-]
+];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
   <Route
@@ -88,29 +88,29 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
       </li>
     )}
   />
-)
+);
 
 MenuLink.propTypes = {
   activeOnlyWhenExact: bool,
   label: string,
   to: string
-}
+};
 
 class NavBar extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { open: false }
+    this.state = { open: false };
   }
 
   handleClick = () => {
     this.setState(
       prevState => ({ open: !prevState.open }),
       () => {
-        this.props.onChange(this.state.open)
+        this.props.onChange(this.state.open);
       }
-    )
-  }
+    );
+  };
 
   render() {
     return (
@@ -128,13 +128,13 @@ class NavBar extends Component {
           ))}
         </ul>
       </div>
-    )
+    );
   }
 }
 
 NavBar.propTypes = {
   onChange: func
-}
+};
 
 const Content = () => (
   <div className="Docs-content">
@@ -149,20 +149,20 @@ const Content = () => (
       ))}
     </Switch>
   </div>
-)
+);
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = { open: false }
+    this.state = { open: false };
   }
 
   onChange = open => {
     this.setState({
       open: open
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -172,8 +172,8 @@ class App extends Component {
           <Content />
         </div>
       </Router>
-    )
+    );
   }
 }
 
-render(<App />, document.getElementById('app'))
+render(<App />, document.getElementById('app'));

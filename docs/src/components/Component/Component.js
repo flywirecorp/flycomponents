@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import Markdown from '../Markdown'
-import './component.css'
+import PropTypes from 'prop-types';
+import React from 'react';
+import Markdown from '../Markdown';
+import './component.css';
 
 const Component = ({ children, readme }) => (
   <section className="Component">
@@ -13,13 +13,13 @@ const Component = ({ children, readme }) => (
       {children}
     </div>
   </section>
-)
+);
 
-const { node, string } = PropTypes
+const { node, string } = PropTypes;
 
 Component.propTypes = {
   children: node.isRequired,
   readme: string
-}
+};
 
-export default Component
+export default Component;

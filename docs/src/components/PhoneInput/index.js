@@ -1,3 +1,3 @@
-import PhoneInput from './PhoneInput'
+import PhoneInput from './PhoneInput';
 
-export default PhoneInput
+export default PhoneInput;

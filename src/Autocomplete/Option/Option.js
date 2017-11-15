@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import classNames from 'classnames'
-import Highlighter from '../Highlighter'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import classNames from 'classnames';
+import Highlighter from '../Highlighter';
 
 class Option extends Component {
   render() {
@@ -13,7 +13,7 @@ class Option extends Component {
       onMouseEnter,
       searchQuery,
       value
-    } = this.props
+    } = this.props;
 
     return (
       <li
@@ -28,15 +28,15 @@ class Option extends Component {
           label
         )}
       </li>
-    )
+    );
   }
 }
 
-const { bool, func, string } = PropTypes
+const { bool, func, string } = PropTypes;
 
 Option.defaultProps = {
   highlighText: true
-}
+};
 
 Option.propTypes = {
   hasFocus: bool.isRequired,
@@ -46,6 +46,6 @@ Option.propTypes = {
   onMouseEnter: func.isRequired,
   searchQuery: string,
   value: string.isRequired
-}
+};
 
-export default Option
+export default Option;

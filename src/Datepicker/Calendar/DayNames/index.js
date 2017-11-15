@@ -1,3 +1,3 @@
-import DayNames from './DayNames'
+import DayNames from './DayNames';
 
-export default DayNames
+export default DayNames;

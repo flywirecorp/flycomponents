@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import PropTypes from 'prop-types';
+import React from 'react';
 
 const Input = ({ name, required, type, value, ...other }) => (
   <input
@@ -12,15 +12,15 @@ const Input = ({ name, required, type, value, ...other }) => (
     defaultValue={value}
     {...other}
   />
-)
+);
 
-const { bool, string } = PropTypes
+const { bool, string } = PropTypes;
 
 Input.propTypes = {
   name: string.isRequired,
   required: bool,
   type: string.isRequired,
   value: string
-}
+};
 
-export default Input
+export default Input;

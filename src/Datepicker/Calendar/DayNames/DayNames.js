@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import { daysOfWeek } from '../../../utils/date'
+import PropTypes from 'prop-types';
+import React from 'react';
+import { daysOfWeek } from '../../../utils/date';
 
 const DayNames = (props, { locale }) => {
-  const dayNames = daysOfWeek(locale)
+  const dayNames = daysOfWeek(locale);
 
   return (
     <thead>
@@ -15,13 +15,13 @@ const DayNames = (props, { locale }) => {
         ))}
       </tr>
     </thead>
-  )
-}
+  );
+};
 
-const { string } = PropTypes
+const { string } = PropTypes;
 
 DayNames.contextTypes = {
   locale: string
-}
+};
 
-export default DayNames
+export default DayNames;

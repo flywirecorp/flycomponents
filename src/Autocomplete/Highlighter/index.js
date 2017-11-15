@@ -1,3 +1,3 @@
-import Highlighter from './Highlighter'
+import Highlighter from './Highlighter';
 
-export default Highlighter
+export default Highlighter;

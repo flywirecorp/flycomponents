@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import classNames from 'classnames'
+import PropTypes from 'prop-types';
+import React from 'react';
+import classNames from 'classnames';
 
 const Day = ({
   current,
@@ -21,9 +21,9 @@ const Day = ({
   >
     {dayOfMonth}
   </td>
-)
+);
 
-const { bool, func, number, string } = PropTypes
+const { bool, func, number, string } = PropTypes;
 
 Day.propTypes = {
   current: bool,
@@ -32,6 +32,6 @@ Day.propTypes = {
   disabled: bool,
   onDateClick: func.isRequired,
   selected: bool
-}
+};
 
-export default Day
+export default Day;

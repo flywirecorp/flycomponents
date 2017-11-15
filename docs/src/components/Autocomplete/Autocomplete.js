@@ -1,7 +1,7 @@
-import React from 'react'
-import { Autocomplete, FormGroup } from '../../../../src'
-import Component from '../Component'
-import README from './README.md'
+import React from 'react';
+import { Autocomplete, FormGroup } from '../../../../src';
+import Component from '../Component';
+import README from './README.md';
 
 export default () => {
   const countries = [
@@ -18,7 +18,7 @@ export default () => {
     { label: 'Spain', value: 'ES' },
     { label: 'United Kingdom', value: 'GB' },
     { label: 'United States', value: 'US' }
-  ]
+  ];
 
   return (
     <Component readme={README}>
@@ -41,5 +41,5 @@ export default () => {
         />
       </FormGroup>
     </Component>
-  )
-}
+  );
+};

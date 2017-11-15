@@ -1,3 +1,3 @@
-import { toCents, toMoney } from './money'
+import { toCents, toMoney } from './money';
 
-export { toCents, toMoney }
+export { toCents, toMoney };

@@ -1,7 +1,7 @@
-import React from 'react'
-import { PhoneInput } from '../../../../src'
-import Component from '../Component'
-import README from './README.md'
+import React from 'react';
+import { PhoneInput } from '../../../../src';
+import Component from '../Component';
+import README from './README.md';
 
 export default () => {
   const countries = [
@@ -17,11 +17,11 @@ export default () => {
       dialingCode: '1',
       phonePattern: '+. (...) ...-....'
     }
-  ]
+  ];
 
   return (
     <Component readme={README}>
       <PhoneInput countries={countries} name="phone" />
     </Component>
-  )
-}
+  );
+};

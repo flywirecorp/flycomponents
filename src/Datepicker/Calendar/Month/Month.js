@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import Week from '../Week'
-import { monthStartingWeekDates } from '../../../utils/date'
+import PropTypes from 'prop-types';
+import React from 'react';
+import Week from '../Week';
+import { monthStartingWeekDates } from '../../../utils/date';
 
-const DATE_FORMAT = 'MM/DD/YYYY'
+const DATE_FORMAT = 'MM/DD/YYYY';
 
 const Month = props => {
-  const { onDateClick, selectedDate, startDate } = props
-  const currentMonth = startDate.month()
+  const { onDateClick, selectedDate, startDate } = props;
+  const currentMonth = startDate.month();
 
   const monthWeeks = monthStartingWeekDates(startDate).map(weekStartingDate => (
     <Week
@@ -17,17 +17,17 @@ const Month = props => {
       onDateClick={onDateClick}
       selected={selectedDate}
     />
-  ))
+  ));
 
-  return <tbody>{monthWeeks}</tbody>
-}
+  return <tbody>{monthWeeks}</tbody>;
+};
 
-const { func, object, string } = PropTypes
+const { func, object, string } = PropTypes;
 
 Month.propTypes = {
   onDateClick: func.isRequired,
   selectedDate: string.isRequired,
   startDate: object.isRequired
-}
+};
 
-export default Month
+export default Month;

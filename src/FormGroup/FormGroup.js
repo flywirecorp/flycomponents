@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import classNames from 'classnames'
-import Label from '../Label'
+import PropTypes from 'prop-types';
+import React from 'react';
+import classNames from 'classnames';
+import Label from '../Label';
 
 const FormGroup = ({
   children,
@@ -18,9 +18,9 @@ const FormGroup = ({
     {error && <p className="FormGroup-feedback">{error}</p>}
     {hint && <p className="FormGroup-hint">{hint}</p>}
   </div>
-)
+);
 
-const { bool, node, string } = PropTypes
+const { bool, node, string } = PropTypes;
 
 FormGroup.propTypes = {
   children: node.isRequired,
@@ -30,10 +30,10 @@ FormGroup.propTypes = {
   label: string,
   name: string.isRequired,
   required: bool
-}
+};
 
 FormGroup.defaultProps = {
   required: false
-}
+};
 
-export default FormGroup
+export default FormGroup;
