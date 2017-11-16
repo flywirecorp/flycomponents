@@ -2,11 +2,33 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import FlagSelector from './FlagSelector';
 import { applyPattern } from '../utils/formatter';
+import FormGroup from '../FormGroup';
 
 const NO_COUNTRY = {};
 const NO_VALUE = '';
 
 class PhoneInput extends Component {
+  static propTypes = {
+    countries: PropTypes.array.isRequired,
+    error: PropTypes.string,
+    hint: PropTypes.string,
+    label: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    value: PropTypes.string
+  };
+
+  static defaultProps = {
+    countries: [],
+    onBlur: () => {},
+    onChange: () => {},
+    onFocus: () => {}
+  };
+
   constructor(props) {
     super(props);
 
@@ -98,56 +120,54 @@ class PhoneInput extends Component {
   }
 
   render() {
-    const { countries, name, onFocus, readOnly } = this.props;
+    const {
+      countries,
+      error,
+      hint,
+      label,
+      name,
+      onFocus,
+      readOnly,
+      required
+    } = this.props;
     const { formattedNumber, selectedCountry } = this.state;
 
     return (
-      <div className="PhoneNumber">
-        <FlagSelector
-          name={name}
-          onChange={(name, value) => this.handleCountryClick(value)}
-          onFocus={onFocus}
-          options={countries}
-          readOnly={readOnly}
-          value={selectedCountry}
-        />
-        <div className="PhoneNumber-input">
-          <input
-            autoComplete="off"
-            className="Input PhoneNumber-input-inner"
-            id={name}
+      <FormGroup
+        error={error}
+        hint={hint}
+        label={label}
+        name={name}
+        required={required}
+      >
+        <div className="PhoneNumber">
+          <FlagSelector
             name={name}
-            onBlur={this.handleBlur}
-            onChange={this.handleChange}
+            onChange={(name, value) => this.handleCountryClick(value)}
             onFocus={onFocus}
+            options={countries}
             readOnly={readOnly}
-            ref="input"
-            type="text"
-            value={formattedNumber}
+            value={selectedCountry}
           />
+          <div className="PhoneNumber-input">
+            <input
+              autoComplete="off"
+              className="Input PhoneNumber-input-inner"
+              id={name}
+              name={name}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              onFocus={onFocus}
+              readOnly={readOnly}
+              ref="input"
+              type="text"
+              value={formattedNumber}
+            />
+          </div>
         </div>
-      </div>
+      </FormGroup>
     );
   }
 }
-
-const { array, bool, func, string } = PropTypes;
-
-PhoneInput.propTypes = {
-  countries: array.isRequired,
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  onFocus: func,
-  readOnly: bool,
-  value: string
-};
-
-PhoneInput.defaultProps = {
-  countries: [],
-  onBlur: () => {},
-  onChange: () => {},
-  onFocus: () => {}
-};
 
 export default PhoneInput;

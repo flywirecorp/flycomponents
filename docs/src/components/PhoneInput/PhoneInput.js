@@ -21,7 +21,13 @@ export default () => {
 
   return (
     <Component readme={README}>
-      <PhoneInput countries={countries} name="phone" />
+      <PhoneInput countries={countries} name="phone" label="Telephone number" />
+      <PhoneInput
+        countries={countries}
+        name="phone"
+        label="Default value"
+        value="+34 555 555 555"
+      />
     </Component>
   );
 };
