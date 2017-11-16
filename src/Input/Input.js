@@ -16,10 +16,15 @@ const Input = ({ name, required, type, value, ...other }) => (
 
 const { bool, string } = PropTypes;
 
+Input.defaultProps = {
+  required: false,
+  type: 'text'
+};
+
 Input.propTypes = {
   name: string.isRequired,
   required: bool,
-  type: string.isRequired,
+  type: string,
   value: string
 };
 

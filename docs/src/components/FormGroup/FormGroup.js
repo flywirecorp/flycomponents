@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormGroup, Input, MoneyInput } from '../../../../src';
+import { FormGroup, Input } from '../../../../src';
 import Component from '../Component';
 import README from './README.md';
 
@@ -11,7 +11,7 @@ export default () => (
       className="FormGroup GridColumn"
       hint="This is a hint text"
     >
-      <MoneyInput name="amount" />
+      <Input type="number" name="amount" />
     </FormGroup>
     <FormGroup
       name="error"

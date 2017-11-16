@@ -10,7 +10,7 @@ Wraps a form field. Adds a label, display errors and help texts.
   className="FormGroup GridColumn"
   hint="This is a hint text"
 >
-  <MoneyInput name="amount" />
+  <Input type="number" name="amount" />
 </FormGroup>
 
 <FormGroup
