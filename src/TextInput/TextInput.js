@@ -3,8 +3,29 @@ import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
 import Input from '../Input';
+import FormGroup from '../FormGroup';
 
 class TextInput extends Component {
+  static propTypes = {
+    error: PropTypes.string,
+    hint: PropTypes.string,
+    label: PropTypes.string,
+    multiline: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    prefix: PropTypes.string,
+    required: PropTypes.bool,
+    sufix: PropTypes.string,
+    value: PropTypes.string
+  };
+
+  static defaultProps = {
+    multiline: false,
+    onBlur: () => {},
+    onChange: () => {}
+  };
+
   constructor(props) {
     super(props);
 
@@ -73,35 +94,35 @@ class TextInput extends Component {
     );
   }
 
-  render() {
+  renderElement() {
     const { multiline, prefix, sufix } = this.props;
 
     if (multiline) {
       return this.textArea();
     }
+
     if (sufix || prefix) {
       return this.inputGroup();
     } else {
       return this.input();
     }
   }
+
+  render() {
+    const { error, hint, label, name, required } = this.props;
+
+    return (
+      <FormGroup
+        error={error}
+        hint={hint}
+        label={label}
+        name={name}
+        required={required}
+      >
+        {this.renderElement()}
+      </FormGroup>
+    );
+  }
 }
 
-const { bool, func, string } = PropTypes;
-
-TextInput.propTypes = {
-  multiline: bool,
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  prefix: string,
-  sufix: string,
-  value: string
-};
-
-TextInput.defaultProps = {
-  multiline: false,
-  onBlur: () => {},
-  onChange: () => {}
-};
 export default TextInput;

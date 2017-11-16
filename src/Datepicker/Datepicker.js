@@ -5,8 +5,33 @@ import classNames from 'classnames';
 import { parseDateOrToday } from '../utils/date';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
+import FormGroup from '../FormGroup';
 
 class Datepicker extends Component {
+  static propTypes = {
+    error: PropTypes.string,
+    hint: PropTypes.string,
+    label: PropTypes.string,
+    locale: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  };
+
+  static defaultProps = {
+    onBlur: () => {},
+    onChange: () => {},
+    onFocus: () => {}
+  };
+
+  static childContextTypes = {
+    locale: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
 
@@ -118,57 +143,52 @@ class Datepicker extends Component {
   }
 
   render() {
-    const { name, onFocus, readOnly, value } = this.props;
+    const {
+      error,
+      hint,
+      label,
+      name,
+      onFocus,
+      readOnly,
+      required,
+      value
+    } = this.props;
     const { isOpen, selectedDate, startDate } = this.state;
 
     return (
-      <div className={classNames('Datepicker', { 'is-open': isOpen })}>
-        <DateInput
-          name={name}
-          onChange={() => {}}
-          onCalendarIconClick={this.handleCalendarIconClick}
-          onClick={this.handleDateInputClick}
-          onFocus={onFocus}
-          selectedDate={selectedDate}
-          setSelectedDate={this.setSelectedDate}
-          readOnly={readOnly}
-          ref="dateInput"
-          value={value}
-        />
-        <Calendar
-          onDateClick={this.setSelectedDateAndCloseCalendar}
-          onMonthChange={this.handleMonthChange}
-          onNextMonthClick={this.handleNextMonthClick}
-          onPrevMonthClick={this.handlePrevMonthClick}
-          onYearChange={this.handleYearChange}
-          selectedDate={selectedDate}
-          startDate={startDate}
-        />
-      </div>
+      <FormGroup
+        error={error}
+        hint={hint}
+        label={label}
+        name={name}
+        required={required}
+      >
+        <div className={classNames('Datepicker', { 'is-open': isOpen })}>
+          <DateInput
+            name={name}
+            onChange={() => {}}
+            onCalendarIconClick={this.handleCalendarIconClick}
+            onClick={this.handleDateInputClick}
+            onFocus={onFocus}
+            selectedDate={selectedDate}
+            setSelectedDate={this.setSelectedDate}
+            readOnly={readOnly}
+            ref="dateInput"
+            value={value}
+          />
+          <Calendar
+            onDateClick={this.setSelectedDateAndCloseCalendar}
+            onMonthChange={this.handleMonthChange}
+            onNextMonthClick={this.handleNextMonthClick}
+            onPrevMonthClick={this.handlePrevMonthClick}
+            onYearChange={this.handleYearChange}
+            selectedDate={selectedDate}
+            startDate={startDate}
+          />
+        </div>
+      </FormGroup>
     );
   }
 }
-
-const { bool, func, number, oneOfType, string } = PropTypes;
-
-Datepicker.propTypes = {
-  locale: string,
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  onFocus: func,
-  readOnly: bool,
-  value: oneOfType([number, string])
-};
-
-Datepicker.defaultProps = {
-  onBlur: () => {},
-  onChange: () => {},
-  onFocus: () => {}
-};
-
-Datepicker.childContextTypes = {
-  locale: string
-};
 
 export default Datepicker;

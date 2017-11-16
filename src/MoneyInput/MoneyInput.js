@@ -2,8 +2,40 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import { toCents, toMoney } from '../utils/money';
+import FormGroup from '../FormGroup';
 
 class MoneyInput extends Component {
+  static propTypes = {
+    currencySymbol: PropTypes.string,
+    decimalMark: PropTypes.string,
+    disabled: PropTypes.bool,
+    error: PropTypes.string,
+    hint: PropTypes.string,
+    label: PropTypes.string,
+    maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    subunitToUnit: PropTypes.number,
+    symbolFirst: PropTypes.bool,
+    thousandsSeparator: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  };
+
+  static defaultProps = {
+    currencySymbol: '$',
+    decimalMark: '.',
+    disabled: false,
+    maxLength: 10,
+    onBlur: () => {},
+    onChange: () => {},
+    subunitToUnit: 100,
+    symbolFirst: true,
+    thousandsSeparator: ','
+  };
+
   constructor(props) {
     super(props);
     this.state = { amount: props.value };
@@ -104,62 +136,45 @@ class MoneyInput extends Component {
     const {
       currencySymbol: symbol,
       disabled,
+      error,
+      hint,
+      label,
       maxLength,
       name,
       readOnly,
+      required,
       symbolFirst
     } = this.props;
 
     const inputAttrs = {
       [symbolFirst ? 'prefix' : 'sufix']: symbol,
+      disabled,
       maxLength,
       name,
-      readOnly,
-      disabled
+      readOnly
     };
 
     return (
-      <InputGroup
-        {...inputAttrs}
-        onBlur={this.handleBlur}
-        onChange={this.handleChange}
-        onClick={this.handleClick}
-        onKeyDown={this.handleKeyDown}
-        type="text"
-        defaultValue={this.format(amount)}
-        key={amount}
-      />
+      <FormGroup
+        error={error}
+        hint={hint}
+        label={label}
+        name={name}
+        required={required}
+      >
+        <InputGroup
+          {...inputAttrs}
+          defaultValue={this.format(amount)}
+          key={amount}
+          onBlur={this.handleBlur}
+          onChange={this.handleChange}
+          onClick={this.handleClick}
+          onKeyDown={this.handleKeyDown}
+          type="text"
+        />
+      </FormGroup>
     );
   }
 }
-
-const { bool, func, number, oneOfType, string } = PropTypes;
-
-MoneyInput.propTypes = {
-  currencySymbol: string,
-  decimalMark: string,
-  disabled: bool,
-  maxLength: oneOfType([number, string]),
-  name: string.isRequired,
-  onBlur: func,
-  onChange: func,
-  readOnly: bool,
-  subunitToUnit: number,
-  symbolFirst: bool,
-  thousandsSeparator: string,
-  value: oneOfType([number, string])
-};
-
-MoneyInput.defaultProps = {
-  currencySymbol: '$',
-  decimalMark: '.',
-  disabled: false,
-  maxLength: 10,
-  onBlur: () => {},
-  onChange: () => {},
-  subunitToUnit: 100,
-  symbolFirst: true,
-  thousandsSeparator: ','
-};
 
 export default MoneyInput;

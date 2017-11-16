@@ -1,40 +1,21 @@
 import React from 'react';
-import { TextInput, FormGroup } from '../../../../src';
+import { TextInput } from '../../../../src';
 import Component from '../Component';
 import README from './README.md';
 
 export default () => (
   <Component readme={README}>
-    <FormGroup name="default" label="Default" className="FormGroup GridColumn">
-      <TextInput name="default" />
-    </FormGroup>
-    <FormGroup
-      name="withprefix"
-      label="With prefix"
-      className="FormGroup GridColumn"
-    >
-      <TextInput name="withprefix" prefix="@" />
-    </FormGroup>
-    <FormGroup
-      name="withsufix"
-      label="With sufix"
-      className="FormGroup GridColumn"
-    >
-      <TextInput name="withsufix" sufix=".com" />
-    </FormGroup>
-    <FormGroup
-      name="withvalue"
-      label="With value"
-      className="FormGroup GridColumn"
-    >
-      <TextInput name="withvalue" value="Preset value" />
-    </FormGroup>
-    <FormGroup
+    <TextInput name="default" label="Default" hint="Help text" />
+    <TextInput name="withprefix" prefix="@" label="With prefix" />
+    <TextInput name="withsufix" sufix=".com" label="With sufix" />
+    <TextInput name="withvalue" value="Default value" label="With value" />
+    <TextInput name="multiline" multiline label="Multiline" />
+    <TextInput
       name="multiline"
-      label="Multiline"
-      className="FormGroup GridColumn"
-    >
-      <TextInput name="multiline" multiline />
-    </FormGroup>
+      label="With error and required"
+      error="Please, fill this field"
+      placeholder="Placeholder"
+      required
+    />
   </Component>
 );

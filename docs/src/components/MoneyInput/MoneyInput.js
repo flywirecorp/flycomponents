@@ -8,11 +8,12 @@ export default () => (
     <MoneyInput
       currencySymbol="€"
       decimalMark=","
+      label="Insert amount"
       name="amount"
+      required
       symbolFirst={false}
       thousandsSeparator="."
     />
-    <br />
-    <MoneyInput disabled name="disabled" />
+    <MoneyInput disabled name="disabled" label="Disabled field" />
   </Component>
 );

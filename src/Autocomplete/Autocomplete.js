@@ -7,6 +7,7 @@ import scrollIntoView from 'dom-scroll-into-view';
 import { escape } from './utils';
 import Option from './Option';
 import Options from './Options';
+import FormGroup from '../FormGroup';
 
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40, 9];
@@ -21,6 +22,8 @@ export class Autocomplete extends Component {
   };
 
   static propTypes = {
+    error: PropTypes.string,
+    hint: PropTypes.string,
     label: PropTypes.string,
     minOptionsForSearch: PropTypes.number,
     name: PropTypes.string.isRequired,
@@ -30,6 +33,7 @@ export class Autocomplete extends Component {
     options: PropTypes.array.isRequired,
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
+    required: PropTypes.bool,
     template: PropTypes.func,
     value: PropTypes.string
   };
@@ -42,19 +46,15 @@ export class Autocomplete extends Component {
       isOpen: false,
       searchQuery: this.getOptionLabelByValue(options, value),
       selectedIndex: INITIAL_INDEX,
-      selectedValue: props.value
+      selectedValue: value
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const {
-      label: nextLabel,
-      options: nextOptions,
-      value: nextValue
-    } = nextProps;
-    const { label: currentLabel, value: currentValue } = this.props;
+    const { options: nextOptions, value: nextValue } = nextProps;
+    const { value: currentValue } = this.props;
 
-    if (nextLabel === currentLabel && nextValue === currentValue) {
+    if (nextValue === currentValue) {
       return;
     }
 
@@ -276,7 +276,17 @@ export class Autocomplete extends Component {
   }
 
   render() {
-    const { name, onFocus, placeholder, readOnly, template } = this.props;
+    const {
+      error,
+      hint,
+      label,
+      name,
+      onFocus,
+      placeholder,
+      required,
+      readOnly,
+      template
+    } = this.props;
     const options = this.loadOptions();
     const searchOn = this.searchOn();
     const { isOpen, searchQuery, selectedIndex, selectedValue } = this.state;
@@ -297,31 +307,39 @@ export class Autocomplete extends Component {
     ));
 
     return (
-      <div
-        ref="autocomplete"
-        className={classNames(
-          'Autocomplete',
-          { 'is-searching': isOpen },
-          { 'Autocomplete--noReadOnly': !readOnly }
-        )}
+      <FormGroup
+        error={error}
+        hint={hint}
+        label={label}
+        name={name}
+        required={required}
       >
-        <input
-          autoComplete="off"
-          className="Autocomplete-search"
-          id={name}
-          name={name}
-          onChange={this.handleSearchQueryChange}
-          onClick={this.handleSearchClick}
-          onFocus={onFocus}
-          onKeyDown={this.handleSearchKeyDown}
-          ref={input => (this.searchInput = input)}
-          placeholder={placeholder}
-          readOnly={!searchOn}
-          type="text"
-          value={searchQuery}
-        />
-        <Options ref="optionList">{optionList}</Options>
-      </div>
+        <div
+          ref="autocomplete"
+          className={classNames(
+            'Autocomplete',
+            { 'is-searching': isOpen },
+            { 'Autocomplete--noReadOnly': !readOnly }
+          )}
+        >
+          <input
+            autoComplete="off"
+            className="Autocomplete-search"
+            id={name}
+            name={name}
+            onChange={this.handleSearchQueryChange}
+            onClick={this.handleSearchClick}
+            onFocus={onFocus}
+            onKeyDown={this.handleSearchKeyDown}
+            ref={input => (this.searchInput = input)}
+            placeholder={placeholder}
+            readOnly={!searchOn}
+            type="text"
+            value={searchQuery}
+          />
+          <Options ref="optionList">{optionList}</Options>
+        </div>
+      </FormGroup>
     );
   }
 }
