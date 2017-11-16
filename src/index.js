@@ -4,6 +4,7 @@ import Button from './Button';
 import Datepicker from './Datepicker';
 import FormGroup from './FormGroup';
 import Input from './Input';
+import InputGroup from './InputGroup';
 import MoneyInput from './MoneyInput';
 import PhoneInput from './PhoneInput';
 import Select from './Select';
@@ -17,6 +18,7 @@ export {
   Datepicker,
   FormGroup,
   Input,
+  InputGroup,
   MoneyInput,
   PhoneInput,
   Select,
