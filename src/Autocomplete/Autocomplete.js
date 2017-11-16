@@ -319,7 +319,8 @@ export class Autocomplete extends Component {
           className={classNames(
             'Autocomplete',
             { 'is-searching': isOpen },
-            { 'Autocomplete--noReadOnly': !readOnly }
+            { 'Autocomplete--noReadOnly': !readOnly },
+            { 'Autocomplete--searchDisabled': !searchOn }
           )}
         >
           <input

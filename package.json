@@ -60,7 +60,7 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-standard": "^3.0.1",
-    "flystyles": "^1.2.5",
+    "flystyles": "^1.2.11",
     "github-markdown-css": "^2.6.0",
     "ignore-styles": "^5.0.1",
     "jsdom": "11.3.0",
