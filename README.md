@@ -33,6 +33,6 @@ To update the documentation and publish the changes to Github Pages:
 
 ```
 > make bash
-docs# npm run build:doc
+docs# npm run build:docs
 > # commit the changes
 ```
