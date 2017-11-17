@@ -20,6 +20,12 @@ function buildConfig() {
         commonjs: 'accounting',
         amd: 'accounting'
       },
+      'fuse.js': {
+        root: 'Fuse',
+        commonjs2: 'fuse.js',
+        commonjs: 'fuse.js',
+        amd: 'fuse.js'
+      },
       classnames: {
         root: 'classNames',
         commonjs2: 'classnames',
