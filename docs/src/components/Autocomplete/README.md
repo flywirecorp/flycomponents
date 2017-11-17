@@ -57,6 +57,7 @@ const countryTemplate = country => (
 | Property            | Req   | Type       | Description                                                            | Default   |
 | ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |
 | error               | no    | string     | Error message                                                          |           |
+| fuseConfig          | no    | object     | Fuse.js configuration                                                  | \(*\)     |
 | hint                | no    | string     | Help message below the autocomplete                                    |           |
 | label               | no    | string     | The text string to use for HTML label tag                              |           |
 | minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                        | Infinity  |
@@ -70,3 +71,22 @@ const countryTemplate = country => (
 | required            | no    | bool       | Set the field to required                                              | false     |
 | template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |
 | value               | no    | string     | Default value                                                          | null      |
+
+### (*) Fuse.js
+The Autocomplete component uses [Fuse.js](http://fusejs.io) search library, using this default configuration:
+
+```
+const fuseConfig = {
+  shouldSort: true,
+  tokenize: true,
+  matchAllTokens: true,
+  threshold: 0.3,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: ['label']
+}
+
+<Autocomplete fuseConfig={fuseConfig} />
+```

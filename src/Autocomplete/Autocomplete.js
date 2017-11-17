@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
+import Fuse from 'fuse.js';
 import onClickOutside from 'react-onclickoutside';
 import scrollIntoView from 'dom-scroll-into-view';
-import { escape } from './utils';
 import Option from './Option';
 import Options from './Options';
 import FormGroup from '../FormGroup';
@@ -15,6 +15,17 @@ const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class Autocomplete extends Component {
   static defaultProps = {
+    fuseConfig: {
+      shouldSort: true,
+      tokenize: true,
+      matchAllTokens: true,
+      threshold: 0.3,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: ['label']
+    },
     minOptionsForSearch: Infinity,
     onBlur: () => {},
     onChange: () => {},
@@ -23,6 +34,7 @@ export class Autocomplete extends Component {
 
   static propTypes = {
     error: PropTypes.string,
+    fuseConfig: PropTypes.object,
     hint: PropTypes.string,
     label: PropTypes.string,
     minOptionsForSearch: PropTypes.number,
@@ -94,7 +106,7 @@ export class Autocomplete extends Component {
   }
 
   loadOptions() {
-    const { options } = this.props;
+    const { fuseConfig, options } = this.props;
     const searchOff = !this.searchOn();
     const { searchQuery } = this.state;
 
@@ -102,15 +114,8 @@ export class Autocomplete extends Component {
       return options;
     }
 
-    const escapedSearchQuery = escape(searchQuery);
-    const pattern = escapedSearchQuery
-      .split(' ')
-      .map(t => `(?=.*?${t})`)
-      .join('');
-
-    return options.filter(
-      option => option.label.toString().search(new RegExp(pattern, 'i')) !== -1
-    );
+    const fuse = new Fuse(options, fuseConfig);
+    return fuse.search(searchQuery);
   }
 
   getOptionLabelByValue(options, value) {
