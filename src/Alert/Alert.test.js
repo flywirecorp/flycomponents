@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import Alert from './Alert';
 
 describe('Alert', () => {
@@ -23,17 +22,17 @@ describe('Alert', () => {
     }
   }
 
-  it('renders children passed in', () => {
+  test('renders children passed in', () => {
     const children = <div className="unique" />;
     const component = new AlertComponent({ children });
 
-    expect(component.find('.unique')).to.have.length(1);
+    expect(component.find('.unique')).toHaveLength(1);
   });
 
-  it('renders diferent warning levels', () => {
+  test('renders diferent warning levels', () => {
     const type = 'danger';
     const component = new AlertComponent({ type });
 
-    expect(component.container().hasClass('Alert--danger')).to.equal(true);
+    expect(component.container().hasClass('Alert--danger')).toBe(true);
   });
 });

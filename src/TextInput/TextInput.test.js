@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import TextInput from './TextInput';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
@@ -41,51 +39,51 @@ describe('TextInput', () => {
     }
   }
 
-  it('renders an input text', () => {
+  test('renders an input text', () => {
     const component = new TextInputComponent();
 
-    expect(component.input()).to.have.length(1);
+    expect(component.input()).toHaveLength(1);
   });
 
-  it('renders a textarea', () => {
+  test('renders a textarea', () => {
     const component = new TextInputComponent({ multiline: true });
 
-    expect(component.textarea()).to.have.length(1);
+    expect(component.textarea()).toHaveLength(1);
   });
 
-  it('renders a input group with prefix', () => {
+  test('renders a input group with prefix', () => {
     const component = new TextInputComponent({ prefix: 'PREFIX' });
     const inputGroup = component.inputGroup();
 
-    expect(inputGroup).to.have.length(1);
-    expect(inputGroup.prop('prefix')).to.eq('PREFIX');
+    expect(inputGroup).toHaveLength(1);
+    expect(inputGroup.prop('prefix')).toEqual('PREFIX');
   });
 
-  it('renders a input group with sufix', () => {
+  test('renders a input group with sufix', () => {
     const component = new TextInputComponent({ sufix: 'SUFIX' });
     const inputGroup = component.inputGroup();
 
-    expect(inputGroup).to.have.length(1);
-    expect(inputGroup.prop('sufix')).to.eq('SUFIX');
+    expect(inputGroup).toHaveLength(1);
+    expect(inputGroup.prop('sufix')).toEqual('SUFIX');
   });
 
-  it('handles on change events in input', () => {
-    const onChange = sinon.spy();
+  test('handles on change events in input', () => {
+    const onChange = jest.fn();
     const props = { onChange };
 
     const component = new TextInputComponent(props);
 
     component.simulateChange('name', 'Dolores');
 
-    expect(onChange.calledWith('name', 'Dolores')).to.be.true;
+    expect(onChange).toBeCalledWith('name', 'Dolores');
   });
 
-  it('handles on blur events in input', () => {
-    const onBlur = sinon.spy();
+  test('handles on blur events in input', () => {
+    const onBlur = jest.fn();
     const component = new TextInputComponent({ onBlur });
 
     component.simulateBlur('name');
 
-    expect(onBlur.called).to.be.true;
+    expect(onBlur).toBeCalled();
   });
 });

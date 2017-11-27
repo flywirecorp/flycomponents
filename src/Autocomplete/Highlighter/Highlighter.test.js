@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import Highlighter from './Highlighter';
 
 describe('Highlighter', () => {
@@ -20,13 +19,11 @@ describe('Highlighter', () => {
     }
   }
 
-  it('highlights a substring in string', () => {
+  test('highlights a substring in string', () => {
     const text = 'Hello World!';
     const subString = 'World';
     const component = new HighlighterComponent({ text, subString });
 
-    expect(component.html()).to.equal(
-      "Hello <span class='is-highlighted'>World</span>!"
-    );
+    expect(component.html()).toBe("Hello <span class='is-highlighted'>World</span>!");
   });
 });

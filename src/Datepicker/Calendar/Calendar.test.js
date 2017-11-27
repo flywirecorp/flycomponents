@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import moment from 'moment';
 import Calendar from './Calendar';
 import Navigation from './Navigation';
@@ -42,21 +41,21 @@ describe('Calendar', () => {
     }
   }
 
-  it('has a navigation bar', () => {
+  test('has a navigation bar', () => {
     const component = new CalendarComponent();
 
-    expect(component.navigation()).to.have.length(1);
+    expect(component.navigation()).toHaveLength(1);
   });
 
-  it('has a day names header', () => {
+  test('has a day names header', () => {
     const component = new CalendarComponent();
 
-    expect(component.dayNames()).to.have.length(1);
+    expect(component.dayNames()).toHaveLength(1);
   });
 
-  it('has a day month table', () => {
+  test('has a day month table', () => {
     const component = new CalendarComponent();
 
-    expect(component.month()).to.have.length(1);
+    expect(component.month()).toHaveLength(1);
   });
 });

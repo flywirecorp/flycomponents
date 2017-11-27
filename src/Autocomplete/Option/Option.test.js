@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import Highlighter from '../Highlighter';
 import Option from './Option';
 
@@ -38,64 +36,64 @@ describe('Option', () => {
     }
   }
 
-  it('renders an option', () => {
+  test('renders an option', () => {
     const component = new OptionComponent();
 
-    expect(component.option()).to.have.length(1);
+    expect(component.option()).toHaveLength(1);
   });
 
-  it('has an active status when focus', () => {
+  test('has an active status when focus', () => {
     const hasFocus = true;
     const component = new OptionComponent({ hasFocus });
 
-    expect(component.option().prop('className')).to.include('is-active');
+    expect(component.option().prop('className')).toContain('is-active');
   });
 
-  it('simulates click events', () => {
-    const onClick = sinon.spy();
+  test('simulates click events', () => {
+    const onClick = jest.fn();
     const option = { label: 'Option', value: 'opt' };
     const component = new OptionComponent({ onClick, option });
 
     component.simulateClick();
 
-    expect(onClick.calledWith('opt')).to.be.true;
+    expect(onClick).toBeCalledWith('opt');
   });
 
-  it('simulates mouse enter events', () => {
-    const onMouseEnter = sinon.spy();
+  test('simulates mouse enter events', () => {
+    const onMouseEnter = jest.fn();
     const option = { label: 'Option', value: 'opt' };
     const component = new OptionComponent({ onMouseEnter, option });
 
     component.doMouseEnter();
 
-    expect(onMouseEnter.calledWith('opt')).to.be.true;
+    expect(onMouseEnter).toBeCalledWith('opt');
   });
 
-  it('highlighs texts', () => {
+  test('highlighs texts', () => {
     const option = { label: 'Hello World!', value: 'hw' };
     const searchQuery = 'World';
     const component = new OptionComponent({ option, searchQuery });
     const highlighText = component.highlighText();
 
-    expect(highlighText).to.have.length(1);
-    expect(highlighText.prop('text')).to.equal(option.label);
-    expect(highlighText.prop('subString')).to.equal(searchQuery);
+    expect(highlighText).toHaveLength(1);
+    expect(highlighText.prop('text')).toBe(option.label);
+    expect(highlighText.prop('subString')).toBe(searchQuery);
   });
 
-  it('disables highligh text', () => {
+  test('disables highligh text', () => {
     const highlighText = false;
     const component = new OptionComponent({ highlighText });
 
-    expect(component.highlighText()).to.have.length(0);
+    expect(component.highlighText()).toHaveLength(0);
   });
 
-  it('renders custom templates', () => {
-    const customTemplate = sinon.spy();
+  test('renders custom templates', () => {
+    const customTemplate = jest.fn();
     // eslint-disable-next-line
     new OptionComponent({
       template: customTemplate
     });
 
-    expect(customTemplate.called).to.be.true;
+    expect(customTemplate).toBeCalled();
   });
 });

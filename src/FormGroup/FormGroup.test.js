@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import FormGroup from './FormGroup';
 import Label from '../Label';
 
@@ -32,31 +31,31 @@ describe('FormGroup', () => {
     }
   }
 
-  it('renders children passed in', () => {
+  test('renders children passed in', () => {
     const children = <div className="unique" />;
     const component = new FormGroupComponent({ children });
 
-    expect(component.find('.unique')).to.have.length(1);
+    expect(component.find('.unique')).toHaveLength(1);
   });
 
-  it('renders a label', () => {
+  test('renders a label', () => {
     const label = 'A label';
     const component = new FormGroupComponent({ label });
 
-    expect(component.label()).to.have.length(1);
+    expect(component.label()).toHaveLength(1);
   });
 
-  it('renders an error message', () => {
+  test('renders an error message', () => {
     const error = 'must be greater or equal to 5000';
     const component = new FormGroupComponent({ error });
 
-    expect(component.errorText()).to.equal('must be greater or equal to 5000');
+    expect(component.errorText()).toBe('must be greater or equal to 5000');
   });
 
-  it('renders a hint message', () => {
+  test('renders a hint message', () => {
     const hint = 'Amount you want to send in USD';
     const component = new FormGroupComponent({ hint });
 
-    expect(component.hintText()).to.equal('Amount you want to send in USD');
+    expect(component.hintText()).toBe('Amount you want to send in USD');
   });
 });

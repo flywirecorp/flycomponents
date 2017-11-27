@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import Day from '../Day';
 
 describe('Day', () => {
@@ -40,27 +39,27 @@ describe('Day', () => {
     }
   }
 
-  it('renders a day', () => {
+  test('renders a day', () => {
     const component = new DayComponent({ dayOfMonth: 2 });
 
-    expect(component.dayOfMonth()).to.equal('2');
+    expect(component.dayOfMonth()).toBe('2');
   });
 
-  it('sets day as current', () => {
+  test('sets day as current', () => {
     const component = new DayComponent({ current: true });
 
-    expect(component.isCurrent()).to.true;
+    expect(component.isCurrent()).toBe(true);
   });
 
-  it('sets day as disabled', () => {
+  test('sets day as disabled', () => {
     const component = new DayComponent({ disabled: true });
 
-    expect(component.isDisabled()).to.true;
+    expect(component.isDisabled()).toBe(true);
   });
 
-  it('sets day as selected', () => {
+  test('sets day as selected', () => {
     const component = new DayComponent({ selected: true });
 
-    expect(component.isSelected()).to.true;
+    expect(component.isSelected()).toBe(true);
   });
 });

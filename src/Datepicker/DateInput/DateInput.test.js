@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import DateInput from './DateInput';
 
 describe('DateInput', () => {
@@ -46,27 +44,27 @@ describe('DateInput', () => {
     }
   }
 
-  it('sets the state value while writing', () => {
-    const setSelectedDate = sinon.spy();
+  test('sets the state value while writing', () => {
+    const setSelectedDate = jest.fn();
     const component = new DateInputComponent({ setSelectedDate });
 
     component.pressKey(0);
 
-    expect(setSelectedDate.calledWith('0')).to.be.true;
+    expect(setSelectedDate).toBeCalledWith('0');
   });
 
-  it('removes the last character when pressing delete key', () => {
-    const setSelectedDate = sinon.spy();
+  test('removes the last character when pressing delete key', () => {
+    const setSelectedDate = jest.fn();
     const selectedDate = '05/12/2016';
     const component = new DateInputComponent({ selectedDate, setSelectedDate });
 
     component.pressKey('delete');
 
-    expect(setSelectedDate.calledWith('05/12/201')).to.be.true;
+    expect(setSelectedDate).toBeCalledWith('05/12/201');
   });
 
-  it('does not change input field if readOnly prop is passed in', () => {
-    const setSelectedDate = sinon.spy();
+  test('does not change input field if readOnly prop is passed in', () => {
+    const setSelectedDate = jest.fn();
     const component = new DateInputComponent({
       setSelectedDate,
       readOnly: true
@@ -74,6 +72,6 @@ describe('DateInput', () => {
 
     component.pressKey(0);
 
-    expect(setSelectedDate.called).to.be.false;
+    expect(setSelectedDate).not.toBeCalled();
   });
 });

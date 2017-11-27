@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import moment from 'moment';
 import Week from '../Week';
 import Day from '../Day';
@@ -33,32 +32,32 @@ describe('Week', () => {
     }
   }
 
-  it('has 7 days', () => {
+  test('has 7 days', () => {
     const startingDate = moment('2016-11-20');
     const component = new WeekComponent({ startingDate });
 
-    expect(component.days()).to.have.length(7);
+    expect(component.days()).toHaveLength(7);
 
     expect(
       component
         .days()
         .first()
         .prop('dayOfMonth')
-    ).to.equal(20);
+    ).toBe(20);
   });
 
-  it('sets current day', () => {
+  test('sets current day', () => {
     const startingDate = moment('2016-11-20');
     const selected = '11/21/2016';
     const component = new WeekComponent({ startingDate, selected });
 
-    expect(component.dayOfMonth(21).prop('selected')).to.be.true;
+    expect(component.dayOfMonth(21).prop('selected')).toBe(true);
   });
 
-  it('sets other month days as disabled', () => {
+  test('sets other month days as disabled', () => {
     const startingDate = moment('2016-11-27');
     const component = new WeekComponent({ startingDate });
 
-    expect(component.dayOfMonth(2).prop('disabled')).to.be.true;
+    expect(component.dayOfMonth(2).prop('disabled')).toBe(true);
   });
 });

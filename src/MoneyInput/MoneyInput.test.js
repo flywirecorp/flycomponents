@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import MoneyInput from './MoneyInput';
 import InputGroup from '../InputGroup';
 
@@ -45,14 +43,14 @@ describe('MoneyInput', () => {
     }
   }
 
-  it('formats the default value', () => {
+  test('formats the default value', () => {
     const component = new MoneyInputComponent({ value: 5025 });
 
-    expect(component.input().prop('defaultValue')).to.equal('50.25');
+    expect(component.input().prop('defaultValue')).toBe('50.25');
   });
 
-  it('handles on change events in input', () => {
-    const onChange = sinon.spy();
+  test('handles on change events in input', () => {
+    const onChange = jest.fn();
     const props = {
       decimalMark: ',',
       onChange,
@@ -66,44 +64,44 @@ describe('MoneyInput', () => {
 
     component.simulateChange('amount', '€1.000');
 
-    expect(onChange.calledWith('amount', 100000)).to.be.true;
+    expect(onChange).toBeCalledWith('amount', 100000);
   });
 
-  it('handles on blur events in input', () => {
-    const onBlur = sinon.spy();
+  test('handles on blur events in input', () => {
+    const onBlur = jest.fn();
     const component = new MoneyInputComponent({ onBlur });
 
     component.simulateBlur('amount', 100000);
 
-    expect(onBlur.called).to.be.true;
+    expect(onBlur).toBeCalled();
   });
 
-  it('formats the amount when on blur', () => {
+  test('formats the amount when on blur', () => {
     const component = new MoneyInputComponent();
 
     component.simulateBlur('amount', 1000);
 
-    expect(component.input().prop('defaultValue')).to.equal('1,000.00');
+    expect(component.input().prop('defaultValue')).toBe('1,000.00');
   });
 
-  it('selects the input value when click', () => {
+  test('selects the input value when click', () => {
     const component = new MoneyInputComponent();
-    const onClickCallback = sinon.spy();
+    const onClickCallback = jest.fn();
 
     component.simulateClick(onClickCallback);
 
-    expect(onClickCallback.called).to.be.true;
+    expect(onClickCallback).toBeCalled();
   });
 
-  it('renders a read-only money input if the property is set', () => {
+  test('renders a read-only money input if the property is set', () => {
     const component = new MoneyInputComponent({ readOnly: true });
 
-    expect(component.input().prop('readOnly')).to.be.true;
+    expect(component.input().prop('readOnly')).toBe(true);
   });
 
-  it('is disabled if property is set', () => {
+  test('is disabled if property is set', () => {
     const component = new MoneyInputComponent({ disabled: true });
 
-    expect(component.input().prop('disabled')).to.exist;
+    expect(component.input().prop('disabled')).toBeDefined();
   });
 });

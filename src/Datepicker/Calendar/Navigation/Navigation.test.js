@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import moment from 'moment';
 import Navigation from './Navigation';
 
@@ -68,60 +66,60 @@ describe('Navigation', () => {
     }
   }
 
-  it('handles a previous month button click', () => {
-    const onPrevMonthClick = sinon.spy();
+  test('handles a previous month button click', () => {
+    const onPrevMonthClick = jest.fn();
     const component = new NavigationComponent({ onPrevMonthClick });
 
     component.simulatePrevMonthClick();
 
-    expect(onPrevMonthClick.called).to.be.true;
+    expect(onPrevMonthClick).toBeCalled();
   });
 
-  it('handles a next month button click', () => {
-    const onNextMonthClick = sinon.spy();
+  test('handles a next month button click', () => {
+    const onNextMonthClick = jest.fn();
     const component = new NavigationComponent({ onNextMonthClick });
 
     component.simulateNextMonthClick();
 
-    expect(onNextMonthClick.called).to.be.true;
+    expect(onNextMonthClick).toBeCalled();
   });
 
-  it('handles the onChange event', () => {
-    const onMonthChange = sinon.spy();
+  test('handles the onChange event', () => {
+    const onMonthChange = jest.fn();
     const component = new NavigationComponent({ onMonthChange });
 
     component.simulateSelectMonth(3);
-    expect(onMonthChange.calledWith(3)).to.be.true;
+    expect(onMonthChange).toBeCalledWith(3);
   });
 
   describe('month selector', () => {
-    it('exists', () => {
+    test('exists', () => {
       const component = new NavigationComponent();
       const monthSelector = component.monthSelector();
 
-      expect(monthSelector).to.have.length(1);
+      expect(monthSelector).toHaveLength(1);
 
-      expect(monthSelector.prop('values')).to.have.length(12);
+      expect(monthSelector.prop('values')).toHaveLength(12);
     });
   });
 
   describe('year selector', () => {
-    it('exists', () => {
+    test('exists', () => {
       const component = new NavigationComponent();
 
-      expect(component.yearSelector()).to.have.length(1);
+      expect(component.yearSelector()).toHaveLength(1);
     });
 
-    it('has a hundred of years', () => {
+    test('has a hundred of years', () => {
       const startDate = moment('2000-01-01');
       const component = new NavigationComponent({ startDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];
       const lastYear = years[99];
 
-      expect(years.length).to.equal(100);
-      expect(firstYear).to.equal(1950);
-      expect(lastYear).to.equal(2049);
+      expect(years.length).toBe(100);
+      expect(firstYear).toBe(1950);
+      expect(lastYear).toBe(2049);
     });
   });
 });

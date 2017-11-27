@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import { Autocomplete } from './Autocomplete';
 import Options from './Options';
 
@@ -86,22 +84,22 @@ describe('Autocomplete', () => {
   let adjustOffsetStub, blurSearchInputStub;
 
   beforeEach(() => {
-    adjustOffsetStub = sinon.stub(Autocomplete.prototype, 'adjustOffset');
-    blurSearchInputStub = sinon.stub(Autocomplete.prototype, 'blurSearchInput');
+    adjustOffsetStub = jest.spyOn(Autocomplete.prototype, 'adjustOffset');
+    blurSearchInputStub = jest.spyOn(Autocomplete.prototype, 'blurSearchInput');
   });
 
   afterEach(() => {
-    adjustOffsetStub.restore();
-    blurSearchInputStub.restore();
+    adjustOffsetStub.mockReset();
+    blurSearchInputStub.mockReset();
   });
 
-  it('has a search input', () => {
+  test('has a search input', () => {
     const component = new AutocompleteComponent();
 
-    expect(component.searchField()).to.have.length(1);
+    expect(component.searchField()).toHaveLength(1);
   });
 
-  it('has a list with options', () => {
+  test('has a list with options', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -109,18 +107,18 @@ describe('Autocomplete', () => {
     ];
     const component = new AutocompleteComponent({ options });
 
-    expect(component.options()).to.have.length(3);
+    expect(component.options()).toHaveLength(3);
   });
 
-  it('shows options when clicking the search input', () => {
+  test('shows options when clicking the search input', () => {
     const component = new AutocompleteComponent();
 
     component.simulateClick();
 
-    expect(component.optionsListIsVisible()).to.be.true;
+    expect(component.optionsListIsVisible()).toBe(true);
   });
 
-  it('filters options based on the search value', () => {
+  test('filters options based on the search value', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -130,12 +128,12 @@ describe('Autocomplete', () => {
 
     component.filterOption('st united');
 
-    expect(component.options()).to.have.length(1);
+    expect(component.options()).toHaveLength(1);
 
-    expect(component.options().prop('option').label).to.equal('United States');
+    expect(component.options().prop('option').label).toBe('United States');
   });
 
-  it('moves the focus to the next option when pressing key down', () => {
+  test('moves the focus to the next option when pressing key down', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' }
@@ -146,10 +144,10 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressArrowDownKey();
 
-    expect(component.focusedOption().prop('option').value).to.equal('US');
+    expect(component.focusedOption().prop('option').value).toBe('US');
   });
 
-  it('moves the focus to the previous option when pressing key up', () => {
+  test('moves the focus to the previous option when pressing key up', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' }
@@ -161,19 +159,19 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressArrowUpKey();
 
-    expect(component.focusedOption().prop('option').value).to.equal('ES');
+    expect(component.focusedOption().prop('option').value).toBe('ES');
   });
 
-  it('hides options when pressing the esc key', () => {
+  test('hides options when pressing the esc key', () => {
     const component = new AutocompleteComponent();
 
     component.simulateClick();
     component.pressEscKey();
 
-    expect(component.optionsListIsVisible()).to.be.false;
+    expect(component.optionsListIsVisible()).toBe(false);
   });
 
-  it('gives focus to an option when mouse enters', () => {
+  test('gives focus to an option when mouse enters', () => {
     const options = [
       { label: 'United States', value: 'US' },
       { label: 'United States Minor Outlying Islands', value: 'UM' }
@@ -185,15 +183,15 @@ describe('Autocomplete', () => {
     const firstOption = component.options().first();
     firstOption.simulate('mouseEnter', 'US');
 
-    expect(component.selectedIndex()).to.equal(0);
+    expect(component.selectedIndex()).toBe(0);
 
     const secondOption = component.options().last();
     secondOption.simulate('mouseEnter', 'UM');
 
-    expect(component.selectedIndex()).to.equal(1);
+    expect(component.selectedIndex()).toBe(1);
   });
 
-  it('selects current option when pressing the enter key', () => {
+  test('selects current option when pressing the enter key', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' }
@@ -204,20 +202,20 @@ describe('Autocomplete', () => {
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.selectedOption().prop('option').value).to.equal('ES');
+    expect(component.selectedOption().prop('option').value).toBe('ES');
   });
 
-  it('hides options when pressing the enter key', () => {
+  test('hides options when pressing the enter key', () => {
     const component = new AutocompleteComponent();
 
     component.simulateClick();
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.optionsListIsVisible()).to.be.false;
+    expect(component.optionsListIsVisible()).toBe(false);
   });
 
-  it('disables search according to the minimun options for search', () => {
+  test('disables search according to the minimun options for search', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -229,10 +227,10 @@ describe('Autocomplete', () => {
       options
     });
 
-    expect(component.searchField().prop('readOnly')).to.be.true;
+    expect(component.searchField().prop('readOnly')).toBe(true);
   });
 
-  it('shows all options if one is selected', () => {
+  test('shows all options if one is selected', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -245,10 +243,10 @@ describe('Autocomplete', () => {
     component.pressEnterKey();
     component.simulateClick();
 
-    expect(component.options().length).to.equal(options.length);
+    expect(component.options().length).toBe(options.length);
   });
 
-  it('focus the last selected option', () => {
+  test('focus the last selected option', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -261,10 +259,10 @@ describe('Autocomplete', () => {
     component.pressEnterKey();
     component.simulateClick();
 
-    expect(component.selectedIndex()).to.equal(2);
+    expect(component.selectedIndex()).toBe(2);
   });
 
-  it('blurs the search field when an option is selected', () => {
+  test('blurs the search field when an option is selected', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -276,7 +274,7 @@ describe('Autocomplete', () => {
     component.filterOption('China');
     component.pressEnterKey();
 
-    expect(blurSearchInputStub.called).to.be.true;
+    expect(blurSearchInputStub).toBeCalled();
   });
 
   describe('having read-only property', () => {
@@ -287,13 +285,13 @@ describe('Autocomplete', () => {
     ];
     const component = new AutocompleteComponent({ readOnly: true, options });
 
-    it('renders a read-only autocomplete search input', () => {
-      expect(component.searchField().prop('readOnly')).to.be.true;
+    test('renders a read-only autocomplete search input', () => {
+      expect(component.searchField().prop('readOnly')).toBe(true);
     });
 
-    it('does not show the options menu', () => {
+    test('does not show the options menu', () => {
       component.simulateClick();
-      expect(component.optionsListIsVisible()).to.be.false;
+      expect(component.optionsListIsVisible()).toBe(false);
     });
   });
 });

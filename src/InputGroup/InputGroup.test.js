@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import Input from '../Input';
 import InputGroup from '../InputGroup';
 
@@ -29,27 +28,27 @@ describe('InputGroup', () => {
     }
   }
 
-  it('renders an input', () => {
+  test('renders an input', () => {
     const name = 'amount';
     const type = 'number';
     const component = new InputComponent({ name, type });
 
-    expect(component.input()).to.have.length(1);
+    expect(component.input()).toHaveLength(1);
 
-    expect(component.input().prop('name')).to.equal('amount');
+    expect(component.input().prop('name')).toBe('amount');
 
-    expect(component.input().prop('type')).to.equal('number');
+    expect(component.input().prop('type')).toBe('number');
   });
 
-  it('renders a prefix', () => {
+  test('renders a prefix', () => {
     const component = new InputComponent({ prefix: '$' });
 
-    expect(component.prefixText()).to.equal('$');
+    expect(component.prefixText()).toBe('$');
   });
 
-  it('renders a sufix', () => {
+  test('renders a sufix', () => {
     const component = new InputComponent({ sufix: '.00' });
 
-    expect(component.sufixText()).to.equal('.00');
+    expect(component.sufixText()).toBe('.00');
   });
 });

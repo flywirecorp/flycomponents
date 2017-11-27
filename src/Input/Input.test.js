@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import Input from './Input';
 
 describe('Input', () => {
@@ -20,35 +19,35 @@ describe('Input', () => {
     }
   }
 
-  it('renders an input', () => {
+  test('renders an input', () => {
     const name = 'amount';
     const type = 'number';
     const component = new InputComponent({ name, type });
 
-    expect(component.input()).to.have.length(1);
+    expect(component.input()).toHaveLength(1);
 
-    expect(component.input().prop('name')).to.equal('amount');
+    expect(component.input().prop('name')).toBe('amount');
 
-    expect(component.input().prop('type')).to.equal('number');
+    expect(component.input().prop('type')).toBe('number');
   });
 
-  it('renders a read-only input if the property is set', () => {
+  test('renders a read-only input if the property is set', () => {
     const component = new InputComponent({ readOnly: true });
 
-    expect(component.input().prop('readOnly')).to.be.true;
+    expect(component.input().prop('readOnly')).toBe(true);
   });
 
-  context('when value property is given', () => {
-    it('sets default value', () => {
+  describe('when value property is given', () => {
+    test('sets default value', () => {
       const component = componentWithValue('Something');
 
-      expect(component.input().prop('defaultValue')).to.equal('Something');
+      expect(component.input().prop('defaultValue')).toBe('Something');
     });
 
-    it('never sets value property', () => {
+    test('never sets value property', () => {
       const component = componentWithValue();
 
-      expect(component.input().prop('value')).to.be.undefined;
+      expect(component.input().prop('value')).toBeUndefined();
     });
 
     function componentWithValue(value = 'anything') {

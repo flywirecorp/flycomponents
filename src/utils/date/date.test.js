@@ -1,4 +1,3 @@
-import { expect } from 'chai';
 import {
   daysOfWeek,
   monthNames,
@@ -14,7 +13,7 @@ describe('monthStartingWeekDates', () => {
   describe('when a month starts on a start-of-week (sunday)', () => {
     const date = moment('01/01/2017', dateFormat);
 
-    it('returns the correct weeks', () => {
+    test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
@@ -25,14 +24,14 @@ describe('monthStartingWeekDates', () => {
         '01/29/2017'
       ];
 
-      expect(formatedWeeks).to.deep.equal(expectedWeeks);
+      expect(formatedWeeks).toEqual(expectedWeeks);
     });
   });
 
   describe('when a month ends on a end-of-week (saturday)', () => {
     const date = moment('12/01/2016', dateFormat);
 
-    it('returns the correct weeks', () => {
+    test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
@@ -43,14 +42,14 @@ describe('monthStartingWeekDates', () => {
         '12/25/2016'
       ];
 
-      expect(formatedWeeks).to.deep.equal(expectedWeeks);
+      expect(formatedWeeks).toEqual(expectedWeeks);
     });
   });
 
   describe('when a month starts on a end-of-week and end on a start-of-week', () => {
     const date = moment('04/01/2017', dateFormat);
 
-    it('returns the correct weeks', () => {
+    test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
@@ -62,20 +61,20 @@ describe('monthStartingWeekDates', () => {
         '04/30/2017'
       ];
 
-      expect(formatedWeeks).to.deep.equal(expectedWeeks);
+      expect(formatedWeeks).toEqual(expectedWeeks);
     });
   });
 });
 
 describe('daysOfWeek', () => {
-  it('returns the days of week', () => {
+  test('returns the days of week', () => {
     const days = daysOfWeek();
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    expect(days).to.deep.equal(expectedDays);
+    expect(days).toEqual(expectedDays);
   });
 
-  it('returns the days of week in the given locale', () => {
+  test('returns the days of week in the given locale', () => {
     const days = daysOfWeek('es');
     const expectedDays = [
       'lun.',
@@ -87,12 +86,12 @@ describe('daysOfWeek', () => {
       'dom.'
     ];
 
-    expect(days).to.deep.equal(expectedDays);
+    expect(days).toEqual(expectedDays);
   });
 });
 
 describe('monthNames', () => {
-  it('returs month names in the given locale', () => {
+  test('returs month names in the given locale', () => {
     const months = monthNames('es');
     const expectedMonths = [
       'enero',
@@ -109,7 +108,7 @@ describe('monthNames', () => {
       'diciembre'
     ];
 
-    expect(months).to.deep.equal(expectedMonths);
+    expect(months).toEqual(expectedMonths);
   });
 });
 
@@ -119,20 +118,20 @@ describe('parseDateOrToday', () => {
   describe('passing a string date', () => {
     const date = parseDateOrToday('01/01/2016');
 
-    it('returns a parsed date', () => {
+    test('returns a parsed date', () => {
       const expectedDate = moment('01/01/2016', dateFormat);
 
-      expect(date.format(dateFormat)).to.equal(expectedDate.format(dateFormat));
+      expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });
   });
 
   describe('passing no valid string date', () => {
     const date = parseDateOrToday('01/01');
 
-    it('returns a parsed date', () => {
+    test('returns a parsed date', () => {
       const expectedDate = moment();
 
-      expect(date.format(dateFormat)).to.equal(expectedDate.format(dateFormat));
+      expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });
   });
 });

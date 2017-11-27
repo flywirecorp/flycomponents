@@ -1,7 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import sinon from 'sinon';
 import { FlagSelector } from './FlagSelector';
 import Options from './Options';
 
@@ -67,14 +65,14 @@ describe('FlagSelector', () => {
   let adjustOffetStub;
 
   beforeEach(() => {
-    adjustOffetStub = sinon.stub(FlagSelector.prototype, 'adjustOffet');
+    adjustOffetStub = jest.spyOn(FlagSelector.prototype, 'adjustOffet');
   });
 
   afterEach(() => {
-    adjustOffetStub.restore();
+    adjustOffetStub.mockReset();
   });
 
-  it('has a list with options', () => {
+  test('has a list with options', () => {
     const options = [
       {
         label: 'Spain',
@@ -91,20 +89,20 @@ describe('FlagSelector', () => {
     ];
     const component = new FlagSelectorComponent({ options });
 
-    expect(component.options()).to.have.length(2);
+    expect(component.options()).toHaveLength(2);
   });
 
-  it('displays options when clicking the menu', () => {
+  test('displays options when clicking the menu', () => {
     const component = new FlagSelectorComponent();
 
-    expect(component.state('isOpen')).to.be.false;
+    expect(component.state('isOpen')).toBe(false);
 
     component.simulateMenuClick();
 
-    expect(component.state('isOpen')).to.be.true;
+    expect(component.state('isOpen')).toBe(true);
   });
 
-  it('moves the focus to the next option when pressing key down', () => {
+  test('moves the focus to the next option when pressing key down', () => {
     const options = [
       {
         label: 'Spain',
@@ -118,10 +116,10 @@ describe('FlagSelector', () => {
     component.simulateMenuClick();
     component.pressArrowDownKey();
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('value')).toBe('ES');
   });
 
-  it('moves the focus to the previous option when pressing key up', () => {
+  test('moves the focus to the previous option when pressing key up', () => {
     const options = [
       {
         label: 'Spain',
@@ -143,19 +141,19 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey();
     component.pressArrowUpKey();
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('value')).toBe('ES');
   });
 
-  it('hides options when pressing the esc key', () => {
+  test('hides options when pressing the esc key', () => {
     const component = new FlagSelectorComponent();
 
     component.simulateMenuClick();
     component.pressEscKey();
 
-    expect(component.state('isOpen')).to.be.false;
+    expect(component.state('isOpen')).toBe(false);
   });
 
-  it('gives focus to an option when mouse enters', () => {
+  test('gives focus to an option when mouse enters', () => {
     const options = [
       {
         label: 'Spain',
@@ -169,10 +167,10 @@ describe('FlagSelector', () => {
     const option = component.options().last();
     option.simulate('mouseEnter', 'ES');
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('value')).toBe('ES');
   });
 
-  it('selects current option when pressing the enter key', () => {
+  test('selects current option when pressing the enter key', () => {
     const options = [
       {
         label: 'Spain',
@@ -187,10 +185,10 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('value')).toBe('ES');
   });
 
-  it('hides options when pressing the enter key', () => {
+  test('hides options when pressing the enter key', () => {
     const options = [
       {
         label: 'Spain',
@@ -205,10 +203,10 @@ describe('FlagSelector', () => {
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.state('isOpen')).to.be.false;
+    expect(component.state('isOpen')).toBe(false);
   });
 
-  it('focus the country when typing', () => {
+  test('focus the country when typing', () => {
     const options = [
       {
         label: 'Spain',
@@ -228,10 +226,10 @@ describe('FlagSelector', () => {
     component.simulateMenuClick();
     component.typeSpa();
 
-    expect(component.selectedOption().prop('value')).to.equal('ES');
+    expect(component.selectedOption().prop('value')).toBe('ES');
   });
 
-  it('does not open the menu when read-only param is received', () => {
+  test('does not open the menu when read-only param is received', () => {
     const options = [
       {
         label: 'Spain',
@@ -250,6 +248,6 @@ describe('FlagSelector', () => {
 
     component.simulateMenuClick();
 
-    expect(component.state('isOpen')).to.be.false;
+    expect(component.state('isOpen')).toBe(false);
   });
 });
