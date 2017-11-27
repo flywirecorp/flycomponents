@@ -1,3 +1,4 @@
+import Accordion from './Accordion';
 import Alert from './Alert';
 import Autocomplete from './Autocomplete';
 import Button from './Button';
@@ -12,6 +13,7 @@ import Textarea from './Textarea';
 import TextInput from './TextInput';
 
 export {
+  Accordion,
   Alert,
   Autocomplete,
   Button,
