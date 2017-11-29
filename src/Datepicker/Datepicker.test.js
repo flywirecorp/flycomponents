@@ -114,8 +114,9 @@ describe('Datepicker', () => {
   });
 
   test('hides the calendar when date input blurs', () => {
+    jest.useFakeTimers();
+
     const CLOSE_DELAY_TIME = 150;
-    const clock = jest.useFakeTimers();
     const component = new DatepickerComponent();
 
     component.simulateDateInputClick();

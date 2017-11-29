@@ -24,6 +24,8 @@ describe('Highlighter', () => {
     const subString = 'World';
     const component = new HighlighterComponent({ text, subString });
 
-    expect(component.html()).toBe("Hello <span class='is-highlighted'>World</span>!");
+    expect(component.html()).toBe(
+      "Hello <span class='is-highlighted'>World</span>!"
+    );
   });
 });
