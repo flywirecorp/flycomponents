@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import Accordion from './components/Accordion';
 import Alert from './components/Alert';
 import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
@@ -26,6 +27,11 @@ const routes = [
     exact: true,
     label: 'Home',
     component: Home
+  },
+  {
+    path: '/accordion',
+    label: 'Accordion',
+    component: Accordion
   },
   {
     path: '/alert',
