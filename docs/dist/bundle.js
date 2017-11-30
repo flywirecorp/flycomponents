@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2dcdc5ed35c4bf523194"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "8ab8a94b4b638ffd76f8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7495,7 +7495,6 @@ var isExtraneousPopstateEvent = function isExtraneousPopstateEvent(event) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Section = exports.Content = exports.Header = exports.Accordion = undefined;
 
 var _Accordion = __webpack_require__(210);
 
@@ -7515,11 +7514,12 @@ var _Section2 = _interopRequireDefault(_Section);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.Accordion = _Accordion2.default;
-exports.Header = _Header2.default;
-exports.Content = _Content2.default;
-exports.Section = _Section2.default;
+_Accordion2.default.Header = _Header2.default;
+_Accordion2.default.Content = _Content2.default;
+_Accordion2.default.Section = _Section2.default;
+
 exports.default = _Accordion2.default;
+module.exports = exports['default'];
 
 /***/ }),
 /* 41 */
@@ -40889,6 +40889,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _Accordion = __webpack_require__(40);
 
+var _Accordion2 = _interopRequireDefault(_Accordion);
+
 var _src = __webpack_require__(4);
 
 var _Component = __webpack_require__(5);
@@ -40902,36 +40904,41 @@ var _README2 = _interopRequireDefault(_README);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
+  var Section = _Accordion2.default.Section,
+      Header = _Accordion2.default.Header,
+      Content = _Accordion2.default.Content;
+
+
   return _react2.default.createElement(
     _Component2.default,
     { readme: _README2.default },
     _react2.default.createElement(
-      _Accordion.Accordion,
+      _Accordion2.default,
       null,
       _react2.default.createElement(
-        _Accordion.Section,
+        Section,
         { success: true },
         _react2.default.createElement(
-          _Accordion.Header,
+          Header,
           null,
           '1. This is the first step'
         ),
         _react2.default.createElement(
-          _Accordion.Content,
+          Content,
           null,
           'This is content'
         )
       ),
       _react2.default.createElement(
-        _Accordion.Section,
+        Section,
         null,
         _react2.default.createElement(
-          _Accordion.Header,
+          Header,
           null,
           '2. This is the second step'
         ),
         _react2.default.createElement(
-          _Accordion.Content,
+          Content,
           null,
           function (_ref) {
             var setNextActive = _ref.setNextActive;
@@ -40956,15 +40963,15 @@ exports.default = function () {
         )
       ),
       _react2.default.createElement(
-        _Accordion.Section,
+        Section,
         null,
         _react2.default.createElement(
-          _Accordion.Header,
+          Header,
           null,
           '3. This is the third step'
         ),
         _react2.default.createElement(
-          _Accordion.Content,
+          Content,
           null,
           'This is content.'
         )
@@ -49084,7 +49091,7 @@ module.exports = function (css) {
 /* 282 */
 /***/ (function(module, exports) {
 
-module.exports = "# Accordion\n\n## Example\n```\n<Accordion>\n  <Section success>\n    <Header>1. This is the first step</Header>\n    <Content>This is content</Content>\n  </Section>\n  <Section>\n    <Header>2. This is the second step</Header>\n    <Content>This is content.</Content>\n  </Section>\n  <Section>\n    <Header>3. This is the third step</Header>\n    <Content>This is content.</Content>\n  </Section>\n</Accordion>\n```\n\n## Properties\n\n### Accordion\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| activeChildIndex | no    | boolean               | Sets the default section visible                          | 0         |\n| children         | no    | node                  | Children node                                             | []        |\n\n### Section\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n| success          | no    | boolean               | Adds the class `has-success`                              | false     |\n\n### Header\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node                  | Children node                                             | null      |\n\n### Content\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n\n"
+module.exports = "# Accordion\n\n## Example\n```\nimport Accordion from 'flycomponents';\nconst { Section, Header, Content } = Accordion;\n\n<Accordion>\n  <Section success>\n    <Header>1. This is the first step</Header>\n    <Content>This is content</Content>\n  </Section>\n  <Section>\n    <Header>2. This is the second step</Header>\n    <Content>\n      {({ setNextActive }) => (\n        <div>\n          <p>This is content.</p>\n          <Button\n            className=\"Button Button--primary\"\n            onClick={setNextActive}\n          >\n            Next\n          </Button>\n        </div>\n      )}\n    </Content>\n  </Section>\n  <Section>\n    <Header>3. This is the third step</Header>\n    <Content>This is content.</Content>\n  </Section>\n</Accordion>\n```\n\n## Properties\n\n### Accordion\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| activeChildIndex | no    | boolean               | Sets the default section visible                          | 0         |\n| children         | no    | node                  | Children node                                             | []        |\n\n### Section\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n| success          | no    | boolean               | Adds the class `has-success`                              | false     |\n\n### Header\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node                  | Children node                                             | null      |\n\n### Content\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n\n"
 
 /***/ }),
 /* 283 */
@@ -50023,7 +50030,7 @@ module.exports = exports['default'];
 /* 318 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.4.2","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.0.2","fuse.js":"^3.2.0","moment":"^2.19.2","prop-types":"^15.6.0","react":"^16.1.1","react-dom":"^16.1.1","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.11.0","eslint-config-prettier":"^2.2.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.1.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.6.0","jest":"^21.2.1","marked":"^0.3.6","prettier":"^1.4.4","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.8.1","webpack-dev-server":"^2.4.5","webpack-hot-middleware":"^2.18.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.4.3","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.0.2","fuse.js":"^3.2.0","moment":"^2.19.2","prop-types":"^15.6.0","react":"^16.1.1","react-dom":"^16.1.1","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.11.0","eslint-config-prettier":"^2.2.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.1.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.6.0","jest":"^21.2.1","marked":"^0.3.6","prettier":"^1.4.4","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.8.1","webpack-dev-server":"^2.4.5","webpack-hot-middleware":"^2.18.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
 /* 319 */
