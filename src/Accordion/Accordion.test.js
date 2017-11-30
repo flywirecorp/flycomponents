@@ -58,7 +58,7 @@ describe('Accordion', () => {
 
   describe('setNextActive', () => {
     test('sets second child as active', () => {
-      const { component, firstSection, secondSection } = setup();
+      const { component, secondSection } = setup();
 
       expect(component.state().activeChildIndex).toBe(0);
       secondSection.prop('setNextActive')();
@@ -67,7 +67,7 @@ describe('Accordion', () => {
 
     test('sets second child as active', () => {
       const props = { activeChildIndex: 1 };
-      const { component, firstSection, secondSection } = setup(props);
+      const { component, secondSection } = setup(props);
 
       expect(component.state().activeChildIndex).toBe(1);
       secondSection.prop('setNextActive')();
