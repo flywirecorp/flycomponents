@@ -43,10 +43,10 @@ class DateInput extends Component {
       readOnly,
       selectedDate
     } = this.props;
-    const calendarIcon = <CalendarIcon onClick={onCalendarIconClick} />;
+    const calendarIcon = <CalendarIcon />;
 
     return (
-      <div className="InputGroup">
+      <div className="InputGroup" onClick={onCalendarIconClick}>
         <input
           autoComplete="off"
           className="Input InputGroup-input"
