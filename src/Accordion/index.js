@@ -3,5 +3,8 @@ import Header from './Header';
 import Content from './Content';
 import Section from './Section';
 
-export { Accordion, Header, Content, Section };
+Accordion.Header = Header;
+Accordion.Content = Content;
+Accordion.Section = Section;
+
 export default Accordion;

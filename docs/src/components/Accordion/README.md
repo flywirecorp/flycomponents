@@ -2,6 +2,9 @@
 
 ## Example
 ```
+import Accordion from 'flycomponents';
+const { Section, Header, Content } = Accordion;
+
 <Accordion>
   <Section success>
     <Header>1. This is the first step</Header>
@@ -9,7 +12,19 @@
   </Section>
   <Section>
     <Header>2. This is the second step</Header>
-    <Content>This is content.</Content>
+    <Content>
+      {({ setNextActive }) => (
+        <div>
+          <p>This is content.</p>
+          <Button
+            className="Button Button--primary"
+            onClick={setNextActive}
+          >
+            Next
+          </Button>
+        </div>
+      )}
+    </Content>
   </Section>
   <Section>
     <Header>3. This is the third step</Header>
