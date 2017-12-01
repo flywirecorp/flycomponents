@@ -9,7 +9,7 @@ import Button from './components/Button';
 import Datepicker from './components/Datepicker';
 import FormGroup from './components/FormGroup';
 import MoneyInput from './components/MoneyInput';
-import PhoneInput from './components/PhoneInput';
+import PhoneNumber from './components/PhoneNumber';
 import InputGroup from './components/InputGroup';
 import Select from './components/Select';
 import Textarea from './components/Textarea';
@@ -70,8 +70,8 @@ const routes = [
   },
   {
     path: '/phone-input',
-    label: 'PhoneInput',
-    component: PhoneInput
+    label: 'PhoneNumber',
+    component: PhoneNumber
   },
   {
     path: '/select',

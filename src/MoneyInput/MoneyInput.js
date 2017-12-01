@@ -10,12 +10,14 @@ class MoneyInput extends Component {
     decimalMark: PropTypes.string,
     disabled: PropTypes.bool,
     error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
     label: PropTypes.string,
     maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onFocus: PropTypes.func,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     subunitToUnit: PropTypes.number,
@@ -28,9 +30,11 @@ class MoneyInput extends Component {
     currencySymbol: '$',
     decimalMark: '.',
     disabled: false,
+    floatingLabel: true,
     maxLength: 10,
     onBlur: () => {},
     onChange: () => {},
+    onFocus: () => {},
     subunitToUnit: 100,
     symbolFirst: true,
     thousandsSeparator: ','
@@ -38,7 +42,7 @@ class MoneyInput extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { amount: props.value };
+    this.state = { amount: props.value, isFocused: false };
   }
 
   convertToCents(amount) {
@@ -70,7 +74,7 @@ class MoneyInput extends Component {
     const amountInCents = this.convertToCents(amount);
 
     onBlur(name, amountInCents);
-    this.setState({ amount: amountInCents });
+    this.setState({ amount: amountInCents, isFocused: false });
   };
 
   handleChange = e => {
@@ -131,12 +135,20 @@ class MoneyInput extends Component {
     }
   };
 
+  handleFocus = () => {
+    const { onFocus } = this.props;
+
+    onFocus();
+    this.setState({ isFocused: true });
+  };
+
   render() {
-    const { amount } = this.state;
+    const { amount, isFocused } = this.state;
     const {
       currencySymbol: symbol,
       disabled,
       error,
+      floatingLabel,
       hint,
       label,
       maxLength,
@@ -157,7 +169,11 @@ class MoneyInput extends Component {
     return (
       <FormGroup
         error={error}
+        floatingLabel={floatingLabel}
+        hasSymbol={symbolFirst}
+        hasValue
         hint={hint}
+        isFocused={isFocused}
         label={label}
         name={name}
         required={required}
@@ -169,6 +185,7 @@ class MoneyInput extends Component {
           onBlur={this.handleBlur}
           onChange={this.handleChange}
           onClick={this.handleClick}
+          onFocus={this.handleFocus}
           onKeyDown={this.handleKeyDown}
           type="text"
         />

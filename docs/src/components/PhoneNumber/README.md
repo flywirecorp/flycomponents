@@ -1,4 +1,4 @@
-# PhoneInput
+# PhoneNumber
 Input for entering and validating international telephone numbers
 
 ## Example
@@ -19,11 +19,22 @@ const countries = [
   }
 ]
 
-<PhoneInput countries={countries} name="phone" label="Telephone number" />
-
-<PhoneInput
+<PhoneNumber
   countries={countries}
   name="phone"
+  label="Telephone number"
+/>
+
+<PhoneNumber
+  countries={countries}
+  name="phone"
+  label="Default label"
+  floatingLabel={false}
+/>
+
+<PhoneNumber
+  countries={countries}
+  name="phone2"
   label="Default value"
   value="+34 555 555 555"
 />
@@ -36,6 +47,7 @@ const countries = [
 | ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |
 | countries        | yes   | array      | Array of countries                                                  |           |
 | error            | no    | string     | Error message                                                       |           |
+| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |
 | hint             | no    | string     | Help message below the autocomplete                                 |           |
 | label            | no    | string     | The text string to use for HTML label tag                           |           |
 | name             | yes   | string     | Name and id of the input element                                    |           |

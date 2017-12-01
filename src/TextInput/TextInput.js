@@ -8,6 +8,7 @@ import FormGroup from '../FormGroup';
 class TextInput extends Component {
   static propTypes = {
     error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
     label: PropTypes.string,
     multiline: PropTypes.bool,
@@ -21,6 +22,7 @@ class TextInput extends Component {
   };
 
   static defaultProps = {
+    floatingLabel: true,
     multiline: false,
     onBlur: () => {},
     onChange: () => {}
@@ -29,7 +31,11 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { value: props.value };
+    this.state = {
+      value: props.value,
+      hasValue: !!props.value,
+      isFocused: false
+    };
   }
 
   fieldValue() {
@@ -39,6 +45,7 @@ class TextInput extends Component {
   handleBlur = e => {
     const { onBlur } = this.props;
     const { name } = e.target;
+    this.setState({ isFocused: false });
 
     onBlur(name);
   };
@@ -48,17 +55,28 @@ class TextInput extends Component {
     let { name, value } = e.target;
 
     onChange(name, value);
-    this.setState({ value });
+    this.setState({ value, hasValue: !!value });
+  };
+
+  handleFocus = e => {
+    this.setState({ isFocused: true });
   };
 
   input() {
-    const { multiline, sufix, prefix, ...inputAttrs } = this.props;
+    const {
+      floatingLabel,
+      multiline,
+      sufix,
+      prefix,
+      ...inputAttrs
+    } = this.props;
 
     return (
       <Input
         {...inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
         type="text"
         value={this.fieldValue()}
       />
@@ -66,13 +84,20 @@ class TextInput extends Component {
   }
 
   inputGroup() {
-    const { multiline, prefix, sufix, ...inputAttrs } = this.props;
+    const {
+      floatingLabel,
+      multiline,
+      prefix,
+      sufix,
+      ...inputAttrs
+    } = this.props;
 
     return (
       <InputGroup
         {...inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
         prefix={prefix}
         sufix={sufix}
         type="text"
@@ -82,13 +107,20 @@ class TextInput extends Component {
   }
 
   textArea() {
-    const { multiline, prefix, sufix, ...inputAttrs } = this.props;
+    const {
+      floatingLabel,
+      multiline,
+      prefix,
+      sufix,
+      ...inputAttrs
+    } = this.props;
 
     return (
       <Textarea
         {...inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
+        onFocus={this.handleFocus}
         value={this.fieldValue()}
       />
     );
@@ -109,15 +141,30 @@ class TextInput extends Component {
   }
 
   render() {
-    const { error, hint, label, name, required } = this.props;
+    const {
+      error,
+      floatingLabel,
+      hint,
+      label,
+      name,
+      prefix,
+      required
+    } = this.props;
+
+    const { isFocused, hasValue } = this.state;
 
     return (
       <FormGroup
+        className="TextInput"
         error={error}
         hint={hint}
         label={label}
         name={name}
+        floatingLabel={floatingLabel}
         required={required}
+        isFocused={isFocused}
+        hasValue={hasValue}
+        hasSymbol={!!prefix}
       >
         {this.renderElement()}
       </FormGroup>

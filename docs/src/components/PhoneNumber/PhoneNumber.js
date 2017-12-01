@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneInput } from '../../../../src';
+import { PhoneNumber } from '../../../../src';
 import Component from '../Component';
 import README from './README.md';
 
@@ -21,10 +21,21 @@ export default () => {
 
   return (
     <Component readme={README}>
-      <PhoneInput countries={countries} name="phone" label="Telephone number" />
-      <PhoneInput
+      <PhoneNumber
         countries={countries}
         name="phone"
+        label="Telephone number"
+      />
+      <PhoneNumber
+        countries={countries}
+        name="phone"
+        label="Default label"
+        floatingLabel={false}
+        value="+34"
+      />
+      <PhoneNumber
+        countries={countries}
+        name="phone2"
         label="Default value"
         value="+34 555 555 555"
       />

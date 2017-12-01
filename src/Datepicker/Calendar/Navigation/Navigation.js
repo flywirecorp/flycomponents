@@ -43,7 +43,7 @@ const Navigation = (
     <nav className="Calendar-header">
       <div className="Calendar-header-nav Calendar-header-nav--prev">
         <button
-          className="Button Button--default Button--sm"
+          className="Button Button--default Calendar-header-navItem"
           onClick={onPrevMonthClick}
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
@@ -51,7 +51,7 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--month">
         <Select
-          className={'Select--sm'}
+          className="Calendar-header-navItem"
           selectedValue={currentMonth}
           onChange={handleMonthChange}
           onClick={handleClick}
@@ -60,7 +60,7 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--year">
         <Select
-          className={'Select--sm'}
+          className="Calendar-header-navItem"
           selectedValue={currentYear}
           onChange={handleYearChange}
           onClick={handleClick}
@@ -69,7 +69,7 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--next">
         <button
-          className="Button Button--default Button--sm"
+          className="Button Button--default Calendar-header-navItem"
           onClick={onNextMonthClick}
         >
           <span className="Icon Icon--arrowRight Icon--xs" />

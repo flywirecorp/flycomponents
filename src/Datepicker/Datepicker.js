@@ -10,6 +10,7 @@ import FormGroup from '../FormGroup';
 class Datepicker extends Component {
   static propTypes = {
     error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
     label: PropTypes.string,
     locale: PropTypes.string,
@@ -41,6 +42,7 @@ class Datepicker extends Component {
 
     this.state = {
       isOpen: false,
+      isFocused: false,
       selectedDate: value,
       startDate
     };
@@ -72,6 +74,13 @@ class Datepicker extends Component {
     this.setState(() => {
       return { isOpen: false };
     }, this.sendBlur);
+  };
+
+  handleFocus = () => {
+    const { onFocus } = this.props;
+    this.setState({ isFocused: true });
+
+    onFocus();
   };
 
   handleCalendarIconClick = () => {
@@ -137,6 +146,11 @@ class Datepicker extends Component {
     }, wasOpen ? this.sendBlur : null);
   };
 
+  handleBlur = () => {
+    console.log('blur');
+    this.setState({ isFocused: false }, () => this.sendBlur());
+  };
+
   sendBlur() {
     const { name, onBlur } = this.props;
     onBlur(name);
@@ -145,19 +159,22 @@ class Datepicker extends Component {
   render() {
     const {
       error,
+      floatingLabel,
       hint,
       label,
       name,
-      onFocus,
       readOnly,
       required,
       value
     } = this.props;
-    const { isOpen, selectedDate, startDate } = this.state;
+    const { isOpen, isFocused, selectedDate, startDate } = this.state;
 
     return (
       <FormGroup
         error={error}
+        floatingLabel={floatingLabel}
+        isFocused={isOpen || isFocused}
+        hasValue={!!selectedDate}
         hint={hint}
         label={label}
         name={name}
@@ -168,8 +185,9 @@ class Datepicker extends Component {
             name={name}
             onChange={() => {}}
             onCalendarIconClick={this.handleCalendarIconClick}
+            onBlur={this.handleBlur}
             onClick={this.handleDateInputClick}
-            onFocus={onFocus}
+            onFocus={this.handleFocus}
             selectedDate={selectedDate}
             setSelectedDate={this.setSelectedDate}
             readOnly={readOnly}

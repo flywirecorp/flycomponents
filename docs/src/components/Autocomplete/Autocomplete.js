@@ -29,25 +29,34 @@ export default () => {
   return (
     <Component readme={README}>
       <Autocomplete
-        name="country"
-        options={countries}
-        template={countryTemplate}
         label="Search enabled"
-        required
+        name="search"
+        options={countries}
         placeholder="Select a country"
+        required
+        template={countryTemplate}
       />
       <Autocomplete
-        label="Search disabled"
-        name="country"
+        floatingLabel={false}
+        label="Default label"
+        name="default"
         options={countries}
-        minOptionsForSearch={25}
+        placeholder="Select a country"
+        required
+        template={countryTemplate}
+      />
+      <Autocomplete
         hint="You can't search here, It's like a dropdown"
+        label="Search disabled"
+        minOptionsForSearch={25}
+        name="disabled"
+        options={countries}
         placeholder="Select a country"
       />
       <Autocomplete
         error="This field is required"
         label="Autocomplete with error"
-        name="country"
+        name="error"
         options={countries}
         placeholder="Select a country"
       />

@@ -7,7 +7,7 @@ import FormGroup from './FormGroup';
 import Input from './Input';
 import InputGroup from './InputGroup';
 import MoneyInput from './MoneyInput';
-import PhoneInput from './PhoneInput';
+import PhoneNumber from './PhoneNumber';
 import Select from './Select';
 import Textarea from './Textarea';
 import TextInput from './TextInput';
@@ -22,7 +22,7 @@ export {
   Input,
   InputGroup,
   MoneyInput,
-  PhoneInput,
+  PhoneNumber,
   Select,
   Textarea,
   TextInput

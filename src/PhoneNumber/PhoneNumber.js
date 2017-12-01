@@ -7,10 +7,11 @@ import FormGroup from '../FormGroup';
 const NO_COUNTRY = {};
 const NO_VALUE = '';
 
-class PhoneInput extends Component {
+class PhoneNumber extends Component {
   static propTypes = {
     countries: PropTypes.array.isRequired,
     error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -24,6 +25,7 @@ class PhoneInput extends Component {
 
   static defaultProps = {
     countries: [],
+    floatingLabel: true,
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {}
@@ -38,6 +40,7 @@ class PhoneInput extends Component {
 
     this.state = {
       formattedNumber,
+      isFocused: false,
       preferredCountryIsoCode: null,
       selectedCountry: isoCode
     };
@@ -71,7 +74,16 @@ class PhoneInput extends Component {
 
   handleBlur = () => {
     const { name, onBlur } = this.props;
+
+    this.setState({ isFocused: false });
     onBlur(name);
+  };
+
+  handleFocus = () => {
+    const { name, onFocus } = this.props;
+
+    this.setState({ isFocused: true });
+    onFocus(name);
   };
 
   handleChange = e => {
@@ -123,6 +135,7 @@ class PhoneInput extends Component {
     const {
       countries,
       error,
+      floatingLabel,
       hint,
       label,
       name,
@@ -130,44 +143,51 @@ class PhoneInput extends Component {
       readOnly,
       required
     } = this.props;
-    const { formattedNumber, selectedCountry } = this.state;
+
+    const { formattedNumber, isFocused, selectedCountry } = this.state;
 
     return (
-      <FormGroup
-        error={error}
-        hint={hint}
-        label={label}
-        name={name}
-        required={required}
-      >
-        <div className="PhoneNumber">
-          <FlagSelector
-            name={name}
-            onChange={(name, value) => this.handleCountryClick(value)}
-            onFocus={onFocus}
-            options={countries}
-            readOnly={readOnly}
-            value={selectedCountry}
-          />
-          <div className="PhoneNumber-input">
-            <input
-              autoComplete="off"
-              className="Input PhoneNumber-input-inner"
-              id={name}
+      <div className="PhoneNumber">
+        <FormGroup
+          className="PhoneNumber"
+          error={error}
+          floatingLabel={floatingLabel}
+          hint={hint}
+          isFocused={isFocused}
+          label={label}
+          name={name}
+          required={required}
+          hasValue={!!formattedNumber}
+        >
+          <div className="PhoneNumber-field">
+            <FlagSelector
               name={name}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
+              onChange={(name, value) => this.handleCountryClick(value)}
               onFocus={onFocus}
+              options={countries}
               readOnly={readOnly}
-              ref="input"
-              type="text"
-              value={formattedNumber}
+              value={selectedCountry}
             />
+            <div className="PhoneNumber-input">
+              <input
+                autoComplete="off"
+                className="Input PhoneNumber-input-inner"
+                id={name}
+                name={name}
+                onBlur={this.handleBlur}
+                onChange={this.handleChange}
+                onFocus={this.handleFocus}
+                readOnly={readOnly}
+                ref="input"
+                type="text"
+                value={formattedNumber}
+              />
+            </div>
           </div>
-        </div>
-      </FormGroup>
+        </FormGroup>
+      </div>
     );
   }
 }
 
-export default PhoneInput;
+export default PhoneNumber;

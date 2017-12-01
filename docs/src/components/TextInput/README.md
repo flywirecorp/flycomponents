@@ -4,18 +4,19 @@ Specifies an input field where the user can enter data.
 ## Example
 
 ```javascript
-<TextInput name="default" label="Default" hint="Help text" />
-
-<TextInput name="withprefix" prefix="@" label="With prefix" />
-
-<TextInput name="withsufix" sufix=".com" label="With sufix" />
-
-<TextInput name="withvalue" value="Default value" label="With value" />
-
-<TextInput name="multiline" multiline label="Multiline" />
-
+<TextInput name="floating" label="Default" hint="Help text" />
 <TextInput
-  name="multiline"
+  name="default"
+  label="Default"
+  hint="Help text"
+  floatingLabel={false}
+/>
+<TextInput name="withprefix" prefix="@" label="With prefix" />
+<TextInput name="withsufix" sufix=".com" label="With sufix" />
+<TextInput name="withvalue" value="Default value" label="With value" />
+<TextInput name="multiline" multiline label="Multiline" />
+<TextInput
+  name="error"
   label="With error and required"
   error="Please, fill this field"
   placeholder="Placeholder"
@@ -29,6 +30,7 @@ Specifies an input field where the user can enter data.
 | ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |
 | error            | no    | string     | Error message                                                       |           |
 | hint             | no    | string     | Help message below the autocomplete                                 |           |
+| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |
 | label            | no    | string     | The text string to use for HTML label tag                           |           |
 | multiline        | no    | bool       | Enable or disable multiline                                         |           |
 | name             | no    | string     | Name and id of the element                                          |           |

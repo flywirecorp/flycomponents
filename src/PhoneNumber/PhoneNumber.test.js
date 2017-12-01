@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import PhoneInput from './PhoneInput';
+import PhoneNumber from './PhoneNumber';
 import FlagSelector from './FlagSelector';
 
-describe('PhoneInput', () => {
-  class PhoneInputComponent {
+describe('PhoneNumber', () => {
+  class PhoneNumberComponent {
     constructor(ownProps) {
       const defaultProps = {
         countries: [],
@@ -13,7 +13,7 @@ describe('PhoneInput', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<PhoneInput {...props} />);
+      this.component = shallow(<PhoneNumber {...props} />);
     }
 
     input() {
@@ -48,14 +48,14 @@ describe('PhoneInput', () => {
   }
 
   test('renders an input text', () => {
-    const component = new PhoneInputComponent();
+    const component = new PhoneNumberComponent();
 
     expect(component.input()).toHaveLength(1);
   });
 
   test('handles on blur events in input', () => {
     const onBlur = jest.fn();
-    const component = new PhoneInputComponent({ onBlur });
+    const component = new PhoneNumberComponent({ onBlur });
 
     component.simulateBlur('phone');
 
@@ -73,7 +73,7 @@ describe('PhoneInput', () => {
     ];
     const onChange = jest.fn();
     const name = 'phone';
-    const component = new PhoneInputComponent({ countries, name, onChange });
+    const component = new PhoneNumberComponent({ countries, name, onChange });
 
     component.pressKey('+');
 
@@ -103,7 +103,7 @@ describe('PhoneInput', () => {
         phonePattern: '+. (...) ...-....'
       }
     ];
-    const component = new PhoneInputComponent({ countries });
+    const component = new PhoneNumberComponent({ countries });
     component.clickCountry('es');
 
     expect(component.input().prop('value')).toBe('+34');
@@ -130,7 +130,7 @@ describe('PhoneInput', () => {
     ];
 
     test('fomats the number using the first country that matches', () => {
-      const component = new PhoneInputComponent({ countries });
+      const component = new PhoneNumberComponent({ countries });
 
       component.pressKey('1');
       component.pressKey('2');
@@ -141,7 +141,7 @@ describe('PhoneInput', () => {
     });
 
     test('formats the number using the country selected by the user', () => {
-      const component = new PhoneInputComponent({ countries });
+      const component = new PhoneNumberComponent({ countries });
 
       component.clickCountry('us');
       component.pressKey('2');
@@ -167,7 +167,7 @@ describe('PhoneInput', () => {
         phonePattern: '+. (...) ...-....'
       }
     ];
-    const component = new PhoneInputComponent({ countries });
+    const component = new PhoneNumberComponent({ countries });
     component.pressKey('1');
 
     expect(component.selectedCountry()).toBe('us');
@@ -195,7 +195,7 @@ describe('PhoneInput', () => {
         phonePattern: '+. (...) ...-....'
       }
     ];
-    const component = new PhoneInputComponent({ countries, value });
+    const component = new PhoneNumberComponent({ countries, value });
 
     component.clickCountry('us');
 
@@ -217,7 +217,7 @@ describe('PhoneInput', () => {
         phonePattern: '+. (...) ...-....'
       }
     ];
-    const component = new PhoneInputComponent({ countries, readOnly: true });
+    const component = new PhoneNumberComponent({ countries, readOnly: true });
 
     test('renders a read-only input', () => {
       expect(component.input().prop('readOnly')).toBe(true);

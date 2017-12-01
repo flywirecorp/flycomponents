@@ -7,12 +7,24 @@ const FormGroup = ({
   children,
   className,
   error,
+  floatingLabel,
+  hasSymbol,
+  hasValue,
   hint,
+  isFocused,
   label,
   name,
   required
 }) => (
-  <div className={classNames(className || 'FormGroup', { 'has-error': error })}>
+  <div
+    className={classNames('FormGroup', className, {
+      'has-error': error,
+      'FormGroup--floatingLabel': floatingLabel,
+      'has-value': hasValue,
+      'is-focused': isFocused,
+      'FormGroup--symbolFirst': hasSymbol
+    })}
+  >
     {label && <Label htmlFor={name} required={required} value={label} />}
     {children}
     {error && <p className="FormGroup-feedback">{error}</p>}
@@ -26,13 +38,21 @@ FormGroup.propTypes = {
   children: node.isRequired,
   className: string,
   error: string,
+  floatingLabel: bool,
+  hasSymbol: bool,
+  hasValue: bool,
   hint: string,
+  isFocused: bool,
   label: string,
   name: string.isRequired,
   required: bool
 };
 
 FormGroup.defaultProps = {
+  floatingLabel: true,
+  hasSymbol: false,
+  hasValue: false,
+  isFocused: false,
   required: false
 };
 

@@ -8,6 +8,17 @@ const DATE_PATTERN = '../../....';
 const DELETE_KEYCODE = 8;
 
 class DateInput extends Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onCalendarIconClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
+    onFocus: PropTypes.func,
+    readOnly: PropTypes.bool,
+    selectedDate: PropTypes.string,
+    setSelectedDate: PropTypes.func.isRequired
+  };
+
   handleClick = e => {
     const { onClick } = this.props;
     this.handleFocus();
@@ -39,6 +50,7 @@ class DateInput extends Component {
     const {
       name,
       onCalendarIconClick,
+      onBlur,
       onFocus,
       readOnly,
       selectedDate
@@ -51,6 +63,7 @@ class DateInput extends Component {
           autoComplete="off"
           className="Input InputGroup-input"
           id={name}
+          onBlur={onBlur}
           onChange={() => {}}
           onClick={this.handleClick}
           onFocus={onFocus}
@@ -67,17 +80,5 @@ class DateInput extends Component {
     );
   }
 }
-
-const { bool, func, string } = PropTypes;
-
-DateInput.propTypes = {
-  name: string.isRequired,
-  onCalendarIconClick: func,
-  onClick: func.isRequired,
-  onFocus: func,
-  readOnly: bool,
-  selectedDate: string,
-  setSelectedDate: func.isRequired
-};
 
 export default DateInput;

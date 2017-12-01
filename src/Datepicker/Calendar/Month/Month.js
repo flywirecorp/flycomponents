@@ -26,7 +26,7 @@ const { func, object, string } = PropTypes;
 
 Month.propTypes = {
   onDateClick: func.isRequired,
-  selectedDate: string.isRequired,
+  selectedDate: string,
   startDate: object.isRequired
 };
 

@@ -12,9 +12,12 @@ An input field to type a money amount. The amount is autoformated when the input
   required
   symbolFirst={false}
   thousandsSeparator="."
+  hint="Please insert an amount"
 />
 
 <MoneyInput disabled name="disabled" label="Disabled field" />
+
+<MoneyInput name="default" floatingLabel={false} label="Default label" />
 ```
 
 ## Properties
@@ -27,11 +30,12 @@ An input field to type a money amount. The amount is autoformated when the input
 | currencySymbol       | no    | string           | Currency symbol                                                     | `"$"`           |
 | decimalMark          | no    | string           | Decimal separator                                                   | `"."`           |
 | disabled             | no    | bool             | Disable input                                                       | `false`         |
+| floatingLabel        | no    | bool             | Floating label inside the input field                               | true            |
 | maxLength            | no    | string, number   | Input max length                                                    | `9`             |
 | name                 | yes   | string           | Input `name` and `id`                                               |                 |
 | onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |
 | onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |
-| required             | no    | bool             | Set the field to required                                           | false
+| required             | no    | bool             | Set the field to required                                           | false           |
 | subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |
 | symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |
 | thousandsSeparator   | no    | string           | Thousands separator                                                 | `","`           |

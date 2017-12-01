@@ -15,6 +15,7 @@ const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class Autocomplete extends Component {
   static defaultProps = {
+    floatingLabel: true,
     fuseConfig: {
       shouldSort: true,
       tokenize: true,
@@ -34,6 +35,7 @@ export class Autocomplete extends Component {
 
   static propTypes = {
     error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
     fuseConfig: PropTypes.object,
     hint: PropTypes.string,
     label: PropTypes.string,
@@ -58,7 +60,8 @@ export class Autocomplete extends Component {
       isOpen: false,
       searchQuery: this.getOptionLabelByValue(options, value),
       selectedIndex: INITIAL_INDEX,
-      selectedValue: value
+      selectedValue: value,
+      hasValue: !!value
     };
   }
 
@@ -283,6 +286,7 @@ export class Autocomplete extends Component {
   render() {
     const {
       error,
+      floatingLabel,
       hint,
       label,
       name,
@@ -314,8 +318,11 @@ export class Autocomplete extends Component {
     return (
       <FormGroup
         error={error}
+        floatingLabel={floatingLabel}
         hint={hint}
         label={label}
+        isFocused={isOpen}
+        hasValue={!!searchQuery}
         name={name}
         required={required}
       >

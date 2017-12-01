@@ -29,7 +29,16 @@ const countryTemplate = country => (
 
 <Autocomplete
   label="Search enabled"
-  name="country"
+  name="search"
+  options={countries}
+  placeholder="Select a country"
+  required
+  template={countryTemplate}
+/>
+<Autocomplete
+  floatingLabel={false}
+  label="Default label"
+  name="default"
   options={countries}
   placeholder="Select a country"
   required
@@ -39,14 +48,14 @@ const countryTemplate = country => (
   hint="You can't search here, It's like a dropdown"
   label="Search disabled"
   minOptionsForSearch={25}
-  name="country"
+  name="disabled"
   options={countries}
   placeholder="Select a country"
 />
 <Autocomplete
   error="This field is required"
   label="Autocomplete with error"
-  name="country"
+  name="error"
   options={countries}
   placeholder="Select a country"
 />
@@ -57,6 +66,8 @@ const countryTemplate = country => (
 | Property            | Req   | Type       | Description                                                            | Default   |
 | ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |
 | error               | no    | string     | Error message                                                          |           |
+| hint                | no    | string     | Help message below the autocomplete                                    |           |
+| floatingLabel       | no    | bool       | Floating label inside the input field                                  | true      |
 | fuseConfig          | no    | object     | Fuse.js configuration                                                  | \(*\)     |
 | hint                | no    | string     | Help message below the autocomplete                                    |           |
 | label               | no    | string     | The text string to use for HTML label tag                              |           |

@@ -210,7 +210,7 @@ export class FlagSelector extends Component {
 
     return (
       <div
-        ref="phoneInput"
+        ref="PhoneNumber"
         className={classNames(
           'Autocomplete',
           { 'is-searching': isOpen },
