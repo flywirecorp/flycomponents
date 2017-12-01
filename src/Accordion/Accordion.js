@@ -26,15 +26,20 @@ class Accordion extends Component {
     const { activeChildIndex } = this.state;
     const numberOfChildren = Children.count(children);
     const elements = Children.map(children, (child, index) => {
-      return cloneElement(child, {
-        isActive: index === activeChildIndex,
-        setActive: () => this.setState({ activeChildIndex: index }),
-        setNextActive: () => {
-          const nextIndex = activeChildIndex + 1;
-          const isLastChild = index === numberOfChildren - 1;
-          this.setState({ activeChildIndex: isLastChild ? index : nextIndex });
-        }
-      });
+      return (
+        child &&
+        cloneElement(child, {
+          isActive: index === activeChildIndex,
+          setActive: () => this.setState({ activeChildIndex: index }),
+          setNextActive: () => {
+            const nextIndex = activeChildIndex + 1;
+            const isLastChild = index === numberOfChildren - 1;
+            this.setState({
+              activeChildIndex: isLastChild ? index : nextIndex
+            });
+          }
+        })
+      );
     });
 
     return <div className="Accordion">{elements}</div>;
