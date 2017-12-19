@@ -167,9 +167,6 @@ export class Autocomplete extends Component {
   };
 
   handleSearchKeyDown = e => {
-    if (KEYS.includes(e.keyCode)) {
-      e.preventDefault();
-    }
     this.showOptions();
 
     switch (e.keyCode) {
@@ -178,8 +175,8 @@ export class Autocomplete extends Component {
       case ARROW_UP:
         return this.moveIndexDown();
       case ENTER:
-      case TAB:
         return this.selectCurrentOption();
+      case TAB:
       case ESC:
         return this.hideOptions();
     }
@@ -202,11 +199,6 @@ export class Autocomplete extends Component {
   }
 
   hideOptions() {
-    const { isOpen } = this.state;
-
-    if (isOpen === false) {
-      return;
-    }
     this.setState({ isOpen: false });
   }
 

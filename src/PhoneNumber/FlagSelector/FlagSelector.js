@@ -234,6 +234,7 @@ export class FlagSelector extends Component {
           onKeyDown={this.handleMenuKeydown}
           style={styles.fakeInput}
           type="text"
+          tabIndex={-1}
         />
 
         <Options ref="optionList">{optionList}</Options>
