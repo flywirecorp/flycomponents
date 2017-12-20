@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "1ee7f529d4c4f6e2777f"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3163e8c6c5eee5f0d401"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -41574,12 +41574,6 @@ var Autocomplete = exports.Autocomplete = function (_Component) {
   }, {
     key: 'hideOptions',
     value: function hideOptions() {
-      var isOpen = this.state.isOpen;
-
-
-      if (isOpen === false) {
-        return;
-      }
       this.setState({ isOpen: false });
     }
   }, {
@@ -41832,9 +41826,6 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.handleSearchKeyDown = function (e) {
-    if (KEYS.includes(e.keyCode)) {
-      e.preventDefault();
-    }
     _this4.showOptions();
 
     switch (e.keyCode) {
@@ -41843,8 +41834,8 @@ var _initialiseProps = function _initialiseProps() {
       case ARROW_UP:
         return _this4.moveIndexDown();
       case ENTER:
-      case TAB:
         return _this4.selectCurrentOption();
+      case TAB:
       case ESC:
         return _this4.hideOptions();
     }
@@ -47104,7 +47095,8 @@ var FlagSelector = exports.FlagSelector = function (_Component) {
           onClick: this.handleMenuClick,
           onKeyDown: this.handleMenuKeydown,
           style: styles.fakeInput,
-          type: 'text'
+          type: 'text',
+          tabIndex: -1
         }),
         _react2.default.createElement(
           _Options2.default,
@@ -50202,7 +50194,7 @@ module.exports = exports['default'];
 /* 318 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.5.0","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.19.3","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.12.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.3","github-markdown-css":"^2.6.0","jest":"^21.2.1","marked":"^0.3.6","prettier":"^1.4.4","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.9.1","webpack-dev-server":"^2.9.5","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.5.1","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.19.3","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.0.2","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.0.0","css-loader":"^0.28.1","enzyme":"^3.2.0","enzyme-adapter-react-16":"^1.1.0","eslint":"^4.12.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.1.2","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.3","github-markdown-css":"^2.6.0","jest":"^21.2.1","marked":"^0.3.6","prettier":"^1.4.4","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.0","url-loader":"^0.6.2","webpack":"^3.9.1","webpack-dev-server":"^2.9.5","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
 /* 319 */
