@@ -166,6 +166,13 @@ export class Autocomplete extends Component {
     this.showOptions();
   };
 
+  handleFocus = () => {
+    const { onFocus } = this.props;
+
+    this.handleSearchClick();
+    onFocus();
+  };
+
   handleSearchKeyDown = e => {
     this.showOptions();
 
@@ -282,7 +289,6 @@ export class Autocomplete extends Component {
       hint,
       label,
       name,
-      onFocus,
       placeholder,
       required,
       readOnly,
@@ -334,7 +340,7 @@ export class Autocomplete extends Component {
             name={name}
             onChange={this.handleSearchQueryChange}
             onClick={this.handleSearchClick}
-            onFocus={onFocus}
+            onFocus={this.handleFocus}
             onKeyDown={this.handleSearchKeyDown}
             ref={input => (this.searchInput = input)}
             placeholder={placeholder}

@@ -57,6 +57,10 @@ describe('Autocomplete', () => {
       this.searchField().simulate('click');
     }
 
+    simulateFocus() {
+      this.searchField().simulate('focus');
+    }
+
     pressArrowDownKey() {
       this.simulateKeyDown(40);
     }
@@ -114,6 +118,14 @@ describe('Autocomplete', () => {
     const component = new AutocompleteComponent();
 
     component.simulateClick();
+
+    expect(component.optionsListIsVisible()).toBe(true);
+  });
+
+  test('shows options when focusing the search input', () => {
+    const component = new AutocompleteComponent();
+
+    component.simulateFocus();
 
     expect(component.optionsListIsVisible()).toBe(true);
   });
