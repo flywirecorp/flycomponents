@@ -11,6 +11,7 @@ Specifies an input field where the user can enter data.
   hint="Help text"
   floatingLabel={false}
 />
+<TextInput name="default" label="Default" hint="Help text" />
 <TextInput name="withprefix" prefix="@" label="With prefix" />
 <TextInput name="withsufix" sufix=".com" label="With sufix" />
 <TextInput name="withvalue" value="Default value" label="With value" />
@@ -22,12 +23,37 @@ Specifies an input field where the user can enter data.
   placeholder="Placeholder"
   required
 />
+<TextInput
+  name="disabled"
+  label="Disabled"
+  value="this is a disabled input"
+  disabled
+/>
+<TextInput
+  name="readOnly"
+  label="Read Only"
+  value="this is a read only input"
+  readOnly
+/>
+<TextInput
+  name="disabledWithPrefix"
+  prefix="@"
+  label="With prefix disabled input"
+  disabled
+/>
+<TextInput
+  name="readonlyWithSuffix"
+  sufix=".com"
+  label="With sufix read only input"
+  readOnly
+/>
 ```
 
 ## Properties
 
 | Property         | Req   | Type       | Description                                                         | Default   |
 | ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |
+| disabled         | no    | bool       | Input is disabled                                                   | false     |
 | error            | no    | string     | Error message                                                       |           |
 | hint             | no    | string     | Help message below the autocomplete                                 |           |
 | floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |
@@ -39,6 +65,7 @@ Specifies an input field where the user can enter data.
 | onFocus          | no    | func       | Callback function that is fired when component is focused           |           |
 | placeholder      | no    | string     | Short hint that describes the expected value of the input field     |           |
 | prefix           | no    | string     | Button group                                                        |           |
+| readOnly         | no    | bool       | Input is read-only                                                  | false     |
 | required         | no    | bool       | Set the field to required                                           | false     |
 | sufix            | no    | string     | Button group                                                        |           |
 | value            | no    | string     | Default value                                                       |           |

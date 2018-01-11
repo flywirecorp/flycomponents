@@ -306,4 +306,22 @@ describe('Autocomplete', () => {
       expect(component.optionsListIsVisible()).toBe(false);
     });
   });
+
+  describe('having disabled property', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ];
+    const component = new AutocompleteComponent({ disabled: true, options });
+
+    test('renders a disabled autocomplete search input', () => {
+      expect(component.searchField().prop('disabled')).toBe(true);
+    });
+
+    test('does not show the options menu', () => {
+      component.simulateClick();
+      expect(component.optionsListIsVisible()).toBe(false);
+    });
+  });
 });

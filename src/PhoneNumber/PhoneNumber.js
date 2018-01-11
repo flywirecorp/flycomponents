@@ -10,6 +10,7 @@ const NO_VALUE = '';
 class PhoneNumber extends Component {
   static propTypes = {
     countries: PropTypes.array.isRequired,
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
@@ -25,10 +26,12 @@ class PhoneNumber extends Component {
 
   static defaultProps = {
     countries: [],
+    disabled: false,
     floatingLabel: true,
     onBlur: () => {},
     onChange: () => {},
-    onFocus: () => {}
+    onFocus: () => {},
+    readOnly: false
   };
 
   constructor(props) {
@@ -134,6 +137,7 @@ class PhoneNumber extends Component {
   render() {
     const {
       countries,
+      disabled,
       error,
       floatingLabel,
       hint,
@@ -150,17 +154,20 @@ class PhoneNumber extends Component {
       <div className="PhoneNumber">
         <FormGroup
           className="PhoneNumber"
+          disabled={disabled}
           error={error}
           floatingLabel={floatingLabel}
           hint={hint}
           isFocused={isFocused}
           label={label}
           name={name}
+          readOnly={readOnly}
           required={required}
           hasValue={!!formattedNumber}
         >
           <div className="PhoneNumber-field">
             <FlagSelector
+              disabled={disabled}
               name={name}
               onChange={(name, value) => this.handleCountryClick(value)}
               onFocus={onFocus}
@@ -172,6 +179,7 @@ class PhoneNumber extends Component {
               <input
                 autoComplete="off"
                 className="Input PhoneNumber-input-inner"
+                disabled={disabled}
                 id={name}
                 name={name}
                 onBlur={this.handleBlur}

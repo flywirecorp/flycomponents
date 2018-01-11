@@ -12,9 +12,7 @@ Datepickers are used to select a single date for an input.
   required
   value="04/21/1979"
 />
-
-<Datepicker label="Pick a Date" locale="ES" name="other" />
-
+<Datepicker label="Pick a Date" locale="ES" name="floatingLabel" />
 <Datepicker
   floatingLabel={false}
   label="Pick a Date"
@@ -22,12 +20,21 @@ Datepickers are used to select a single date for an input.
   name="other"
   value="04/21/1979"
 />
-
 <Datepicker
-  floatingLabel={false}
-  label="Pick a Date"
+  label="Disabled Date Picker"
   locale="ES"
-  name="other"
+  name="disabled"
+  required
+  value="04/21/1979"
+  disabled
+/>
+<Datepicker
+  label="Read Only Date Picker"
+  locale="ES"
+  name="readOnly"
+  required
+  value="04/21/1979"
+  readOnly
 />
 ```
 
@@ -35,6 +42,7 @@ Datepickers are used to select a single date for an input.
 
 | Property         | Req   | Type           | Description                                                         | Default   |
 | ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |
+| disabled         | no    | bool           | Date Picker is disabled                                             | false     |
 | error            | no    | string         | Error message                                                       |           |
 | floatingLabel    | no    | bool           | Floating label inside the input field                               | true      |
 | hint             | no    | string         | Help message below the autocomplete                                 |           |
@@ -44,6 +52,6 @@ Datepickers are used to select a single date for an input.
 | onBlur           | no    | func           | Callback function that is fired when component is blurred           |           |
 | onChange         | no    | func           | Callback function that is fired when the components's value changes |           |
 | onFocus          | no    | func           | Callback function that is fired when component is focused           |           |
-| readOnly         | no    | bool           | Input field is read-only                                            |           |
+| readOnly         | no    | bool           | Input field is read-only                                            | false     |
 | required         | no    | bool           | Set the field to required                                           | false     |
-| value            | no    | number, string | Default value                                                       |           |
+| value            | no    | number, string | field value                                                         |           |

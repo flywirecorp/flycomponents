@@ -35,6 +35,7 @@ class MoneyInput extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
+    readOnly: false,
     subunitToUnit: 100,
     symbolFirst: true,
     thousandsSeparator: ','
@@ -168,6 +169,7 @@ class MoneyInput extends Component {
 
     return (
       <FormGroup
+        disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}
         hasSymbol={symbolFirst}
@@ -176,6 +178,7 @@ class MoneyInput extends Component {
         isFocused={isFocused}
         label={label}
         name={name}
+        readOnly={readOnly}
         required={required}
       >
         <InputGroup

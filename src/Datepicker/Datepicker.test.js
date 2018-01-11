@@ -201,4 +201,24 @@ describe('Datepicker', () => {
       expect(component.calendarIsVisible()).toBe(false);
     });
   });
+
+  describe('having disabled property', () => {
+    const component = new DatepickerComponent({ disabled: true });
+
+    test('renders a read-only input', () => {
+      expect(component.dateInput().prop('disabled')).toBe(true);
+    });
+
+    test('does not open the calendar clicking the date input', () => {
+      component.simulateDateInputClick();
+
+      expect(component.calendarIsVisible()).toBe(false);
+    });
+
+    test('does not open the calendar clicking the calendar icon', () => {
+      component.simulateCalendarIconClick();
+
+      expect(component.calendarIsVisible()).toBe(false);
+    });
+  });
 });

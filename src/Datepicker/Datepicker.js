@@ -9,6 +9,7 @@ import FormGroup from '../FormGroup';
 
 class Datepicker extends Component {
   static propTypes = {
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
@@ -24,9 +25,11 @@ class Datepicker extends Component {
   };
 
   static defaultProps = {
+    disabled: false,
     onBlur: () => {},
     onChange: () => {},
-    onFocus: () => {}
+    onFocus: () => {},
+    readOnly: false
   };
 
   static childContextTypes = {
@@ -84,9 +87,9 @@ class Datepicker extends Component {
   };
 
   handleCalendarIconClick = () => {
-    const { readOnly } = this.props;
+    const { disabled, readOnly } = this.props;
 
-    if (readOnly) {
+    if (disabled || readOnly) {
       return;
     }
 
@@ -97,9 +100,9 @@ class Datepicker extends Component {
 
   handleDateInputClick = () => {
     const { isOpen } = this.state;
-    const { readOnly } = this.props;
+    const { disabled, readOnly } = this.props;
 
-    if (isOpen || readOnly) {
+    if (disabled || isOpen || readOnly) {
       return;
     }
     this.setState({ isOpen: true });
@@ -147,7 +150,6 @@ class Datepicker extends Component {
   };
 
   handleBlur = () => {
-    console.log('blur');
     this.setState({ isFocused: false }, () => this.sendBlur());
   };
 
@@ -158,6 +160,7 @@ class Datepicker extends Component {
 
   render() {
     const {
+      disabled,
       error,
       floatingLabel,
       hint,
@@ -171,6 +174,7 @@ class Datepicker extends Component {
 
     return (
       <FormGroup
+        disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}
         isFocused={isOpen || isFocused}
@@ -179,9 +183,11 @@ class Datepicker extends Component {
         label={label}
         name={name}
         required={required}
+        readOnly={readOnly}
       >
         <div className={classNames('Datepicker', { 'is-open': isOpen })}>
           <DateInput
+            disabled={disabled}
             name={name}
             onChange={() => {}}
             onCalendarIconClick={this.handleCalendarIconClick}

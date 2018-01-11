@@ -9,6 +9,7 @@ const DELETE_KEYCODE = 8;
 
 class DateInput extends Component {
   static propTypes = {
+    disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
@@ -20,8 +21,9 @@ class DateInput extends Component {
   };
 
   handleClick = e => {
-    const { onClick } = this.props;
+    const { onClick, disabled, readOnly } = this.props;
     this.handleFocus();
+    if (disabled || readOnly) return false;
     onClick();
   };
 
@@ -31,11 +33,16 @@ class DateInput extends Component {
   }
 
   handleKeyDown = e => {
-    const { selectedDate = '', setSelectedDate, readOnly } = this.props;
+    const {
+      disabled,
+      selectedDate = '',
+      setSelectedDate,
+      readOnly
+    } = this.props;
     const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`;
     let value = inputValue.replace(/\D/g, '');
 
-    if (readOnly) return false;
+    if (readOnly || disabled) return false;
 
     if (e.which === DELETE_KEYCODE) {
       value = value.slice(0, -1);
@@ -48,6 +55,7 @@ class DateInput extends Component {
 
   render() {
     const {
+      disabled,
       name,
       onCalendarIconClick,
       onBlur,
@@ -60,6 +68,7 @@ class DateInput extends Component {
     return (
       <div className="InputGroup" onClick={onCalendarIconClick}>
         <input
+          disabled={disabled}
           autoComplete="off"
           className="Input InputGroup-input"
           id={name}

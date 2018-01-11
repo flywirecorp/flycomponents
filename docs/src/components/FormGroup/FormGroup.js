@@ -24,5 +24,23 @@ export default () => (
     >
       <Input type="text" name="amount" />
     </FormGroup>
+
+    <FormGroup
+      name="amount"
+      floatingLabel={false}
+      label="Disabled field"
+      className="FormGroup GridColumn is-disabled"
+    >
+      <Input type="text" name="amount" value="Disabled" disabled />
+    </FormGroup>
+
+    <FormGroup
+      name="amount"
+      floatingLabel={false}
+      label="Read Only field"
+      className="FormGroup GridColumn is-readOnly"
+    >
+      <Input type="text" name="amount" value="Read Only" readOnly />
+    </FormGroup>
   </Component>
 );

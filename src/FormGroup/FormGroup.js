@@ -6,6 +6,7 @@ import Label from '../Label';
 const FormGroup = ({
   children,
   className,
+  disabled,
   error,
   floatingLabel,
   hasSymbol,
@@ -14,6 +15,7 @@ const FormGroup = ({
   isFocused,
   label,
   name,
+  readOnly,
   required
 }) => (
   <div
@@ -21,7 +23,9 @@ const FormGroup = ({
       'has-error': error,
       'FormGroup--floatingLabel': floatingLabel,
       'has-value': hasValue,
+      'is-disabled': disabled,
       'is-focused': isFocused,
+      'is-readOnly': readOnly,
       'FormGroup--symbolFirst': hasSymbol
     })}
   >
@@ -37,6 +41,7 @@ const { bool, node, string } = PropTypes;
 FormGroup.propTypes = {
   children: node.isRequired,
   className: string,
+  disabled: bool,
   error: string,
   floatingLabel: bool,
   hasSymbol: bool,
@@ -45,14 +50,17 @@ FormGroup.propTypes = {
   isFocused: bool,
   label: string,
   name: string.isRequired,
+  readOnly: bool,
   required: bool
 };
 
 FormGroup.defaultProps = {
+  disabled: false,
   floatingLabel: true,
   hasSymbol: false,
   hasValue: false,
   isFocused: false,
+  readOnly: false,
   required: false
 };
 

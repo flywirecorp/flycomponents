@@ -15,6 +15,7 @@ const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class Autocomplete extends Component {
   static defaultProps = {
+    disabled: false,
     floatingLabel: true,
     fuseConfig: {
       shouldSort: true,
@@ -30,10 +31,12 @@ export class Autocomplete extends Component {
     minOptionsForSearch: Infinity,
     onBlur: () => {},
     onChange: () => {},
-    onFocus: () => {}
+    onFocus: () => {},
+    readOnly: false
   };
 
   static propTypes = {
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
     fuseConfig: PropTypes.object,
@@ -162,6 +165,8 @@ export class Autocomplete extends Component {
   }
 
   handleSearchClick = () => {
+    const { disabled, readOnly } = this.props;
+    if (disabled || readOnly) return false;
     this.resetSearchQuery();
     this.showOptions();
   };
@@ -284,6 +289,7 @@ export class Autocomplete extends Component {
 
   render() {
     const {
+      disabled,
       error,
       floatingLabel,
       hint,
@@ -315,6 +321,7 @@ export class Autocomplete extends Component {
 
     return (
       <FormGroup
+        disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}
         hint={hint}
@@ -322,6 +329,7 @@ export class Autocomplete extends Component {
         isFocused={isOpen}
         hasValue={!!searchQuery}
         name={name}
+        readOnly={readOnly}
         required={required}
       >
         <div
@@ -336,6 +344,7 @@ export class Autocomplete extends Component {
           <input
             autoComplete="off"
             className="Autocomplete-search"
+            disabled={disabled}
             id={name}
             name={name}
             onChange={this.handleSearchQueryChange}

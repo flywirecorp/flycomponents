@@ -7,6 +7,7 @@ import FormGroup from '../FormGroup';
 
 class TextInput extends Component {
   static propTypes = {
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
@@ -16,16 +17,19 @@ class TextInput extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     prefix: PropTypes.string,
+    readOnly: PropTypes.bool,
     required: PropTypes.bool,
     sufix: PropTypes.string,
     value: PropTypes.string
   };
 
   static defaultProps = {
+    disabled: false,
     floatingLabel: true,
     multiline: false,
     onBlur: () => {},
-    onChange: () => {}
+    onChange: () => {},
+    readOnly: false
   };
 
   constructor(props) {
@@ -59,6 +63,8 @@ class TextInput extends Component {
   };
 
   handleFocus = e => {
+    const { disabled, readOnly } = this.props;
+    if (disabled || readOnly) return false;
     this.setState({ isFocused: true });
   };
 
@@ -142,12 +148,14 @@ class TextInput extends Component {
 
   render() {
     const {
+      disabled,
       error,
       floatingLabel,
       hint,
       label,
       name,
       prefix,
+      readOnly,
       required
     } = this.props;
 
@@ -156,15 +164,17 @@ class TextInput extends Component {
     return (
       <FormGroup
         className="TextInput"
+        disabled={disabled}
         error={error}
+        floatingLabel={floatingLabel}
+        hasSymbol={!!prefix}
+        hasValue={hasValue}
         hint={hint}
+        isFocused={isFocused}
         label={label}
         name={name}
-        floatingLabel={floatingLabel}
+        readOnly={readOnly}
         required={required}
-        isFocused={isFocused}
-        hasValue={hasValue}
-        hasSymbol={!!prefix}
       >
         {this.renderElement()}
       </FormGroup>
