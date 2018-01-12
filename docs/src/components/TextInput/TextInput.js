@@ -23,5 +23,29 @@ export default () => (
       placeholder="Placeholder"
       required
     />
+    <TextInput
+      name="disabled"
+      label="Disabled"
+      value="this is a disabled input"
+      disabled
+    />
+    <TextInput
+      name="readOnly"
+      label="Read Only"
+      value="this is a read only input"
+      readOnly
+    />
+    <TextInput
+      name="disabledWithPrefix"
+      prefix="@"
+      label="With prefix disabled input"
+      disabled
+    />
+    <TextInput
+      name="readonlyWithSuffix"
+      sufix=".com"
+      label="With sufix read only input"
+      readOnly
+    />
   </Component>
 );

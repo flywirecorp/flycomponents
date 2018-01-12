@@ -23,6 +23,24 @@ Wraps a form field. Adds a label, display errors and help texts.
 >
   <Input type="text" name="amount" />
 </FormGroup>
+
+<FormGroup
+  name="amount"
+  floatingLabel={false}
+  label="Disabled field"
+  className="FormGroup GridColumn is-disabled"
+>
+  <Input type="text" name="amount" value="Disabled" disabled />
+</FormGroup>
+
+<FormGroup
+  name="amount"
+  floatingLabel={false}
+  label="Read Only field"
+  className="FormGroup GridColumn is-readOnly"
+>
+  <Input type="text" name="amount" value="Read Only" readOnly />
+</FormGroup>
 ```
 
 ## Properties
@@ -31,6 +49,7 @@ Wraps a form field. Adds a label, display errors and help texts.
 | ---------------- | ----- | ---------- | -------------------------------------- | --------- |
 | children         | yes   | node       | Children node                          |           |
 | className        | no    | string     | Rewrite default CSS class              |           |
+| disabled         | no    | bool       | Input is disabled                      | false     |
 | error            | no    | string     | Error message                          |           |
 | floatingLabel    | no    | bool       | Floating label inside the input field  | true      |
 | floatingLabel    | no    | bool       | Floating label inside the input field  | true      |
@@ -40,4 +59,5 @@ Wraps a form field. Adds a label, display errors and help texts.
 | isFocused        | no    | bool       | Whether or not the field is focused    | false     |
 | label            | no    | string     | Label tag text                         |           |
 | name             | yes   | string     | Name and id of the children            |           |
+| readOnly         | no    | bool       | Input field is read only               | false     |
 | required         | no    | bool       | Set the field to required              | false     |

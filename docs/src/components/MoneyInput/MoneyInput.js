@@ -15,7 +15,8 @@ export default () => (
       thousandsSeparator="."
       hint="Please insert an amount"
     />
-    <MoneyInput disabled name="disabled" label="Disabled field" />
     <MoneyInput name="default" floatingLabel={false} label="Default label" />
+    <MoneyInput name="disabled" label="Disabled field" disabled />
+    <MoneyInput name="readOnly" label="Read only field" readOnly />
   </Component>
 );

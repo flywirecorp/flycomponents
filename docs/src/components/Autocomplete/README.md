@@ -59,12 +59,30 @@ const countryTemplate = country => (
   options={countries}
   placeholder="Select a country"
 />
+<Autocomplete
+  label="Disabled autocomplete"
+  name="country"
+  options={countries}
+  placeholder="Select a country"
+  value="ES"
+  disabled
+/>
+<Autocomplete
+  label="Read only autocomplete"
+  name="country"
+  options={countries}
+  placeholder="Select a country"
+  value="US"
+  readOnly
+/>
+
 ```
 
 ## Properties
 
 | Property            | Req   | Type       | Description                                                            | Default   |
 | ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |
+| disabled            | no    | bool       | Input field is disabled                                                | false     |
 | error               | no    | string     | Error message                                                          |           |
 | hint                | no    | string     | Help message below the autocomplete                                    |           |
 | floatingLabel       | no    | bool       | Floating label inside the input field                                  | true      |
@@ -78,7 +96,7 @@ const countryTemplate = country => (
 | onFocus             | no    | func       | Callback function that is fired when component is focused              |           |
 | options             | yes   | array      | Array representing all items                                           |           |
 | placeholder         | no    | string     | Short hint that describes the expected value of the input field        |           |
-| readOnly            | no    | bool       | Input field is read-only                                               |           |
+| readOnly            | no    | bool       | Input field is read only                                               | false     |
 | required            | no    | bool       | Set the field to required                                              | false     |
 | template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |
 | value               | no    | string     | Default value                                                          | null      |

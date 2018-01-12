@@ -25,6 +25,16 @@ const styles = {
 };
 
 export class FlagSelector extends Component {
+  static propTypes = {
+    disabled: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    options: PropTypes.array.isRequired,
+    readOnly: PropTypes.bool,
+    value: PropTypes.string
+  };
+
   constructor(props) {
     super(props);
 
@@ -192,7 +202,7 @@ export class FlagSelector extends Component {
 
   render() {
     const { value = '' } = this.props;
-    const { options } = this.props;
+    const { options, disabled, readOnly } = this.props;
     const { isOpen, selectedIndex } = this.state;
 
     const optionList = options.map((option, i) => (
@@ -228,10 +238,12 @@ export class FlagSelector extends Component {
           ) : null}
         </span>
         <input
+          disabled={disabled}
           autoComplete="off"
           className="PhoneNumber-menu-fakeInput"
           onClick={this.handleMenuClick}
           onKeyDown={this.handleMenuKeydown}
+          readOnly={readOnly}
           style={styles.fakeInput}
           type="text"
           tabIndex={-1}
@@ -242,16 +254,5 @@ export class FlagSelector extends Component {
     );
   }
 }
-
-const { array, bool, func, string } = PropTypes;
-
-FlagSelector.propTypes = {
-  name: string.isRequired,
-  onChange: func,
-  onFocus: func,
-  options: array.isRequired,
-  readOnly: bool,
-  value: string
-};
 
 export default onClickOutside(FlagSelector);

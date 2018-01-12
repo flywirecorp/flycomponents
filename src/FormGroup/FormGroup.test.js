@@ -13,6 +13,9 @@ describe('FormGroup', () => {
         <FormGroup {...props}>{children || <span>children</span>}</FormGroup>
       );
     }
+    disabledText() {
+      return this.component.find('.is-disabled').text();
+    }
 
     errorText() {
       return this.component.find('.FormGroup-feedback').text();
@@ -28,6 +31,10 @@ describe('FormGroup', () => {
 
     label() {
       return this.component.find(Label);
+    }
+
+    debug() {
+      return this.component.debug();
     }
   }
 
@@ -58,4 +65,19 @@ describe('FormGroup', () => {
 
     expect(component.hintText()).toBe('Amount you want to send in USD');
   });
+
+  test('can add disabled class to component', () => {
+    const children = <div className="wadus" />;
+    const component = new FormGroupComponent({ children, disabled: true });
+
+    expect(component.find('.FormGroup.is-disabled')).toHaveLength(1);
+  });
+
+  test('can add read only class to component', () => {
+    const children = <div className="wadus" />;
+    const component = new FormGroupComponent({ children, readOnly: true });
+
+    expect(component.find('.FormGroup.is-readOnly')).toHaveLength(1);
+  });
+
 });

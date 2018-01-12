@@ -39,6 +39,20 @@ export default () => {
         label="Default value"
         value="+34 555 555 555"
       />
+      <PhoneNumber
+        countries={countries}
+        name="phone"
+        label="Disabled phone input"
+        value="+34 555 555 555"
+        disabled
+      />
+      <PhoneNumber
+        countries={countries}
+        name="phone"
+        label="Read only phone input"
+        value="+1 111 111 111"
+        readOnly
+      />
     </Component>
   );
 };

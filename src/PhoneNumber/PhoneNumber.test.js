@@ -227,4 +227,30 @@ describe('PhoneNumber', () => {
       expect(component.flagSelector().prop('readOnly')).toBe(true);
     });
   });
+
+  describe('having disabled property', () => {
+    const countries = [
+      {
+        label: 'Spain (+34)',
+        value: 'es',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States (+1)',
+        value: 'us',
+        dialingCode: '1',
+        phonePattern: '+. (...) ...-....'
+      }
+    ];
+    const component = new PhoneInputComponent({ countries, disabled: true });
+
+    test('renders a disabled input', () => {
+      expect(component.input().prop('disabled')).toBe(true);
+    });
+
+    test('passes disabled property to FlagSelector', () => {
+      expect(component.flagSelector().prop('disabled')).toBe(true);
+    });
+  });
 });

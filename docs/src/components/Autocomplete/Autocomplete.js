@@ -60,6 +60,22 @@ export default () => {
         options={countries}
         placeholder="Select a country"
       />
+      <Autocomplete
+        label="Disabled autocomplete"
+        name="country"
+        options={countries}
+        placeholder="Select a country"
+        value="ES"
+        disabled
+      />
+      <Autocomplete
+        label="Read only autocomplete"
+        name="country"
+        options={countries}
+        placeholder="Select a country"
+        value="US"
+        readOnly
+      />
     </Component>
   );
 };
