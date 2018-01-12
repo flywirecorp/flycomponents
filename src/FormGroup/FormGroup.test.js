@@ -32,10 +32,6 @@ describe('FormGroup', () => {
     label() {
       return this.component.find(Label);
     }
-
-    debug() {
-      return this.component.debug();
-    }
   }
 
   test('renders children passed in', () => {
