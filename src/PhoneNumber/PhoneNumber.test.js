@@ -243,7 +243,7 @@ describe('PhoneNumber', () => {
         phonePattern: '+. (...) ...-....'
       }
     ];
-    const component = new PhoneInputComponent({ countries, disabled: true });
+    const component = new PhoneNumberComponent({ countries, disabled: true });
 
     test('renders a disabled input', () => {
       expect(component.input().prop('disabled')).toBe(true);
