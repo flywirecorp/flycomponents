@@ -7,7 +7,7 @@ Easily extend form controls by adding text on either side of textual inputs.
 <InputGroup
   placeholder="Enter amount"
   name="input"
-  sufix="€"
+  suffix="€"
   type="number"
 />
 
@@ -21,7 +21,7 @@ Easily extend form controls by adding text on either side of textual inputs.
 <InputGroup
   name="input"
   prefix="http://"
-  sufix=".com"
+  suffix=".com"
   value="flywire"
   disabled
 />
@@ -33,6 +33,6 @@ Easily extend form controls by adding text on either side of textual inputs.
 | ---------------- | ----- | ----------   | -------------------------------------- | --------- |
 | name             | yes   | string       | HTML input `name` attribute            | `null`    |
 | prefix           | no    | string, node | Text or string shown before the input  | `null`    |
-| sufix            | yes   | string       | Text or string shown after the input   | `null`    |
+| suffix            | yes   | string       | Text or string shown after the input   | `null`    |
 
 It also supports all the native HTML attributes, such as `value`, `required`, `disabled`, `placeholder`, `readOnly`, ...

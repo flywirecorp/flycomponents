@@ -59,12 +59,12 @@ describe('TextInput', () => {
     expect(inputGroup.prop('prefix')).toEqual('PREFIX');
   });
 
-  test('renders a input group with sufix', () => {
-    const component = new TextInputComponent({ sufix: 'SUFIX' });
+  test('renders a input group with suffix', () => {
+    const component = new TextInputComponent({ suffix: 'suffix' });
     const inputGroup = component.inputGroup();
 
     expect(inputGroup).toHaveLength(1);
-    expect(inputGroup.prop('sufix')).toEqual('SUFIX');
+    expect(inputGroup.prop('suffix')).toEqual('suffix');
   });
 
   test('handles on change events in input', () => {

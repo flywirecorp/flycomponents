@@ -23,7 +23,7 @@ describe('InputGroup', () => {
       return this.component.find('span').text();
     }
 
-    sufixText() {
+    suffixText() {
       return this.component.find('span').text();
     }
   }
@@ -46,9 +46,9 @@ describe('InputGroup', () => {
     expect(component.prefixText()).toBe('$');
   });
 
-  test('renders a sufix', () => {
-    const component = new InputComponent({ sufix: '.00' });
+  test('renders a suffix', () => {
+    const component = new InputComponent({ suffix: '.00' });
 
-    expect(component.sufixText()).toBe('.00');
+    expect(component.suffixText()).toBe('.00');
   });
 });

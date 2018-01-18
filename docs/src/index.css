@@ -1,5 +1,5 @@
-@import "~flystyles/dist/css/flystyles.min.css";
-@import "~github-markdown-css";
+@import '~flystyles/dist/css/flystyles.min.css';
+@import '~github-markdown-css';
 
 :root {
   --transition: all 200ms ease-out;
@@ -61,7 +61,7 @@
 }
 
 .Docs-navVersion {
-  font-size: .5rem;
+  font-size: 0.5rem;
 }
 
 @media (min-width: 767px) {
@@ -96,13 +96,14 @@
 }
 
 .MenuLink {
-  margin-bottom: .6rem;
+  margin-bottom: 0.6rem;
   font-weight: 400;
-  font-size: .96rem;
+  font-size: 0.96rem;
   transition: all 200ms;
 }
 
-.MenuLink.is-active a, .MenuLink:hover a {
+.MenuLink.is-active a,
+.MenuLink:hover a {
   text-decoration: underline;
 }
 

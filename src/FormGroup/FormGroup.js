@@ -9,7 +9,8 @@ const FormGroup = ({
   disabled,
   error,
   floatingLabel,
-  hasSymbol,
+  hasPrefix,
+  hasSuffix,
   hasValue,
   hint,
   isFocused,
@@ -26,7 +27,8 @@ const FormGroup = ({
       'is-disabled': disabled,
       'is-focused': isFocused,
       'is-readOnly': readOnly,
-      'FormGroup--symbolFirst': hasSymbol
+      'FormGroup--hasPrefix': hasPrefix,
+      'FormGroup--hasSuffix': hasSuffix
     })}
   >
     {label && <Label htmlFor={name} required={required} value={label} />}
@@ -44,7 +46,8 @@ FormGroup.propTypes = {
   disabled: bool,
   error: string,
   floatingLabel: bool,
-  hasSymbol: bool,
+  hasPrefix: bool,
+  hasSuffix: bool,
   hasValue: bool,
   hint: string,
   isFocused: bool,
@@ -57,7 +60,8 @@ FormGroup.propTypes = {
 FormGroup.defaultProps = {
   disabled: false,
   floatingLabel: true,
-  hasSymbol: false,
+  hasPrefix: false,
+  hasSuffix: false,
   hasValue: false,
   isFocused: false,
   readOnly: false,

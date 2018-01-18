@@ -13,7 +13,7 @@ export default () => (
       floatingLabel={false}
     />
     <TextInput name="withprefix" prefix="@" label="With prefix" />
-    <TextInput name="withsufix" sufix=".com" label="With sufix" />
+    <TextInput name="withsuffix" suffix=".com" label="With suffix" />
     <TextInput name="withvalue" value="Default value" label="With value" />
     <TextInput name="multiline" multiline label="Multiline" />
     <TextInput
@@ -43,8 +43,8 @@ export default () => (
     />
     <TextInput
       name="readonlyWithSuffix"
-      sufix=".com"
-      label="With sufix read only input"
+      suffix=".com"
+      label="With suffix read only input"
       readOnly
     />
   </Component>

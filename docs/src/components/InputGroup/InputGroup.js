@@ -9,7 +9,7 @@ export default () => (
       <InputGroup
         placeholder="Enter amount"
         name="input"
-        sufix="€"
+        suffix="€"
         type="number"
       />
     </div>
@@ -27,7 +27,7 @@ export default () => (
       <InputGroup
         name="input"
         prefix="http://"
-        sufix=".com"
+        suffix=".com"
         value="flywire"
         disabled
       />

@@ -13,24 +13,11 @@ class DateInput extends Component {
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
-    onClick: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
     readOnly: PropTypes.bool,
     selectedDate: PropTypes.string,
     setSelectedDate: PropTypes.func.isRequired
   };
-
-  handleClick = e => {
-    const { onClick, disabled, readOnly } = this.props;
-    this.handleFocus();
-    if (disabled || readOnly) return false;
-    onClick();
-  };
-
-  handleFocus() {
-    const input = this.refs.input;
-    input.focus();
-  }
 
   handleKeyDown = e => {
     const {
@@ -63,7 +50,6 @@ class DateInput extends Component {
       readOnly,
       selectedDate
     } = this.props;
-    const calendarIcon = <CalendarIcon />;
 
     return (
       <div className="InputGroup" onClick={onCalendarIconClick}>
@@ -74,7 +60,6 @@ class DateInput extends Component {
           id={name}
           onBlur={onBlur}
           onChange={() => {}}
-          onClick={this.handleClick}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
           placeholder={DATE_FORMAT}
@@ -84,7 +69,9 @@ class DateInput extends Component {
           type="text"
           value={selectedDate}
         />
-        <span className="InputGroup-context">{calendarIcon}</span>
+        <span className="InputGroup-context">
+          <CalendarIcon />
+        </span>
       </div>
     );
   }

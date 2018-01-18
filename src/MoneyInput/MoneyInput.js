@@ -160,7 +160,7 @@ class MoneyInput extends Component {
     } = this.props;
 
     const inputAttrs = {
-      [symbolFirst ? 'prefix' : 'sufix']: symbol,
+      [symbolFirst ? 'prefix' : 'suffix']: symbol,
       disabled,
       maxLength,
       name,
@@ -172,7 +172,8 @@ class MoneyInput extends Component {
         disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}
-        hasSymbol={symbolFirst}
+        hasPrefix={symbolFirst}
+        hasSuffix={!symbolFirst}
         hasValue
         hint={hint}
         isFocused={isFocused}

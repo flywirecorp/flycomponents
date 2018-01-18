@@ -179,6 +179,7 @@ class Datepicker extends Component {
         floatingLabel={floatingLabel}
         isFocused={isOpen || isFocused}
         hasValue={!!selectedDate}
+        hasSuffix
         hint={hint}
         label={label}
         name={name}

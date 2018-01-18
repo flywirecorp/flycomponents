@@ -1,4 +1,5 @@
 # FormGroup
+
 Wraps a form field. Adds a label, display errors and help texts.
 
 ## Example
@@ -45,19 +46,20 @@ Wraps a form field. Adds a label, display errors and help texts.
 
 ## Properties
 
-| Property         | Req   | Type       | Description                            | Default   |
-| ---------------- | ----- | ---------- | -------------------------------------- | --------- |
-| children         | yes   | node       | Children node                          |           |
-| className        | no    | string     | Rewrite default CSS class              |           |
-| disabled         | no    | bool       | Input is disabled                      | false     |
-| error            | no    | string     | Error message                          |           |
-| floatingLabel    | no    | bool       | Floating label inside the input field  | true      |
-| floatingLabel    | no    | bool       | Floating label inside the input field  | true      |
-| hasSymbol        | no    | bool       | Whether or not has a symbol on the left| false     |
-| hasValue         | no    | bool       | Whether or not has the value set       | false     |
-| hint             | no    | string     | Shows help message                     |           |
-| isFocused        | no    | bool       | Whether or not the field is focused    | false     |
-| label            | no    | string     | Label tag text                         |           |
-| name             | yes   | string     | Name and id of the children            |           |
-| readOnly         | no    | bool       | Input field is read only               | false     |
-| required         | no    | bool       | Set the field to required              | false     |
+| Property      | Req | Type   | Description                              | Default |
+| ------------- | --- | ------ | ---------------------------------------- | ------- |
+| children      | yes | node   | Children node                            |         |
+| className     | no  | string | Rewrite default CSS class                |         |
+| disabled      | no  | bool   | Input is disabled                        | false   |
+| error         | no  | string | Error message                            |         |
+| floatingLabel | no  | bool   | Floating label inside the input field    | true    |
+| floatingLabel | no  | bool   | Floating label inside the input field    | true    |
+| hasPrefix     | no  | bool   | Whether or not has a symbol on the left  | false   |
+| hasSuffix     | no  | bool   | Whether or not has a symbol on the right | false   |
+| hasValue      | no  | bool   | Whether or not has the value set         | false   |
+| hint          | no  | string | Shows help message                       |         |
+| isFocused     | no  | bool   | Whether or not the field is focused      | false   |
+| label         | no  | string | Label tag text                           |         |
+| name          | yes | string | Name and id of the children              |         |
+| readOnly      | no  | bool   | Input field is read only                 | false   |
+| required      | no  | bool   | Set the field to required                | false   |

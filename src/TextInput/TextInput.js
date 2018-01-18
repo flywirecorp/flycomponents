@@ -19,7 +19,7 @@ class TextInput extends Component {
     prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
-    sufix: PropTypes.string,
+    suffix: PropTypes.string,
     value: PropTypes.string
   };
 
@@ -72,7 +72,7 @@ class TextInput extends Component {
     const {
       floatingLabel,
       multiline,
-      sufix,
+      suffix,
       prefix,
       ...inputAttrs
     } = this.props;
@@ -94,7 +94,7 @@ class TextInput extends Component {
       floatingLabel,
       multiline,
       prefix,
-      sufix,
+      suffix,
       ...inputAttrs
     } = this.props;
 
@@ -105,7 +105,7 @@ class TextInput extends Component {
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         prefix={prefix}
-        sufix={sufix}
+        suffix={suffix}
         type="text"
         value={this.fieldValue()}
       />
@@ -117,7 +117,7 @@ class TextInput extends Component {
       floatingLabel,
       multiline,
       prefix,
-      sufix,
+      suffix,
       ...inputAttrs
     } = this.props;
 
@@ -133,13 +133,13 @@ class TextInput extends Component {
   }
 
   renderElement() {
-    const { multiline, prefix, sufix } = this.props;
+    const { multiline, prefix, suffix } = this.props;
 
     if (multiline) {
       return this.textArea();
     }
 
-    if (sufix || prefix) {
+    if (suffix || prefix) {
       return this.inputGroup();
     } else {
       return this.input();
@@ -156,7 +156,8 @@ class TextInput extends Component {
       name,
       prefix,
       readOnly,
-      required
+      required,
+      suffix
     } = this.props;
 
     const { isFocused, hasValue } = this.state;
@@ -167,7 +168,8 @@ class TextInput extends Component {
         disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}
-        hasSymbol={!!prefix}
+        hasPrefix={!!prefix}
+        hasSuffix={!!suffix}
         hasValue={hasValue}
         hint={hint}
         isFocused={isFocused}

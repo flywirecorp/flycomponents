@@ -13,7 +13,7 @@ Specifies an input field where the user can enter data.
 />
 <TextInput name="default" label="Default" hint="Help text" />
 <TextInput name="withprefix" prefix="@" label="With prefix" />
-<TextInput name="withsufix" sufix=".com" label="With sufix" />
+<TextInput name="withsuffix" suffix=".com" label="With suffix" />
 <TextInput name="withvalue" value="Default value" label="With value" />
 <TextInput name="multiline" multiline label="Multiline" />
 <TextInput
@@ -43,8 +43,8 @@ Specifies an input field where the user can enter data.
 />
 <TextInput
   name="readonlyWithSuffix"
-  sufix=".com"
-  label="With sufix read only input"
+  suffix=".com"
+  label="With suffix read only input"
   readOnly
 />
 ```
@@ -67,7 +67,7 @@ Specifies an input field where the user can enter data.
 | prefix           | no    | string     | Button group                                                        |           |
 | readOnly         | no    | bool       | Input is read-only                                                  | false     |
 | required         | no    | bool       | Set the field to required                                           | false     |
-| sufix            | no    | string     | Button group                                                        |           |
+| suffix            | no    | string     | Button group                                                        |           |
 | value            | no    | string     | Default value                                                       |           |
 
 It also supports all the native HTML attributes, such as `placeholder`, `readOnly`, ...
