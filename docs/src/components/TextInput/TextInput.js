@@ -12,6 +12,13 @@ export default () => (
       hint="Help text"
       floatingLabel={false}
     />
+    <TextInput
+      name="password"
+      label="Password"
+      hint="Password"
+      type="password"
+      floatingLabel={false}
+    />
     <TextInput name="withprefix" prefix="@" label="With prefix" />
     <TextInput name="withsuffix" suffix=".com" label="With suffix" />
     <TextInput name="withvalue" value="Default value" label="With value" />

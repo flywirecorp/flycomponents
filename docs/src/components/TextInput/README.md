@@ -12,6 +12,7 @@ Specifies an input field where the user can enter data.
   floatingLabel={false}
 />
 <TextInput name="default" label="Default" hint="Help text" />
+<TextInput name="password" type="password" label="Password" hint="password" />
 <TextInput name="withprefix" prefix="@" label="With prefix" />
 <TextInput name="withsuffix" suffix=".com" label="With suffix" />
 <TextInput name="withvalue" value="Default value" label="With value" />
