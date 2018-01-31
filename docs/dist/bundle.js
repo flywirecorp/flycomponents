@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f4cb072e1944868abd57"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9977dd8e7779f118221f"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -47830,13 +47830,14 @@ var TextInput = function (_Component) {
           multiline = _props.multiline,
           suffix = _props.suffix,
           prefix = _props.prefix,
-          inputAttrs = _objectWithoutProperties(_props, ['floatingLabel', 'multiline', 'suffix', 'prefix']);
+          type = _props.type,
+          inputAttrs = _objectWithoutProperties(_props, ['floatingLabel', 'multiline', 'suffix', 'prefix', 'type']);
 
       return _react2.default.createElement(_Input2.default, _extends({}, inputAttrs, {
         onBlur: this.handleBlur,
         onChange: this.handleChange,
         onFocus: this.handleFocus,
-        type: 'text',
+        type: type,
         value: this.fieldValue()
       }));
     }
@@ -47848,7 +47849,8 @@ var TextInput = function (_Component) {
           multiline = _props2.multiline,
           prefix = _props2.prefix,
           suffix = _props2.suffix,
-          inputAttrs = _objectWithoutProperties(_props2, ['floatingLabel', 'multiline', 'prefix', 'suffix']);
+          type = _props2.type,
+          inputAttrs = _objectWithoutProperties(_props2, ['floatingLabel', 'multiline', 'prefix', 'suffix', 'type']);
 
       return _react2.default.createElement(_InputGroup2.default, _extends({}, inputAttrs, {
         onBlur: this.handleBlur,
@@ -47856,7 +47858,7 @@ var TextInput = function (_Component) {
         onFocus: this.handleFocus,
         prefix: prefix,
         suffix: suffix,
-        type: 'text',
+        type: type,
         value: this.fieldValue()
       }));
     }
@@ -47954,6 +47956,7 @@ TextInput.propTypes = {
   readOnly: _propTypes2.default.bool,
   required: _propTypes2.default.bool,
   suffix: _propTypes2.default.string,
+  type: _propTypes2.default.string,
   value: _propTypes2.default.string
 };
 TextInput.defaultProps = {
@@ -47962,7 +47965,8 @@ TextInput.defaultProps = {
   multiline: false,
   onBlur: function onBlur() {},
   onChange: function onChange() {},
-  readOnly: false
+  readOnly: false,
+  type: 'text'
 };
 exports.default = TextInput;
 module.exports = exports['default'];
@@ -50536,6 +50540,13 @@ exports.default = function () {
       hint: 'Help text',
       floatingLabel: false
     }),
+    _react2.default.createElement(_src.TextInput, {
+      name: 'password',
+      label: 'Password',
+      hint: 'Password',
+      type: 'password',
+      floatingLabel: false
+    }),
     _react2.default.createElement(_src.TextInput, { name: 'withprefix', prefix: '@', label: 'With prefix' }),
     _react2.default.createElement(_src.TextInput, { name: 'withsuffix', suffix: '.com', label: 'With suffix' }),
     _react2.default.createElement(_src.TextInput, { name: 'withvalue', value: 'Default value', label: 'With value' }),
@@ -50580,7 +50591,7 @@ module.exports = exports['default'];
 /* 316 */
 /***/ (function(module, exports) {
 
-module.exports = "# TextInput\nSpecifies an input field where the user can enter data.\n\n## Example\n\n```javascript\n<TextInput name=\"floating\" label=\"Default\" hint=\"Help text\" />\n<TextInput\n  name=\"default\"\n  label=\"Default\"\n  hint=\"Help text\"\n  floatingLabel={false}\n/>\n<TextInput name=\"default\" label=\"Default\" hint=\"Help text\" />\n<TextInput name=\"withprefix\" prefix=\"@\" label=\"With prefix\" />\n<TextInput name=\"withsuffix\" suffix=\".com\" label=\"With suffix\" />\n<TextInput name=\"withvalue\" value=\"Default value\" label=\"With value\" />\n<TextInput name=\"multiline\" multiline label=\"Multiline\" />\n<TextInput\n  name=\"error\"\n  label=\"With error and required\"\n  error=\"Please, fill this field\"\n  placeholder=\"Placeholder\"\n  required\n/>\n<TextInput\n  name=\"disabled\"\n  label=\"Disabled\"\n  value=\"this is a disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readOnly\"\n  label=\"Read Only\"\n  value=\"this is a read only input\"\n  readOnly\n/>\n<TextInput\n  name=\"disabledWithPrefix\"\n  prefix=\"@\"\n  label=\"With prefix disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readonlyWithSuffix\"\n  suffix=\".com\"\n  label=\"With suffix read only input\"\n  readOnly\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| disabled         | no    | bool       | Input is disabled                                                   | false     |\n| error            | no    | string     | Error message                                                       |           |\n| hint             | no    | string     | Help message below the autocomplete                                 |           |\n| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |\n| label            | no    | string     | The text string to use for HTML label tag                           |           |\n| multiline        | no    | bool       | Enable or disable multiline                                         |           |\n| name             | no    | string     | Name and id of the element                                          |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| placeholder      | no    | string     | Short hint that describes the expected value of the input field     |           |\n| prefix           | no    | string     | Button group                                                        |           |\n| readOnly         | no    | bool       | Input is read-only                                                  | false     |\n| required         | no    | bool       | Set the field to required                                           | false     |\n| suffix            | no    | string     | Button group                                                        |           |\n| value            | no    | string     | Default value                                                       |           |\n\nIt also supports all the native HTML attributes, such as `placeholder`, `readOnly`, ...\n"
+module.exports = "# TextInput\nSpecifies an input field where the user can enter data.\n\n## Example\n\n```javascript\n<TextInput name=\"floating\" label=\"Default\" hint=\"Help text\" />\n<TextInput\n  name=\"default\"\n  label=\"Default\"\n  hint=\"Help text\"\n  floatingLabel={false}\n/>\n<TextInput name=\"default\" label=\"Default\" hint=\"Help text\" />\n<TextInput name=\"password\" type=\"password\" label=\"Password\" hint=\"password\" />\n<TextInput name=\"withprefix\" prefix=\"@\" label=\"With prefix\" />\n<TextInput name=\"withsuffix\" suffix=\".com\" label=\"With suffix\" />\n<TextInput name=\"withvalue\" value=\"Default value\" label=\"With value\" />\n<TextInput name=\"multiline\" multiline label=\"Multiline\" />\n<TextInput\n  name=\"error\"\n  label=\"With error and required\"\n  error=\"Please, fill this field\"\n  placeholder=\"Placeholder\"\n  required\n/>\n<TextInput\n  name=\"disabled\"\n  label=\"Disabled\"\n  value=\"this is a disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readOnly\"\n  label=\"Read Only\"\n  value=\"this is a read only input\"\n  readOnly\n/>\n<TextInput\n  name=\"disabledWithPrefix\"\n  prefix=\"@\"\n  label=\"With prefix disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readonlyWithSuffix\"\n  suffix=\".com\"\n  label=\"With suffix read only input\"\n  readOnly\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| disabled         | no    | bool       | Input is disabled                                                   | false     |\n| error            | no    | string     | Error message                                                       |           |\n| hint             | no    | string     | Help message below the autocomplete                                 |           |\n| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |\n| label            | no    | string     | The text string to use for HTML label tag                           |           |\n| multiline        | no    | bool       | Enable or disable multiline                                         |           |\n| name             | no    | string     | Name and id of the element                                          |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| placeholder      | no    | string     | Short hint that describes the expected value of the input field     |           |\n| prefix           | no    | string     | Button group                                                        |           |\n| readOnly         | no    | bool       | Input is read-only                                                  | false     |\n| required         | no    | bool       | Set the field to required                                           | false     |\n| suffix            | no    | string     | Button group                                                        |           |\n| value            | no    | string     | Default value                                                       |           |\n\nIt also supports all the native HTML attributes, such as `placeholder`, `readOnly`, ...\n"
 
 /***/ }),
 /* 317 */
@@ -50643,7 +50654,7 @@ module.exports = exports['default'];
 /* 319 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.5.5","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.1","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.8","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.15.0","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.4.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.15","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.12","prettier":"^1.10.0","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.10.0","webpack-dev-server":"^2.10.1","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.5.6","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.1","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.8","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.15.0","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.4.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.15","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.12","prettier":"^1.10.0","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.10.0","webpack-dev-server":"^2.10.1","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
 /* 320 */
