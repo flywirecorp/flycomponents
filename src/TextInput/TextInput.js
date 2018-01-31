@@ -20,6 +20,7 @@ class TextInput extends Component {
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     suffix: PropTypes.string,
+    type: PropTypes.string,
     value: PropTypes.string
   };
 
@@ -29,7 +30,8 @@ class TextInput extends Component {
     multiline: false,
     onBlur: () => {},
     onChange: () => {},
-    readOnly: false
+    readOnly: false,
+    type: 'text'
   };
 
   constructor(props) {
@@ -74,6 +76,7 @@ class TextInput extends Component {
       multiline,
       suffix,
       prefix,
+      type,
       ...inputAttrs
     } = this.props;
 
@@ -83,7 +86,7 @@ class TextInput extends Component {
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
-        type="text"
+        type={type}
         value={this.fieldValue()}
       />
     );
@@ -95,6 +98,7 @@ class TextInput extends Component {
       multiline,
       prefix,
       suffix,
+      type,
       ...inputAttrs
     } = this.props;
 
@@ -106,7 +110,7 @@ class TextInput extends Component {
         onFocus={this.handleFocus}
         prefix={prefix}
         suffix={suffix}
-        type="text"
+        type={type}
         value={this.fieldValue()}
       />
     );

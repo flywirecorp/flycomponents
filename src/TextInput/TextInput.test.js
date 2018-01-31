@@ -43,6 +43,7 @@ describe('TextInput', () => {
     const component = new TextInputComponent();
 
     expect(component.input()).toHaveLength(1);
+    expect(component.input().prop('type')).toEqual('text');
   });
 
   test('renders a textarea', () => {
@@ -85,5 +86,20 @@ describe('TextInput', () => {
     component.simulateBlur('name');
 
     expect(onBlur).toBeCalled();
+  });
+
+  test('renders an input with type password', () => {
+    const type = 'password';
+    const component = new TextInputComponent({ type });
+
+    expect(component.input().prop('type')).toEqual('password');
+  });
+
+  test('renders an input group with type password', () => {
+    const type = 'password';
+    const suffix = 'suffix'
+    const component = new TextInputComponent({ type, suffix });
+
+    expect(component.inputGroup().prop('type')).toEqual('password');
   });
 });
