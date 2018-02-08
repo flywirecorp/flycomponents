@@ -75,5 +75,4 @@ describe('FormGroup', () => {
 
     expect(component.find('.FormGroup.is-readOnly')).toHaveLength(1);
   });
-
 });

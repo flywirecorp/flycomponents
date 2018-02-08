@@ -97,7 +97,7 @@ describe('TextInput', () => {
 
   test('renders an input group with type password', () => {
     const type = 'password';
-    const suffix = 'suffix'
+    const suffix = 'suffix';
     const component = new TextInputComponent({ type, suffix });
 
     expect(component.inputGroup().prop('type')).toEqual('password');
