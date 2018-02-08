@@ -4,6 +4,7 @@ import Autocomplete from './Autocomplete';
 import Button from './Button';
 import Datepicker from './Datepicker';
 import FormGroup from './FormGroup';
+import Heading from './Heading';
 import Input from './Input';
 import InputGroup from './InputGroup';
 import MoneyInput from './MoneyInput';
@@ -19,6 +20,7 @@ export {
   Button,
   Datepicker,
   FormGroup,
+  Heading,
   Input,
   InputGroup,
   MoneyInput,
