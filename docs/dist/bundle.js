@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "08a50968774f2be6ca04"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f1695f154b721885fe37"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -5392,7 +5392,7 @@ module.exports = warning;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.TextInput = exports.Textarea = exports.Select = exports.PhoneNumber = exports.MoneyInput = exports.InputGroup = exports.Input = exports.FormGroup = exports.Datepicker = exports.Button = exports.Autocomplete = exports.Alert = exports.Accordion = undefined;
+exports.TextInput = exports.Textarea = exports.Select = exports.PhoneNumber = exports.MoneyInput = exports.InputGroup = exports.Input = exports.Heading = exports.FormGroup = exports.Datepicker = exports.Button = exports.Autocomplete = exports.Alert = exports.Accordion = undefined;
 
 var _Accordion = __webpack_require__(40);
 
@@ -5418,6 +5418,10 @@ var _FormGroup = __webpack_require__(8);
 
 var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
+var _Heading = __webpack_require__(259);
+
+var _Heading2 = _interopRequireDefault(_Heading);
+
 var _Input = __webpack_require__(27);
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -5426,11 +5430,11 @@ var _InputGroup = __webpack_require__(28);
 
 var _InputGroup2 = _interopRequireDefault(_InputGroup);
 
-var _MoneyInput = __webpack_require__(261);
+var _MoneyInput = __webpack_require__(263);
 
 var _MoneyInput2 = _interopRequireDefault(_MoneyInput);
 
-var _PhoneNumber = __webpack_require__(266);
+var _PhoneNumber = __webpack_require__(268);
 
 var _PhoneNumber2 = _interopRequireDefault(_PhoneNumber);
 
@@ -5442,7 +5446,7 @@ var _Textarea = __webpack_require__(163);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
-var _TextInput = __webpack_require__(275);
+var _TextInput = __webpack_require__(277);
 
 var _TextInput2 = _interopRequireDefault(_TextInput);
 
@@ -5454,6 +5458,7 @@ exports.Autocomplete = _Autocomplete2.default;
 exports.Button = _Button2.default;
 exports.Datepicker = _Datepicker2.default;
 exports.FormGroup = _FormGroup2.default;
+exports.Heading = _Heading2.default;
 exports.Input = _Input2.default;
 exports.InputGroup = _InputGroup2.default;
 exports.MoneyInput = _MoneyInput2.default;
@@ -5473,7 +5478,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Component = __webpack_require__(277);
+var _Component = __webpack_require__(279);
 
 var _Component2 = _interopRequireDefault(_Component);
 
@@ -6887,7 +6892,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Input = __webpack_require__(259);
+var _Input = __webpack_require__(261);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -6907,7 +6912,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _InputGroup = __webpack_require__(260);
+var _InputGroup = __webpack_require__(262);
 
 var _InputGroup2 = _interopRequireDefault(_InputGroup);
 
@@ -6936,8 +6941,8 @@ exports.push([module.i, ".Component {\n  display: flex;\n  flex-direction: colum
 
 exports = module.exports = __webpack_require__(17)(false);
 // imports
-exports.i(__webpack_require__(325), "");
-exports.i(__webpack_require__(326), "");
+exports.i(__webpack_require__(330), "");
+exports.i(__webpack_require__(331), "");
 
 // module
 exports.push([module.i, ":root {\n  --transition: all 200ms ease-out;\n}\n\n.Docs {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: wrap;\n}\n\n.Docs-nav {\n  display: block;\n  width: 100%;\n  padding: 1rem 2rem 0 2rem;\n  transition: var(--transition);\n}\n.is-open .Docs-nav {\n  padding-left: 190px;\n}\n\n.Docs-navMenu {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n  display: block;\n  position: absolute;\n  height: 100%;\n  top: 0;\n  left: 0;\n  padding: 2rem;\n  transform: translateX(-100%);\n  transition: var(--transition);\n}\n\n.is-open .Docs-navMenu {\n  display: block;\n  transform: translateX(0);\n}\n\n.Docs-icon {\n  display: inline-block;\n  margin-right: 1rem;\n  cursor: pointer;\n}\n\n.Docs-navTitle {\n  display: inline-block;\n  font-size: 1rem;\n  font-weight: 600;\n}\n\n.Docs-content {\n  width: 100%;\n  transition: var(--transition);\n}\n.is-open .Docs-content {\n  padding-left: 160px;\n}\n\n.Docs-navVersion {\n  font-size: 0.5rem;\n}\n\n@media (min-width: 767px) {\n  .Docs {\n    flex-wrap: nowrap;\n  }\n\n  .Docs-nav {\n    display: block;\n    width: 180px;\n    padding: 2rem 1rem;\n    border-right: 1px solid #eee;\n  }\n\n  .Docs-navMenu {\n    margin: 0;\n    padding: 0;\n    list-style: none;\n    display: block;\n    position: relative !important;\n    transform: none !important;\n    background: white;\n  }\n\n  .Docs-icon {\n    display: none;\n  }\n\n  .Docs-content {\n    width: calc(100% - 180px);\n  }\n}\n\n.MenuLink {\n  margin-bottom: 0.6rem;\n  font-weight: 400;\n  font-size: 0.96rem;\n  transition: all 200ms;\n}\n\n.MenuLink.is-active a,\n.MenuLink:hover a {\n  text-decoration: underline;\n}\n\n.fullHeight {\n  height: 100%;\n  min-height: 100%;\n}\n\n.Autocomplete-options {\n  transition: none;\n}\n", ""]);
@@ -19520,7 +19525,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Textarea = __webpack_require__(274);
+var _Textarea = __webpack_require__(276);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -19540,7 +19545,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Markdown = __webpack_require__(278);
+var _Markdown = __webpack_require__(280);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
@@ -19606,7 +19611,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(282);
+var	fixUrls = __webpack_require__(284);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -19946,63 +19951,67 @@ var _Accordion = __webpack_require__(209);
 
 var _Accordion2 = _interopRequireDefault(_Accordion);
 
-var _Alert = __webpack_require__(284);
+var _Alert = __webpack_require__(286);
 
 var _Alert2 = _interopRequireDefault(_Alert);
 
-var _Autocomplete = __webpack_require__(287);
+var _Autocomplete = __webpack_require__(289);
 
 var _Autocomplete2 = _interopRequireDefault(_Autocomplete);
 
-var _Button = __webpack_require__(290);
+var _Button = __webpack_require__(292);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Datepicker = __webpack_require__(293);
+var _Datepicker = __webpack_require__(295);
 
 var _Datepicker2 = _interopRequireDefault(_Datepicker);
 
-var _FormGroup = __webpack_require__(296);
+var _FormGroup = __webpack_require__(298);
 
 var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
-var _MoneyInput = __webpack_require__(299);
+var _Heading = __webpack_require__(301);
+
+var _Heading2 = _interopRequireDefault(_Heading);
+
+var _MoneyInput = __webpack_require__(304);
 
 var _MoneyInput2 = _interopRequireDefault(_MoneyInput);
 
-var _PhoneNumber = __webpack_require__(302);
+var _PhoneNumber = __webpack_require__(307);
 
 var _PhoneNumber2 = _interopRequireDefault(_PhoneNumber);
 
-var _InputGroup = __webpack_require__(305);
+var _InputGroup = __webpack_require__(310);
 
 var _InputGroup2 = _interopRequireDefault(_InputGroup);
 
-var _Select = __webpack_require__(308);
+var _Select = __webpack_require__(313);
 
 var _Select2 = _interopRequireDefault(_Select);
 
-var _Textarea = __webpack_require__(311);
+var _Textarea = __webpack_require__(316);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
-var _TextInput = __webpack_require__(314);
+var _TextInput = __webpack_require__(319);
 
 var _TextInput2 = _interopRequireDefault(_TextInput);
 
-var _Title = __webpack_require__(317);
+var _Title = __webpack_require__(322);
 
 var _Title2 = _interopRequireDefault(_Title);
 
-var _Home = __webpack_require__(320);
+var _Home = __webpack_require__(325);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _hamburgerMenu = __webpack_require__(323);
+var _hamburgerMenu = __webpack_require__(328);
 
 var _hamburgerMenu2 = _interopRequireDefault(_hamburgerMenu);
 
-__webpack_require__(324);
+__webpack_require__(329);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20046,6 +20055,10 @@ var routes = [{
   path: '/form-group',
   label: 'FormGroup',
   component: _FormGroup2.default
+}, {
+  path: '/heading',
+  label: 'Heading',
+  component: _Heading2.default
 }, {
   path: '/input-group',
   label: 'InputGroup',
@@ -41175,7 +41188,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(283);
+var _README = __webpack_require__(285);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -45888,6 +45901,83 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _Heading = __webpack_require__(260);
+
+var _Heading2 = _interopRequireDefault(_Heading);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Heading2.default;
+module.exports = exports['default'];
+
+/***/ }),
+/* 260 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Heading = undefined;
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DEFAULT_SIZE = 'huge';
+var DEFAULT_TAG = 'h1';
+var SUPPORTED_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+var Heading = exports.Heading = function Heading(_ref) {
+  var text = _ref.text,
+      as = _ref.as,
+      size = _ref.size;
+
+  var Element = as;
+  if (!SUPPORTED_TAGS.includes(Element)) {
+    throw new Error('Unsupported type');
+  }
+
+  var headingClasses = 'Heading Heading--' + size;
+  return _react2.default.createElement(
+    Element,
+    { className: headingClasses },
+    text
+  );
+};
+
+Heading.defaultProps = {
+  as: DEFAULT_TAG,
+  size: DEFAULT_SIZE
+};
+
+Heading.propTypes = {
+  as: _propTypes2.default.string,
+  size: _propTypes2.default.string,
+  text: _propTypes2.default.string
+};
+
+exports.default = Heading;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _propTypes = __webpack_require__(2);
@@ -45940,7 +46030,7 @@ exports.default = Input;
 module.exports = exports['default'];
 
 /***/ }),
-/* 260 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46005,7 +46095,7 @@ exports.default = InputGroup;
 module.exports = exports['default'];
 
 /***/ }),
-/* 261 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46015,7 +46105,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MoneyInput = __webpack_require__(262);
+var _MoneyInput = __webpack_require__(264);
 
 var _MoneyInput2 = _interopRequireDefault(_MoneyInput);
 
@@ -46025,7 +46115,7 @@ exports.default = _MoneyInput2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 262 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46051,7 +46141,7 @@ var _InputGroup = __webpack_require__(28);
 
 var _InputGroup2 = _interopRequireDefault(_InputGroup);
 
-var _money = __webpack_require__(263);
+var _money = __webpack_require__(265);
 
 var _FormGroup = __webpack_require__(8);
 
@@ -46267,7 +46357,7 @@ exports.default = MoneyInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 263 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46278,13 +46368,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.toMoney = exports.toCents = undefined;
 
-var _money = __webpack_require__(264);
+var _money = __webpack_require__(266);
 
 exports.toCents = _money.toCents;
 exports.toMoney = _money.toMoney;
 
 /***/ }),
-/* 264 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46297,7 +46387,7 @@ exports.toMoney = exports.toCents = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _accounting = __webpack_require__(265);
+var _accounting = __webpack_require__(267);
 
 var toMoney = function toMoney(number, options) {
   var defaults = {
@@ -46345,7 +46435,7 @@ exports.toCents = toCents;
 exports.toMoney = toMoney;
 
 /***/ }),
-/* 265 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -46764,7 +46854,7 @@ exports.toMoney = toMoney;
 
 
 /***/ }),
-/* 266 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46774,7 +46864,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PhoneNumber = __webpack_require__(267);
+var _PhoneNumber = __webpack_require__(269);
 
 var _PhoneNumber2 = _interopRequireDefault(_PhoneNumber);
 
@@ -46784,7 +46874,7 @@ exports.default = _PhoneNumber2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 267 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46804,7 +46894,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _FlagSelector = __webpack_require__(268);
+var _FlagSelector = __webpack_require__(270);
 
 var _FlagSelector2 = _interopRequireDefault(_FlagSelector);
 
@@ -47069,7 +47159,7 @@ exports.default = PhoneNumber;
 module.exports = exports['default'];
 
 /***/ }),
-/* 268 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47079,7 +47169,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FlagSelector = __webpack_require__(269);
+var _FlagSelector = __webpack_require__(271);
 
 var _FlagSelector2 = _interopRequireDefault(_FlagSelector);
 
@@ -47089,7 +47179,7 @@ exports.default = _FlagSelector2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 269 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47124,11 +47214,11 @@ var _domScrollIntoView = __webpack_require__(42);
 
 var _domScrollIntoView2 = _interopRequireDefault(_domScrollIntoView);
 
-var _Option = __webpack_require__(270);
+var _Option = __webpack_require__(272);
 
 var _Option2 = _interopRequireDefault(_Option);
 
-var _Options = __webpack_require__(272);
+var _Options = __webpack_require__(274);
 
 var _Options2 = _interopRequireDefault(_Options);
 
@@ -47444,7 +47534,7 @@ FlagSelector.propTypes = {
 exports.default = (0, _reactOnclickoutside2.default)(FlagSelector);
 
 /***/ }),
-/* 270 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47454,7 +47544,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Option = __webpack_require__(271);
+var _Option = __webpack_require__(273);
 
 var _Option2 = _interopRequireDefault(_Option);
 
@@ -47464,7 +47554,7 @@ exports.default = _Option2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 271 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47570,7 +47660,7 @@ exports.default = Option;
 module.exports = exports['default'];
 
 /***/ }),
-/* 272 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47580,7 +47670,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Options = __webpack_require__(273);
+var _Options = __webpack_require__(275);
 
 var _Options2 = _interopRequireDefault(_Options);
 
@@ -47590,7 +47680,7 @@ exports.default = _Options2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 273 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47652,7 +47742,7 @@ exports.default = Options;
 module.exports = exports['default'];
 
 /***/ }),
-/* 274 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47703,7 +47793,7 @@ exports.default = Textarea;
 module.exports = exports['default'];
 
 /***/ }),
-/* 275 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47714,7 +47804,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.TextInput = undefined;
 
-var _TextInput = __webpack_require__(276);
+var _TextInput = __webpack_require__(278);
 
 var _TextInput2 = _interopRequireDefault(_TextInput);
 
@@ -47724,7 +47814,7 @@ exports.default = _TextInput2.default;
 exports.TextInput = _TextInput2.default;
 
 /***/ }),
-/* 276 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47972,7 +48062,7 @@ exports.default = TextInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 277 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47994,7 +48084,7 @@ var _Markdown = __webpack_require__(164);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
-__webpack_require__(281);
+__webpack_require__(283);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48035,7 +48125,7 @@ exports.default = Component;
 module.exports = exports['default'];
 
 /***/ }),
-/* 278 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48053,7 +48143,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _marked = __webpack_require__(279);
+var _marked = __webpack_require__(281);
 
 var _marked2 = _interopRequireDefault(_marked);
 
@@ -48096,7 +48186,7 @@ exports.default = Markdown;
 module.exports = exports['default'];
 
 /***/ }),
-/* 279 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -49420,10 +49510,10 @@ if (true) {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(280)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(282)))
 
 /***/ }),
-/* 280 */
+/* 282 */
 /***/ (function(module, exports) {
 
 var g;
@@ -49450,7 +49540,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 281 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -49481,7 +49571,7 @@ if(true) {
 }
 
 /***/ }),
-/* 282 */
+/* 284 */
 /***/ (function(module, exports) {
 
 
@@ -49576,13 +49666,13 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 283 */
+/* 285 */
 /***/ (function(module, exports) {
 
 module.exports = "# Accordion\n\n## Example\n```\nimport Accordion from 'flycomponents';\nconst { Section, Header, Content } = Accordion;\n\n<Accordion>\n  <Section success>\n    <Header>1. This is the first step</Header>\n    <Content>This is content</Content>\n  </Section>\n  <Section>\n    <Header>2. This is the second step</Header>\n    <Content>\n      {({ setNextActive }) => (\n        <div>\n          <p>This is content.</p>\n          <Button\n            className=\"Button Button--primary\"\n            onClick={setNextActive}\n          >\n            Next\n          </Button>\n        </div>\n      )}\n    </Content>\n  </Section>\n  <Section>\n    <Header>3. This is the third step</Header>\n    <Content>This is content.</Content>\n  </Section>\n</Accordion>\n```\n\n## Properties\n\n### Accordion\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| activeChildIndex | no    | boolean               | Sets the default section visible                          | 0         |\n| children         | no    | node                  | Children node                                             | []        |\n\n### Section\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n| success          | no    | boolean               | Adds the class `has-success`                              | false     |\n\n### Header\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node                  | Children node                                             | null      |\n\n### Content\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | node, func            | Children node                                             | null      |\n\n"
 
 /***/ }),
-/* 284 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49592,7 +49682,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Alert = __webpack_require__(285);
+var _Alert = __webpack_require__(287);
 
 var _Alert2 = _interopRequireDefault(_Alert);
 
@@ -49602,7 +49692,7 @@ exports.default = _Alert2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 285 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49622,7 +49712,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(286);
+var _README = __webpack_require__(288);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -49678,13 +49768,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 286 */
+/* 288 */
 /***/ (function(module, exports) {
 
 module.exports = "# Alert\nProvide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.\n\n## Example\n\n```javascript\n<Alert type=\"danger\">\n  <strong>Oh snap!</strong> Change a few things up and try submitting again.\n</Alert>\n\n<Alert type=\"success\">\n  <strong>Well done!</strong>\n  {' '}\n  You successfully read this important alert message.\n</Alert>\n\n<Alert type=\"warning\">\n  <strong>Warning!</strong>\n  {' '}\n  Better check yourself, you're not looking too good.\n</Alert>\n\n<Alert type=\"info\">\n  <strong>Heads up!</strong>\n  {' '}\n  This alert needs your attention, but it's not super important.\n</Alert>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | yes   | node \t\t             | Children node                                             |           |\n| type             | no    | string                | the alert type, can be `danger`, `success`, `warning` or `info` | `info` |\n"
 
 /***/ }),
-/* 287 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49694,7 +49784,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Autocomplete = __webpack_require__(288);
+var _Autocomplete = __webpack_require__(290);
 
 var _Autocomplete2 = _interopRequireDefault(_Autocomplete);
 
@@ -49704,7 +49794,7 @@ exports.default = _Autocomplete2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 288 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49724,7 +49814,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(289);
+var _README = __webpack_require__(291);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -49800,13 +49890,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 289 */
+/* 291 */
 /***/ (function(module, exports) {
 
 module.exports = "# Autocomplete\nAn input field with a set of predeterminated labeled values. When it's focused\nit shows a list of options that are filtered by label as the user types.\n\n## Example\n\n```javascript\nconst countries = [\n  { label: 'Andorra', value: 'AN' },\n  { label: 'China', value: 'CN' },\n  { label: 'Cuba', value: 'CUB' },\n  { label: 'France', value: 'FR' },\n  { label: 'Germany', value: 'DEU' },\n  { label: 'Greece', value: 'GR' },\n  { label: 'Italy', value: 'IT' },\n  { label: 'Japan', value: 'JP' },\n  { label: 'Korea', value: 'KO' },\n  { label: 'Morocco', value: 'MOR' },\n  { label: 'Spain', value: 'ES' },\n  { label: 'United Kingdom', value: 'GB' },\n  { label: 'United States', value: 'US' }\n];\n\nconst countryTemplate = country => (\n  <div>\n    <img src=\"http://via.placeholder.com/30x30\" /> {country.label}\n  </div>\n);\n\n<Autocomplete\n  label=\"Search enabled\"\n  name=\"search\"\n  options={countries}\n  placeholder=\"Select a country\"\n  required\n  template={countryTemplate}\n/>\n<Autocomplete\n  floatingLabel={false}\n  label=\"Default label\"\n  name=\"default\"\n  options={countries}\n  placeholder=\"Select a country\"\n  required\n  template={countryTemplate}\n/>\n<Autocomplete\n  hint=\"You can't search here, It's like a dropdown\"\n  label=\"Search disabled\"\n  minOptionsForSearch={25}\n  name=\"disabled\"\n  options={countries}\n  placeholder=\"Select a country\"\n/>\n<Autocomplete\n  error=\"This field is required\"\n  label=\"Autocomplete with error\"\n  name=\"error\"\n  options={countries}\n  placeholder=\"Select a country\"\n/>\n<Autocomplete\n  label=\"Disabled autocomplete\"\n  name=\"country\"\n  options={countries}\n  placeholder=\"Select a country\"\n  value=\"ES\"\n  disabled\n/>\n<Autocomplete\n  label=\"Read only autocomplete\"\n  name=\"country\"\n  options={countries}\n  placeholder=\"Select a country\"\n  value=\"US\"\n  readOnly\n/>\n\n```\n\n## Properties\n\n| Property            | Req   | Type       | Description                                                            | Default   |\n| ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |\n| disabled            | no    | bool       | Input field is disabled                                                | false     |\n| error               | no    | string     | Error message                                                          |           |\n| hint                | no    | string     | Help message below the autocomplete                                    |           |\n| floatingLabel       | no    | bool       | Floating label inside the input field                                  | true      |\n| fuseConfig          | no    | object     | Fuse.js configuration                                                  | \\(*\\)     |\n| hint                | no    | string     | Help message below the autocomplete                                    |           |\n| label               | no    | string     | The text string to use for HTML label tag                              |           |\n| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                        | Infinity  |\n| name                | yes   | string     | The name of input element                                              |           |\n| onBlur              | no    | func       | Callback function that is fired when component is blurred              |           |\n| onChange            | no    | func       | Callback function that is fired when the components's value changes    |           |\n| onFocus             | no    | func       | Callback function that is fired when component is focused              |           |\n| options             | yes   | array      | Array representing all items                                           |           |\n| placeholder         | no    | string     | Short hint that describes the expected value of the input field        |           |\n| readOnly            | no    | bool       | Input field is read only                                               | false     |\n| required            | no    | bool       | Set the field to required                                              | false     |\n| template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |\n| value               | no    | string     | Default value                                                          | null      |\n\n### (*) Fuse.js\nThe Autocomplete component uses [Fuse.js](http://fusejs.io) search library, using this default configuration:\n\n```\nconst fuseConfig = {\n  shouldSort: true,\n  tokenize: true,\n  matchAllTokens: true,\n  threshold: 0.3,\n  location: 0,\n  distance: 100,\n  maxPatternLength: 32,\n  minMatchCharLength: 1,\n  keys: ['label']\n}\n\n<Autocomplete fuseConfig={fuseConfig} />\n```\n"
 
 /***/ }),
-/* 290 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49816,7 +49906,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Button = __webpack_require__(291);
+var _Button = __webpack_require__(293);
 
 var _Button2 = _interopRequireDefault(_Button);
 
@@ -49826,7 +49916,7 @@ exports.default = _Button2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 291 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49846,7 +49936,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(292);
+var _README = __webpack_require__(294);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -49869,13 +49959,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 292 */
+/* 294 */
 /***/ (function(module, exports) {
 
 module.exports = "# Button\nButton element\n\n## Example\n\n```javascript\n<Button onClick={() => alert('You clicked me!')}>Click Me!</Button>\n```\n\n## Properties\n\n| Property         | Req   | Type                  | Description                                               | Default   |\n| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |\n| children         | no    | array, object, string | Children node                                             | `Submit`  |\n| onBlur           | no    | func                  | Callback function that is fired when component is clicked |           |\n| type             | yes   | string                | Button type f.e button, submit, reset                     |           |\n"
 
 /***/ }),
-/* 293 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49885,7 +49975,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Datepicker = __webpack_require__(294);
+var _Datepicker = __webpack_require__(296);
 
 var _Datepicker2 = _interopRequireDefault(_Datepicker);
 
@@ -49895,7 +49985,7 @@ exports.default = _Datepicker2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 294 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49915,7 +50005,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(295);
+var _README = __webpack_require__(297);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -49965,13 +50055,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 295 */
+/* 297 */
 /***/ (function(module, exports) {
 
 module.exports = "# Datepicker\nDatepickers are used to select a single date for an input.\n\n## Example\n\n```javascript\n<Datepicker\n  label=\"Date of Birth\"\n  locale=\"ES\"\n  name=\"birthday\"\n  onChange={(name, date) => alert(`Your ${name} is the ${date}`)}\n  required\n  value=\"04/21/1979\"\n/>\n<Datepicker label=\"Pick a Date\" locale=\"ES\" name=\"floatingLabel\" />\n<Datepicker\n  floatingLabel={false}\n  label=\"Pick a Date\"\n  locale=\"ES\"\n  name=\"other\"\n  value=\"04/21/1979\"\n/>\n<Datepicker\n  label=\"Disabled Date Picker\"\n  locale=\"ES\"\n  name=\"disabled\"\n  required\n  value=\"04/21/1979\"\n  disabled\n/>\n<Datepicker\n  label=\"Read Only Date Picker\"\n  locale=\"ES\"\n  name=\"readOnly\"\n  required\n  value=\"04/21/1979\"\n  readOnly\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| disabled         | no    | bool           | Date Picker is disabled                                             | false     |\n| error            | no    | string         | Error message                                                       |           |\n| floatingLabel    | no    | bool           | Floating label inside the input field                               | true      |\n| hint             | no    | string         | Help message below the autocomplete                                 |           |\n| label            | no    | string         | The text string to use for HTML label tag                           |           |\n| locale           | no    | string         | Locale                                                              | EN        |\n| name             | yes   | string         | Name and id of the input element                                    |           |\n| onBlur           | no    | func           | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func           | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool           | Input field is read-only                                            | false     |\n| required         | no    | bool           | Set the field to required                                           | false     |\n| value            | no    | number, string | field value                                                         |           |\n"
 
 /***/ }),
-/* 296 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49981,7 +50071,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _FormGroup = __webpack_require__(297);
+var _FormGroup = __webpack_require__(299);
 
 var _FormGroup2 = _interopRequireDefault(_FormGroup);
 
@@ -49991,7 +50081,7 @@ exports.default = _FormGroup2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 297 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50011,7 +50101,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(298);
+var _README = __webpack_require__(300);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50069,13 +50159,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 298 */
+/* 300 */
 /***/ (function(module, exports) {
 
 module.exports = "# FormGroup\n\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\n<FormGroup\n  className=\"FormGroup GridColumn\"\n  floatingLabel={false}\n  hint=\"This is a hint text\"\n  label=\"Payment Amount\"\n  name=\"amount\"\n>\n  <Input type=\"number\" name=\"amount\" />\n</FormGroup>\n\n<FormGroup\n  className=\"FormGroup GridColumn\"\n  error=\"The amount is too low\"\n  floatingLabel={false}\n  label=\"Field with error\"\n  name=\"error\"\n>\n  <Input type=\"text\" name=\"amount\" />\n</FormGroup>\n\n<FormGroup\n  name=\"amount\"\n  floatingLabel={false}\n  label=\"Disabled field\"\n  className=\"FormGroup GridColumn is-disabled\"\n>\n  <Input type=\"text\" name=\"amount\" value=\"Disabled\" disabled />\n</FormGroup>\n\n<FormGroup\n  name=\"amount\"\n  floatingLabel={false}\n  label=\"Read Only field\"\n  className=\"FormGroup GridColumn is-readOnly\"\n>\n  <Input type=\"text\" name=\"amount\" value=\"Read Only\" readOnly />\n</FormGroup>\n```\n\n## Properties\n\n| Property      | Req | Type   | Description                              | Default |\n| ------------- | --- | ------ | ---------------------------------------- | ------- |\n| children      | yes | node   | Children node                            |         |\n| className     | no  | string | Rewrite default CSS class                |         |\n| disabled      | no  | bool   | Input is disabled                        | false   |\n| error         | no  | string | Error message                            |         |\n| floatingLabel | no  | bool   | Floating label inside the input field    | true    |\n| floatingLabel | no  | bool   | Floating label inside the input field    | true    |\n| hasPrefix     | no  | bool   | Whether or not has a symbol on the left  | false   |\n| hasSuffix     | no  | bool   | Whether or not has a symbol on the right | false   |\n| hasValue      | no  | bool   | Whether or not has the value set         | false   |\n| hint          | no  | string | Shows help message                       |         |\n| isFocused     | no  | bool   | Whether or not the field is focused      | false   |\n| label         | no  | string | Label tag text                           |         |\n| name          | yes | string | Name and id of the children              |         |\n| readOnly      | no  | bool   | Input field is read only                 | false   |\n| required      | no  | bool   | Set the field to required                | false   |\n"
 
 /***/ }),
-/* 299 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50085,7 +50175,70 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _MoneyInput = __webpack_require__(300);
+var _Heading = __webpack_require__(302);
+
+var _Heading2 = _interopRequireDefault(_Heading);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = _Heading2.default;
+module.exports = exports['default'];
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Component = __webpack_require__(5);
+
+var _Component2 = _interopRequireDefault(_Component);
+
+var _README = __webpack_require__(303);
+
+var _README2 = _interopRequireDefault(_README);
+
+var _src = __webpack_require__(4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  return _react2.default.createElement(
+    _Component2.default,
+    { readme: _README2.default },
+    _react2.default.createElement(_src.Heading, { as: 'h1', size: 'large', text: 'Title' })
+  );
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports) {
+
+module.exports = "# Heading\n\nWraps a header.\n\n## Example\n\n```javascript\n<Heading as=\"h1\" size=\"large\" text=\"Title\" />\n```\n\n## Properties\n\n| Property      | Req | Type   | Description                              | Default |\n| ------------- | --- | ------ | ---------------------------------------- | ------- |\n| as            | no  | string | Html Tag                                 | h1      |\n| size          | no  | string | Size added as class                      | huge    |\n| text          | no  | string | Text show in the header                  |         |\n"
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _MoneyInput = __webpack_require__(305);
 
 var _MoneyInput2 = _interopRequireDefault(_MoneyInput);
 
@@ -50095,7 +50248,7 @@ exports.default = _MoneyInput2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 300 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50115,7 +50268,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(301);
+var _README = __webpack_require__(306);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50144,13 +50297,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 301 */
+/* 306 */
 /***/ (function(module, exports) {
 
 module.exports = "# MoneyInput\nAn input field to type a money amount. The amount is autoformated when the input receives the on blur event.\n\n## Example\n\n```javascript\n<MoneyInput\n  currencySymbol=\"€\"\n  decimalMark=\",\"\n  label=\"Insert amount\"\n  name=\"amount\"\n  required\n  symbolFirst={false}\n  thousandsSeparator=\".\"\n  hint=\"Please insert an amount\"\n/>\n<MoneyInput name=\"default\" floatingLabel={false} label=\"Default label\" />\n<MoneyInput name=\"disabled\" label=\"Disabled field\" disabled />\n<MoneyInput name=\"readOnly\" label=\"Read only field\" readOnly />\n```\n\n## Properties\n\n| Property             | Req   | Type             | Description                                                         | Default value   |\n| -------------------- | ----- | ---------------- | ------------------------------------------------------------------- | --------------- |\n| error                | no    | string           | Error message                                                       |                 |\n| disabled             | no    | bool             | Input is disabled                                                   | false           |\n| hint                 | no    | string           | Help message below the autocomplete                                 |                 |\n| label                | no    | string           | The text string to use for HTML label tag                           |                 |\n| currencySymbol       | no    | string           | Currency symbol                                                     | `\"$\"`           |\n| decimalMark          | no    | string           | Decimal separator                                                   | `\".\"`           |\n| disabled             | no    | bool             | Disable input                                                       | `false`         |\n| floatingLabel        | no    | bool             | Floating label inside the input field                               | true            |\n| maxLength            | no    | string, number   | Input max length                                                    | `9`             |\n| name                 | yes   | string           | Input `name` and `id`                                               |                 |\n| onBlur               | no    | func             | Callback function that is fired when component is blurred           |                 |\n| onChange             | no    | func             | Callback function that is fired when the components's value changes |                 |\n| readOnly             | no    | bool             | Input field is read only                                            | false           |\n| required             | no    | bool             | Set the field to required                                           | false           |\n| subunitToUnit        | no    | number           | Conversion to minimun unit                                          | `100`           |\n| symbolFirst          | no    | bool             | The currency symbol goes before or after the amount                 | `true`          |\n| thousandsSeparator   | no    | string           | Thousands separator                                                 | `\",\"`           |\n| value                | no    | number, string   | Default value                                                       |                 |\n"
 
 /***/ }),
-/* 302 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50160,7 +50313,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _PhoneNumber = __webpack_require__(303);
+var _PhoneNumber = __webpack_require__(308);
 
 var _PhoneNumber2 = _interopRequireDefault(_PhoneNumber);
 
@@ -50170,7 +50323,7 @@ exports.default = _PhoneNumber2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 303 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50190,7 +50343,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(304);
+var _README = __webpack_require__(309);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50250,13 +50403,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 304 */
+/* 309 */
 /***/ (function(module, exports) {
 
 module.exports = "# PhoneNumber\nInput for entering and validating international telephone numbers\n\n## Example\n\n```javascript\nconst countries = [\n  {\n    label: 'Spain (+34)',\n    value: 'es',\n    dialingCode: '34',\n    phonePattern: '+.. ... ... ...'\n  },\n  {\n    label: 'United States (+1)',\n    value: 'us',\n    dialingCode: '1',\n    phonePattern: '+. (...) ...-....'\n  }\n]\n\n<PhoneNumber\n  countries={countries}\n  name=\"phone\"\n  label=\"Telephone number\"\n/>\n<PhoneNumber\n  countries={countries}\n  name=\"phone\"\n  label=\"Default label\"\n  floatingLabel={false}\n  value=\"+34\"\n/>\n<PhoneNumber\n  countries={countries}\n  name=\"phone2\"\n  label=\"Default value\"\n  value=\"+34 555 555 555\"\n/>\n<PhoneNumber\n  countries={countries}\n  name=\"phone\"\n  label=\"Disabled phone input\"\n  value=\"+34 555 555 555\"\n  disabled\n/>\n<PhoneNumber\n  countries={countries}\n  name=\"phone\"\n  label=\"Read only phone input\"\n  value=\"+1 111 111 111\"\n  readOnly\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| countries        | yes   | array      | Array of countries                                                  |           |\n| disabled         | no    | bool       | Input is disabled                                                   | false     |\n| error            | no    | string     | Error message                                                       |           |\n| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |\n| hint             | no    | string     | Help message below the autocomplete                                 |           |\n| label            | no    | string     | The text string to use for HTML label tag                           |           |\n| name             | yes   | string     | Name and id of the input element                                    |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| readOnly         | no    | bool       | Input field is read-only                                            | false     |\n| required         | no    | bool       | Set the field to required                                           | false     |\n| value            | no    | bool       | Default value                                                       |           |\n"
 
 /***/ }),
-/* 305 */
+/* 310 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50266,7 +50419,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _InputGroup = __webpack_require__(306);
+var _InputGroup = __webpack_require__(311);
 
 var _InputGroup2 = _interopRequireDefault(_InputGroup);
 
@@ -50276,7 +50429,7 @@ exports.default = _InputGroup2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 306 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50296,7 +50449,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(307);
+var _README = __webpack_require__(312);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50343,13 +50496,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 307 */
+/* 312 */
 /***/ (function(module, exports) {
 
 module.exports = "# InputGroup\nEasily extend form controls by adding text on either side of textual inputs.\n\n## Example\n\n```javascript\n<InputGroup\n  placeholder=\"Enter amount\"\n  name=\"input\"\n  suffix=\"€\"\n  type=\"number\"\n/>\n\n<InputGroup\n  name=\"input\"\n  prefix=\"Tel\"\n  type=\"tel\"\n  value=\"+1 800 346 9252\"\n/>\n\n<InputGroup\n  name=\"input\"\n  prefix=\"http://\"\n  suffix=\".com\"\n  value=\"flywire\"\n  disabled\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type         | Description                            | Default   |\n| ---------------- | ----- | ----------   | -------------------------------------- | --------- |\n| name             | yes   | string       | HTML input `name` attribute            | `null`    |\n| prefix           | no    | string, node | Text or string shown before the input  | `null`    |\n| suffix            | yes   | string       | Text or string shown after the input   | `null`    |\n\nIt also supports all the native HTML attributes, such as `value`, `required`, `disabled`, `placeholder`, `readOnly`, ...\n"
 
 /***/ }),
-/* 308 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50359,7 +50512,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Select = __webpack_require__(309);
+var _Select = __webpack_require__(314);
 
 var _Select2 = _interopRequireDefault(_Select);
 
@@ -50369,7 +50522,7 @@ exports.default = _Select2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 309 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50389,7 +50542,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(310);
+var _README = __webpack_require__(315);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50414,13 +50567,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 310 */
+/* 315 */
 /***/ (function(module, exports) {
 
 module.exports = "# Select\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\nconst values = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<Select\n  name=\"country\"\n  onChange={() => {}}\n  onClick={() => {}}\n  selectedValue=\"US\"\n  values={values}\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type           | Description                                                         | Default   |\n| ---------------- | ----- | -------------- | ------------------------------------------------------------------- | --------- |\n| className        | no    | string         | CSS class name                                                      |           |\n| onChange         | no    | func           | Callback function that is fired when the components's value changes |           |\n| onClick          | no    | func           | Callback function that is fired when component is clicked           |           |\n| selectedValue    | yes   | number, string | Default selected value                                              |           |\n| values           | yes   | array          | Array representing all select options                               |           |\n"
 
 /***/ }),
-/* 311 */
+/* 316 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50430,7 +50583,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Textarea = __webpack_require__(312);
+var _Textarea = __webpack_require__(317);
 
 var _Textarea2 = _interopRequireDefault(_Textarea);
 
@@ -50440,7 +50593,7 @@ exports.default = _Textarea2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 312 */
+/* 317 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50460,7 +50613,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(313);
+var _README = __webpack_require__(318);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50477,13 +50630,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 313 */
+/* 318 */
 /***/ (function(module, exports) {
 
 module.exports = "# Textarea\nDefines a multi-line text input control\n\n## Example\n\n```javascript\n<Textarea name=\"about\" />\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                            | Default   |\n| ---------------- | ----- | ---------- | -------------------------------------- | --------- |\n| name             | yes   | string     | Name and id of the element             |           |\n| required         | no    | bool       | Set the field to required              | false     |\n"
 
 /***/ }),
-/* 314 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50493,7 +50646,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _TextInput = __webpack_require__(315);
+var _TextInput = __webpack_require__(320);
 
 var _TextInput2 = _interopRequireDefault(_TextInput);
 
@@ -50503,7 +50656,7 @@ exports.default = _TextInput2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 315 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50523,7 +50676,7 @@ var _Component = __webpack_require__(5);
 
 var _Component2 = _interopRequireDefault(_Component);
 
-var _README = __webpack_require__(316);
+var _README = __webpack_require__(321);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50588,13 +50741,13 @@ exports.default = function () {
 module.exports = exports['default'];
 
 /***/ }),
-/* 316 */
+/* 321 */
 /***/ (function(module, exports) {
 
 module.exports = "# TextInput\nSpecifies an input field where the user can enter data.\n\n## Example\n\n```javascript\n<TextInput name=\"floating\" label=\"Default\" hint=\"Help text\" />\n<TextInput\n  name=\"default\"\n  label=\"Default\"\n  hint=\"Help text\"\n  floatingLabel={false}\n/>\n<TextInput name=\"default\" label=\"Default\" hint=\"Help text\" />\n<TextInput name=\"password\" type=\"password\" label=\"Password\" hint=\"password\" />\n<TextInput name=\"withprefix\" prefix=\"@\" label=\"With prefix\" />\n<TextInput name=\"withsuffix\" suffix=\".com\" label=\"With suffix\" />\n<TextInput name=\"withvalue\" value=\"Default value\" label=\"With value\" />\n<TextInput name=\"multiline\" multiline label=\"Multiline\" />\n<TextInput\n  name=\"error\"\n  label=\"With error and required\"\n  error=\"Please, fill this field\"\n  placeholder=\"Placeholder\"\n  required\n/>\n<TextInput\n  name=\"disabled\"\n  label=\"Disabled\"\n  value=\"this is a disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readOnly\"\n  label=\"Read Only\"\n  value=\"this is a read only input\"\n  readOnly\n/>\n<TextInput\n  name=\"disabledWithPrefix\"\n  prefix=\"@\"\n  label=\"With prefix disabled input\"\n  disabled\n/>\n<TextInput\n  name=\"readonlyWithSuffix\"\n  suffix=\".com\"\n  label=\"With suffix read only input\"\n  readOnly\n/>\n```\n\n## Properties\n\n| Property         | Req   | Type       | Description                                                         | Default   |\n| ---------------- | ----- | ---------- | ------------------------------------------------------------------- | --------- |\n| disabled         | no    | bool       | Input is disabled                                                   | false     |\n| error            | no    | string     | Error message                                                       |           |\n| hint             | no    | string     | Help message below the autocomplete                                 |           |\n| floatingLabel    | no    | bool       | Floating label inside the input field                               | true      |\n| label            | no    | string     | The text string to use for HTML label tag                           |           |\n| multiline        | no    | bool       | Enable or disable multiline                                         |           |\n| name             | no    | string     | Name and id of the element                                          |           |\n| onBlur           | no    | func       | Callback function that is fired when component is blurred           |           |\n| onChange         | no    | func       | Callback function that is fired when the components's value changes |           |\n| onFocus          | no    | func       | Callback function that is fired when component is focused           |           |\n| placeholder      | no    | string     | Short hint that describes the expected value of the input field     |           |\n| prefix           | no    | string     | Button group                                                        |           |\n| readOnly         | no    | bool       | Input is read-only                                                  | false     |\n| required         | no    | bool       | Set the field to required                                           | false     |\n| suffix            | no    | string     | Button group                                                        |           |\n| value            | no    | string     | Default value                                                       |           |\n\nIt also supports all the native HTML attributes, such as `placeholder`, `readOnly`, ...\n"
 
 /***/ }),
-/* 317 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50604,7 +50757,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Title = __webpack_require__(318);
+var _Title = __webpack_require__(323);
 
 var _Title2 = _interopRequireDefault(_Title);
 
@@ -50614,7 +50767,7 @@ exports.default = _Title2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 318 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50628,7 +50781,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _package = __webpack_require__(319);
+var _package = __webpack_require__(324);
 
 var _package2 = _interopRequireDefault(_package);
 
@@ -50651,13 +50804,13 @@ exports.default = Title;
 module.exports = exports['default'];
 
 /***/ }),
-/* 319 */
+/* 324 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.6.0","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.1","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.8","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.15.0","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.4.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.15","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.12","prettier":"^1.10.0","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.10.0","webpack-dev-server":"^2.10.1","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.6.1","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.0","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.0"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.1","babel-loader":"^7.0.0","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.8","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.15.0","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.3.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.4.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.5.1","eslint-plugin-standard":"^3.0.1","flystyles":"^2.1.15","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.12","prettier":"^1.10.0","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.10.0","webpack-dev-server":"^2.10.1","webpack-hot-middleware":"^2.21.0"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
-/* 320 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50667,7 +50820,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Home = __webpack_require__(321);
+var _Home = __webpack_require__(326);
 
 var _Home2 = _interopRequireDefault(_Home);
 
@@ -50677,7 +50830,7 @@ exports.default = _Home2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 321 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50695,7 +50848,7 @@ var _Markdown = __webpack_require__(164);
 
 var _Markdown2 = _interopRequireDefault(_Markdown);
 
-var _README = __webpack_require__(322);
+var _README = __webpack_require__(327);
 
 var _README2 = _interopRequireDefault(_README);
 
@@ -50719,19 +50872,19 @@ exports.default = Home;
 module.exports = exports['default'];
 
 /***/ }),
-/* 322 */
+/* 327 */
 /***/ (function(module, exports) {
 
 module.exports = "# Flycomponents\n\nFlycomponents is a set a react UI components used to create payment forms in Flywire.\n\n## Installation\n\nAdd the dependency to your `package.json`:\n\n```javascript\n\"flycomponents\": \"git+https://github.com/peertransfer/flycomponents.git\"\n```\n\n## Create a new release\n\nTo create a new release, make all the changes that you need and commit them, then execute:\n\n```bash\nnpm version [<newversion> | major | minor | patch | premajor | preminor | prepatch | prerelease | from-git]\n```\nFor example:\n\n```bash\nnpm version patch\n```\nThis will bump the `package.json` version, build a new bundle, commit,push the changes tagging them to a new release and update the documentation.\n\n## Documentation\n\n[http://flycomponents.flywire.lol](http://flycomponents.flywire.lol)\n\nThe documentation source is under the `docs` folder.\nTo update the documentation and publish the changes to Github Pages:\n\n```\n> make bash\ndocs# npm run build:docs\n> # commit the changes\n```\n"
 
 /***/ }),
-/* 323 */
+/* 328 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMTciIHZpZXdCb3g9IjAgMCAyMCAxNyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+aWNvbi0tbWVudTwvdGl0bGU+PGcgZmlsbD0iIzM2NDI1MCIgZmlsbC1ydWxlPSJldmVub2RkIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMyIgcng9IjEuNSIvPjxyZWN0IHk9IjciIHdpZHRoPSIxNSIgaGVpZ2h0PSIzIiByeD0iMS41Ii8+PHJlY3QgeT0iMTQiIHdpZHRoPSIyMCIgaGVpZ2h0PSIzIiByeD0iMS41Ii8+PC9nPjwvc3ZnPgo="
 
 /***/ }),
-/* 324 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -50762,7 +50915,7 @@ if(true) {
 }
 
 /***/ }),
-/* 325 */
+/* 330 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)(false);
@@ -50776,7 +50929,7 @@ exports.push([module.i, "*,::after,::before{box-sizing:border-box}body,html{heig
 
 
 /***/ }),
-/* 326 */
+/* 331 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(17)(false);
