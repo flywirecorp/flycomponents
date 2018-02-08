@@ -8,6 +8,7 @@ import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
 import Datepicker from './components/Datepicker';
 import FormGroup from './components/FormGroup';
+import Heading from './components/Heading';
 import MoneyInput from './components/MoneyInput';
 import PhoneNumber from './components/PhoneNumber';
 import InputGroup from './components/InputGroup';
@@ -57,6 +58,11 @@ const routes = [
     path: '/form-group',
     label: 'FormGroup',
     component: FormGroup
+  },
+  {
+    path: '/heading',
+    label: 'Heading',
+    component: Heading
   },
   {
     path: '/input-group',
