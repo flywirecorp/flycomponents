@@ -12,7 +12,7 @@ describe('Heading', () => {
 
     test('shows the sent text to the component', () => {
       const text = 'a_text';
-      const wrapper = shallow(<Heading text={text} />);
+      const wrapper = shallow(<Heading>{text}</Heading>);
       const h1 = wrapper.find('h1.Heading');
 
       expect(h1.text()).toEqual(text);

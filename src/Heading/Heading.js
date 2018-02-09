@@ -5,7 +5,7 @@ const DEFAULT_SIZE = 'huge';
 const DEFAULT_TAG = 'h1';
 const SUPPORTED_TAGS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-export const Heading = ({ text, as, size, className, ...props }) => {
+export const Heading = ({ children, as, size, className, ...props }) => {
   const Element = as;
   if (!SUPPORTED_TAGS.includes(Element)) {
     throw new Error('Unsupported type');
@@ -13,7 +13,11 @@ export const Heading = ({ text, as, size, className, ...props }) => {
 
   const joinedClassNames = joinClassNames(size, className);
 
-  return <Element className={joinedClassNames} {...props}>{text}</Element>;
+  return (
+    <Element className={joinedClassNames} {...props}>
+      {children}
+    </Element>
+  );
 };
 
 const joinClassNames = (size, className) => {
@@ -33,9 +37,9 @@ Heading.defaultProps = {
 
 Heading.propTypes = {
   as: PropTypes.string,
+  children: PropTypes.node,
   className: PropTypes.string,
-  size: PropTypes.string,
-  text: PropTypes.string
+  size: PropTypes.string
 };
 
 export default Heading;

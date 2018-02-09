@@ -6,7 +6,9 @@ import { Heading } from '../../../../src';
 export default () => {
   return (
     <Component readme={README}>
-      <Heading as="h1" size="large" text="Title" />
+      <Heading as="h1" size="large">
+        Title
+      </Heading>
     </Component>
   );
 };

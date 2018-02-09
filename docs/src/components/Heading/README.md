@@ -5,7 +5,9 @@ Wraps a header.
 ## Example
 
 ```javascript
-<Heading as="h1" size="large" text="Title" />
+<Heading as="h1" size="large">
+  Title
+</Heading>
 ```
 
 ## Properties
@@ -14,4 +16,5 @@ Wraps a header.
 | ------------- | --- | ------ | ---------------------------------------- | ------- |
 | as            | no  | string | Html Tag                                 | h1      |
 | size          | no  | string | Size added as class                      | huge    |
-| text          | no  | string | Text show in the header                  |         |
+| children      | no  | node   | Children in the header                   |         |
+| className     | no  | string | Classes to add to the component          |         |
