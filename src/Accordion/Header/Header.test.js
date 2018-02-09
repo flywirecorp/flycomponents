@@ -1,13 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Header from './Header';
-import Heading from '../../Heading';
 
 describe('Header', () => {
   it('renders its children', () => {
-    const wrapper = shallow(<Header>A text</Header>);
+    const wrapper = shallow(
+      <Header>
+        <div className="div" />
+      </Header>
+    );
 
-    expect(wrapper.find(Heading).prop('text')).toEqual('A text');
+    expect(wrapper.find('.div').length).toEqual(1);
   });
 
   it('executes setActive when click', () => {
