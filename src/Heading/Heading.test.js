@@ -47,5 +47,13 @@ describe('Heading', () => {
 
       expect(wrapper.find('.Heading.customClass').length).toEqual(1);
     });
+
+    test('adds custom attributes', () => {
+      const wrapper = shallow(
+        <Heading className="customClass" data-qa="custom" />
+      );
+
+      expect(wrapper.find('.Heading[data-qa="custom"]').length).toEqual(1);
+    });
   });
 });
