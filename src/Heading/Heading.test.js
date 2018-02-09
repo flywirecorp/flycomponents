@@ -41,5 +41,11 @@ describe('Heading', () => {
         shallow(<Heading as="p" />);
       }).toThrow('Unsupported type');
     });
+
+    test('merges classNames sent with their default classes', () => {
+      const wrapper = shallow(<Heading className="customClass" />);
+
+      expect(wrapper.find('.Heading.customClass').length).toEqual(1);
+    });
   });
 });

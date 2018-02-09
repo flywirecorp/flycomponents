@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Heading from '../../Heading';
 
 const Header = ({ children, setActive }) => (
   <header className="Accordion-sectionHeader" onClick={setActive}>
-    <h3 className="Accordion-sectionTitle">{children}</h3>
+    <Heading as="h2" size="large" className="margin-0" text={children} />
   </header>
 );
 
