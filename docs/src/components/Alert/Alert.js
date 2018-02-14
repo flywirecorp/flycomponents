@@ -15,12 +15,12 @@ export default () => (
     </Alert>
 
     <Alert type="warning">
-      <strong>Warning!</strong> Better check yourself, you're not looking too
+      <strong>Warning!</strong> Better check yourself, you are not looking too
       good.
     </Alert>
 
     <Alert type="info">
-      <strong>Heads up!</strong> This alert needs your attention, but it's not
+      <strong>Heads up!</strong> This alert needs your attention, but it is not
       super important.
     </Alert>
   </Component>

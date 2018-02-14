@@ -97,15 +97,13 @@ const routes = [
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
-  <Route
-    path={to}
-    exact={activeOnlyWhenExact}
-    children={({ match }) => (
+  <Route path={to} exact={activeOnlyWhenExact}>
+    {({ match }) => (
       <li className={match ? 'MenuLink is-active' : 'MenuLink'}>
         <Link to={to}>{label}</Link>
       </li>
     )}
-  />
+  </Route>
 );
 
 MenuLink.propTypes = {

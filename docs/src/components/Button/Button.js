@@ -8,7 +8,8 @@ export default () => (
     <Button
       className="Button Button--primary"
       onClick={() => alert('You clicked me!')}
-      children="Click Me!"
-    />
+    >
+      Click me!
+    </Button>
   </Component>
 );
