@@ -7,6 +7,7 @@ import FormGroup from './FormGroup';
 import Heading from './Heading';
 import Input from './Input';
 import InputGroup from './InputGroup';
+import Modal from './Modal';
 import MoneyInput from './MoneyInput';
 import PhoneNumber from './PhoneNumber';
 import Select from './Select';
@@ -23,6 +24,7 @@ export {
   Heading,
   Input,
   InputGroup,
+  Modal,
   MoneyInput,
   PhoneNumber,
   Select,

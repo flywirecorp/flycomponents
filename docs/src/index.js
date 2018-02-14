@@ -9,6 +9,7 @@ import Button from './components/Button';
 import Datepicker from './components/Datepicker';
 import FormGroup from './components/FormGroup';
 import Heading from './components/Heading';
+import Modal from './components/Modal';
 import MoneyInput from './components/MoneyInput';
 import PhoneNumber from './components/PhoneNumber';
 import InputGroup from './components/InputGroup';
@@ -68,6 +69,11 @@ const routes = [
     path: '/input-group',
     label: 'InputGroup',
     component: InputGroup
+  },
+  {
+    path: '/modal',
+    label: 'Modal',
+    component: Modal
   },
   {
     path: '/money-input',

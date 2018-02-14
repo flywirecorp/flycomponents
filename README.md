@@ -22,7 +22,7 @@ For example:
 ```bash
 npm version patch
 ```
-This will bump the `package.json` version, build a new bundle, commit,push the changes tagging them to a new release and update the documentation.
+This will bump the `package.json` version, build a new bundle, commit, push the changes tagging them to a new release and update the documentation.
 
 ## Documentation
 
