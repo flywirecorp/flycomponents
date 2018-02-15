@@ -1,16 +1,48 @@
 # Modal
 Modal element
 
-## Example
+## Example uncontrolled modal
 
 ```javascript
-<Button className="Button Button--primary" onClick={this.handleClick}>
-  Open modal
-</Button>
+const UncontrolledModal = () => (
+  <Modal defaultIsOp={false}>
+    <div>Modal dialog content</div>
+  </Modal>
+);
+```
 
-<Modal isOpen={showModal} onClose={this.handleClose} size="medium">
-  <div>Modal dialog content</div>
-</Modal>
+## Example controlled modal
+
+```javascript
+class ControlledModal extends React.Component {
+  state = {
+    showModal: false
+  };
+
+  handleClick = () => {
+    this.setState({ showModal: true });
+  };
+
+  handleClose = () => {
+    this.setState({ showModal: false });
+  };
+
+  render() {
+    const { showModal } = this.state;
+
+    return (
+      <React.Fragment>
+        <Button className="Button Button--primary" onClick={this.handleClick}>
+          Open modal
+        </Button>
+
+        <Modal isOpen={showModal} onClose={this.handleClose} size="medium">
+          <div>Controlled modal dialog content</div>
+        </Modal>
+      </React.Fragment>
+    );
+  }
+}
 ```
 
 ## Properties
