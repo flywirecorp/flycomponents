@@ -5,7 +5,7 @@ Modal element
 
 ```javascript
 const UncontrolledModal = () => (
-  <Modal defaultIsOp={false}>
+  <Modal defaultIsOpen={true}>
     <div>Modal dialog content</div>
   </Modal>
 );
