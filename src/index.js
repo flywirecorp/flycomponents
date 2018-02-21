@@ -11,6 +11,7 @@ import Modal from './Modal';
 import MoneyInput from './MoneyInput';
 import PhoneNumber from './PhoneNumber';
 import Select from './Select';
+import Tabs from './Tabs';
 import Textarea from './Textarea';
 import TextInput from './TextInput';
 
@@ -28,6 +29,7 @@ export {
   MoneyInput,
   PhoneNumber,
   Select,
+  Tabs,
   Textarea,
   TextInput
 };

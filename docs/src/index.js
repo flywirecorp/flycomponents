@@ -14,6 +14,7 @@ import MoneyInput from './components/MoneyInput';
 import PhoneNumber from './components/PhoneNumber';
 import InputGroup from './components/InputGroup';
 import Select from './components/Select';
+import Tabs from './components/Tabs';
 import Textarea from './components/Textarea';
 import TextInput from './components/TextInput';
 import Title from './components/Title';
@@ -89,6 +90,11 @@ const routes = [
     path: '/select',
     label: 'Select',
     component: Select
+  },
+  {
+    path: '/tabs',
+    label: 'Tabs',
+    component: Tabs
   },
   {
     path: '/textarea',

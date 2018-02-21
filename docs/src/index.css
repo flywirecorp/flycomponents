@@ -115,3 +115,7 @@
 .Autocomplete-options {
   transition: none;
 }
+
+.Tabs {
+  margin: 0;
+}
