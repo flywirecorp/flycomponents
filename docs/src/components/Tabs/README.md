@@ -13,11 +13,25 @@ return (
       <TabList>
         <Tab>First</Tab>
         <Tab>Second</Tab>
+        <Tab>Third</Tab>
         <Tab isDisabled>Disabled</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>First option content</TabPanel>
         <TabPanel>Second option content</TabPanel>
+        <TabPanel>
+          {({ selectTab }) => (
+            <Button
+              className="Button Button--primary"
+              onClick={() => {
+                selectTab(0);
+              }}
+            >
+              {' '}
+              Go to first{' '}
+            </Button>
+          )}
+        </TabPanel>
         <TabPanel>Third option content</TabPanel>
       </TabPanels>
     </Tabs>

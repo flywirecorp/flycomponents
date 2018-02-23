@@ -1,9 +1,16 @@
 import PropTypes from 'prop-types';
 
-const TabPanel = ({ children }) => children;
+export const TabPanel = ({ children }, { onSelectTab }) =>
+  typeof children === 'function'
+    ? children({ selectTab: onSelectTab })
+    : children;
 
 TabPanel.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired
+};
+
+TabPanel.contextTypes = {
+  onSelectTab: PropTypes.func.isRequired
 };
 
 export default TabPanel;
