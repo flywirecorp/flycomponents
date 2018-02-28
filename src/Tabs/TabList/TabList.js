@@ -26,7 +26,7 @@ export class TabList extends Component {
         }
       });
     });
-    return <div className="TabList">{children}</div>;
+    return <nav className="TabList">{children}</nav>;
   }
 }
 
