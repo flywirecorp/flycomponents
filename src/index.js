@@ -2,6 +2,7 @@ import Accordion from './Accordion';
 import Alert from './Alert';
 import Autocomplete from './Autocomplete';
 import Button from './Button';
+import Checkbox from './Checkbox';
 import Datepicker from './Datepicker';
 import FormGroup from './FormGroup';
 import Heading from './Heading';
@@ -9,6 +10,7 @@ import Input from './Input';
 import InputGroup from './InputGroup';
 import Modal from './Modal';
 import MoneyInput from './MoneyInput';
+import MultipleCheckbox from './MultipleCheckbox';
 import PhoneNumber from './PhoneNumber';
 import Select from './Select';
 import Tabs from './Tabs';
@@ -20,6 +22,7 @@ export {
   Alert,
   Autocomplete,
   Button,
+  Checkbox,
   Datepicker,
   FormGroup,
   Heading,
@@ -27,6 +30,7 @@ export {
   InputGroup,
   Modal,
   MoneyInput,
+  MultipleCheckbox,
   PhoneNumber,
   Select,
   Tabs,
