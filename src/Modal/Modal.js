@@ -7,6 +7,7 @@ const ESCAPE_KEY = 27;
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    className: PropTypes.string,
     defaultIsOpen: PropTypes.bool,
     isOpen: PropTypes.bool,
     onClose: PropTypes.func,
@@ -81,8 +82,8 @@ class Modal extends Component {
   }
 
   render() {
-    const { size, children } = this.props;
-    const className = `Modal Modal--${size}`;
+    const { children, className, size } = this.props;
+    const modalClassName = `Modal Modal--${size} ${className}`;
     const closeButton = (
       <button
         className="Modal-closeButton"
@@ -101,7 +102,7 @@ class Modal extends Component {
     return (
       <Portal>
         <div
-          className={className}
+          className={modalClassName}
           tabIndex="-1"
           role="dialog"
           onClick={this.handleClick}

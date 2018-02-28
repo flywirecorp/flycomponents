@@ -36,7 +36,12 @@ class ControlledModal extends React.Component {
           Open modal
         </Button>
 
-        <Modal isOpen={showModal} onClose={this.handleClose} size="medium">
+        <Modal
+          isOpen={showModal}
+          onClose={this.handleClose}
+          size="medium"
+          className="color-danger"
+        >
           <div>Controlled modal dialog content</div>
         </Modal>
       </React.Fragment>
@@ -51,7 +56,8 @@ class ControlledModal extends React.Component {
 |-|-|-|-|-|
 | children | yes | array, object, string | Children node | |
 | defaultIsOpen | no | boolean | Initial modal state, opened or closed | `true` |
-| isOpen | no | boolean | Button type f.e button, submit, reset | |
+| isOpen | no | boolean | Modal open state | `false` |
 | onClose | no | function | Callback function that is fired when modal is closed | |
 | onOpen | no | function | Callback function that is fired when modal is opened | |
+| className | no | string | CSS class to be applied to Modal | |
 | size | no | string | Modal dialog size: `small` or `medium` | `small` |

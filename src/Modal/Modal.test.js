@@ -77,6 +77,14 @@ describe('Modal', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
+  test('merges content class sent with its default class', () => {
+    const wrapper = shallow(
+      <Modal className="customClass">{dummyContent}</Modal>
+    );
+
+    expect(wrapper.find('.customClass').length).toEqual(1);
+  });
+
   describe('as controlled component', () => {
     test('handles status outside the component', () => {
       let isOpen = true;

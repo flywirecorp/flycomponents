@@ -24,7 +24,12 @@ class ModalExample extends React.Component {
         <Button className="Button Button--primary" onClick={this.handleClick}>
           Open modal
         </Button>
-        <Modal isOpen={showModal} onClose={this.handleClose} size="medium">
+        <Modal
+          isOpen={showModal}
+          onClose={this.handleClose}
+          size="medium"
+          className="color-danger"
+        >
           <div>Modal dialog content</div>
         </Modal>
       </Component>
