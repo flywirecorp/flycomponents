@@ -16,6 +16,7 @@ class Modal extends Component {
   };
 
   static defaultProps = {
+    className: '',
     defaultIsOpen: true,
     onClose: () => {},
     onOpen: () => {},
