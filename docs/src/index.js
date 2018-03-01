@@ -7,10 +7,12 @@ import Alert from './components/Alert';
 import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
 import Datepicker from './components/Datepicker';
+import Checkbox from './components/Checkbox';
 import FormGroup from './components/FormGroup';
 import Heading from './components/Heading';
 import Modal from './components/Modal';
 import MoneyInput from './components/MoneyInput';
+import MultipleCheckbox from './components/MultipleCheckbox';
 import PhoneNumber from './components/PhoneNumber';
 import InputGroup from './components/InputGroup';
 import Select from './components/Select';
@@ -57,6 +59,11 @@ const routes = [
     component: Datepicker
   },
   {
+    path: '/checkbox',
+    label: 'Checkbox',
+    component: Checkbox
+  },
+  {
     path: '/form-group',
     label: 'FormGroup',
     component: FormGroup
@@ -80,6 +87,11 @@ const routes = [
     path: '/money-input',
     label: 'MoneyInput',
     component: MoneyInput
+  },
+  {
+    path: '/multiple-checkbox',
+    label: 'MultipleCheckbox',
+    component: MultipleCheckbox
   },
   {
     path: '/phone-input',
