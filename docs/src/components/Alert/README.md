@@ -1,5 +1,7 @@
 # Alert
-Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.
+
+Provide contextual feedback messages for typical user actions with the handful
+of available and flexible alert messages.
 
 ## Example
 
@@ -29,7 +31,7 @@ Provide contextual feedback messages for typical user actions with the handful o
 
 ## Properties
 
-| Property         | Req   | Type                  | Description                                               | Default   |
-| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |
-| children         | yes   | node 		             | Children node                                             |           |
-| type             | no    | string                | the alert type, can be `danger`, `success`, `warning` or `info` | `info` |
+| Property | Req | Type   | Description                                                     | Default |
+| -------- | --- | ------ | --------------------------------------------------------------- | ------- |
+| children | yes | node   | Children node                                                   |         |
+| type     | no  | string | the alert type, can be `danger`, `success`, `warning` or `info` | `info`  |

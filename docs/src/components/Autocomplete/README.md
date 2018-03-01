@@ -1,4 +1,5 @@
 # Autocomplete
+
 An input field with a set of predeterminated labeled values. When it's focused
 it shows a list of options that are filtered by label as the user types.
 
@@ -35,6 +36,7 @@ const countryTemplate = country => (
   required
   template={countryTemplate}
 />
+
 <Autocomplete
   floatingLabel={false}
   label="Default label"
@@ -44,6 +46,7 @@ const countryTemplate = country => (
   required
   template={countryTemplate}
 />
+
 <Autocomplete
   hint="You can't search here, It's like a dropdown"
   label="Search disabled"
@@ -52,6 +55,7 @@ const countryTemplate = country => (
   options={countries}
   placeholder="Select a country"
 />
+
 <Autocomplete
   error="This field is required"
   label="Autocomplete with error"
@@ -59,6 +63,7 @@ const countryTemplate = country => (
   options={countries}
   placeholder="Select a country"
 />
+
 <Autocomplete
   label="Disabled autocomplete"
   name="country"
@@ -67,6 +72,7 @@ const countryTemplate = country => (
   value="ES"
   disabled
 />
+
 <Autocomplete
   label="Read only autocomplete"
   name="country"
@@ -75,34 +81,35 @@ const countryTemplate = country => (
   value="US"
   readOnly
 />
-
 ```
 
 ## Properties
 
-| Property            | Req   | Type       | Description                                                            | Default   |
-| ------------------- | ----- | ---------- | ---------------------------------------------------------------------- | --------- |
-| disabled            | no    | bool       | Input field is disabled                                                | false     |
-| error               | no    | string     | Error message                                                          |           |
-| hint                | no    | string     | Help message below the autocomplete                                    |           |
-| floatingLabel       | no    | bool       | Floating label inside the input field                                  | true      |
-| fuseConfig          | no    | object     | Fuse.js configuration                                                  | \(*\)     |
-| hint                | no    | string     | Help message below the autocomplete                                    |           |
-| label               | no    | string     | The text string to use for HTML label tag                              |           |
-| minOptionsForSearch | no    | number     | Minimun number of option for enablig the search                        | Infinity  |
-| name                | yes   | string     | The name of input element                                              |           |
-| onBlur              | no    | func       | Callback function that is fired when component is blurred              |           |
-| onChange            | no    | func       | Callback function that is fired when the components's value changes    |           |
-| onFocus             | no    | func       | Callback function that is fired when component is focused              |           |
-| options             | yes   | array      | Array representing all items                                           |           |
-| placeholder         | no    | string     | Short hint that describes the expected value of the input field        |           |
-| readOnly            | no    | bool       | Input field is read only                                               | false     |
-| required            | no    | bool       | Set the field to required                                              | false     |
-| template            | no    | func       | Callback function that returns a JSX template to represent the option  |           |
-| value               | no    | string     | Default value                                                          | null      |
+| Property            | Req | Type   | Description                                                           | Default  |
+| ------------------- | --- | ------ | --------------------------------------------------------------------- | -------- |
+| disabled            | no  | bool   | Input field is disabled                                               | false    |
+| error               | no  | string | Error message                                                         |          |
+| floatingLabel       | no  | bool   | Floating label inside the input field                                 | true     |
+| fuseConfig          | no  | object | Fuse.js configuration                                                 | \(\*\)   |
+| hint                | no  | string | Help message below the autocomplete                                   |          |
+| hint                | no  | string | Help message below the autocomplete                                   |          |
+| label               | no  | string | The text string to use for HTML label tag                             |          |
+| minOptionsForSearch | no  | number | Minimun number of option for enablig the search                       | Infinity |
+| name                | yes | string | The name of input element                                             |          |
+| onBlur              | no  | func   | Callback function that is fired when component is blurred             |          |
+| onChange            | no  | func   | Callback function that is fired when the components's value changes   |          |
+| onFocus             | no  | func   | Callback function that is fired when component is focused             |          |
+| options             | yes | array  | Array representing all items                                          |          |
+| placeholder         | no  | string | Short hint that describes the expected value of the input field       |          |
+| readOnly            | no  | bool   | Input field is read only                                              | false    |
+| required            | no  | bool   | Set the field to required                                             | false    |
+| template            | no  | func   | Callback function that returns a JSX template to represent the option |          |
+| value               | no  | string | Default value                                                         | null     |
 
-### (*) Fuse.js
-The Autocomplete component uses [Fuse.js](http://fusejs.io) search library, using this default configuration:
+### (\*) Fuse.js
+
+The Autocomplete component uses [Fuse.js](http://fusejs.io) search library,
+using this default configuration:
 
 ```
 const fuseConfig = {

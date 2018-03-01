@@ -1,4 +1,5 @@
 # InputGroup
+
 Easily extend form controls by adding text on either side of textual inputs.
 
 ## Example
@@ -29,10 +30,11 @@ Easily extend form controls by adding text on either side of textual inputs.
 
 ## Properties
 
-| Property         | Req   | Type         | Description                            | Default   |
-| ---------------- | ----- | ----------   | -------------------------------------- | --------- |
-| name             | yes   | string       | HTML input `name` attribute            | `null`    |
-| prefix           | no    | string, node | Text or string shown before the input  | `null`    |
-| suffix            | yes   | string       | Text or string shown after the input   | `null`    |
+| Property | Req | Type         | Description                           | Default |
+| -------- | --- | ------------ | ------------------------------------- | ------- |
+| name     | yes | string       | HTML input `name` attribute           | `null`  |
+| prefix   | no  | string, node | Text or string shown before the input | `null`  |
+| suffix   | yes | string       | Text or string shown after the input  | `null`  |
 
-It also supports all the native HTML attributes, such as `value`, `required`, `disabled`, `placeholder`, `readOnly`, ...
+It also supports all the native HTML attributes, such as `value`, `required`,
+`disabled`, `placeholder`, `readOnly`, ...

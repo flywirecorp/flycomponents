@@ -7,14 +7,14 @@ Wraps a header.
 ```javascript
 <Heading as="h1" size="large">
   Title
-</Heading>
+</Heading>;
 ```
 
 ## Properties
 
-| Property      | Req | Type   | Description                              | Default |
-| ------------- | --- | ------ | ---------------------------------------- | ------- |
-| as            | no  | string | Html Tag                                 | h1      |
-| size          | no  | string | Size added as class                      | huge    |
-| children      | no  | node   | Children in the header                   |         |
-| className     | no  | string | Classes to add to the component          |         |
+| Property  | Req | Type   | Description                     | Default |
+| --------- | --- | ------ | ------------------------------- | ------- |
+| as        | no  | string | Html Tag                        | h1      |
+| children  | no  | node   | Children in the header          |         |
+| className | no  | string | Classes to add to the component |         |
+| size      | no  | string | Size added as class             | huge    |

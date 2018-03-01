@@ -1,4 +1,5 @@
 # Tabs
+
 Tabs element
 
 ## Example of Tabs
@@ -41,7 +42,7 @@ return (
 
 ## Properties
 
-| Property | Req | Type | Description | Default |
-|-|-|-|-|-|
-| defaultActiveIndex | no | number | Default visible tab index (zero based) | 0 |
-| isDisabled | no | boolean | Used in the `<Tab>` tag to disable the Tab | `false` |
+| Property           | Req | Type    | Description                                | Default |
+| ------------------ | --- | ------- | ------------------------------------------ | ------- |
+| defaultActiveIndex | no  | number  | Default visible tab index (zero based)     | 0       |
+| isDisabled         | no  | boolean | Used in the `<Tab>` tag to disable the Tab | `false` |

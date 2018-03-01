@@ -1,6 +1,7 @@
 # Accordion
 
 ## Example
+
 ```
 import Accordion from 'flycomponents';
 const { Section, Header, Content } = Accordion;
@@ -37,27 +38,26 @@ const { Section, Header, Content } = Accordion;
 
 ### Accordion
 
-| Property         | Req   | Type                  | Description                                               | Default   |
-| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |
-| activeChildIndex | no    | boolean               | Sets the default section visible                          | 0         |
-| children         | no    | node                  | Children node                                             | []        |
+| Property         | Req | Type    | Description                      | Default |
+| ---------------- | --- | ------- | -------------------------------- | ------- |
+| activeChildIndex | no  | boolean | Sets the default section visible | 0       |
+| children         | no  | node    | Children node                    | []      |
 
 ### Section
 
-| Property         | Req   | Type                  | Description                                               | Default   |
-| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |
-| children         | no    | node, func            | Children node                                             | null      |
-| success          | no    | boolean               | Adds the class `has-success`                              | false     |
+| Property | Req | Type       | Description                  | Default |
+| -------- | --- | ---------- | ---------------------------- | ------- |
+| children | no  | node, func | Children node                | null    |
+| success  | no  | boolean    | Adds the class `has-success` | false   |
 
 ### Header
 
-| Property         | Req   | Type                  | Description                                               | Default   |
-| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |
-| children         | no    | node                  | Children node                                             | null      |
+| Property | Req | Type | Description   | Default |
+| -------- | --- | ---- | ------------- | ------- |
+| children | no  | node | Children node | null    |
 
 ### Content
 
-| Property         | Req   | Type                  | Description                                               | Default   |
-| ---------------- | ----- | --------------------- | --------------------------------------------------------- | --------- |
-| children         | no    | node, func            | Children node                                             | null      |
-
+| Property | Req | Type       | Description   | Default |
+| -------- | --- | ---------- | ------------- | ------- |
+| children | no  | node, func | Children node | null    |
