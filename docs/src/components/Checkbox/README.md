@@ -22,5 +22,5 @@ Wraps a form field. Adds a label, display errors and help texts.
 | --------- | --- | ------ | ----------------------------------------- | ------- |
 | className | no  | string | CSS class name                            |         |
 | error     | no  | string | Error message                             |         |
-| label     | yes | string | The text string to use for HTML label tag |         |
+| label     | yes | string or node | The element to be used as label |         |
 | name      | yes | string | The name string to use for the name attr  |         |
