@@ -4,6 +4,7 @@ import Autocomplete from './Autocomplete';
 import Button from './Button';
 import Checkbox from './Checkbox';
 import Datepicker from './Datepicker';
+import FileInput from './FileInput';
 import FormGroup from './FormGroup';
 import Heading from './Heading';
 import Input from './Input';
@@ -24,6 +25,7 @@ export {
   Button,
   Checkbox,
   Datepicker,
+  FileInput,
   FormGroup,
   Heading,
   Input,

@@ -8,6 +8,7 @@ import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
 import Datepicker from './components/Datepicker';
 import Checkbox from './components/Checkbox';
+import FileInput from './components/FileInput';
 import FormGroup from './components/FormGroup';
 import Heading from './components/Heading';
 import Modal from './components/Modal';
@@ -62,6 +63,11 @@ const routes = [
     path: '/checkbox',
     label: 'Checkbox',
     component: Checkbox
+  },
+  {
+    path: '/fileinput',
+    label: 'FileInput',
+    component: FileInput
   },
   {
     path: '/form-group',
