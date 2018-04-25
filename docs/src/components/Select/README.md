@@ -11,11 +11,12 @@ const values = [
   { label: 'China', value: 'CN' }
 ]
 
+<Select name="country_1" selectedValue="US" values={values} />
 <Select
-  name="country"
-  onChange={() => {}}
-  onClick={() => {}}
-  selectedValue="US"
+  className="myClass"
+  disabled
+  name="country_2"
+  selectedValue="CN"
   values={values}
 />
 ```
@@ -25,7 +26,9 @@ const values = [
 | Property      | Req | Type           | Description                                                         | Default |
 | ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |
 | className     | no  | string         | CSS class name                                                      |         |
-| onChange      | no  | func           | Callback function that is fired when the components's value changes |         |
-| onClick       | no  | func           | Callback function that is fired when component is clicked           |         |
+| disabled      | no  | boolean        | HTML `disabled` property for the select node                        | false   |
+| name          | no  | string         | `name` property fot the select node                                 |         |
+| onChange      | no  | function       | Callback function that is fired when the components's value changes |         |
+| onClick       | no  | function       | Callback function that is fired when component is clicked           |         |
 | selectedValue | yes | number, string | Default selected value                                              |         |
 | values        | yes | array          | Array representing all select options                               |         |

@@ -12,11 +12,12 @@ export default () => {
 
   return (
     <Component readme={README}>
+      <Select name="country_1" selectedValue="US" values={values} />
       <Select
-        name="country"
-        onChange={() => {}}
-        onClick={() => {}}
-        selectedValue="US"
+        className="myClass"
+        disabled
+        name="country_2"
+        selectedValue="CN"
         values={values}
       />
     </Component>

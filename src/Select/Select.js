@@ -1,33 +1,44 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Select = ({ className, selectedValue, onChange, onClick, values }) => {
+const Select = ({
+  className,
+  name,
+  disabled,
+  onChange,
+  onClick,
+  selectedValue,
+  values
+}) => {
   const options = values.map(option => (
     <option key={option.value} value={option.value}>
       {option.label}
     </option>
   ));
+  const classToAdd = className ? `Select ${className}` : 'Select';
 
   return (
     <select
-      className={`Select ${className}`}
-      value={selectedValue}
+      className={classToAdd}
+      disabled={disabled}
+      name={name}
       onChange={onChange}
       onClick={onClick}
+      value={selectedValue}
     >
       {options}
     </select>
   );
 };
 
-const { array, func, number, oneOfType, string } = PropTypes;
-
 Select.propTypes = {
-  className: string,
-  onChange: func.isRequired,
-  onClick: func.isRequired,
-  selectedValue: oneOfType([number, string]),
-  values: array.isRequired
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  name: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  values: PropTypes.array.isRequired
 };
 
 Select.defaultProps = {
