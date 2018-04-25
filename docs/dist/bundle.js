@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "61d0818ecab060f58939"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7c7ad726b34ed06a070e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -45825,21 +45825,23 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(2);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Select = function Select(_ref) {
   var className = _ref.className,
-      selectedValue = _ref.selectedValue,
+      name = _ref.name,
+      disabled = _ref.disabled,
       onChange = _ref.onChange,
       onClick = _ref.onClick,
+      selectedValue = _ref.selectedValue,
       values = _ref.values;
 
   var options = values.map(function (option) {
@@ -45849,32 +45851,30 @@ var Select = function Select(_ref) {
       option.label
     );
   });
+  var classToAdd = className ? 'Select ' + className : 'Select';
 
   return _react2.default.createElement(
     'select',
     {
-      className: 'Select ' + className,
-      value: selectedValue,
+      className: classToAdd,
+      disabled: disabled,
+      name: name,
       onChange: onChange,
-      onClick: onClick
+      onClick: onClick,
+      value: selectedValue
     },
     options
   );
 };
 
-var array = _propTypes2.default.array,
-    func = _propTypes2.default.func,
-    number = _propTypes2.default.number,
-    oneOfType = _propTypes2.default.oneOfType,
-    string = _propTypes2.default.string;
-
-
 Select.propTypes = {
-  className: string,
-  onChange: func.isRequired,
-  onClick: func.isRequired,
-  selectedValue: oneOfType([number, string]),
-  values: array.isRequired
+  className: _propTypes2.default.string,
+  disabled: _propTypes2.default.bool,
+  name: _propTypes2.default.string,
+  onChange: _propTypes2.default.func.isRequired,
+  onClick: _propTypes2.default.func.isRequired,
+  selectedValue: _propTypes2.default.oneOfType([_propTypes2.default.number, _propTypes2.default.string]),
+  values: _propTypes2.default.array.isRequired
 };
 
 Select.defaultProps = {
@@ -52270,11 +52270,12 @@ exports.default = function () {
   return _react2.default.createElement(
     _Component2.default,
     { readme: _README2.default },
+    _react2.default.createElement(_src.Select, { name: 'country_1', selectedValue: 'US', values: values }),
     _react2.default.createElement(_src.Select, {
-      name: 'country',
-      onChange: function onChange() {},
-      onClick: function onClick() {},
-      selectedValue: 'US',
+      className: 'myClass',
+      disabled: true,
+      name: 'country_2',
+      selectedValue: 'CN',
       values: values
     })
   );
@@ -52286,7 +52287,7 @@ module.exports = exports['default'];
 /* 347 */
 /***/ (function(module, exports) {
 
-module.exports = "# Select\n\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\nconst values = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<Select\n  name=\"country\"\n  onChange={() => {}}\n  onClick={() => {}}\n  selectedValue=\"US\"\n  values={values}\n/>\n```\n\n## Properties\n\n| Property      | Req | Type           | Description                                                         | Default |\n| ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |\n| className     | no  | string         | CSS class name                                                      |         |\n| onChange      | no  | func           | Callback function that is fired when the components's value changes |         |\n| onClick       | no  | func           | Callback function that is fired when component is clicked           |         |\n| selectedValue | yes | number, string | Default selected value                                              |         |\n| values        | yes | array          | Array representing all select options                               |         |\n"
+module.exports = "# Select\n\nWraps a form field. Adds a label, display errors and help texts.\n\n## Example\n\n```javascript\nconst values = [\n  { label: 'Spain', value: 'ES' },\n  { label: 'United States', value: 'US' },\n  { label: 'China', value: 'CN' }\n]\n\n<Select name=\"country_1\" selectedValue=\"US\" values={values} />\n<Select\n  className=\"myClass\"\n  disabled\n  name=\"country_2\"\n  selectedValue=\"CN\"\n  values={values}\n/>\n```\n\n## Properties\n\n| Property      | Req | Type           | Description                                                         | Default |\n| ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |\n| className     | no  | string         | CSS class name                                                      |         |\n| disabled      | no  | boolean        | HTML `disabled` property for the select node                        | false   |\n| name          | no  | string         | `name` property fot the select node                                 |         |\n| onChange      | no  | function       | Callback function that is fired when the components's value changes |         |\n| onClick       | no  | function       | Callback function that is fired when component is clicked           |         |\n| selectedValue | yes | number, string | Default selected value                                              |         |\n| values        | yes | array          | Array representing all select options                               |         |\n"
 
 /***/ }),
 /* 348 */
@@ -52661,7 +52662,7 @@ module.exports = exports['default'];
 /* 359 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.10.0","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.6.0","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.1","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.1"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.2","babel-loader":"^7.1.3","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.10","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.18.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.9.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.6.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.7.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.17","prettier":"^1.11.1","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.11.0","webpack-dev-server":"^2.11.2","webpack-hot-middleware":"^2.21.1"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.10.1","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.6.0","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.1","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.1"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.2","babel-loader":"^7.1.3","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.10","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.18.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.9.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.6.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.7.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.17","prettier":"^1.11.1","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.11.0","webpack-dev-server":"^2.11.2","webpack-hot-middleware":"^2.21.1"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
 /* 360 */
