@@ -1,4 +1,4 @@
-.PHONY: up down reload test test-watch bash logs e2e build build-docs
+.PHONY: up down reload test test-watch bash watch logs e2e build build-docs
 
 up:
 	docker-compose up --build -d dev
@@ -18,6 +18,9 @@ test-watch:
 
 bash:
 	docker-compose exec dev bash
+
+watch:
+	docker-compose run --rm dev npm run test:watch
 
 logs:
 	docker-compose logs -f dev
