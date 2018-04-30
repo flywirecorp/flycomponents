@@ -7,7 +7,7 @@ class Checkbox extends Component {
     className: PropTypes.string,
     error: PropTypes.string,
     id: PropTypes.string,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     name: PropTypes.string.isRequired
   };
 
