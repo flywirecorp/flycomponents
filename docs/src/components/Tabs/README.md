@@ -5,7 +5,7 @@ Tabs element
 ## Example of Tabs
 
 ```javascript
-import Tabs from 'flycomponents';
+import { Tabs } from 'flycomponents';
 const { Tab, TabList, TabPanel, TabPanels } = Tabs;
 
 return (
