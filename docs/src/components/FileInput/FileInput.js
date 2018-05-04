@@ -10,6 +10,7 @@ export default () => (
       submit="Upload file"
       hint="This is the hint content"
     />
+    <FileInput placeholder="Choose multiple files" multiple />
     <FileInput uploading />
   </Component>
 );

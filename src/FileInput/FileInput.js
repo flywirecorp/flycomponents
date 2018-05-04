@@ -7,6 +7,7 @@ export class FileInput extends Component {
     accepts: PropTypes.string,
     browse: PropTypes.string,
     hint: PropTypes.string,
+    multiple: PropTypes.bool,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     placeholder: PropTypes.string,
@@ -17,6 +18,7 @@ export class FileInput extends Component {
   static defaultProps = {
     accepts: '',
     browse: 'Browse',
+    multiple: false,
     placeholder: 'Choose document',
     submit: 'Upload',
     uploading: false
@@ -36,6 +38,7 @@ export class FileInput extends Component {
       accepts,
       browse,
       hint,
+      multiple,
       onChange,
       onSubmit,
       placeholder,
@@ -51,6 +54,7 @@ export class FileInput extends Component {
           }}
           type="file"
           accept={accepts}
+          multiple={multiple}
           onChange={onChange}
           data-qa="fileInput"
         />

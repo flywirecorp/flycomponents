@@ -75,13 +75,21 @@ describe('FileInput', () => {
     expect(onSubmit).toBeCalled();
   });
 
-  test('admits accepted extensions', () => {
+  test('accepts accepted extensions', () => {
     const expectedExtension = '.jpg';
     const wrapper = shallow(<FileInput accepts={expectedExtension} />);
 
     const inputFile = wrapper.find('[data-qa="fileInput"]');
 
     expect(inputFile.prop('accept')).toEqual(expectedExtension);
+  });
+
+  test('accepts multiple files', () => {
+    const wrapper = shallow(<FileInput multiple />);
+
+    const inputFile = wrapper.find('[data-qa="fileInput"]');
+
+    expect(inputFile.prop('multiple')).toBe(true);
   });
 
   test('renders a spinner animation while uploading', () => {

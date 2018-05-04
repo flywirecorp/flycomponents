@@ -10,6 +10,9 @@ FileInput element
   submit="Upload file"
   hint="This is the hint content"
 />
+
+<FileInput placeholder="Choose multiple files" multiple />
+
 <FileInput uploading />
 ```
 
@@ -25,3 +28,4 @@ FileInput element
 | placeholder | no  | string   | Input placeholder text                               | "Choose document" |
 | submit      | no  | string   | Submit button text                                   | "Upload"          |
 | uploading   | no  | boolean  | `true` while uploading for button animation          | `false`           |
+| multiple    | no  | boolean  | `true` to accept multiple files upload               | `false`           |
