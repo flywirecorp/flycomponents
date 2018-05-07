@@ -5,22 +5,17 @@ import classNames from 'classnames';
 export class FileInput extends Component {
   static propTypes = {
     accepts: PropTypes.string,
-    browse: PropTypes.string,
+    buttonText: PropTypes.string,
     hint: PropTypes.string,
     multiple: PropTypes.bool,
     onChange: PropTypes.func,
-    onSubmit: PropTypes.func,
-    placeholder: PropTypes.string,
-    submit: PropTypes.string,
     uploading: PropTypes.bool
   };
 
   static defaultProps = {
     accepts: '',
-    browse: 'Browse',
     multiple: false,
-    placeholder: 'Choose document',
-    submit: 'Upload',
+    buttonText: 'Upload',
     uploading: false
   };
 
@@ -36,13 +31,10 @@ export class FileInput extends Component {
   render() {
     const {
       accepts,
-      browse,
       hint,
       multiple,
       onChange,
-      onSubmit,
-      placeholder,
-      submit,
+      buttonText,
       uploading
     } = this.props;
 
@@ -59,11 +51,6 @@ export class FileInput extends Component {
           data-qa="fileInput"
         />
 
-        <div className="FileInput-input" onClick={this.handleClick}>
-          <button data-qa="browseButton">{browse}</button>
-          <span data-qa="fileName">{placeholder}</span>
-        </div>
-
         <p
           className="FileInput-hint"
           dangerouslySetInnerHTML={{ __html: hint }}
@@ -74,10 +61,12 @@ export class FileInput extends Component {
           className={classNames('FileInput-submit', {
             'FileInput--uploading': uploading
           })}
-          onClick={onSubmit}
+          disabled={uploading}
+          onClick={this.handleClick}
+          onChange={onChange}
           data-qa="submitButton"
         >
-          {submit}
+          {buttonText}
         </button>
       </div>
     );

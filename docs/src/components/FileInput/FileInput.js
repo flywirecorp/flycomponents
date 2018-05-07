@@ -6,11 +6,11 @@ import README from './README.md';
 export default () => (
   <Component readme={README}>
     <FileInput
-      placeholder="Choose a file"
-      submit="Upload file"
+      accepts=".png, .jpg"
+      buttonText="Upload a file"
       hint="This is the hint content"
     />
-    <FileInput placeholder="Choose multiple files" multiple />
+    <FileInput buttonText="Upload multiple files" multiple />
     <FileInput uploading />
   </Component>
 );
