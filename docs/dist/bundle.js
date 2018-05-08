@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "f0fd0178ef8df958b5eb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "001d13c70330d2ee325e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -46196,13 +46196,10 @@ var FileInput = exports.FileInput = function (_Component) {
 
       var _props = this.props,
           accepts = _props.accepts,
-          browse = _props.browse,
           hint = _props.hint,
           multiple = _props.multiple,
           onChange = _props.onChange,
-          onSubmit = _props.onSubmit,
-          placeholder = _props.placeholder,
-          submit = _props.submit,
+          buttonText = _props.buttonText,
           uploading = _props.uploading;
 
 
@@ -46219,20 +46216,6 @@ var FileInput = exports.FileInput = function (_Component) {
           onChange: onChange,
           'data-qa': 'fileInput'
         }),
-        _react2.default.createElement(
-          'div',
-          { className: 'FileInput-input', onClick: this.handleClick },
-          _react2.default.createElement(
-            'button',
-            { 'data-qa': 'browseButton' },
-            browse
-          ),
-          _react2.default.createElement(
-            'span',
-            { 'data-qa': 'fileName' },
-            placeholder
-          )
-        ),
         _react2.default.createElement('p', {
           className: 'FileInput-hint',
           dangerouslySetInnerHTML: { __html: hint },
@@ -46244,10 +46227,12 @@ var FileInput = exports.FileInput = function (_Component) {
             className: (0, _classnames2.default)('FileInput-submit', {
               'FileInput--uploading': uploading
             }),
-            onClick: onSubmit,
+            disabled: uploading,
+            onClick: this.handleClick,
+            onChange: onChange,
             'data-qa': 'submitButton'
           },
-          submit
+          buttonText
         )
       );
     }
@@ -46258,21 +46243,16 @@ var FileInput = exports.FileInput = function (_Component) {
 
 FileInput.propTypes = {
   accepts: _propTypes2.default.string,
-  browse: _propTypes2.default.string,
+  buttonText: _propTypes2.default.string,
   hint: _propTypes2.default.string,
   multiple: _propTypes2.default.bool,
   onChange: _propTypes2.default.func,
-  onSubmit: _propTypes2.default.func,
-  placeholder: _propTypes2.default.string,
-  submit: _propTypes2.default.string,
   uploading: _propTypes2.default.bool
 };
 FileInput.defaultProps = {
   accepts: '',
-  browse: 'Browse',
   multiple: false,
-  placeholder: 'Choose document',
-  submit: 'Upload',
+  buttonText: 'Upload',
   uploading: false
 };
 exports.default = FileInput;
@@ -51497,11 +51477,11 @@ exports.default = function () {
     _Component2.default,
     { readme: _README2.default },
     _react2.default.createElement(_src.FileInput, {
-      placeholder: 'Choose a file',
-      submit: 'Upload file',
+      accepts: '.png, .jpg',
+      buttonText: 'Upload a file',
       hint: 'This is the hint content'
     }),
-    _react2.default.createElement(_src.FileInput, { placeholder: 'Choose multiple files', multiple: true }),
+    _react2.default.createElement(_src.FileInput, { buttonText: 'Upload multiple files', multiple: true }),
     _react2.default.createElement(_src.FileInput, { uploading: true })
   );
 };
@@ -51512,7 +51492,7 @@ module.exports = exports['default'];
 /* 323 */
 /***/ (function(module, exports) {
 
-module.exports = "# FileInput\n\nFileInput element\n\n## Example file input\n\n```javascript\n<FileInput\n  placeholder=\"Choose a file\"\n  submit=\"Upload file\"\n  hint=\"This is the hint content\"\n/>\n\n<FileInput placeholder=\"Choose multiple files\" multiple />\n\n<FileInput uploading />\n```\n\n## Properties\n\n| Property    | Req | Type     | Description                                          | Default           |\n| ------------| --- | ---------| ---------------------------------------------------- | ----------------- |\n| accepts     | no  | string   | File extension accepted                              | \"\"                |\n| browse      | no  | string   | Browse button text                                   | \"Browse\"          |\n| hint        | no  | string   | Hint text                                            |                   |\n| onChange    | no  | function | Function to call on file change                      |                   |\n| onSubmit    | no  | function | Function to call on submit the file                  |                   |\n| placeholder | no  | string   | Input placeholder text                               | \"Choose document\" |\n| submit      | no  | string   | Submit button text                                   | \"Upload\"          |\n| uploading   | no  | boolean  | `true` while uploading for button animation          | `false`           |\n| multiple    | no  | boolean  | `true` to accept multiple files upload               | `false`           |\n"
+module.exports = "# FileInput\n\nFileInput element\n\n## Example file input\n\n```javascript\n<FileInput\n  accepts=\".png, .jpg\"\n  buttonText=\"Upload a file\"\n  hint=\"This is the hint content\"\n/>\n<FileInput buttonText=\"Upload multiple files\" multiple />\n<FileInput uploading />\n```\n\n## Properties\n\n| Property    | Req | Type     | Description                                          | Default           |\n| ------------| --- | ---------| ---------------------------------------------------- | ----------------- |\n| accepts     | no  | string   | File extension accepted                              | \"\"                |\n| hint        | no  | string   | Hint text                                            |                   |\n| onChange    | no  | function | Function to call on file change                      |                   |\n| buttonText  | no  | string   | Button text                                          | \"Upload\"          |\n| uploading   | no  | boolean  | `true` while uploading for button animation          | `false`           |\n| multiple    | no  | boolean  | `true` to accept multiple files upload               | `false`           |\n"
 
 /***/ }),
 /* 324 */
@@ -52667,7 +52647,7 @@ module.exports = exports['default'];
 /* 359 */
 /***/ (function(module, exports) {
 
-module.exports = {"name":"flycomponents","version":"2.11.1","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.6.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.1","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.1"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.2","babel-loader":"^7.1.3","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.10","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.18.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.9.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.6.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.7.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.17","prettier":"^1.11.1","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.11.0","webpack-dev-server":"^2.11.2","webpack-hot-middleware":"^2.21.1"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
+module.exports = {"name":"flycomponents","version":"2.11.2","description":"Flywire React components","main":"./dist/flycomponents.js","scripts":{"start":"NODE_ENV=development webpack-dev-server","clean":"rm -rf dist","prebuild":"npm run lint && npm run test && npm run clean","build":"cross-env NODE_ENV=production webpack","build:docs":"cross-env NODE_ENV=development webpack","docs:push":"git add -A docs/dist && git commit -m 'Update docs' && git push","test":"NODE_ENV=test jest","test:watch":"NODE_ENV=test jest --watch","test:update":"NODE_ENV=test npm run test -- -u","lint":"eslint --fix src docs/src","version":"npm run build && git add -A dist && git push && git push --tags","postversion":"npm run build:docs && npm run docs:push && npm publish"},"repository":{"type":"git","url":"git+https://github.com/peertransfer/flycomponents.git"},"author":"","license":"ISC","bugs":{"url":"https://github.com/peertransfer/flycomponents/issues"},"homepage":"https://github.com/peertransfer/flycomponents#readme","dependencies":{"accounting":"^0.4.1","classnames":"^2.2.5","dom-scroll-into-view":"^1.2.1","flystyles":"^2.6.1","fuse.js":"^3.2.0","moment":"^2.20.1","prop-types":"^15.6.1","react":"^16.2.0","react-dom":"^16.2.0","react-onclickoutside":"^6.7.1"},"devDependencies":{"babel-core":"^6.24.1","babel-eslint":"^8.2.2","babel-loader":"^7.1.3","babel-plugin-add-module-exports":"^0.2.1","babel-preset-env":"^1.6.1","babel-preset-react":"^6.24.1","babel-preset-stage-2":"^6.24.1","cross-env":"^5.1.3","css-loader":"^0.28.10","enzyme":"^3.3.0","enzyme-adapter-react-16":"^1.1.1","eslint":"^4.18.1","eslint-config-prettier":"^2.9.0","eslint-config-standard":"^10.2.1","eslint-config-standard-react":"^5.0.0","eslint-loader":"^1.7.1","eslint-plugin-import":"^2.9.0","eslint-plugin-node":"^5.0.0","eslint-plugin-prettier":"^2.6.0","eslint-plugin-promise":"^3.5.0","eslint-plugin-react":"^7.7.0","eslint-plugin-standard":"^3.0.1","github-markdown-css":"^2.10.0","jest":"^21.2.1","marked":"^0.3.17","prettier":"^1.11.1","raf":"^3.4.0","raw-loader":"^0.5.1","react-router-dom":"^4.1.1","style-loader":"^0.19.1","url-loader":"^0.6.2","webpack":"^3.11.0","webpack-dev-server":"^2.11.2","webpack-hot-middleware":"^2.21.1"},"babel":{"moduleId":"flycomponents","presets":["env","stage-2","react"],"plugins":["add-module-exports"]},"eslintConfig":{"parser":"babel-eslint","env":{"browser":true,"jest":true,"mocha":true,"node":true},"extends":["standard","standard-react","prettier","prettier/react"],"plugins":["react","prettier"],"rules":{"strict":0,"no-unused-expressions":0,"react/sort-comp":"error","react/sort-prop-types":"error","prettier/prettier":["error",{"singleQuote":true,"semi":true}]}},"jest":{"testEnvironment":"jsdom","setupFiles":["<rootDir>/jest/setup.js"]}}
 
 /***/ }),
 /* 360 */
