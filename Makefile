@@ -1,7 +1,7 @@
 .PHONY: up down reload test test-watch bash watch logs e2e build build-docs
 
 up:
-	docker-compose up --build -d dev
+	docker-compose up -d dev
 
 down:
 	docker-compose down
