@@ -21,6 +21,7 @@ import Tabs from './components/Tabs';
 import Textarea from './components/Textarea';
 import TextInput from './components/TextInput';
 import Title from './components/Title';
+import Rating from './components/Rating';
 import Home from './components/Home';
 import icon from './images/hamburger-menu.svg';
 import './index.css';
@@ -103,6 +104,11 @@ const routes = [
     path: '/phone-input',
     label: 'PhoneNumber',
     component: PhoneNumber
+  },
+  {
+    path: '/rating',
+    label: 'Rating',
+    component: Rating
   },
   {
     path: '/select',

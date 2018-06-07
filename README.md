@@ -1,6 +1,6 @@
 # Flycomponents
 
-Flycomponents is a set a react UI components used to create payment forms in Flywire.
+Flycomponents is a set of react UI components used to create payment forms in Flywire.
 
 ## Installation
 
