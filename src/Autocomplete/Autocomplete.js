@@ -81,7 +81,7 @@ export class Autocomplete extends Component {
     });
   }
 
-  handleClickOutside() {
+  selectPreviousOption() {
     const { isOpen: wasSearching } = this.state;
     const { options } = this.props;
 
@@ -93,6 +93,10 @@ export class Autocomplete extends Component {
         searchQuery: this.getOptionLabelByValue(options, selectedValue)
       };
     }, wasSearching ? this.sendBlur : null);
+  }
+
+  handleClickOutside() {
+    return this.selectPreviousOption();
   }
 
   showOptions() {
@@ -189,6 +193,7 @@ export class Autocomplete extends Component {
       case ENTER:
         return this.selectCurrentOption();
       case TAB:
+        return this.selectPreviousOption();
       case ESC:
         return this.hideOptions();
     }
