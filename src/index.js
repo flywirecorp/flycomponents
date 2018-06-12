@@ -17,6 +17,7 @@ import Select from './Select';
 import Tabs from './Tabs';
 import Textarea from './Textarea';
 import TextInput from './TextInput';
+import Radio from './Radio';
 
 export {
   Accordion,
@@ -37,5 +38,6 @@ export {
   Select,
   Tabs,
   Textarea,
-  TextInput
+  TextInput,
+  Radio
 };

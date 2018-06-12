@@ -23,6 +23,7 @@ import TextInput from './components/TextInput';
 import Title from './components/Title';
 import Rating from './components/Rating';
 import Home from './components/Home';
+import Radio from './components/Radio';
 import icon from './images/hamburger-menu.svg';
 import './index.css';
 
@@ -109,6 +110,11 @@ const routes = [
     path: '/rating',
     label: 'Rating',
     component: Rating
+  },
+  {
+    path: '/radio',
+    label: 'Radio',
+    component: Radio
   },
   {
     path: '/select',
