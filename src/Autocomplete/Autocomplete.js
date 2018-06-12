@@ -191,9 +191,8 @@ export class Autocomplete extends Component {
       case ARROW_UP:
         return this.moveIndexDown();
       case ENTER:
-        return this.selectCurrentOption();
       case TAB:
-        return this.selectPreviousOption();
+        return this.selectCurrentOption();
       case ESC:
         return this.hideOptions();
     }
