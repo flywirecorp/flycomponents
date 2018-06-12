@@ -71,9 +71,7 @@ class MoneyInput extends Component {
 
   handleBlur = e => {
     const { onBlur } = this.props;
-    const {
-      target: { name, value: amount }
-    } = e;
+    const { target: { name, value: amount } } = e;
     const amountInCents = this.convertToCents(amount);
 
     onBlur(name, amountInCents);
@@ -89,10 +87,7 @@ class MoneyInput extends Component {
   };
 
   handleClick = e => {
-    const {
-      target,
-      target: { value }
-    } = e;
+    const { target, target: { value } } = e;
 
     target.setSelectionRange(0, value.length);
   };
