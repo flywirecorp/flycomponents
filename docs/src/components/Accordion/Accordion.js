@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import Accordion from '../../../../src/Accordion';
 import { Button } from '../../../../src';

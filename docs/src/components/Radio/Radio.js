@@ -8,7 +8,6 @@ export default () => (
     <Radio name="rb1" label="Default" />
     <Radio name="rb2" label="Checked" defaultChecked />
     <Radio name="rb3" label="Disabled" disabled />
-    <Radio name="rb4" label="Checked & Disabled" defaultChecked disabled />
     <Radio name="rb5" label="With error" error="We have an error" />
   </Component>
 );

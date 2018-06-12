@@ -11,8 +11,6 @@ Wraps a form field. Adds a label, display errors and help texts.
 
 <Radio name="rb3" label="Disabled" disabled />
 
-<Radio name="rb4" label="Checked & Disabled" defaultChecked disabled />
-
 <Radio name="rb5" label="With error" error="We have an error" />
 ```
 
