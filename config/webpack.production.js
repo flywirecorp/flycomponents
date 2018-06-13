@@ -3,6 +3,7 @@ var path = require('path');
 
 function buildConfig() {
   return {
+    mode: 'production',
     context: path.resolve(__dirname, '..'),
     entry: {
       main: path.join(__dirname, '..', 'src', 'index.js')

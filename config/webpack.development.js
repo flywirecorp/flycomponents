@@ -7,6 +7,7 @@ var settings = {
 
 function buildConfig(options) {
   return {
+    mode: 'development',
     context: path.resolve(__dirname, '..'),
     target: 'web',
     entry: {
