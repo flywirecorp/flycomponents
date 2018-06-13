@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 function buildConfig() {
   return {
@@ -70,19 +71,26 @@ function buildConfig() {
         amd: 'react-onclickoutside'
       }
     },
+    optimization: {
+      minimizer: [
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            ecma: 8,
+            ie8: false,
+            compress: {
+              warnings: false
+            },
+            output: {
+              comments: false
+            }
+          }
+        })
+      ]
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify(process.env.NODE_ENV)
-        }
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-          screw_ie8: true
-        },
-        output: {
-          comments: false
         }
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),
