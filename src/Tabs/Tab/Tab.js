@@ -9,9 +9,7 @@ const Tab = ({ children, isActive, isDisabled, onSelect }) => (
     className={
       isDisabled
         ? 'Tab-link is-disabled'
-        : isActive
-          ? 'Tab-link is-active'
-          : 'Tab-link'
+        : isActive ? 'Tab-link is-active' : 'Tab-link'
     }
     onClick={isDisabled ? preventDefault : onSelect}
   >
