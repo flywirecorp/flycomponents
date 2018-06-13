@@ -4,10 +4,6 @@ import classNames from 'classnames';
 import Highlighter from '../Highlighter';
 
 class Option extends Component {
-  static defaultProps = {
-    highlighText: true
-  };
-
   static propTypes = {
     hasFocus: PropTypes.bool.isRequired,
     highlighText: PropTypes.bool,
@@ -19,6 +15,10 @@ class Option extends Component {
     }),
     searchQuery: PropTypes.string,
     template: PropTypes.func
+  };
+
+  static defaultProps = {
+    highlighText: true
   };
 
   render() {

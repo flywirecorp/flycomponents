@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export class Tabs extends Component {
-  static childContextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    onSelectTab: PropTypes.func.isRequired
-  };
-
   static propTypes = {
     children: PropTypes.node,
     defaultActiveIndex: PropTypes.number
+  };
+
+  static childContextTypes = {
+    activeIndex: PropTypes.number.isRequired,
+    onSelectTab: PropTypes.func.isRequired
   };
 
   static defaultProps = {

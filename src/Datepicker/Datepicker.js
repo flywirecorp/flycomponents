@@ -24,16 +24,16 @@ class Datepicker extends Component {
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
+  static childContextTypes = {
+    locale: PropTypes.string
+  };
+
   static defaultProps = {
     disabled: false,
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
     readOnly: false
-  };
-
-  static childContextTypes = {
-    locale: PropTypes.string
   };
 
   constructor(props) {

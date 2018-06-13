@@ -14,6 +14,26 @@ const KEYS = [13, 27, 38, 40, 9];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class Autocomplete extends Component {
+  static propTypes = {
+    disabled: PropTypes.bool,
+    error: PropTypes.string,
+    floatingLabel: PropTypes.bool,
+    fuseConfig: PropTypes.object,
+    hint: PropTypes.string,
+    label: PropTypes.string,
+    minOptionsForSearch: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    options: PropTypes.array.isRequired,
+    placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
+    required: PropTypes.bool,
+    template: PropTypes.func,
+    value: PropTypes.string
+  };
+
   static defaultProps = {
     disabled: false,
     floatingLabel: true,
@@ -33,26 +53,6 @@ export class Autocomplete extends Component {
     onChange: () => {},
     onFocus: () => {},
     readOnly: false
-  };
-
-  static propTypes = {
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    floatingLabel: PropTypes.bool,
-    fuseConfig: PropTypes.object,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    minOptionsForSearch: PropTypes.number,
-    name: PropTypes.string.isRequired,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    options: PropTypes.array.isRequired,
-    placeholder: PropTypes.string,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    template: PropTypes.func,
-    value: PropTypes.string
   };
 
   constructor(props) {

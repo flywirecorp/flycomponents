@@ -2,14 +2,14 @@ import React, { Children, Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 
 class Accordion extends Component {
-  static defaultProps = {
-    activeChildIndex: 0,
-    children: []
-  };
-
   static propTypes = {
     activeChildIndex: PropTypes.number,
     children: PropTypes.node
+  };
+
+  static defaultProps = {
+    activeChildIndex: 0,
+    children: []
   };
 
   constructor(props) {
