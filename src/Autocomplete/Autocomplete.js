@@ -66,9 +66,16 @@ export class Autocomplete extends Component {
       selectedValue: value,
       hasValue: !!value
     };
+
+    this.searchInputRef = React.createRef();
+    this.optionListRef = React.createRef();
+    this.setOptionRef = (i, e) => {
+      this[`option-${i}`] = e;
+    };
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { options: nextOptions, value: nextValue } = nextProps;
     const { value: currentValue } = this.props;
 
@@ -81,51 +88,11 @@ export class Autocomplete extends Component {
     });
   }
 
-  selectPreviousOption() {
-    const { isOpen: wasSearching } = this.state;
-    const { options } = this.props;
-
-    return this.setState(prevState => {
-      const { selectedValue } = prevState;
-
-      return {
-        isOpen: false,
-        searchQuery: this.getOptionLabelByValue(options, selectedValue)
-      };
-    }, wasSearching ? this.sendBlur : null);
-  }
-
-  handleClickOutside() {
-    return this.selectPreviousOption();
-  }
-
-  showOptions() {
-    const { isOpen, selectedValue } = this.state;
-    const { options, readOnly } = this.props;
-
-    if (isOpen || readOnly) {
-      return;
-    }
-    this.setState(
-      {
-        isOpen: true,
-        selectedIndex: this.getOptionIndexByValue(options, selectedValue)
-      },
-      this.adjustOffset
+  getOptionIndexByValue(options, value) {
+    const selectedOptionIndex = options.findIndex(
+      option => option.value === value
     );
-  }
-
-  loadOptions() {
-    const { fuseConfig, options } = this.props;
-    const searchOff = !this.searchOn();
-    const { searchQuery } = this.state;
-
-    if (searchOff || !searchQuery) {
-      return options;
-    }
-
-    const fuse = new Fuse(options, fuseConfig);
-    return fuse.search(searchQuery);
+    return selectedOptionIndex === -1 ? INITIAL_INDEX : selectedOptionIndex;
   }
 
   getOptionLabelByValue(options, value) {
@@ -135,11 +102,38 @@ export class Autocomplete extends Component {
     return selectedOption ? selectedOption.label.toString() : NO_LABEL;
   }
 
-  getOptionIndexByValue(options, value) {
-    const selectedOptionIndex = options.findIndex(
-      option => option.value === value
-    );
-    return selectedOptionIndex === -1 ? INITIAL_INDEX : selectedOptionIndex;
+  adjustOffset() {
+    const { selectedIndex } = this.state;
+    const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
+
+    if (!optionSelected) return;
+
+    const optionList = findDOMNode(this.optionListRef.current);
+
+    if (selectedIndex === INITIAL_INDEX) return;
+    scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
+  }
+
+  blurSearchInput() {
+    this.searchInputRef.current.blur();
+  }
+
+  handleClickOutside() {
+    return this.selectPreviousOption();
+  }
+
+  handleFocus = () => {
+    const { onFocus } = this.props;
+
+    this.handleSearchClick();
+    onFocus();
+  };
+
+  handleOptionHover(value) {
+    const options = this.loadOptions();
+    const index = options.findIndex(option => option.value === value);
+
+    return this.setState({ selectedIndex: index });
   }
 
   handleOptionSelected = value => {
@@ -160,26 +154,11 @@ export class Autocomplete extends Component {
     );
   };
 
-  resetSearchQuery() {
-    return this.setState(() => {
-      return {
-        searchQuery: ''
-      };
-    });
-  }
-
   handleSearchClick = () => {
     const { disabled, readOnly } = this.props;
     if (disabled || readOnly) return false;
     this.resetSearchQuery();
     this.showOptions();
-  };
-
-  handleFocus = () => {
-    const { onFocus } = this.props;
-
-    this.handleSearchClick();
-    onFocus();
   };
 
   handleSearchKeyDown = e => {
@@ -207,23 +186,21 @@ export class Autocomplete extends Component {
     });
   };
 
-  handleOptionHover(value) {
-    const options = this.loadOptions();
-    const index = options.findIndex(option => option.value === value);
-
-    return this.setState({ selectedIndex: index });
-  }
-
   hideOptions() {
     this.setState({ isOpen: false });
   }
 
-  moveIndexDown() {
-    this.moveIndex(-1);
-  }
+  loadOptions() {
+    const { fuseConfig, options } = this.props;
+    const searchOff = !this.searchOn();
+    const { searchQuery } = this.state;
 
-  moveIndexUp() {
-    this.moveIndex(1);
+    if (searchOff || !searchQuery) {
+      return options;
+    }
+
+    const fuse = new Fuse(options, fuseConfig);
+    return fuse.search(searchQuery);
   }
 
   moveIndex(offset) {
@@ -243,16 +220,30 @@ export class Autocomplete extends Component {
     }, this.adjustOffset);
   }
 
-  adjustOffset() {
-    const { selectedIndex } = this.state;
-    const optionSelected = findDOMNode(this.refs[`option-${selectedIndex}`]);
+  moveIndexDown() {
+    this.moveIndex(-1);
+  }
 
-    if (!optionSelected) return;
+  moveIndexUp() {
+    this.moveIndex(1);
+  }
 
-    const optionList = findDOMNode(this.refs.optionList);
+  resetSearchQuery() {
+    return this.setState(() => {
+      return {
+        searchQuery: ''
+      };
+    });
+  }
 
-    if (selectedIndex === INITIAL_INDEX) return;
-    scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
+  searchOn() {
+    const { minOptionsForSearch, options, readOnly } = this.props;
+
+    if (readOnly) return false;
+    if (minOptionsForSearch === Infinity) {
+      return true;
+    }
+    return minOptionsForSearch < options.length;
   }
 
   selectCurrentOption() {
@@ -267,6 +258,20 @@ export class Autocomplete extends Component {
     return this.handleOptionSelected(value);
   }
 
+  selectPreviousOption() {
+    const { isOpen: wasSearching } = this.state;
+    const { options } = this.props;
+
+    return this.setState(prevState => {
+      const { selectedValue } = prevState;
+
+      return {
+        isOpen: false,
+        searchQuery: this.getOptionLabelByValue(options, selectedValue)
+      };
+    }, wasSearching ? this.sendBlur : null);
+  }
+
   sendBlur() {
     const { name, onBlur } = this.props;
     onBlur(name);
@@ -277,18 +282,20 @@ export class Autocomplete extends Component {
     onChange(name, value);
   }
 
-  searchOn() {
-    const { minOptionsForSearch, options, readOnly } = this.props;
+  showOptions() {
+    const { isOpen, selectedValue } = this.state;
+    const { options, readOnly } = this.props;
 
-    if (readOnly) return false;
-    if (minOptionsForSearch === Infinity) {
-      return true;
+    if (isOpen || readOnly) {
+      return;
     }
-    return minOptionsForSearch < options.length;
-  }
-
-  blurSearchInput() {
-    this.searchInput.blur();
+    this.setState(
+      {
+        isOpen: true,
+        selectedIndex: this.getOptionIndexByValue(options, selectedValue)
+      },
+      this.adjustOffset
+    );
   }
 
   render() {
@@ -315,7 +322,7 @@ export class Autocomplete extends Component {
         onMouseEnter={value => this.handleOptionHover(value)}
         hasFocus={selectedIndex === i}
         option={option}
-        ref={`option-${i}`}
+        ref={option => this.setOptionRef(i, option)}
         searchQuery={searchQuery.toString()}
         selectedValue={new RegExp(`^${selectedValue}$`, 'i').test(option.value)}
         template={template}
@@ -355,13 +362,13 @@ export class Autocomplete extends Component {
             onClick={this.handleSearchClick}
             onFocus={this.handleFocus}
             onKeyDown={this.handleSearchKeyDown}
-            ref={input => (this.searchInput = input)}
+            ref={this.searchInputRef}
             placeholder={placeholder}
             readOnly={!searchOn}
             type="text"
             value={searchQuery}
           />
-          <Options ref="optionList">{optionList}</Options>
+          <Options ref={this.optionListRef}>{optionList}</Options>
         </div>
       </FormGroup>
     );

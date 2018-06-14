@@ -82,13 +82,6 @@ class PhoneNumber extends Component {
     onBlur(name);
   };
 
-  handleFocus = () => {
-    const { name, onFocus } = this.props;
-
-    this.setState({ isFocused: true });
-    onFocus(name);
-  };
-
   handleChange = e => {
     let { value: phoneNumber } = e.target;
     const { phonePattern, value: selectedCountry } = this.getCountryFrom(
@@ -126,6 +119,13 @@ class PhoneNumber extends Component {
       selectedCountry: isoCode,
       formattedNumber: this.formatNumber(phoneNumber, phonePattern)
     });
+  };
+
+  handleFocus = () => {
+    const { name, onFocus } = this.props;
+
+    this.setState({ isFocused: true });
+    onFocus(name);
   };
 
   sendChange(value) {

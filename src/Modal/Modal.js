@@ -47,13 +47,6 @@ class Modal extends Component {
     }, onClose);
   };
 
-  open = () => {
-    const { onOpen } = this.props;
-    this.setState(() => {
-      return { isOpen: false };
-    }, onOpen);
-  };
-
   handleClick = event => {
     if (event.target.getAttribute('data-modal')) {
       this.close();
@@ -68,19 +61,26 @@ class Modal extends Component {
     }
   };
 
-  get isUncontrolled() {
-    const { isOpen } = this.props;
-
-    return typeof isOpen === 'undefined';
+  get isClosed() {
+    return !this.isOpen;
   }
 
   get isOpen() {
     return this.isUncontrolled ? this.state.isOpen : this.props.isOpen;
   }
 
-  get isClosed() {
-    return !this.isOpen;
+  get isUncontrolled() {
+    const { isOpen } = this.props;
+
+    return typeof isOpen === 'undefined';
   }
+
+  open = () => {
+    const { onOpen } = this.props;
+    this.setState(() => {
+      return { isOpen: false };
+    }, onOpen);
+  };
 
   render() {
     const { children, className, size } = this.props;

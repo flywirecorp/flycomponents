@@ -97,6 +97,13 @@ class MoneyInput extends Component {
     target.setSelectionRange(0, value.length);
   };
 
+  handleFocus = () => {
+    const { onFocus } = this.props;
+
+    onFocus();
+    this.setState({ isFocused: true });
+  };
+
   handleKeyDown = e => {
     const COMMA = 188;
     const DECIMAL_POINT = 110;
@@ -139,13 +146,6 @@ class MoneyInput extends Component {
     if (!isNumber && !allowedChars) {
       e.preventDefault();
     }
-  };
-
-  handleFocus = () => {
-    const { onFocus } = this.props;
-
-    onFocus();
-    this.setState({ isFocused: true });
   };
 
   render() {

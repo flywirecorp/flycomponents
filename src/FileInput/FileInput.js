@@ -19,14 +19,9 @@ export class FileInput extends Component {
     uploading: false
   };
 
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
+  handleClick = () => {
     this.fileInput.click();
-  }
+  };
 
   render() {
     const {
