@@ -186,7 +186,6 @@ class PhoneNumber extends Component {
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}
                 readOnly={readOnly}
-                ref="input"
                 type="text"
                 value={formattedNumber}
               />

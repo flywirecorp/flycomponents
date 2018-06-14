@@ -19,8 +19,13 @@ export class FileInput extends Component {
     uploading: false
   };
 
+  constructor(props) {
+    super(props);
+    this.fileInputRef = React.createRef();
+  }
+
   handleClick = () => {
-    this.fileInput.click();
+    this.fileInputRef.current.click();
   };
 
   render() {
@@ -36,9 +41,7 @@ export class FileInput extends Component {
     return (
       <div className="FileInput">
         <input
-          ref={input => {
-            this.fileInput = input;
-          }}
+          ref={this.fileInputRef}
           type="file"
           accept={accepts}
           multiple={multiple}

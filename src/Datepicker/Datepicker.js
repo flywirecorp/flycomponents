@@ -198,7 +198,6 @@ class Datepicker extends Component {
             selectedDate={selectedDate}
             setSelectedDate={this.setSelectedDate}
             readOnly={readOnly}
-            ref="dateInput"
             value={value}
           />
           <Calendar

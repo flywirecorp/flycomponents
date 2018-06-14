@@ -344,7 +344,6 @@ export class Autocomplete extends Component {
         required={required}
       >
         <div
-          ref="autocomplete"
           className={classNames(
             'Autocomplete',
             { 'is-searching': isOpen },

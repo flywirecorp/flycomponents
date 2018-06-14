@@ -65,7 +65,6 @@ class DateInput extends Component {
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
-          ref="input"
           type="text"
           value={selectedDate}
         />
