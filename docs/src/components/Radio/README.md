@@ -5,7 +5,9 @@ Wraps a form field. Adds a label, display errors and help texts.
 ## Example
 
 ```javascript
-<Radio name="rd1" label="Default" />
+<Radio name="rb1" id="rb01" label="Default" />
+
+<Radio name="rb1" id="rb02" label="Default" />
 
 <Radio name="rb2" label="Checked" defaultChecked />
 
