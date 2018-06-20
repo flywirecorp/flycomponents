@@ -21,12 +21,12 @@ export class FileInput extends Component {
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.fileInputRef = React.createRef();
   }
 
-  handleClick() {
-    this.fileInput.click();
-  }
+  handleClick = () => {
+    this.fileInputRef.current.click();
+  };
 
   render() {
     const {
@@ -41,9 +41,7 @@ export class FileInput extends Component {
     return (
       <div className="FileInput">
         <input
-          ref={input => {
-            this.fileInput = input;
-          }}
+          ref={this.fileInputRef}
           type="file"
           accept={accepts}
           multiple={multiple}

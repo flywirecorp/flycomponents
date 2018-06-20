@@ -45,6 +45,11 @@ export class FlagSelector extends Component {
     };
 
     this.typedQueryTimer = 0;
+
+    this.optionListRef = React.createRef();
+    this.setOptionRef = (i, e) => {
+      this[`option-${i}`] = e;
+    };
   }
 
   getOptionIndexByValue(value) {
@@ -54,8 +59,8 @@ export class FlagSelector extends Component {
 
   adjustOffet() {
     const { selectedIndex } = this.state;
-    const optionSelected = findDOMNode(this.refs[`option-${selectedIndex}`]);
-    const optionList = findDOMNode(this.refs.optionList);
+    const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
+    const optionList = findDOMNode(this.optionListRef.current);
 
     if (selectedIndex === INITIAL_INDEX) return;
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
@@ -213,14 +218,13 @@ export class FlagSelector extends Component {
         key={option.value}
         onClick={value => this.handleOptionSelected(value)}
         onMouseEnter={value => this.handleOptionHover(value)}
-        ref={`option-${i}`}
+        ref={option => this.setOptionRef(i, option)}
         value={option.value}
       />
     ));
 
     return (
       <div
-        ref="PhoneNumber"
         className={classNames(
           'Autocomplete',
           { 'is-searching': isOpen },
@@ -249,7 +253,7 @@ export class FlagSelector extends Component {
           tabIndex={-1}
         />
 
-        <Options ref="optionList">{optionList}</Options>
+        <Options ref={this.optionListRef}>{optionList}</Options>
       </div>
     );
   }

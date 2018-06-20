@@ -79,11 +79,8 @@ class Datepicker extends Component {
     }, this.sendBlur);
   };
 
-  handleFocus = () => {
-    const { onFocus } = this.props;
-    this.setState({ isFocused: true });
-
-    onFocus();
+  handleBlur = () => {
+    this.setState({ isFocused: false }, () => this.sendBlur());
   };
 
   handleCalendarIconClick = () => {
@@ -106,6 +103,13 @@ class Datepicker extends Component {
       return;
     }
     this.setState({ isOpen: true });
+  };
+
+  handleFocus = () => {
+    const { onFocus } = this.props;
+    this.setState({ isFocused: true });
+
+    onFocus();
   };
 
   handleMonthChange = month => {
@@ -147,10 +151,6 @@ class Datepicker extends Component {
     this.setState(() => {
       return { isOpen: false, startDate };
     }, wasOpen ? this.sendBlur : null);
-  };
-
-  handleBlur = () => {
-    this.setState({ isFocused: false }, () => this.sendBlur());
   };
 
   sendBlur() {
@@ -198,7 +198,6 @@ class Datepicker extends Component {
             selectedDate={selectedDate}
             setSelectedDate={this.setSelectedDate}
             readOnly={readOnly}
-            ref="dateInput"
             value={value}
           />
           <Calendar

@@ -1,6 +1,10 @@
 {
   "name": "flycomponents",
+<<<<<<< HEAD
   "version": "2.13.6",
+=======
+  "version": "2.13.7",
+>>>>>>> 04f7b688d663c9b67ed80ce04feb929163c3736c
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {
@@ -35,8 +39,8 @@
     "fuse.js": "^3.2.1",
     "moment": "^2.22.2",
     "prop-types": "^15.6.1",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "react-onclickoutside": "^6.7.1"
   },
   "devDependencies": {
