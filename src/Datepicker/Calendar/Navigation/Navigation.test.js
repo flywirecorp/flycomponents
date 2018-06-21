@@ -115,11 +115,11 @@ describe('Navigation', () => {
       const component = new NavigationComponent({ startDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];
-      const lastYear = years[99];
+      const lastYear = years[199];
 
-      expect(years.length).toBe(100);
-      expect(firstYear).toBe(1950);
-      expect(lastYear).toBe(2049);
+      expect(years.length).toBe(200);
+      expect(firstYear).toBe(1900);
+      expect(lastYear).toBe(2099);
     });
   });
 });

@@ -20,8 +20,8 @@ const Navigation = (
     label: month
   }));
 
-  const years = [...Array(100).keys()].map(i => {
-    const year = currentYear - 50 + i;
+  const years = [...Array(200).keys()].map(i => {
+    const year = currentYear - 100 + i;
     return { value: year, label: year };
   });
 
