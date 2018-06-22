@@ -38,7 +38,7 @@ const toCents = (number, options) => {
   const config = { ...defaults, ...options };
   const { decimal, subunitToUnit } = config;
 
-  return unformat(number, decimal) * subunitToUnit;
+  return Math.round(unformat(number, decimal) * subunitToUnit);
 };
 
 export { toCents, toMoney };

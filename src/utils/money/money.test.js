@@ -72,4 +72,13 @@ describe('toCents', () => {
 
     expect(cents).toBe(expectedCents);
   });
+
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(i => {
+    test('fixes floating point number precision in JavaScript', () => {
+      const cents = toCents(`567.3${i}`);
+      const expectedCents = 56730 + i;
+
+      expect(cents).toBe(expectedCents);
+    });
+  });
 });
