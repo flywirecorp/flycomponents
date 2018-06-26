@@ -92,6 +92,32 @@ describe('FlagSelector', () => {
     expect(component.options()).toHaveLength(2);
   });
 
+  test('ignores invalid options', () => {
+    const options = [
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: null,
+        phonePattern: '+. (...) ...-....'
+      },
+      {
+        label: 'Canada',
+        value: 'CA',
+        dialingCode: '1',
+        phonePattern: undefined
+      }
+    ];
+    const component = new FlagSelectorComponent({ options });
+
+    expect(component.options()).toHaveLength(1);
+  });
+
   test('displays options when clicking the menu', () => {
     const component = new FlagSelectorComponent();
 

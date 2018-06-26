@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
+import isEmpty from '../../utils/isEmpty';
 
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40];
@@ -41,7 +42,8 @@ export class FlagSelector extends Component {
     this.state = {
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
-      typedQuery: ''
+      typedQuery: '',
+      options: this.validOptions
     };
 
     this.typedQueryTimer = 0;
@@ -53,7 +55,8 @@ export class FlagSelector extends Component {
   }
 
   getOptionIndexByValue(value) {
-    const { options } = this.props;
+    const { options } = this.state;
+
     return options.findIndex(option => option.value === value);
   }
 
@@ -69,6 +72,7 @@ export class FlagSelector extends Component {
   handleClickOutside(e) {
     const { value } = this.props;
     const selectedIndex = this.getOptionIndexByValue(value);
+
     this.setState(() => {
       return { isOpen: false, selectedIndex };
     });
@@ -76,7 +80,9 @@ export class FlagSelector extends Component {
 
   handleMenuClick = () => {
     const { onFocus, readOnly } = this.props;
+
     if (readOnly) return false;
+
     this.setState(prevState => {
       return { isOpen: !prevState.isOpen };
     }, onFocus);
@@ -86,6 +92,7 @@ export class FlagSelector extends Component {
     if (KEYS.includes(e.keyCode)) {
       e.preventDefault();
     }
+
     this.showOptions();
 
     switch (e.keyCode) {
@@ -104,11 +111,13 @@ export class FlagSelector extends Component {
 
   handleOptionHover(value) {
     const selectedIndex = this.getOptionIndexByValue(value);
+
     return this.setState({ selectedIndex });
   }
 
   handleOptionSelected = value => {
     const selectedIndex = this.getOptionIndexByValue(value);
+
     this.hideOptions();
     this.setState(() => {
       return {
@@ -138,7 +147,7 @@ export class FlagSelector extends Component {
   }
 
   moveIndex(offset) {
-    const { options } = this.props;
+    const { options } = this.state;
     const optionsLength = options.length;
     const normalize = index => {
       if (index < 0) {
@@ -164,12 +173,12 @@ export class FlagSelector extends Component {
   }
 
   searchTypedCountry() {
-    const { options } = this.props;
-    const { typedQuery } = this.state;
+    const { options, typedQuery } = this.state;
 
     const searchedOptionIndex = options.findIndex(option =>
       option.label.toLowerCase().startsWith(typedQuery)
     );
+
     this.setState(
       {
         selectedIndex: searchedOptionIndex
@@ -179,8 +188,7 @@ export class FlagSelector extends Component {
   }
 
   selectCurrentOption() {
-    const { options } = this.props;
-    const { selectedIndex } = this.state;
+    const { options, selectedIndex } = this.state;
 
     if (selectedIndex === INITIAL_INDEX) {
       return;
@@ -205,10 +213,19 @@ export class FlagSelector extends Component {
     this.setState({ isOpen: true });
   }
 
+  get validOptions() {
+    const { options } = this.props;
+
+    return options.filter(
+      ({ dialingCode, phonePattern }) =>
+        !isEmpty(dialingCode) && !isEmpty(phonePattern)
+    );
+  }
+
   render() {
     const { value = '' } = this.props;
-    const { options, disabled, readOnly } = this.props;
-    const { isOpen, selectedIndex } = this.state;
+    const { disabled, readOnly } = this.props;
+    const { isOpen, options, selectedIndex } = this.state;
 
     const optionList = options.map((option, i) => (
       <Option
