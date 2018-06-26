@@ -8,11 +8,11 @@ const { Section, Header, Content } = Accordion;
 
 <Accordion>
   <Section success>
-    <Header>1. This is the first step</Header>
+    <Header><span className="paddingRight-xs">1.</span>This is the first step</Header>
     <Content>This is content</Content>
   </Section>
   <Section>
-    <Header>2. This is the second step</Header>
+    <Header><span className="paddingRight-xs">2.</span>This is the second step</Header>
     <Content>
       {({ setNextActive }) => (
         <div>
@@ -28,7 +28,7 @@ const { Section, Header, Content } = Accordion;
     </Content>
   </Section>
   <Section>
-    <Header>3. This is the third step</Header>
+    <Header><span className="paddingRight-xs">3.</span>This is the third step</Header>
     <Content>This is content.</Content>
   </Section>
 </Accordion>

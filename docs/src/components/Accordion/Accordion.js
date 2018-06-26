@@ -12,11 +12,11 @@ export default () => {
     <Component readme={README}>
       <Accordion>
         <Section success>
-          <Header>1. This is the first step</Header>
+          <Header><span className="paddingRight-xs">1.</span>This is the first step</Header>
           <Content>This is content</Content>
         </Section>
         <Section>
-          <Header>2. This is the second step</Header>
+          <Header><span className="paddingRight-xs">2.</span>This is the second step</Header>
           <Content>
             {({ setNextActive }) => (
               <div>
@@ -32,7 +32,7 @@ export default () => {
           </Content>
         </Section>
         <Section>
-          <Header>3. This is the third step</Header>
+          <Header><span className="paddingRight-xs">3.</span>This is the third step</Header>
           <Content>This is content.</Content>
         </Section>
       </Accordion>
