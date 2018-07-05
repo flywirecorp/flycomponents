@@ -13,6 +13,7 @@ class Portal extends React.Component {
   render() {
     if (!this.props.node && !this.defaultNode) {
       this.defaultNode = document.createElement('div');
+      this.defaultNode.className = 'Modal-container';
       document.body.appendChild(this.defaultNode);
     }
 
