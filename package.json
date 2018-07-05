@@ -1,6 +1,6 @@
 {
   "name": "flycomponents",
-  "version": "2.14.7",
+  "version": "2.14.8",
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {

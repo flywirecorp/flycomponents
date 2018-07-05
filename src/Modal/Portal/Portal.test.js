@@ -14,7 +14,9 @@ describe('<Portal />', () => {
     ReactDOM.render(<Portal>Foo</Portal>, document.getElementById('root'));
 
     expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
-    expect(document.body.lastChild.outerHTML).toBe('<div>Foo</div>');
+    expect(document.body.lastChild.outerHTML).toBe(
+      '<div class="Modal-container">Foo</div>'
+    );
   });
 
   it('should append portal to a custom node', () => {
