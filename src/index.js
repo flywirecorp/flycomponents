@@ -13,6 +13,7 @@ import Modal from './Modal';
 import MoneyInput from './MoneyInput';
 import MultipleCheckbox from './MultipleCheckbox';
 import PhoneNumber from './PhoneNumber';
+import Rating from './Rating';
 import Select from './Select';
 import Tabs from './Tabs';
 import Textarea from './Textarea';
@@ -35,6 +36,7 @@ export {
   MoneyInput,
   MultipleCheckbox,
   PhoneNumber,
+  Rating,
   Select,
   Tabs,
   Textarea,
