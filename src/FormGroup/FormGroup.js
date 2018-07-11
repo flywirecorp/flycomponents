@@ -3,6 +3,10 @@ import React from 'react';
 import classNames from 'classnames';
 import Label from '../Label';
 
+function createMarkupHint(hint) {
+  return { __html: hint };
+}
+
 const FormGroup = ({
   children,
   className,
@@ -34,7 +38,12 @@ const FormGroup = ({
     {label && <Label htmlFor={name} required={required} value={label} />}
     {children}
     {error && <p className="FormGroup-feedback">{error}</p>}
-    {hint && <p className="FormGroup-hint">{hint}</p>}
+    {hint && (
+      <p
+        className="FormGroup-hint"
+        dangerouslySetInnerHTML={createMarkupHint({ hint })}
+      />
+    )}
   </div>
 );
 
