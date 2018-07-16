@@ -5,32 +5,20 @@ Stars to provide a rating feedback
 ## Example rating
 
 ```javascript
-class ControlledRating extends React.Component {
-  state = {
-    rating: null
-  };
+<Rating
+  errorText="Please select a star"
+  higherRatingText="Very satisfied"
+  lowerRatingText="Very unsatisfied"
+  onClick={callback}
+/>
 
-  selectRating = rating => {
-    this.setState({ rating });
-  };
-
-  render() {
-    const { rating } = this.state;
-    const errorText = rating === null ? 'Please select a star' : '';
-
-    return (
-      <Component readme={README}>
-        <Rating
-          errorText={errorText}
-          higherRatingText="Very satisfied"
-          lowerRatingText="Very unsatisfied"
-          onClick={this.selectRating}
-          rating={rating}
-        />
-      </Component>
-    );
-  }
-}
+<Rating
+  errorText=""
+  higherRatingText="Very satisfied"
+  lowerRatingText="Very unsatisfied"
+  onClick={callback}
+  rating="4"
+/>
 ```
 
 ## Properties
