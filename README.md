@@ -24,6 +24,8 @@ npm version patch
 ```
 This will bump the `package.json` version, build a new bundle, commit, push the changes tagging them to a new release and update the documentation.
 
+Then create a PR and request the review from other project commiters. Once accepted and merged to master, execute `npm publish` from master branch.
+
 ## Documentation
 
 [http://flycomponents.flywire.lol](http://flycomponents.flywire.lol)
