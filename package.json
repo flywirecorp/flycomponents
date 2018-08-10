@@ -15,7 +15,7 @@
     "test:update": "NODE_ENV=test npm run test -- -u",
     "lint": "eslint --fix src docs/src",
     "version": "npm run build && git add -A dist && git push && git push --tags",
-    "postversion": "npm run build:docs && npm run docs:push && npm publish"
+    "postversion": "npm run build:docs && npm run docs:push"
   },
   "repository": {
     "type": "git",
