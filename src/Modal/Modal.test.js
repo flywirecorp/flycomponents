@@ -33,32 +33,6 @@ describe('Modal', () => {
     expect(wrapper.state('isOpen')).toBe(false);
   });
 
-  test('closes clicking the close button', () => {
-    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
-
-    wrapper.find('.Modal-closeButton').simulate('click');
-
-    expect(wrapper.state('isOpen')).toBe(false);
-  });
-
-  test('closes clicking the ESC key', () => {
-    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
-    const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
-
-    document.dispatchEvent(keyboardEvent);
-
-    expect(wrapper.state('isOpen')).toBe(false);
-  });
-
-  test('closes clicking outside the modal', () => {
-    const wrapper = mount(<Modal>{dummyContent}</Modal>);
-    const modal = wrapper.find('.Modal');
-
-    modal.simulate('click');
-
-    expect(wrapper.state('isOpen')).toBe(false);
-  });
-
   test('executes callback when it opens', () => {
     const onOpen = jest.fn();
     const wrapper = shallow(<Modal onOpen={onOpen}>{dummyContent}</Modal>);
@@ -83,6 +57,64 @@ describe('Modal', () => {
     );
 
     expect(wrapper.find('.customClass').length).toEqual(1);
+  });
+
+  describe('when closing is allowed', () => {
+    test('closes clicking the close button', () => {
+      const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+
+      wrapper.find('.Modal-closeButton').simulate('click');
+
+      expect(wrapper.state('isOpen')).toBe(false);
+    });
+
+    test('closes clicking the ESC key', () => {
+      const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+
+      document.dispatchEvent(keyboardEvent);
+
+      expect(wrapper.state('isOpen')).toBe(false);
+    });
+
+    test('closes clicking outside the modal', () => {
+      const wrapper = mount(<Modal>{dummyContent}</Modal>);
+      const modal = wrapper.find('.Modal');
+
+      modal.simulate('click');
+
+      expect(wrapper.state('isOpen')).toBe(false);
+    });
+  });
+
+  describe('when closing is not allowed', () => {
+    test('does not show a close button', () => {
+      const wrapper = shallow(
+        <Modal allowClosing={false}>{dummyContent}</Modal>
+      );
+
+      expect(wrapper.find('.Modal-closeButton').length).toBe(0);
+    });
+
+    test('does not close clicking the ESC key', () => {
+      const wrapper = shallow(
+        <Modal allowClosing={false}>{dummyContent}</Modal>
+      );
+      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+
+      document.dispatchEvent(keyboardEvent);
+
+      expect(wrapper.state('isOpen')).toBe(true);
+    });
+
+    test('does not close clicking outside the modal', () => {
+      const wrapper = mount(<Modal allowClosing={false}>{dummyContent}</Modal>);
+      const modal = wrapper.find('.Modal');
+
+      modal.simulate('click');
+
+      expect(wrapper.state('isOpen')).toBe(true);
+    });
   });
 
   describe('as controlled component', () => {

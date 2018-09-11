@@ -38,6 +38,7 @@ class ControlledModal extends React.Component {
         </Button>
 
         <Modal
+          allowClosing
           isOpen={showModal}
           onClose={this.handleClose}
           size="medium"
@@ -53,12 +54,13 @@ class ControlledModal extends React.Component {
 
 ## Properties
 
-| Property      | Req | Type                  | Description                                          | Default |
-| ------------- | --- | --------------------- | ---------------------------------------------------- | ------- |
-| children      | yes | array, object, string | Children node                                        |         |
-| className     | no  | string                | CSS class to be applied to Modal                     |         |
-| defaultIsOpen | no  | boolean               | Initial modal state, opened or closed                | `true`  |
-| isOpen        | no  | boolean               | Modal open state                                     | `false` |
-| onClose       | no  | function              | Callback function that is fired when modal is closed |         |
-| onOpen        | no  | function              | Callback function that is fired when modal is opened |         |
-| size          | no  | string                | Modal dialog size: `small` or `medium`               | `small` |
+| Property      | Req | Type                  | Description                                                                                       | Default |
+| ------------- | --- | --------------------- | ------------------------------------------------------------------------------------------------- | ------- |
+| allowClosing  | no  | boolean               | Enable or disable closing the modal. (Close button, `Esc` key and clicking ouside of the Modal).  | `true`  |
+| children      | yes | array, object, string | Children node                                                                                     |         |
+| className     | no  | string                | CSS class to be applied to Modal                                                                  |         |
+| defaultIsOpen | no  | boolean               | Initial modal state, opened or closed                                                             | `true`  |
+| isOpen        | no  | boolean               | Modal open state                                                                                  | `false` |
+| onClose       | no  | function              | Callback function that is fired when modal is closed. Only works when `allowClosing` is true.     |         |
+| onOpen        | no  | function              | Callback function that is fired when modal is opened                                              |         |
+| size          | no  | string                | Modal dialog size: `small` or `medium`                                                            | `small` |
