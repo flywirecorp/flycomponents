@@ -253,4 +253,12 @@ describe('PhoneNumber', () => {
       expect(component.flagSelector().prop('disabled')).toBe(true);
     });
   });
+
+  test('renders a custom attribute', () => {
+    const ownProps = { custom_prop: 'a_data' };
+
+    const component = new PhoneNumberComponent(ownProps);
+
+    expect(component.component.find('[custom_prop="a_data"]')).toHaveLength(1);
+  });
 });

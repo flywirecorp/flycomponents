@@ -145,13 +145,14 @@ class PhoneNumber extends Component {
       name,
       onFocus,
       readOnly,
-      required
+      required,
+      ...otherProps
     } = this.props;
 
     const { formattedNumber, isFocused, selectedCountry } = this.state;
 
     return (
-      <div className="PhoneNumber">
+      <div className="PhoneNumber" {...otherProps}>
         <FormGroup
           className="PhoneNumber"
           disabled={disabled}
