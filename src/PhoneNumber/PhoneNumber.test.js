@@ -261,4 +261,17 @@ describe('PhoneNumber', () => {
 
     expect(component.component.find('[custom_prop="a_data"]')).toHaveLength(1);
   });
+
+  test.only('does not render unused component attributes', () => {
+    const ownProps = { onBlur: () => {} };
+
+    const component = new PhoneNumberComponent(ownProps);
+
+    expect(
+      component.component
+        .find('.PhoneNumber')
+        .first()
+        .prop('onBlur')
+    ).toBe(undefined);
+  });
 });
