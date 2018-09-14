@@ -143,9 +143,12 @@ class PhoneNumber extends Component {
       hint,
       label,
       name,
+      onBlur,
+      onChange,
       onFocus,
       readOnly,
       required,
+      value,
       ...otherProps
     } = this.props;
 
