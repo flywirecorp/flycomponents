@@ -84,27 +84,27 @@ class PhoneNumber extends Component {
   };
 
   handleChange = e => {
-    let { value: phoneNumber, selectionStart: caretPosition } = e.target;
+    const { value: currentNumber, selectionStart: caretPosition } = e.target;
     const { phonePattern, value: selectedCountry } = this.getCountryFrom(
-      phoneNumber
+      currentNumber
     );
 
-    phoneNumber = phoneNumber.replace(/(?!^\+)\D/gm, '');
+    let formattedNumber = currentNumber.replace(/(?!^\+)\D/gm, '');
 
     if (phonePattern) {
-      phoneNumber = this.formatNumber(phoneNumber, phonePattern);
+      formattedNumber = this.formatNumber(formattedNumber, phonePattern);
     }
 
-    this.setState(
-      () => ({ selectedCountry, formattedNumber: phoneNumber }),
-      () => {
-        this.sendChange(phoneNumber);
-        this.setCaretPosition(caretPosition);
-      }
-    );
+    this.setState({ selectedCountry, formattedNumber }, () => {
+      this.sendChange(formattedNumber);
+      this.setCaretPosition(caretPosition, currentNumber, formattedNumber);
+    });
   };
 
-  setCaretPosition = position => {
+  setCaretPosition = (currentPosition, currentNumber, newPhoneNumber) => {
+    let diff = newPhoneNumber.length - currentNumber.length;
+    const position = diff > 0 ? currentPosition + diff : currentPosition;
+
     this.numberInputRef.current.setSelectionRange(position, position);
   };
 
