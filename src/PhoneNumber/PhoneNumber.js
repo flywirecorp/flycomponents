@@ -36,6 +36,7 @@ class PhoneNumber extends Component {
 
   constructor(props) {
     super(props);
+    this.numberInputRef = React.createRef();
 
     const { value = NO_VALUE } = this.props;
     const { value: isoCode, phonePattern } = this.getCountryFrom(value);
@@ -83,7 +84,7 @@ class PhoneNumber extends Component {
   };
 
   handleChange = e => {
-    let { value: phoneNumber } = e.target;
+    let { value: phoneNumber, selectionStart: caretPosition } = e.target;
     const { phonePattern, value: selectedCountry } = this.getCountryFrom(
       phoneNumber
     );
@@ -94,9 +95,17 @@ class PhoneNumber extends Component {
       phoneNumber = this.formatNumber(phoneNumber, phonePattern);
     }
 
-    this.setState(() => {
-      return { selectedCountry, formattedNumber: phoneNumber };
-    }, this.sendChange(phoneNumber));
+    this.setState(
+      () => ({ selectedCountry, formattedNumber: phoneNumber }),
+      () => {
+        this.sendChange(phoneNumber);
+        this.setCaretPosition(caretPosition);
+      }
+    );
+  };
+
+  setCaretPosition = position => {
+    this.numberInputRef.current.setSelectionRange(position, position);
   };
 
   handleCountryClick = isoCode => {
@@ -189,6 +198,7 @@ class PhoneNumber extends Component {
                 onBlur={this.handleBlur}
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}
+                ref={this.numberInputRef}
                 readOnly={readOnly}
                 type="text"
                 value={formattedNumber}
