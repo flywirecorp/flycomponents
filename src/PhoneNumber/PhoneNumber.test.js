@@ -33,7 +33,9 @@ describe('PhoneNumber', () => {
       const nextValue =
         key === 'delete' ? prevValue.slice(0, -1) : `${prevValue}${key}`;
 
-      this.input().simulate('change', { target: { value: nextValue, selectionStart: 0 } });
+      this.input().simulate('change', {
+        target: { value: nextValue, selectionStart: 0 }
+      });
     }
 
     clickCountry(value) {
@@ -50,8 +52,8 @@ describe('PhoneNumber', () => {
 
     mockRefs() {
       this.component.instance().numberInputRef.current = {
-        setSelectionRange : () => {}
-      }
+        setSelectionRange: () => {}
+      };
     }
   }
 
