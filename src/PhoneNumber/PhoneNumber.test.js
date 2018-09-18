@@ -28,13 +28,13 @@ describe('PhoneNumber', () => {
       });
     }
 
-    pressKey(key) {
+    pressKey(key, caretPosition = 0) {
       const prevValue = this.input().prop('value');
       const nextValue =
         key === 'delete' ? prevValue.slice(0, -1) : `${prevValue}${key}`;
 
       this.input().simulate('change', {
-        target: { value: nextValue, selectionStart: 0 }
+        target: { value: nextValue, selectionStart: caretPosition }
       });
     }
 
@@ -50,9 +50,9 @@ describe('PhoneNumber', () => {
       return this.component.find(FlagSelector).prop('value');
     }
 
-    mockRefs() {
+    mockRefs(mock = () => {}) {
       this.component.instance().numberInputRef.current = {
-        setSelectionRange: () => {}
+        setSelectionRange: mock
       };
     }
   }
@@ -283,5 +283,26 @@ describe('PhoneNumber', () => {
         .first()
         .prop('onBlur')
     ).toBe(undefined);
+  });
+
+  test('Move phone number caret when formatter adds charecters', () => {
+    const countries = [
+      {
+        label: 'Spain (+34)',
+        value: 'es',
+        dialingCode: '34',
+        phonePattern: '+.. ... ... ...'
+      }
+    ];
+
+    const component = new PhoneNumberComponent({ countries });
+    const setSelectionRange = jest.fn();
+    component.mockRefs(setSelectionRange);
+
+    component.clickCountry('es');
+    component.pressKey('1', 4);
+
+    expect(component.input().prop('value')).toBe('+34 1');
+    expect(setSelectionRange).toBeCalledWith(5, 5);
   });
 });
