@@ -14,6 +14,8 @@ describe('PhoneNumber', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(<PhoneNumber {...props} />);
+
+      this.mockRefs();
     }
 
     input() {
@@ -31,7 +33,9 @@ describe('PhoneNumber', () => {
       const nextValue =
         key === 'delete' ? prevValue.slice(0, -1) : `${prevValue}${key}`;
 
-      this.input().simulate('change', { target: { value: nextValue } });
+      this.input().simulate('change', {
+        target: { value: nextValue, selectionStart: 0 }
+      });
     }
 
     clickCountry(value) {
@@ -44,6 +48,12 @@ describe('PhoneNumber', () => {
 
     selectedCountry() {
       return this.component.find(FlagSelector).prop('value');
+    }
+
+    mockRefs() {
+      this.component.instance().numberInputRef.current = {
+        setSelectionRange: () => {}
+      };
     }
   }
 
@@ -262,7 +272,7 @@ describe('PhoneNumber', () => {
     expect(component.component.find('[custom_prop="a_data"]')).toHaveLength(1);
   });
 
-  test.only('does not render unused component attributes', () => {
+  test('does not render unused component attributes', () => {
     const ownProps = { onBlur: () => {} };
 
     const component = new PhoneNumberComponent(ownProps);
