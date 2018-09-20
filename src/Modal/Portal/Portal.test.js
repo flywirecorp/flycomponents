@@ -19,6 +19,13 @@ describe('<Portal />', () => {
     );
   });
 
+  it('should position fixed to the document.body', () => {
+    document.body.innerHTML = '<div id="root"></div>';
+    ReactDOM.render(<Portal>Foo</Portal>, document.getElementById('root'));
+
+    expect(document.body.style.position).toBe('fixed');
+  });
+
   it('should append portal to a custom node', () => {
     document.body.innerHTML = '<div id="root"></div><div id="custom"></div>';
     ReactDOM.render(
