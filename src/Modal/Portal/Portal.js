@@ -7,6 +7,7 @@ class Portal extends React.Component {
     if (this.defaultNode) {
       document.body.removeChild(this.defaultNode);
     }
+    document.body.removeAttribute('style');
     this.defaultNode = null;
   }
 
@@ -15,6 +16,7 @@ class Portal extends React.Component {
       this.defaultNode = document.createElement('div');
       this.defaultNode.className = 'Modal-container';
       document.body.appendChild(this.defaultNode);
+      document.body.style.position = 'fixed';
     }
 
     return createPortal(
