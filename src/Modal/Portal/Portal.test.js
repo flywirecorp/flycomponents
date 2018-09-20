@@ -33,8 +33,6 @@ describe('<Portal />', () => {
       document.getElementById('root')
     );
 
-    console.log(document.body.offsetWidth - document.body.clientWidth);
-
     expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
     expect(document.getElementById('custom').outerHTML).toBe(
       '<div id="custom">Foo</div>'
