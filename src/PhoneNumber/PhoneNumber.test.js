@@ -32,20 +32,28 @@ describe('PhoneNumber', () => {
       const prevValue = this.input().prop('value');
       const nextValue =
         key === 'delete'
-          ? caretPosition === 0
-            ? prevValue.slice(0, -1)
-            : `${prevValue.slice(0, caretPosition)}${prevValue.slice(
-                caretPosition + 1
-              )}`
-          : caretPosition === 0
-            ? `${prevValue}${key}`
-            : `${prevValue.slice(0, caretPosition)}${key}${prevValue.slice(
-                caretPosition
-              )}`;
+          ? this.deleteKey(prevValue, caretPosition)
+          : this.addKey(prevValue, key, caretPosition);
 
       this.input().simulate('change', {
         target: { value: nextValue, selectionStart: caretPosition }
       });
+    }
+
+    addKey(prevValue, key, caretPosition) {
+      return caretPosition === 0
+        ? `${prevValue}${key}`
+        : `${prevValue.slice(0, caretPosition)}${key}${prevValue.slice(
+            caretPosition
+          )}`;
+    }
+
+    deleteKey(prevValue, caretPosition) {
+      return caretPosition === 0
+        ? prevValue.slice(0, -1)
+        : `${prevValue.slice(0, caretPosition)}${prevValue.slice(
+            caretPosition + 1
+          )}`;
     }
 
     clickCountry(value) {
