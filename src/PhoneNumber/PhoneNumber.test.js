@@ -31,7 +31,17 @@ describe('PhoneNumber', () => {
     pressKey(key, caretPosition = 0) {
       const prevValue = this.input().prop('value');
       const nextValue =
-        key === 'delete' ? prevValue.slice(0, -1) : `${prevValue}${key}`;
+        key === 'delete'
+          ? caretPosition === 0
+            ? prevValue.slice(0, -1)
+            : `${prevValue.slice(0, caretPosition)}${prevValue.slice(
+                caretPosition + 1
+              )}`
+          : caretPosition === 0
+            ? `${prevValue}${key}`
+            : `${prevValue.slice(0, caretPosition)}${key}${prevValue.slice(
+                caretPosition
+              )}`;
 
       this.input().simulate('change', {
         target: { value: nextValue, selectionStart: caretPosition }
@@ -285,7 +295,59 @@ describe('PhoneNumber', () => {
     ).toBe(undefined);
   });
 
-  test('Move phone number caret when formatter adds charecters', () => {
+  describe('moves phone number caret when', () => {
+    test('formatter adds characters', () => {
+      const countries = [
+        {
+          label: 'Spain (+34)',
+          value: 'es',
+          dialingCode: '34',
+          phonePattern: '+.. ... ... ...'
+        }
+      ];
+
+      const component = new PhoneNumberComponent({ countries });
+      const setSelectionRange = jest.fn();
+      component.mockRefs(setSelectionRange);
+
+      component.clickCountry('es');
+      component.pressKey('1', 4);
+
+      expect(component.input().prop('value')).toBe('+34 1');
+      expect(setSelectionRange).toBeCalledWith(5, 5);
+    });
+
+    test('removing and adding characters', () => {
+      const countries = [
+        {
+          label: 'Spain (+34)',
+          value: 'es',
+          dialingCode: '34',
+          phonePattern: '+.. ... ... ...'
+        }
+      ];
+
+      const component = new PhoneNumberComponent({ countries });
+      const setSelectionRange = jest.fn();
+      component.mockRefs(setSelectionRange);
+
+      component.clickCountry('es');
+      component.pressKey('1', 4);
+      component.pressKey('2', 5);
+      component.pressKey('3', 6);
+      component.pressKey('4', 7);
+      component.pressKey('delete');
+      component.pressKey('delete');
+      setSelectionRange.mockClear();
+      component.pressKey('5', 6);
+      component.pressKey('6', 7);
+      component.pressKey('7', 8);
+
+      expect(component.input().prop('value')).toBe('+34 125 76');
+    });
+  });
+
+  test('reformats the number when deleting numbers in the middle', () => {
     const countries = [
       {
         label: 'Spain (+34)',
@@ -301,8 +363,19 @@ describe('PhoneNumber', () => {
 
     component.clickCountry('es');
     component.pressKey('1', 4);
+    component.pressKey('2');
+    component.pressKey('3');
+    component.pressKey('4');
+    component.pressKey('5');
+    component.pressKey('6');
+    component.pressKey('7');
+    component.pressKey('8');
+    component.pressKey('9');
 
-    expect(component.input().prop('value')).toBe('+34 1');
-    expect(setSelectionRange).toBeCalledWith(5, 5);
+    component.pressKey('delete', 8);
+    component.pressKey('delete', 8);
+    component.pressKey('delete', 8);
+
+    expect(component.input().prop('value')).toBe('+34 123 789');
   });
 });
