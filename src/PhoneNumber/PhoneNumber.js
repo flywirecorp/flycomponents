@@ -102,11 +102,35 @@ class PhoneNumber extends Component {
   };
 
   setCaretPosition = (currentPosition, currentNumber, newPhoneNumber) => {
-    let diff = newPhoneNumber.length - currentNumber.length;
-    const position = diff > 0 ? currentPosition + diff : currentPosition;
+    const currentSeparators = this.getSeparatorsToPosition(
+      currentNumber,
+      currentPosition
+    );
+
+    const newSeparators = this.getSeparatorsToPosition(
+      newPhoneNumber,
+      currentPosition
+    );
+
+    let lengthDiff = newPhoneNumber.length - currentNumber.length;
+    let separatorsDiff = newSeparators.length - currentSeparators.length;
+
+    const position = this.hasFormatChange(lengthDiff, separatorsDiff)
+      ? currentPosition + (lengthDiff || 1)
+      : currentPosition;
 
     this.numberInputRef.current.setSelectionRange(position, position);
   };
+
+  getSeparatorsToPosition = (phoneNumber, toPosition) => {
+    return (
+      (phoneNumber && phoneNumber.substring(0, toPosition).match(/[^0-9]/g)) ||
+      []
+    );
+  };
+
+  hasFormatChange = (lengthDiff, separatorsDiff) =>
+    lengthDiff >= 0 && separatorsDiff !== 0;
 
   handleCountryClick = isoCode => {
     const {
