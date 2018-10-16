@@ -129,9 +129,8 @@ class PhoneNumber extends Component {
     );
   };
 
-  hasFormatChange = (lengthDiff, separatorsDiff) => {
-    return lengthDiff >= 0 && separatorsDiff !== 0;
-  };
+  hasFormatChange = (lengthDiff, separatorsDiff) =>
+    lengthDiff >= 0 && separatorsDiff !== 0;
 
   handleCountryClick = isoCode => {
     const {
