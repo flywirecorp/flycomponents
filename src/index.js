@@ -19,6 +19,7 @@ import Tabs from './Tabs';
 import Textarea from './Textarea';
 import TextInput from './TextInput';
 import Radio from './Radio';
+import Switch from './Switch';
 
 export {
   Accordion,
@@ -38,6 +39,7 @@ export {
   PhoneNumber,
   Rating,
   Select,
+  Switch,
   Tabs,
   Textarea,
   TextInput,

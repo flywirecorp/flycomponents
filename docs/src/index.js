@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { HashRouter as Router, Link, Route, Switch } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Link,
+  Route,
+  Switch as SwitchRouter
+} from 'react-router-dom';
 import Accordion from './components/Accordion';
 import Alert from './components/Alert';
 import Autocomplete from './components/Autocomplete';
@@ -24,6 +29,7 @@ import Title from './components/Title';
 import Rating from './components/Rating';
 import Home from './components/Home';
 import Radio from './components/Radio';
+import Switch from './components/Switch';
 import icon from './images/hamburger-menu.svg';
 import './index.css';
 
@@ -65,6 +71,11 @@ const routes = [
     path: '/checkbox',
     label: 'Checkbox',
     component: Checkbox
+  },
+  {
+    path: '/switch',
+    label: 'Switch',
+    component: Switch
   },
   {
     path: '/fileinput',
@@ -198,7 +209,7 @@ NavBar.propTypes = {
 
 const Content = () => (
   <div className="Docs-content">
-    <Switch>
+    <SwitchRouter>
       {routes.map((route, index) => (
         <Route
           exact={route.exact}
@@ -207,7 +218,7 @@ const Content = () => (
           component={route.component}
         />
       ))}
-    </Switch>
+    </SwitchRouter>
   </div>
 );
 
