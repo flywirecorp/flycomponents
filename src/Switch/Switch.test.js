@@ -11,10 +11,6 @@ describe('Switch', () => {
     label(name) {
       return this.component.find(`label[htmlFor="${name}"]`).length;
     }
-
-    errorMsg() {
-      return this.component.find(`.FormGroup-feedback`).length;
-    }
   }
   const props = { id: 'a_id', name: 'a_name' };
 
