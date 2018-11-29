@@ -1,41 +1,49 @@
 import React from 'react';
-import Rating from '../../../../src/Rating';
+import { Ratings, Rating } from '../../../../src/Rating';
 import Component from '../Component';
 import README from './README.md';
 
-class RatingExample extends React.Component {
+class Emoji extends React.Component {
   state = {
-    ratingWithErrors: null,
-    ratingWithoutErrors: 4
-  };
-
-  selectRating = rating => {
-    this.setState({ rating });
+    isMouseOver: false
   };
 
   render() {
-    const { ratingWithErrors, ratingWithoutErrors } = this.state;
+    const { isMouseOver } = this.state;
 
     return (
-      <Component readme={README}>
-        <Rating
-          errorText="Please select a star"
-          higherRatingText="Very satisfied"
-          lowerRatingText="Very unsatisfied"
-          onClick={ratingWithErrors =>
-            this.setState({ ...this.state, ratingWithErrors })
-          }
-          rating={ratingWithErrors}
-        />
+      <Rating
+        {...this.props}
+        render={({ index, select, selectedIndex }) => (
+          <span
+            onClick={select}
+            style={{ fontSize: '60px', margin: '0 2px' }}
+            onMouseEnter={() => this.setState({ isMouseOver: true })}
+            onMouseLeave={() => this.setState({ isMouseOver: false })}
+          >
+            {isMouseOver ? '😛' : index === selectedIndex ? '😃' : '😐'}
+          </span>
+        )}
+      />
+    );
+  }
+}
 
-        <Rating
-          higherRatingText="Very satisfied"
-          lowerRatingText="Very unsatisfied"
-          onClick={ratingWithoutErrors =>
-            this.setState({ ...this.state, ratingWithoutErrors })
-          }
-          rating={ratingWithoutErrors}
-        />
+class RatingExample extends React.Component {
+  render() {
+    return (
+      <Component readme={README}>
+        <Ratings
+          defaultSelectedIndex={3}
+          onSelect={index => console.log('selected', index)}
+        >
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+        </Ratings>
       </Component>
     );
   }

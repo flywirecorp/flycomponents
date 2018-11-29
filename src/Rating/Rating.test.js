@@ -1,42 +1,64 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Rating, Star } from './Rating';
+import { mount } from 'enzyme';
+import { Ratings, Rating } from './Rating';
 
-describe('Rating', () => {
-  const props = {
-    rating: '3'
-  };
+const Plus = props => (
+  <Rating
+    {...props}
+    render={({ index, select, selectedIndex }) => (
+      <span onClick={select}>+</span>
+    )}
+  />
+);
 
-  test('renders the stars', () => {
-    const wrapper = shallow(<Rating {...props} />);
-    const stars = wrapper.find(Star);
+describe('Ratings', () => {
+  const initialIndex = 2;
+  const lastIndex = 3;
+  const mockOnSelect = jest.fn();
+  const wrapper = mount(
+    <Ratings defaultSelectedIndex={initialIndex} onSelect={mockOnSelect}>
+      <Plus />
+      <Plus />
+      <Plus />
+      <Plus />
+    </Ratings>
+  );
+  const lastChild = wrapper.find(Plus).last();
 
-    expect(stars.length).toEqual(5);
+  test('renders children', () => {
+    const chilren = wrapper.find(Plus);
+
+    expect(chilren.length).toBe(4);
   });
 
-  test('displays received errors', () => {
-    const ownProps = { ...props, errorText: 'An error' };
-    const wrapper = mount(<Rating {...ownProps} />);
-    const firstStar = wrapper.find(Star).first();
+  test('gives an index to each child', () => {
+    const index = lastChild.prop('index');
 
-    expect(firstStar.find('.error').length).toEqual(1);
+    expect(index).toBe(lastIndex);
   });
 
-  test('doest not display an error if no error received', () => {
-    const wrapper = shallow(<Rating {...props} />);
-    const firstStar = wrapper.find(Star).first();
+  test('children know the selected index', () => {
+    const index = lastChild.prop('selectedIndex');
 
-    expect(firstStar.hasClass('error')).toEqual(false);
+    expect(index).toBe(initialIndex);
   });
 
-  test('calls onclick with the star value', async () => {
-    const starStub = { target: { getAttribute: () => 4 } };
-    const onClick = jest.fn();
-    const ownProps = { ...props, onClick };
-    const wrapper = shallow(<Rating {...ownProps} />);
-    const star = wrapper.find(Star).first();
-    star.simulate('click', starStub);
+  test('starts with selected a rating index', () => {
+    const selected = wrapper.state().selectedIndex;
 
-    expect(onClick).toHaveBeenCalledWith(4);
+    expect(selected).toBe(initialIndex);
+  });
+
+  test('calls onSelect callback function when selecting a rating', () => {
+    lastChild.simulate('click');
+
+    expect(mockOnSelect).toBeCalled();
+  });
+
+  test('changes the selected rating index when clicking a rating', () => {
+    lastChild.simulate('click');
+    const selected = wrapper.state().selectedIndex;
+
+    expect(selected).toBe(lastIndex);
   });
 });

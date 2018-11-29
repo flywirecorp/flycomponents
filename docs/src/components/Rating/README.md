@@ -1,32 +1,69 @@
 # Rating
 
-Stars to provide a rating feedback
+Generic rating component
 
 ## Example rating
 
 ```javascript
-<Rating
-  errorText="Please select a star"
-  higherRatingText="Very satisfied"
-  lowerRatingText="Very unsatisfied"
-  onClick={callback}
-/>
+class Emoji extends React.Component {
+  state = {
+    isMouseOver: false
+  };
 
-<Rating
-  errorText=""
-  higherRatingText="Very satisfied"
-  lowerRatingText="Very unsatisfied"
-  onClick={callback}
-  rating="4"
-/>
+  render() {
+    const { isMouseOver } = this.state;
+
+    return (
+      <Rating
+        {...this.props}
+        render={({ index, select, selectedIndex }) => (
+          <span
+            onClick={select}
+            style={{ fontSize: '60px', margin: '0 2px' }}
+            onMouseEnter={() => this.setState({ isMouseOver: true })}
+            onMouseLeave={() => this.setState({ isMouseOver: false })}
+          >
+            {isMouseOver ? '😛' : index === selectedIndex ? '😃' : '😐'}
+          </span>
+        )}
+      />
+    );
+  }
+}
+
+class RatingExample extends React.Component {
+  render() {
+    return (
+      <Component readme={README}>
+        <Ratings
+          defaultSelectedIndex={3}
+          onSelect={index => console.log('selected', index)}
+        >
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+          <Emoji />
+        </Ratings>
+      </Component>
+    );
+  }
+}
 ```
 
 ## Properties
+### Ratings
 
 | Property         | Req | Type     | Description                                          | Default           |
 | ---------------- | --- | ---------| ---------------------------------------------------- | ----------------- |
-| errorText        | no  | string   | Text to display when no star is selected             | ""                |
-| higherRatingText | no  | string   | Text to show next to the lower rating star           | ""                |
-| lowerRatingText  | no  | string   | Text to show next to the higher rating star          | ""                |
-| onClick          | no  | function | Function to execute when clicking a star             |                   |
-| rating           | no  | number   | Selected star                                        | null              |
+| defaultSelectedIndex   | no  | number   | Selected rating | null              |
+| onSelect          | no  | function | Function to execute when selecting a rating             |                   |
+
+### Rating
+
+| Property         | Req | Type     | Description                                          | Default           |
+| ---------------- | --- | ---------| ---------------------------------------------------- | ----------------- |
+| index   | no  | number   | Rating index | null              |
+| select          | no  | function | Function to execute to select a rating             |                   |
+| selectedIndex   | no  | number   | Selected rating | null              |
