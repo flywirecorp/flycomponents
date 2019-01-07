@@ -41,6 +41,10 @@ describe('MoneyInput', () => {
         target: { value: '', setSelectionRange: callback }
       });
     }
+
+    simulateKeyDown(e) {
+      this.input().simulate('keydown', e);
+    }
   }
 
   test('formats the default value', () => {
@@ -103,5 +107,25 @@ describe('MoneyInput', () => {
     const component = new MoneyInputComponent({ disabled: true });
 
     expect(component.input().prop('disabled')).toBeDefined();
+  });
+
+  test('allows key shortcut to paste amount', () => {
+    const component = new MoneyInputComponent();
+    const preventDefault = jest.fn();
+    const keyEvent = { ctrlKey: true, keyCode: 86, preventDefault };
+
+    component.simulateKeyDown(keyEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+
+  test('ignores not allowed keys', () => {
+    const component = new MoneyInputComponent();
+    const preventDefault = jest.fn();
+    const keyEvent = { keyCode: 10, preventDefault };
+
+    component.simulateKeyDown(keyEvent);
+
+    expect(preventDefault).toHaveBeenCalled();
   });
 });
