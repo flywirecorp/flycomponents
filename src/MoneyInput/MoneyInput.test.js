@@ -109,6 +109,26 @@ describe('MoneyInput', () => {
     expect(component.input().prop('disabled')).toBeDefined();
   });
 
+  test('allows key shortcut to copy amount', () => {
+    const component = new MoneyInputComponent();
+    const preventDefault = jest.fn();
+    const keyEvent = { ctrlKey: true, keyCode: 67, preventDefault };
+
+    component.simulateKeyDown(keyEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+
+  test('allows key shortcut to cut amount', () => {
+    const component = new MoneyInputComponent();
+    const preventDefault = jest.fn();
+    const keyEvent = { ctrlKey: true, keyCode: 88, preventDefault };
+
+    component.simulateKeyDown(keyEvent);
+
+    expect(preventDefault).not.toHaveBeenCalled();
+  });
+
   test('allows key shortcut to paste amount', () => {
     const component = new MoneyInputComponent();
     const preventDefault = jest.fn();
