@@ -105,6 +105,7 @@ class MoneyInput extends Component {
   };
 
   handleKeyDown = e => {
+    const CKEY = 67;
     const COMMA = 188;
     const CONTROL_KEY = e.ctrlKey || e.metaKey;
     const DECIMAL_POINT = 110;
@@ -125,6 +126,9 @@ class MoneyInput extends Component {
     const SUPR = 46;
     const TAB = 9;
     const VKEY = 86;
+    const XKEY = 88;
+    const isCopy = CONTROL_KEY && e.keyCode === CKEY;
+    const isCut = CONTROL_KEY && e.keyCode === XKEY;
     const isNumber = /\d/.test(String.fromCharCode(e.keyCode));
     const isPaste = CONTROL_KEY && e.keyCode === VKEY;
     const allowedChars = [
@@ -148,7 +152,7 @@ class MoneyInput extends Component {
       TAB
     ].includes(e.keyCode);
 
-    if (!isNumber && !allowedChars && !isPaste) {
+    if (!isNumber && !allowedChars && !isPaste && !isCopy && !isCut) {
       e.preventDefault();
     }
   };
