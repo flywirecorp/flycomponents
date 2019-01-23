@@ -12,9 +12,6 @@ const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS;
 const styles = {
-  menu: {
-    position: 'relative'
-  },
   fakeInput: {
     position: 'absolute',
     top: 0,
@@ -247,7 +244,6 @@ export class FlagSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
-        style={styles.menu}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
           {value ? (
@@ -258,17 +254,16 @@ export class FlagSelector extends Component {
             />
           ) : null}
         </span>
-        <input
-          disabled={disabled}
-          autoComplete="off"
-          className="PhoneNumber-menu-fakeInput"
-          onClick={this.handleMenuClick}
-          onKeyDown={this.handleMenuKeydown}
-          readOnly={readOnly}
-          style={styles.fakeInput}
-          type="text"
-          tabIndex={-1}
-        />
+        {!disabled ? (
+          <div
+            className="PhoneNumber-menu-fakeInput"
+            onClick={this.handleMenuClick}
+            onKeyDown={this.handleMenuKeydown}
+            readOnly={readOnly}
+            style={styles.fakeInput}
+            tabIndex={-1}
+          />
+        ) : null}
 
         <Options ref={this.optionListRef}>{optionList}</Options>
       </div>
