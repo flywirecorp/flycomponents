@@ -352,7 +352,7 @@ export class Autocomplete extends Component {
           )}
         >
           <input
-            autoComplete="no"
+            autoComplete="off"
             className="Autocomplete-search"
             disabled={disabled}
             id={name}
@@ -364,7 +364,7 @@ export class Autocomplete extends Component {
             ref={this.searchInputRef}
             placeholder={placeholder}
             readOnly={!searchOn}
-            type="text"
+            type="search"
             value={searchQuery}
           />
           <Options ref={this.optionListRef}>{optionList}</Options>
