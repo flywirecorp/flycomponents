@@ -4,6 +4,13 @@ import Datepicker from './Datepicker';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 
+// function mockGetRef(ref: any) {
+//   this.datepickerRef.current = { getBoundingClientRect: { top: 800 } };
+// }
+// jest.spyOn(MyComp.prototype, 'getRef').mockImplementationOnce(mockGetRef);
+// const comp = mount(<MyComp />);
+// expect(comp.state('contentHeight')).toEqual(100);
+
 describe('Datepicker', () => {
   class DatepickerComponent {
     constructor(ownProps) {
@@ -45,6 +52,10 @@ describe('Datepicker', () => {
 
     calendarIsVisible() {
       return this.component.state('isOpen');
+    }
+
+    calendarIsBelow() {
+      return !this.component.find('.Datepicker').hasClass('is-reverse');
     }
 
     simulateCalendarIconClick() {
@@ -173,13 +184,38 @@ describe('Datepicker', () => {
     expect(component.selectedDate()).toBe('04/21/1979');
   });
 
-  test('selects date clicking a day', () => {
-    const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+  describe('shows the calendar on the correct position', () => {
+    test('shows the calendar below', () => {
+      const component = new DatepickerComponent();
 
-    component.simulateDateClick('04/21/1979');
+      component.simulateCalendarIconClick();
 
-    expect(component.selectedDate()).toBe('04/21/1979');
+      expect(component.calendarIsBelow()).toBe(true);
+    });
+
+    test('shows the calendar above when it does not fit below', () => {
+      const getBoundingClientRect = () => ({ top: 1200 });
+      jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
+        current: { getBoundingClientRect }
+      }));
+      const component = new DatepickerComponent();
+
+      component.simulateCalendarIconClick();
+
+      expect(component.calendarIsBelow()).toBe(false);
+    });
+
+    test('shows the calendar below when it does not fit above', () => {
+      const getBoundingClientRect = () => ({ top: 100 });
+      jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
+        current: { getBoundingClientRect }
+      }));
+      const component = new DatepickerComponent();
+
+      component.simulateCalendarIconClick();
+
+      expect(component.calendarIsBelow()).toBe(true);
+    });
   });
 
   describe('having read-only property', () => {
