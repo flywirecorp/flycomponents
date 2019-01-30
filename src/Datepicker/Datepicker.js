@@ -7,6 +7,9 @@ import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
 
+const DATEPICKER_HEIGHT = 420;
+const REQUIRED_SIZE_ABOVE = 780;
+
 class Datepicker extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
@@ -43,9 +46,12 @@ class Datepicker extends Component {
     const startDate = parseDateOrToday(value);
     startDate.locale(locale);
 
+    this.datepickerRef = React.createRef();
+
     this.state = {
       isOpen: false,
       isFocused: false,
+      isAbove: false,
       selectedDate: value,
       startDate
     };
@@ -60,8 +66,15 @@ class Datepicker extends Component {
     document.addEventListener('click', this.hideOnDocumentClick);
   }
 
+  componentDidUpdate() {
+    window.addEventListener('resize', this.setStyles);
+    window.addEventListener('scroll', this.setStyles);
+  }
+
   componentWillUnmount() {
     document.removeEventListener('click', this.hideOnDocumentClick);
+    window.removeEventListener('resize', this.setStyles);
+    window.removeEventListener('scroll', this.setStyles);
   }
 
   setSelectedDate = date => {
@@ -90,6 +103,8 @@ class Datepicker extends Component {
       return;
     }
 
+    this.setStyles();
+
     this.setState(prevState => {
       return { isOpen: !prevState.isOpen };
     });
@@ -103,6 +118,7 @@ class Datepicker extends Component {
       return;
     }
     this.setState({ isOpen: true });
+    this.setStyles();
   };
 
   handleFocus = () => {
@@ -153,6 +169,34 @@ class Datepicker extends Component {
     }, wasOpen ? this.sendBlur : null);
   };
 
+  get datepickerBottomPosition() {
+    const element = this.datepickerRef.current;
+
+    const { top: datepickerTopPosition } = element.getBoundingClientRect();
+    return datepickerTopPosition + DATEPICKER_HEIGHT;
+  }
+
+  get fitsAbove() {
+    return this.datepickerBottomPosition > REQUIRED_SIZE_ABOVE;
+  }
+
+  get fitsBelow() {
+    const viewportHeight = Math.max(
+      document.documentElement.clientHeight,
+      window.innerHeight || 0
+    );
+
+    return viewportHeight >= this.datepickerBottomPosition;
+  }
+
+  setStyles = () => {
+    const element = this.datepickerRef.current;
+    if (!element) return false;
+
+    const isAbove = !this.fitsBelow && this.fitsAbove;
+    this.setState({ isAbove: isAbove });
+  };
+
   sendBlur() {
     const { name, onBlur } = this.props;
     onBlur(name);
@@ -170,7 +214,7 @@ class Datepicker extends Component {
       required,
       value
     } = this.props;
-    const { isOpen, isFocused, selectedDate, startDate } = this.state;
+    const { isOpen, isFocused, isAbove, selectedDate, startDate } = this.state;
 
     return (
       <FormGroup
@@ -186,7 +230,14 @@ class Datepicker extends Component {
         required={required}
         readOnly={readOnly}
       >
-        <div className={classNames('Datepicker', { 'is-open': isOpen })}>
+        <div
+          className={classNames(
+            'Datepicker',
+            { 'is-open': isOpen },
+            { 'is-reverse': isAbove }
+          )}
+          ref={this.datepickerRef}
+        >
           <DateInput
             disabled={disabled}
             name={name}
