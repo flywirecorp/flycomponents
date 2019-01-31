@@ -4,13 +4,6 @@ import Datepicker from './Datepicker';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 
-// function mockGetRef(ref: any) {
-//   this.datepickerRef.current = { getBoundingClientRect: { top: 800 } };
-// }
-// jest.spyOn(MyComp.prototype, 'getRef').mockImplementationOnce(mockGetRef);
-// const comp = mount(<MyComp />);
-// expect(comp.state('contentHeight')).toEqual(100);
-
 describe('Datepicker', () => {
   class DatepickerComponent {
     constructor(ownProps) {
