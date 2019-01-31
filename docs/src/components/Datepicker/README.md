@@ -41,6 +41,14 @@ Datepickers are used to select a single date for an input.
   value="04/21/1979"
   readOnly
 />
+
+<Datepicker
+  label="Test Date Picker for reverse"
+  locale="ES"
+  name="test"
+  required
+  value="04/21/1979"
+/>
 ```
 
 ## Properties
