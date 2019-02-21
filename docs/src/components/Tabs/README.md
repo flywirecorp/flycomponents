@@ -10,7 +10,7 @@ const { Tab, TabList, TabPanel, TabPanels } = Tabs;
 
 return (
   <Component readme={README}>
-    <Tabs defaultActiveIndex={1}>
+    <Tabs className="customTabs" defaultActiveIndex={1}>
       <TabList>
         <Tab>First</Tab>
         <Tab>Second</Tab>
@@ -46,3 +46,4 @@ return (
 | ------------------ | --- | ------- | ------------------------------------------ | ------- |
 | defaultActiveIndex | no  | number  | Default visible tab index (zero based)     | 0       |
 | isDisabled         | no  | boolean | Used in the `<Tab>` tag to disable the Tab | `false` |
+| className          | no  | string  | Classes to add to the component            |         |

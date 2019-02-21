@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 export class Tabs extends Component {
   static propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     defaultActiveIndex: PropTypes.number
   };
 
@@ -33,7 +35,10 @@ export class Tabs extends Component {
   };
 
   render() {
-    return <div className="Tabs">{this.props.children}</div>;
+    const { className } = this.props;
+    const tabClassName = classNames('Tabs', className);
+
+    return <div className={tabClassName}>{this.props.children}</div>;
   }
 }
 
