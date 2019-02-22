@@ -26,4 +26,15 @@ describe('Tabs', () => {
 
     expect(activeTabIndex).toBe(0);
   });
+
+  test('merges classNames sent with their default classes', () => {
+    const wrapper = shallow(
+      <Tabs className="customClass">
+        <TabList />
+        <TabPanels>{panelsContent}</TabPanels>
+      </Tabs>
+    );
+
+    expect(wrapper.find('.Tabs.customClass').length).toEqual(1);
+  });
 });

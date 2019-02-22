@@ -9,7 +9,7 @@ export default () => {
 
   return (
     <Component readme={README}>
-      <Tabs defaultActiveIndex={1}>
+      <Tabs className="customTabs" defaultActiveIndex={1}>
         <TabList>
           <Tab>First</Tab>
           <Tab>Second</Tab>
