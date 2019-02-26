@@ -6,8 +6,7 @@ export class Tabs extends Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    defaultActiveIndex: PropTypes.number,
-    onTabSelected: PropTypes.func
+    defaultActiveIndex: PropTypes.number
   };
 
   static childContextTypes = {
@@ -17,8 +16,7 @@ export class Tabs extends Component {
 
   static defaultProps = {
     children: null,
-    defaultActiveIndex: 0,
-    onTabSelected: null
+    defaultActiveIndex: 0
   };
 
   state = {
@@ -33,10 +31,7 @@ export class Tabs extends Component {
   }
 
   selectTabIndex = activeIndex => {
-    const { onTabSelected } = this.props;
     this.setState({ activeIndex });
-
-    if (onTabSelected) onTabSelected({ activeIndex });
   };
 
   render() {
