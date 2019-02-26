@@ -12,7 +12,7 @@ export default () => {
       <Tabs className="customTabs" defaultActiveIndex={1}>
         <TabList>
           <Tab>First</Tab>
-          <Tab>Second</Tab>
+          <Tab onClick={() => alert('clicked')}>Second</Tab>
           <Tab>Third</Tab>
           <Tab isDisabled>Disabled</Tab>
         </TabList>
@@ -27,8 +27,7 @@ export default () => {
                   selectTab(0);
                 }}
               >
-                {' '}
-                Go to first{' '}
+                Go to first
               </Button>
             )}
           </TabPanel>

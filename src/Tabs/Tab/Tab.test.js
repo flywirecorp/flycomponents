@@ -32,13 +32,24 @@ describe('Tab', () => {
     expect(link.hasClass(disabledClass)).toBe(true);
   });
 
-  test('calls function on click', () => {
+  test('calls function on select', () => {
     const onSelect = jest.fn();
+
     const wrapper = shallow(<Tab onSelect={onSelect}>{option}</Tab>);
 
     const link = wrapper.find('a');
     link.simulate('click');
 
     expect(onSelect).toHaveBeenCalled();
+  });
+
+  test('calls function on click', () => {
+    const onClick = jest.fn();
+    const wrapper = shallow(<Tab onClick={onClick}>{option}</Tab>);
+
+    const link = wrapper.find('a');
+    link.simulate('click');
+
+    expect(onClick).toHaveBeenCalled();
   });
 });
