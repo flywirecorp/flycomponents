@@ -40,14 +40,14 @@ describe('Tabs', () => {
     expect(wrapper.find('.Tabs.customClass').length).toEqual(1);
   });
 
-  test('call onSelectedTab if is declared', () => {
-    const onSelectedTab = jest.fn();
+  test('call onTabSelected if is declared', () => {
+    const onTabSelected = jest.fn();
 
     const tabOption1 = 'Tab1';
     const tabOption2 = 'Tab2';
 
     const wrapper = mount(
-      <Tabs defaultActiveIndex={0} onSelectedTab={onSelectedTab}>
+      <Tabs defaultActiveIndex={0} onTabSelected={onTabSelected}>
         <TabList>
           <Tab>{tabOption1}</Tab>
           <Tab>{tabOption2}</Tab>
@@ -62,6 +62,6 @@ describe('Tabs', () => {
     const secondTab = wrapper.find(Tab).at(1);
     secondTab.simulate('click');
 
-    expect(onSelectedTab).toHaveBeenCalled();
+    expect(onTabSelected).toHaveBeenCalled();
   });
 });
