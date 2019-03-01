@@ -42,8 +42,20 @@ describe('MoneyInput', () => {
       });
     }
 
+    simulateFocusOut(name, value) {
+      this.input().simulate('focusOut', {
+        target: { name, value }
+      });
+    }
+
     simulateKeyDown(e) {
       this.input().simulate('keydown', e);
+    }
+
+    simulateMouseOut(name, value) {
+      this.input().simulate('mouseout', {
+        target: { name, value }
+      });
     }
   }
 
@@ -84,6 +96,39 @@ describe('MoneyInput', () => {
     const component = new MoneyInputComponent();
 
     component.simulateBlur('amount', 1000);
+
+    expect(component.input().prop('defaultValue')).toBe('1,000.00');
+  });
+
+  test('handles on focus out event in input', () => {
+    const onFocusOut = jest.fn();
+    const component = new MoneyInputComponent({ onFocusOut });
+    component.simulateFocusOut('amount', 100000);
+
+    expect(onFocusOut).toBeCalled();
+  });
+
+  test('formats the amount when on focus out', () => {
+    const component = new MoneyInputComponent();
+
+    component.simulateFocusOut('amount', 1000);
+
+    expect(component.input().prop('defaultValue')).toBe('1,000.00');
+  });
+
+  test('handles on mouse out event in input', () => {
+    const onMouseOut = jest.fn();
+    const component = new MoneyInputComponent({ onMouseOut });
+
+    component.simulateMouseOut('amount', 100000);
+
+    expect(onMouseOut).toBeCalled();
+  });
+
+  test('formats the amount when on mouse out', () => {
+    const component = new MoneyInputComponent();
+
+    component.simulateMouseOut('amount', 1000);
 
     expect(component.input().prop('defaultValue')).toBe('1,000.00');
   });
