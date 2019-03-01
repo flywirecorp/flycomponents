@@ -99,7 +99,7 @@ class MoneyInput extends Component {
     } = e;
     const amountInCents = this.convertToCents(amount);
 
-    this.setState({ amount: amountInCents });
+    this.setState({ amount: amountInCents, isFocused: false });
 
     onMouseOut(name, amountInCents);
   };
@@ -111,7 +111,7 @@ class MoneyInput extends Component {
     } = e;
     const amountInCents = this.convertToCents(amount);
 
-    this.setState({ amount: amountInCents });
+    this.setState({ amount: amountInCents, isFocused: false });
 
     onFocusOut(name, amountInCents);
   };
