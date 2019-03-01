@@ -39,6 +39,8 @@ receives the on blur event.
 | maxLength          | no  | string, number | Input max length                                                    | `9`           |
 | name               | yes | string         | Input `name` and `id`                                               |               |
 | onBlur             | no  | func           | Callback function that is fired when component is blurred           |               |
+| onFocusOut         | no  | func           | Callback function that is fired when component loses focus          |               |
+| onMouseOut         | no  | func           | Callback function that is fired when mouse exits the component      |               |
 | onChange           | no  | func           | Callback function that is fired when the components's value changes |               |
 | readOnly           | no  | bool           | Input field is read only                                            | false         |
 | required           | no  | bool           | Set the field to required                                           | false         |
