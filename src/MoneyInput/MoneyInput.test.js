@@ -42,12 +42,6 @@ describe('MoneyInput', () => {
       });
     }
 
-    simulateFocusOut(name, value) {
-      this.input().simulate('focusOut', {
-        target: { name, value }
-      });
-    }
-
     simulateKeyDown(e) {
       this.input().simulate('keydown', e);
     }
@@ -96,14 +90,6 @@ describe('MoneyInput', () => {
     const component = new MoneyInputComponent();
 
     component.simulateBlur('amount', 1000);
-
-    expect(component.input().prop('defaultValue')).toBe('1,000.00');
-  });
-
-  test('formats the amount when on focus out', () => {
-    const component = new MoneyInputComponent();
-
-    component.simulateFocusOut('amount', 1000);
 
     expect(component.input().prop('defaultValue')).toBe('1,000.00');
   });
