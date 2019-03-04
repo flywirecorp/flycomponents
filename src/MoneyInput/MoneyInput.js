@@ -18,8 +18,6 @@ class MoneyInput extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    onFocusOut: PropTypes.func,
-    onMouseOut: PropTypes.func,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     subunitToUnit: PropTypes.number,
@@ -37,8 +35,6 @@ class MoneyInput extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-    onFocusOut: () => {},
-    onMouseOut: () => {},
     readOnly: false,
     subunitToUnit: 100,
     symbolFirst: true,
@@ -92,28 +88,13 @@ class MoneyInput extends Component {
     onChange(name, amountInCents);
   };
 
-  handleMouseOut = e => {
-    const { onMouseOut } = this.props;
+  handleOut = e => {
     const {
-      target: { name, value: amount }
+      target: { value: amount }
     } = e;
     const amountInCents = this.convertToCents(amount);
 
     this.setState({ amount: amountInCents, isFocused: false });
-
-    onMouseOut(name, amountInCents);
-  };
-
-  handleFocusOut = e => {
-    const { onFocusOut } = this.props;
-    const {
-      target: { name, value: amount }
-    } = e;
-    const amountInCents = this.convertToCents(amount);
-
-    this.setState({ amount: amountInCents, isFocused: false });
-
-    onFocusOut(name, amountInCents);
   };
 
   handleClick = e => {
@@ -232,9 +213,9 @@ class MoneyInput extends Component {
           onChange={this.handleChange}
           onClick={this.handleClick}
           onFocus={this.handleFocus}
-          onFocusOut={this.handleFocusOut}
+          onFocusOut={this.handleOut}
+          onMouseOut={this.handleOut}
           onKeyDown={this.handleKeyDown}
-          onMouseOut={this.handleMouseOut}
           type="text"
         />
       </FormGroup>
