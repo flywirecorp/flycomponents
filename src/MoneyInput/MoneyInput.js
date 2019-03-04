@@ -213,7 +213,6 @@ class MoneyInput extends Component {
           onChange={this.handleChange}
           onClick={this.handleClick}
           onFocus={this.handleFocus}
-          onFocusOut={this.handleOut}
           onMouseOut={this.handleOut}
           onKeyDown={this.handleKeyDown}
           type="text"
