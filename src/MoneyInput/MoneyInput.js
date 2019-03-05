@@ -212,6 +212,7 @@ class MoneyInput extends Component {
         <InputGroup
           {...inputAttrs}
           defaultValue={this.format(amount)}
+          key={amount}
           onBlur={this.handleBlur}
           onChange={this.handleChange}
           onClick={this.handleClick}
