@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Input from '../Input';
 import MoneyInput from './MoneyInput';
 import InputGroup from '../InputGroup';
 
