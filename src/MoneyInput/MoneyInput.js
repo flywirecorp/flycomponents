@@ -72,12 +72,14 @@ class MoneyInput extends Component {
   handleBlur = e => {
     const { onBlur } = this.props;
     const {
+      target,
       target: { name, value: amount }
     } = e;
     const amountInCents = this.convertToCents(amount);
 
     onBlur(name, amountInCents);
     this.setState({ amount: amountInCents, isFocused: false });
+    target.value = this.format(amountInCents);
   };
 
   handleChange = e => {
@@ -90,11 +92,13 @@ class MoneyInput extends Component {
 
   handleOut = e => {
     const {
+      target,
       target: { value: amount }
     } = e;
     const amountInCents = this.convertToCents(amount);
 
     this.setState({ amount: amountInCents, isFocused: false });
+    target.value = this.format(amountInCents);
   };
 
   handleClick = e => {
@@ -208,7 +212,6 @@ class MoneyInput extends Component {
         <InputGroup
           {...inputAttrs}
           defaultValue={this.format(amount)}
-          key={amount}
           onBlur={this.handleBlur}
           onChange={this.handleChange}
           onClick={this.handleClick}
