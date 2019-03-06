@@ -59,6 +59,24 @@ describe('MoneyInput', () => {
     expect(component.input().prop('defaultValue')).toBe('50.25');
   });
 
+  test('formats the value on mouse out', () => {
+    const component = new MoneyInputComponent({ value: 5500 });
+    const e = { target: { value: 33 } };
+
+    component.input().simulate('mouseout', e);
+
+    expect(e.target.value).toBe('33.00');
+  });
+
+  test('formats the value on blur', () => {
+    const component = new MoneyInputComponent({ value: 5500 });
+    const e = { target: { value: 33 } };
+
+    component.input().simulate('blur', e);
+
+    expect(e.target.value).toBe('33.00');
+  });
+
   test('handles on change events in input', () => {
     const onChange = jest.fn();
     const props = {
