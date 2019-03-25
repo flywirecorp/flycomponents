@@ -12,6 +12,7 @@ import Alert from './components/Alert';
 import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
 import Datepicker from './components/Datepicker';
+import Dropdown from './components/Dropdown';
 import Checkbox from './components/Checkbox';
 import FileInput from './components/FileInput';
 import FormGroup from './components/FormGroup';
@@ -66,6 +67,11 @@ const routes = [
     path: '/datepicker',
     label: 'Datepicker',
     component: Datepicker
+  },
+  {
+    path: '/dropdown',
+    label: 'Dropdown',
+    component: Dropdown
   },
   {
     path: '/checkbox',
