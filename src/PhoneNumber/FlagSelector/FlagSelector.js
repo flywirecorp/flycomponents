@@ -106,14 +106,14 @@ export class FlagSelector extends Component {
     }
   };
 
-  handleOptionHover(value) {
-    const selectedIndex = this.getOptionIndexByValue(value);
+  handleOptionHover(option) {
+    const selectedIndex = this.getOptionIndexByValue(option.value);
 
     return this.setState({ selectedIndex });
   }
 
-  handleOptionSelected = value => {
-    const selectedIndex = this.getOptionIndexByValue(value);
+  handleOptionSelected = option => {
+    const selectedIndex = this.getOptionIndexByValue(option.value);
 
     this.hideOptions();
     this.setState(() => {
@@ -121,7 +121,7 @@ export class FlagSelector extends Component {
         isOpen: false,
         selectedIndex
       };
-    }, this.sendChange(value));
+    }, this.sendChange(option.value));
   };
 
   handleTypedChar(keyCode) {
@@ -230,8 +230,9 @@ export class FlagSelector extends Component {
         dialingCode={option.dialingCode}
         hasFocus={selectedIndex === i}
         key={option.value}
-        onClick={value => this.handleOptionSelected(value)}
-        onMouseEnter={value => this.handleOptionHover(value)}
+        onClick={value => this.handleOptionSelected(option)}
+        onMouseEnter={value => this.handleOptionHover(option)}
+        onMouseOver={value => this.handleOptionHover(option)}
         ref={option => this.setOptionRef(i, option)}
         value={option.value}
       />
@@ -246,13 +247,7 @@ export class FlagSelector extends Component {
         )}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
-          {value ? (
-            <span
-              className={classNames('Flag', {
-                [`Flag--${value.toLowerCase()}`]: value
-              })}
-            />
-          ) : null}
+          {value ? `+ ${value}` : null}
         </span>
         {!disabled ? (
           <div

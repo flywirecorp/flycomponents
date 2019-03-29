@@ -6,16 +6,34 @@ import README from './README.md';
 export default () => {
   const countries = [
     {
-      label: 'Spain (+34)',
+      label: 'Spain',
       value: 'es',
       dialingCode: '34',
       phonePattern: '+.. ... ... ...'
     },
     {
-      label: 'United States (+1)',
+      label: 'United States',
       value: 'us',
       dialingCode: '1',
       phonePattern: '+. (...) ...-....'
+    },
+    {
+      label: 'Afghanistan',
+      value: 'af',
+      dialingCode: '93',
+      phonePattern: '+.. (...) ...-....'
+    },
+    {
+      label: 'Åland Islands',
+      value: 'ax',
+      dialingCode: '358',
+      phonePattern: '+... ...-....'
+    },
+    {
+      label: 'Albania',
+      value: 'ab',
+      dialingCode: '213',
+      phonePattern: '+... ...-....'
     }
   ];
 
