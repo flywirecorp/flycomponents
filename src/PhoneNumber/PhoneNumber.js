@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import FlagSelector from './FlagSelector';
+import PrefixSelector from './PrefixSelector';
 import { applyPattern } from '../utils/formatter';
 import FormGroup from '../FormGroup';
 
@@ -203,7 +203,7 @@ class PhoneNumber extends Component {
           hasValue={!!formattedNumber}
         >
           <div className="PhoneNumber-field">
-            <FlagSelector
+            <PrefixSelector
               disabled={disabled}
               name={name}
               onChange={(name, value) => this.handleCountryClick(value)}
