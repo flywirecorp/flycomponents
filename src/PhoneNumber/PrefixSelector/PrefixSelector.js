@@ -18,6 +18,15 @@ export class PrefixSelector extends Component {
     selectedIndex: -1
   };
 
+  handleClickOutside = e => {
+    this.setState({ isOpen: false });
+  };
+
+  handleMenuClick = () => {
+    const { isOpen } = this.state;
+    this.setState({ isOpen: !isOpen });
+  };
+
   handleClick = index => {
     this.setState({ selectedIndex: index, isOpen: false });
   };
@@ -50,10 +59,15 @@ export class PrefixSelector extends Component {
 
     e.preventDefault();
 
-    const selectedIndex =
-      e.keyCode === ARROW_DOWN ? this.nextIndex : this.previousIndex;
+    const key = e.keyCode;
 
-    this.setState({ selectedIndex });
+    let selectedIndex;
+
+    if (key === ARROW_DOWN) selectedIndex = this.nextIndex;
+
+    if (key === ARROW_UP) selectedIndex = this.previousIndex;
+
+    this.setState({ selectedIndex, isOpen: true });
   };
 
   renderOption = (option, index) => {
@@ -88,13 +102,10 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
+        onClick={this.handleMenuClick}
+        onKeyDown={this.handleKeyDown}
       >
-        <span
-          className="Autocomplete-search PhoneNumber-menu-input"
-          onKeyDown={this.handleKeyDown}
-        >
-          `33`
-        </span>
+        <span className="Autocomplete-search PhoneNumber-menu-input">`33`</span>
         <Options>{optionList}</Options>
       </div>
     );

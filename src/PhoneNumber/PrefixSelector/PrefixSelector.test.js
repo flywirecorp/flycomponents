@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { PrefixSelector } from './PrefixSelector';
 import Option from './Option';
+// import Options from './Options';
 
 describe('PrefixSelector', () => {
   const options = [
@@ -16,11 +17,17 @@ describe('PrefixSelector', () => {
       value: 'US',
       dialingCode: '1',
       phonePattern: '+. (...) ...-....'
+    },
+    {
+      label: 'Albania',
+      value: 'AB',
+      dialingCode: '355',
+      phonePattern: '+. (...) ...-....'
     }
   ];
   test('renders a list of options', () => {
     const wrapper = shallow(<PrefixSelector options={options} />);
-    expect(wrapper.find(Option)).toHaveLength(2);
+    expect(wrapper.find(Option)).toHaveLength(3);
   });
 
   test('selects one option when click', () => {
@@ -64,9 +71,9 @@ describe('PrefixSelector', () => {
 
       test('selects first option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
         wrapper.update();
 
         expect(
@@ -79,10 +86,10 @@ describe('PrefixSelector', () => {
 
       test('selects second option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowDown);
-        dropdownInput.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
         wrapper.update();
 
         expect(
@@ -95,11 +102,12 @@ describe('PrefixSelector', () => {
 
       test('selects first option when pressing down after the last option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowDown);
-        dropdownInput.simulate('keyDown', arrowDown);
-        dropdownInput.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
+        dropdown.simulate('keyDown', arrowDown);
         wrapper.update();
 
         expect(
@@ -119,9 +127,9 @@ describe('PrefixSelector', () => {
 
       test('selects last option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
         wrapper.update();
 
         expect(
@@ -134,10 +142,11 @@ describe('PrefixSelector', () => {
 
       test('selects second-last option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowUp);
-        dropdownInput.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
         wrapper.update();
 
         expect(
@@ -150,11 +159,12 @@ describe('PrefixSelector', () => {
 
       test('selects first option when pressing down after the last option', () => {
         const wrapper = shallow(<PrefixSelector options={options} />);
-        const dropdownInput = wrapper.find('.PhoneNumber-menu-input');
+        const dropdown = wrapper.find('.PhoneNumber-menu');
 
-        dropdownInput.simulate('keyDown', arrowUp);
-        dropdownInput.simulate('keyDown', arrowUp);
-        dropdownInput.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
+        dropdown.simulate('keyDown', arrowUp);
         wrapper.update();
 
         expect(
@@ -165,5 +175,25 @@ describe('PrefixSelector', () => {
         ).toEqual(true);
       });
     });
+  });
+
+  test('open select options with press dropdown', () => {
+    const wrapper = shallow(<PrefixSelector options={options} />);
+    const menu = wrapper.find('.PhoneNumber-menu');
+
+    menu.simulate('click');
+
+    expect(wrapper.state('isOpen')).toBe(true);
+  });
+
+  test('close select options with press dropdown', () => {
+    const wrapper = shallow(<PrefixSelector options={options} />);
+    const menu = wrapper.find('.PhoneNumber-menu');
+
+    expect(wrapper.state('isOpen')).toBe(false);
+
+    menu.simulate('click');
+
+    expect(wrapper.state('isOpen')).toBe(true);
   });
 });
