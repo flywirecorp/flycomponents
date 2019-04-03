@@ -43,7 +43,7 @@ class PhoneNumber extends Component {
     const phoneNumber = value;
 
     this.state = {
-      dialingCode: prefix,
+      prefix: prefix,
       phoneNumber,
       isFocused: false
     };
@@ -58,27 +58,25 @@ class PhoneNumber extends Component {
 
   handleChange = e => {
     const { value: currentNumber } = e.target;
-    const { dialingCode } = this.state;
+    const { prefix } = this.state;
 
     const phoneNumber = currentNumber.replace(/[^\d]/gm, '');
 
-    const formattedNumber = dialingCode
-      ? `+${dialingCode} ${phoneNumber}`
-      : phoneNumber;
+    const formattedNumber = prefix ? `+${prefix} ${phoneNumber}` : phoneNumber;
 
     this.setState({ phoneNumber }, () => {
       this.sendChange(formattedNumber);
     });
   };
 
-  handleCountryClick = dialingCode => {
+  handlePrefixClick = prefix => {
     const { phoneNumber } = this.state;
 
     if (phoneNumber === NO_VALUE) return;
 
-    const formattedNumber = `+${dialingCode} ${phoneNumber}`;
+    const formattedNumber = `+${prefix} ${phoneNumber}`;
 
-    this.setState({ dialingCode }, () => {
+    this.setState({ prefix }, () => {
       this.sendChange(formattedNumber);
     });
   };
@@ -107,16 +105,13 @@ class PhoneNumber extends Component {
       onBlur,
       onChange,
       onFocus,
-      prefix,
       readOnly,
       required,
       value,
       ...otherProps
     } = this.props;
 
-    const { dialingCode, phoneNumber, isFocused } = this.state;
-
-    const countryPrefix = dialingCode === '' ? prefix : dialingCode;
+    const { prefix, phoneNumber, isFocused } = this.state;
 
     return (
       <div className="PhoneNumber" {...otherProps}>
@@ -137,11 +132,11 @@ class PhoneNumber extends Component {
             <PrefixSelector
               disabled={disabled}
               name={name}
-              onChange={(name, value) => this.handleCountryClick(value)}
+              onChange={(name, value) => this.handlePrefixClick(value)}
               onFocus={onFocus}
               options={countries}
               readOnly={readOnly}
-              value={countryPrefix}
+              value={prefix}
             />
             <div className="PhoneNumber-input">
               <input

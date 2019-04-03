@@ -36,8 +36,10 @@ export class PrefixSelector extends Component {
   constructor(props) {
     super(props);
 
+    const { value } = this.props;
+
     this.state = {
-      dialingCode: '',
+      dialingCode: value,
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
       typedQuery: '',
@@ -249,11 +251,9 @@ export class PrefixSelector extends Component {
   };
 
   render() {
-    const { value, disabled, readOnly } = this.props;
+    const { disabled, readOnly } = this.props;
     const { dialingCode, isOpen, options } = this.state;
     const optionList = options.map(this.renderOption);
-    const countryPrefix =
-      dialingCode !== '' ? dialingCode : value !== '' ? value : false;
 
     return (
       <div
@@ -264,7 +264,7 @@ export class PrefixSelector extends Component {
         )}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
-          {countryPrefix && `+ ${countryPrefix}`}
+          {dialingCode && `+ ${dialingCode}`}
         </span>
         {!disabled ? (
           <div
