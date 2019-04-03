@@ -25,6 +25,8 @@ const styles = {
 export class PrefixSelector extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
     onFocus: PropTypes.func,
     options: PropTypes.array.isRequired,
     readOnly: PropTypes.bool,
@@ -113,14 +115,14 @@ export class PrefixSelector extends Component {
     }
   };
 
-  handleOptionHover(option) {
-    const selectedIndex = this.getOptionIndexByValue(option.value);
+  handleOptionHover(value) {
+    const selectedIndex = this.getOptionIndexByValue(value);
 
     return this.setState({ selectedIndex });
   }
 
-  handleOptionSelected = option => {
-    const selectedIndex = this.getOptionIndexByValue(option.value);
+  handleOptionSelected = value => {
+    const selectedIndex = this.getOptionIndexByValue(value);
     const dialingCode = this.getDialingCodeByValue(selectedIndex);
 
     this.hideOptions();
@@ -130,7 +132,7 @@ export class PrefixSelector extends Component {
         selectedIndex,
         dialingCode
       };
-    });
+    }, this.sendChange(dialingCode));
   };
 
   handleTypedChar(keyCode) {
@@ -193,6 +195,14 @@ export class PrefixSelector extends Component {
     );
   }
 
+  sendChange(value) {
+    const { name, onChange } = this.props;
+
+    if (typeof onChange === 'function') {
+      onChange(name, value);
+    }
+  }
+
   selectCurrentOption() {
     const { options, selectedIndex } = this.state;
 
@@ -200,7 +210,7 @@ export class PrefixSelector extends Component {
       return;
     }
 
-    const value = options[selectedIndex];
+    const value = options[selectedIndex].value;
     return this.handleOptionSelected(value);
   }
 
@@ -229,9 +239,9 @@ export class PrefixSelector extends Component {
         dialingCode={dialingCode}
         hasFocus={hasFocus}
         key={value}
-        onClick={value => this.handleOptionSelected(option)}
-        onMouseEnter={value => this.handleOptionHover(option)}
-        onMouseOver={value => this.handleOptionHover(option)}
+        onClick={value => this.handleOptionSelected(value)}
+        onMouseEnter={value => this.handleOptionHover(value)}
+        onMouseOver={value => this.handleOptionHover(value)}
         ref={option => this.setOptionRef(index, option)}
         value={value}
       />

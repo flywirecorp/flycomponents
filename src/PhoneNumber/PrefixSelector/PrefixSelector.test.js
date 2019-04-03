@@ -171,22 +171,6 @@ describe('PrefixSelector', () => {
     expect(component.state('isOpen')).toBe(false);
   });
 
-  test('gives focus to an option when mouse enters', () => {
-    const options = [
-      {
-        label: 'Spain',
-        value: 'ES',
-        dialingCode: '34'
-      }
-    ];
-    const component = new PrefixSelectorComponent({ options });
-
-    const option = component.options().last();
-    option.simulate('mouseEnter', 'Sp');
-
-    expect(component.selectedOption().prop('value')).toBe('ES');
-  });
-
   test('selects current option when pressing the enter key', () => {
     const options = [
       {

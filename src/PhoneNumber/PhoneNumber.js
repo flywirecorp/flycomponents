@@ -38,13 +38,13 @@ class PhoneNumber extends Component {
     super(props);
     this.numberInputRef = React.createRef();
 
-    const { value = NO_VALUE } = this.props;
+    const { value = NO_VALUE, prefix } = this.props;
 
-    const formattedNumber = value;
+    const phoneNumber = value;
 
     this.state = {
-      dialingCode: '',
-      formattedNumber,
+      dialingCode: prefix,
+      phoneNumber,
       isFocused: false
     };
   }
@@ -58,10 +58,27 @@ class PhoneNumber extends Component {
 
   handleChange = e => {
     const { value: currentNumber } = e.target;
+    const { dialingCode } = this.state;
 
-    const formattedNumber = currentNumber.replace(/[^\d]/gm, '');
+    const phoneNumber = currentNumber.replace(/[^\d]/gm, '');
 
-    this.setState({ formattedNumber }, () => {
+    const formattedNumber = dialingCode
+      ? `+${dialingCode} ${phoneNumber}`
+      : phoneNumber;
+
+    this.setState({ phoneNumber }, () => {
+      this.sendChange(formattedNumber);
+    });
+  };
+
+  handleCountryClick = dialingCode => {
+    const { phoneNumber } = this.state;
+
+    if (phoneNumber === NO_VALUE) return;
+
+    const formattedNumber = `+${dialingCode} ${phoneNumber}`;
+
+    this.setState({ dialingCode }, () => {
       this.sendChange(formattedNumber);
     });
   };
@@ -97,7 +114,7 @@ class PhoneNumber extends Component {
       ...otherProps
     } = this.props;
 
-    const { dialingCode, formattedNumber, isFocused } = this.state;
+    const { dialingCode, phoneNumber, isFocused } = this.state;
 
     const countryPrefix = dialingCode === '' ? prefix : dialingCode;
 
@@ -114,12 +131,13 @@ class PhoneNumber extends Component {
           name={name}
           readOnly={readOnly}
           required={required}
-          hasValue={!!formattedNumber}
+          hasValue={!!phoneNumber}
         >
           <div className="PhoneNumber-field">
             <PrefixSelector
               disabled={disabled}
               name={name}
+              onChange={(name, value) => this.handleCountryClick(value)}
               onFocus={onFocus}
               options={countries}
               readOnly={readOnly}
@@ -138,7 +156,7 @@ class PhoneNumber extends Component {
                 ref={this.numberInputRef}
                 readOnly={readOnly}
                 type="text"
-                value={formattedNumber}
+                value={phoneNumber}
               />
             </div>
           </div>
