@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import FlagSelector from './FlagSelector';
-import { applyPattern } from '../utils/formatter';
+import PrefixSelector from './PrefixSelector';
 import FormGroup from '../FormGroup';
 
-const NO_COUNTRY = {};
 const NO_VALUE = '';
 
 class PhoneNumber extends Component {
@@ -19,6 +17,7 @@ class PhoneNumber extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -31,6 +30,7 @@ class PhoneNumber extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
+    prefix: '',
     readOnly: false
   };
 
@@ -38,42 +38,15 @@ class PhoneNumber extends Component {
     super(props);
     this.numberInputRef = React.createRef();
 
-    const { value = NO_VALUE } = this.props;
-    const { value: isoCode, phonePattern } = this.getCountryFrom(value);
-    const formattedNumber = this.formatNumber(value, phonePattern);
+    const { value = NO_VALUE, prefix } = this.props;
+
+    const phoneNumber = value;
 
     this.state = {
-      formattedNumber,
-      isFocused: false,
-      preferredCountryIsoCode: null,
-      selectedCountry: isoCode
+      prefix: prefix,
+      phoneNumber,
+      isFocused: false
     };
-  }
-
-  getCountry(isoCode) {
-    const { countries } = this.props;
-
-    return countries.find(country => country.value === isoCode) || NO_COUNTRY;
-  }
-
-  getCountryFrom(phoneNumber) {
-    const { countries } = this.props;
-    const { preferredCountryIsoCode } = this.state || {};
-    const cleanPhoneNumber = phoneNumber.replace(/\D/g, '');
-    const possibleCountries = countries.filter(country => {
-      return cleanPhoneNumber.startsWith(country.dialingCode);
-    });
-
-    if (possibleCountries.length === 0) return NO_COUNTRY;
-    return (
-      possibleCountries.find(
-        country => country.value === preferredCountryIsoCode
-      ) || possibleCountries[0]
-    );
-  }
-
-  formatNumber(value, phonePattern) {
-    return applyPattern(value, phonePattern, { ignoreExcedingText: false });
   }
 
   handleBlur = () => {
@@ -84,73 +57,27 @@ class PhoneNumber extends Component {
   };
 
   handleChange = e => {
-    const { value: currentNumber, selectionStart: caretPosition } = e.target;
-    const { phonePattern, value: selectedCountry } = this.getCountryFrom(
-      currentNumber
-    );
+    const { value: currentNumber } = e.target;
+    const { prefix } = this.state;
 
-    let formattedNumber = currentNumber.replace(/(?!^\+)\D/gm, '');
+    const phoneNumber = currentNumber.replace(/[^\d]/gm, '');
 
-    if (phonePattern) {
-      formattedNumber = this.formatNumber(formattedNumber, phonePattern);
-    }
+    const formattedNumber = prefix ? `+${prefix} ${phoneNumber}` : phoneNumber;
 
-    this.setState({ selectedCountry, formattedNumber }, () => {
+    this.setState({ phoneNumber }, () => {
       this.sendChange(formattedNumber);
-      this.setCaretPosition(caretPosition, currentNumber, formattedNumber);
     });
   };
 
-  setCaretPosition = (currentPosition, currentNumber, newPhoneNumber) => {
-    const currentSeparators = this.getSeparatorsToPosition(
-      currentNumber,
-      currentPosition
-    );
+  handlePrefixClick = prefix => {
+    const { phoneNumber } = this.state;
 
-    const newSeparators = this.getSeparatorsToPosition(
-      newPhoneNumber,
-      currentPosition
-    );
+    if (phoneNumber === NO_VALUE) return;
 
-    let lengthDiff = newPhoneNumber.length - currentNumber.length;
-    let separatorsDiff = newSeparators.length - currentSeparators.length;
+    const formattedNumber = `+${prefix} ${phoneNumber}`;
 
-    const position = this.hasFormatChange(lengthDiff, separatorsDiff)
-      ? currentPosition + (lengthDiff || 1)
-      : currentPosition;
-
-    this.numberInputRef.current.setSelectionRange(position, position);
-  };
-
-  getSeparatorsToPosition = (phoneNumber, toPosition) => {
-    return (
-      (phoneNumber && phoneNumber.substring(0, toPosition).match(/[^0-9]/g)) ||
-      []
-    );
-  };
-
-  hasFormatChange = (lengthDiff, separatorsDiff) =>
-    lengthDiff >= 0 && separatorsDiff !== 0;
-
-  handleCountryClick = isoCode => {
-    const {
-      selectedCountry: currentSelectedCountry,
-      formattedNumber: currentFormattedNumber
-    } = this.state;
-
-    const { dialingCode: currentDialingCode } = this.getCountry(
-      currentSelectedCountry
-    );
-    const { dialingCode, phonePattern } = this.getCountry(isoCode);
-
-    let phoneNumber = (currentFormattedNumber || dialingCode)
-      .replace(/\D/g, '')
-      .replace(currentDialingCode, dialingCode);
-
-    this.setState({
-      preferredCountryIsoCode: isoCode,
-      selectedCountry: isoCode,
-      formattedNumber: this.formatNumber(phoneNumber, phonePattern)
+    this.setState({ prefix }, () => {
+      this.sendChange(formattedNumber);
     });
   };
 
@@ -163,7 +90,6 @@ class PhoneNumber extends Component {
 
   sendChange(value) {
     const { name, onChange } = this.props;
-
     onChange(name, value);
   }
 
@@ -185,7 +111,7 @@ class PhoneNumber extends Component {
       ...otherProps
     } = this.props;
 
-    const { formattedNumber, isFocused, selectedCountry } = this.state;
+    const { prefix, phoneNumber, isFocused } = this.state;
 
     return (
       <div className="PhoneNumber" {...otherProps}>
@@ -200,17 +126,17 @@ class PhoneNumber extends Component {
           name={name}
           readOnly={readOnly}
           required={required}
-          hasValue={!!formattedNumber}
+          hasValue={!!phoneNumber}
         >
           <div className="PhoneNumber-field">
-            <FlagSelector
+            <PrefixSelector
               disabled={disabled}
               name={name}
-              onChange={(name, value) => this.handleCountryClick(value)}
+              onChange={(name, value) => this.handlePrefixClick(value)}
               onFocus={onFocus}
               options={countries}
               readOnly={readOnly}
-              value={selectedCountry}
+              value={prefix}
             />
             <div className="PhoneNumber-input">
               <input
@@ -225,7 +151,7 @@ class PhoneNumber extends Component {
                 ref={this.numberInputRef}
                 readOnly={readOnly}
                 type="text"
-                value={formattedNumber}
+                value={phoneNumber}
               />
             </div>
           </div>

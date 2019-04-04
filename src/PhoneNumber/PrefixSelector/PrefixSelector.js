@@ -22,7 +22,7 @@ const styles = {
   }
 };
 
-export class FlagSelector extends Component {
+export class PrefixSelector extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
@@ -36,7 +36,10 @@ export class FlagSelector extends Component {
   constructor(props) {
     super(props);
 
+    const { value } = this.props;
+
     this.state = {
+      dialingCode: value,
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
       typedQuery: '',
@@ -55,6 +58,14 @@ export class FlagSelector extends Component {
     const { options } = this.state;
 
     return options.findIndex(option => option.value === value);
+  }
+
+  getDialingCodeByValue(index) {
+    const { options } = this.state;
+    const dialingCode =
+      index === INITIAL_INDEX ? '' : options[index].dialingCode;
+
+    return dialingCode;
   }
 
   adjustOffet() {
@@ -114,14 +125,16 @@ export class FlagSelector extends Component {
 
   handleOptionSelected = value => {
     const selectedIndex = this.getOptionIndexByValue(value);
+    const dialingCode = this.getDialingCodeByValue(selectedIndex);
 
     this.hideOptions();
     this.setState(() => {
       return {
         isOpen: false,
-        selectedIndex
+        selectedIndex,
+        dialingCode
       };
-    }, this.sendChange(value));
+    }, this.sendChange(dialingCode));
   };
 
   handleTypedChar(keyCode) {
@@ -184,6 +197,14 @@ export class FlagSelector extends Component {
     );
   }
 
+  sendChange(value) {
+    const { name, onChange } = this.props;
+
+    if (typeof onChange === 'function') {
+      onChange(name, value);
+    }
+  }
+
   selectCurrentOption() {
     const { options, selectedIndex } = this.state;
 
@@ -191,16 +212,8 @@ export class FlagSelector extends Component {
       return;
     }
 
-    const { value } = options[selectedIndex];
+    const value = options[selectedIndex].value;
     return this.handleOptionSelected(value);
-  }
-
-  sendChange(value) {
-    const { name, onChange } = this.props;
-
-    if (typeof onChange === 'function') {
-      onChange(name, value);
-    }
   }
 
   showOptions() {
@@ -213,29 +226,34 @@ export class FlagSelector extends Component {
   get validOptions() {
     const { options } = this.props;
 
-    return options.filter(
-      ({ dialingCode, phonePattern }) =>
-        !isEmpty(dialingCode) && !isEmpty(phonePattern)
-    );
+    return options.filter(({ dialingCode }) => !isEmpty(dialingCode));
   }
 
-  render() {
-    const { value = '' } = this.props;
-    const { disabled, readOnly } = this.props;
-    const { isOpen, options, selectedIndex } = this.state;
+  renderOption = (option, index) => {
+    const { label, value, dialingCode } = option;
+    const { selectedIndex } = this.state;
 
-    const optionList = options.map((option, i) => (
+    const hasFocus = selectedIndex === index;
+
+    return (
       <Option
-        country={option.label}
-        dialingCode={option.dialingCode}
-        hasFocus={selectedIndex === i}
-        key={option.value}
+        country={label}
+        dialingCode={dialingCode}
+        hasFocus={hasFocus}
+        key={value}
         onClick={value => this.handleOptionSelected(value)}
         onMouseEnter={value => this.handleOptionHover(value)}
-        ref={option => this.setOptionRef(i, option)}
-        value={option.value}
+        onMouseOver={value => this.handleOptionHover(value)}
+        ref={option => this.setOptionRef(index, option)}
+        value={value}
       />
-    ));
+    );
+  };
+
+  render() {
+    const { disabled, readOnly } = this.props;
+    const { dialingCode, isOpen, options } = this.state;
+    const optionList = options.map(this.renderOption);
 
     return (
       <div
@@ -246,13 +264,7 @@ export class FlagSelector extends Component {
         )}
       >
         <span className="Autocomplete-search PhoneNumber-menu-input">
-          {value ? (
-            <span
-              className={classNames('Flag', {
-                [`Flag--${value.toLowerCase()}`]: value
-              })}
-            />
-          ) : null}
+          {dialingCode && `+ ${dialingCode}`}
         </span>
         {!disabled ? (
           <div
@@ -271,4 +283,4 @@ export class FlagSelector extends Component {
   }
 }
 
-export default onClickOutside(FlagSelector);
+export default onClickOutside(PrefixSelector);

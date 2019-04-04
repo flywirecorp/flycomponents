@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { FlagSelector } from './FlagSelector';
+import { PrefixSelector } from './PrefixSelector';
 import Options from './Options';
 
-describe('FlagSelector', () => {
-  class FlagSelectorComponent {
+describe('PrefixSelector', () => {
+  class PrefixSelectorComponent {
     constructor(ownProps) {
       const defaultProps = {
         name: 'country',
@@ -12,7 +12,7 @@ describe('FlagSelector', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<FlagSelector {...props} />);
+      this.component = shallow(<PrefixSelector {...props} />);
     }
 
     menu() {
@@ -65,7 +65,7 @@ describe('FlagSelector', () => {
   let adjustOffetStub;
 
   beforeEach(() => {
-    adjustOffetStub = jest.spyOn(FlagSelector.prototype, 'adjustOffet');
+    adjustOffetStub = jest.spyOn(PrefixSelector.prototype, 'adjustOffet');
   });
 
   afterEach(() => {
@@ -77,17 +77,15 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1',
-        phonePattern: '+. (...) ...-....'
+        dialingCode: '1'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     expect(component.options()).toHaveLength(2);
   });
@@ -97,29 +95,26 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: null,
-        phonePattern: '+. (...) ...-....'
+        dialingCode: null
       },
       {
         label: 'Canada',
         value: 'CA',
-        dialingCode: '1',
-        phonePattern: undefined
+        dialingCode: undefined
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     expect(component.options()).toHaveLength(1);
   });
 
   test('displays options when clicking the menu', () => {
-    const component = new FlagSelectorComponent();
+    const component = new PrefixSelectorComponent();
 
     expect(component.state('isOpen')).toBe(false);
 
@@ -133,11 +128,10 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     component.simulateMenuClick();
     component.pressArrowDownKey();
@@ -150,17 +144,15 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1',
-        phonePattern: '+. (...) ...-....'
+        dialingCode: '1'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     component.simulateMenuClick();
     component.pressArrowDownKey();
@@ -171,7 +163,7 @@ describe('FlagSelector', () => {
   });
 
   test('hides options when pressing the esc key', () => {
-    const component = new FlagSelectorComponent();
+    const component = new PrefixSelectorComponent();
 
     component.simulateMenuClick();
     component.pressEscKey();
@@ -179,33 +171,15 @@ describe('FlagSelector', () => {
     expect(component.state('isOpen')).toBe(false);
   });
 
-  test('gives focus to an option when mouse enters', () => {
-    const options = [
-      {
-        label: 'Spain',
-        value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
-      }
-    ];
-    const component = new FlagSelectorComponent({ options });
-
-    const option = component.options().last();
-    option.simulate('mouseEnter', 'ES');
-
-    expect(component.selectedOption().prop('value')).toBe('ES');
-  });
-
   test('selects current option when pressing the enter key', () => {
     const options = [
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     component.simulateMenuClick();
     component.pressArrowDownKey();
@@ -219,11 +193,10 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     component.simulateMenuClick();
     component.pressArrowDownKey();
@@ -237,17 +210,15 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1',
-        phonePattern: '+. (...) ...-....'
+        dialingCode: '1'
       }
     ];
-    const component = new FlagSelectorComponent({ options });
+    const component = new PrefixSelectorComponent({ options });
 
     component.simulateMenuClick();
     component.typeSpa();
@@ -260,17 +231,15 @@ describe('FlagSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34',
-        phonePattern: '+.. ... ... ...'
+        dialingCode: '34'
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1',
-        phonePattern: '+. (...) ...-....'
+        dialingCode: '1'
       }
     ];
-    const component = new FlagSelectorComponent({ options, readOnly: true });
+    const component = new PrefixSelectorComponent({ options, readOnly: true });
 
     component.simulateMenuClick();
 
