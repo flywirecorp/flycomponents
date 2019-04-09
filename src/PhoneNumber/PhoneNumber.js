@@ -12,14 +12,12 @@ class PhoneNumber extends Component {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
-    formattedNumber: PropTypes.string,
     hint: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -29,11 +27,9 @@ class PhoneNumber extends Component {
     countries: [],
     disabled: false,
     floatingLabel: true,
-    formattedNumber: NO_VALUE,
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-    prefix: NO_VALUE,
     readOnly: false
   };
 
@@ -48,7 +44,6 @@ class PhoneNumber extends Component {
       prefix,
       formattedNumber: this.getWithoutPrefix(currentNumber, prefix),
       phoneNumber: currentNumber,
-
       isFocused: false
     };
   }
