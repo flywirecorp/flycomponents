@@ -41,23 +41,16 @@ class PhoneNumber extends Component {
     super(props);
     this.numberInputRef = React.createRef();
 
-    const { formattedNumber, prefix, value = NO_VALUE } = this.props;
-    const phoneNumber = value;
+    const { value: currentNumber = NO_VALUE } = this.props;
+    const prefix = this.getCountryFrom(currentNumber);
 
     this.state = {
-      formattedNumber,
-      phoneNumber,
       prefix,
+      formattedNumber: this.getWithoutPrefix(currentNumber, prefix),
+      phoneNumber: currentNumber,
+
       isFocused: false
     };
-  }
-  componentWillMount() {
-    const { phoneNumber: currentNumber } = this.state;
-
-    const prefix = this.getCountryFrom(currentNumber);
-    const formattedNumber = this.getWithoutPrefix(currentNumber, prefix);
-
-    this.setState({ formattedNumber, prefix });
   }
 
   getFormatNumber(value) {
