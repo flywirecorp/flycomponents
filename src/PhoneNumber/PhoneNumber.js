@@ -63,19 +63,26 @@ class PhoneNumber extends Component {
     const { countries } = this.props;
     const phoneNumber = this.getFormatNumber(value);
 
-    let countrySelected = [];
+    const compareDialingCodeCountries = (country1, country2) => {
+      const {
+        dialingCode: { length: dialingCode1length } = { length: 0 }
+      } = country1;
+      const {
+        dialingCode: { length: dialingCode2length } = { length: 0 }
+      } = country2;
+      if (dialingCode1length > dialingCode2length) return -1;
+      if (dialingCode2length < dialingCode1length) return 1;
 
-    const possibleCountries = countries.filter(country => {
-      if (phoneNumber.startsWith(country.dialingCode)) {
-        countrySelected.push(Number(country.dialingCode));
-        return country.dialingCode;
-      }
-    });
+      return 0;
+    };
 
-    if (possibleCountries.length === 0) return NO_VALUE;
+    const selectedCountries = countries
+      .filter(country => phoneNumber.startsWith(country.dialingCode))
+      .sort(compareDialingCodeCountries);
 
-    countrySelected.sort().reverse();
-    return `${countrySelected[0]}`;
+    return selectedCountries.length === 0
+      ? NO_VALUE
+      : selectedCountries[0].dialingCode;
   }
 
   handleBlur = () => {
