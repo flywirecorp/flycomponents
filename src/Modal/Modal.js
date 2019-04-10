@@ -106,7 +106,7 @@ class Modal extends Component {
           className={modalClassName}
           tabIndex="-1"
           role="dialog"
-          onClick={this.handleClick}
+          onMouseDown={this.handleClick}
           data-modal
           data-qa="Modal"
         >
