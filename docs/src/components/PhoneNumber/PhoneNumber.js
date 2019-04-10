@@ -21,9 +21,9 @@ export default () => {
       dialingCode: '93'
     },
     {
-      label: 'Åland Islands',
-      value: 'ax',
-      dialingCode: '358'
+      label: 'American Samoa',
+      value: 'as',
+      dialingCode: '1684'
     },
     {
       label: 'Albania',
@@ -44,29 +44,26 @@ export default () => {
         name="phone"
         label="Default label"
         floatingLabel={false}
-        prefix="34"
+        value="+34"
       />
       <PhoneNumber
         countries={countries}
         name="phone2"
         label="Default value"
-        prefix="34"
-        value="155555555"
+        value="+1684 155555555"
       />
       <PhoneNumber
         countries={countries}
         name="phone"
         label="Disabled phone input"
-        prefix="34"
-        value="155555555"
+        value="+1 55555555"
         disabled
       />
       <PhoneNumber
         countries={countries}
         name="phone"
         label="Read only phone input"
-        prefix="1"
-        value="111111111"
+        value="+1 111111111"
         readOnly
       />
     </Component>
