@@ -50,6 +50,10 @@ class Modal extends Component {
   };
 
   handleClick = event => {
+    const { wich = 1, button = 0 } = event;
+
+    if (wich > 1 || button > 0) return;
+
     if (event.target.getAttribute('data-modal')) {
       this.close();
     }

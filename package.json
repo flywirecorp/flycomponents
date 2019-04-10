@@ -37,7 +37,7 @@
     "prop-types": "^15.6.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-onclickoutside": "^6.7.1"
+    "react-onclickoutside": "^6.8.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
