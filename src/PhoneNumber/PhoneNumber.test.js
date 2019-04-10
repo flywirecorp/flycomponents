@@ -103,7 +103,7 @@ describe('PhoneNumber', () => {
     expect(onChange).toBeCalledWith(name, '12');
   });
 
-  test('handles on change event in input', () => {
+  describe('handles on change event in input', () => {
     const countries = [
       {
         label: 'United States (+1)',
@@ -114,14 +114,34 @@ describe('PhoneNumber', () => {
     const onChange = jest.fn();
     const name = 'phone';
 
-    const component = new PhoneNumberComponent({ countries, name, onChange });
-    component.pressKey('1');
+    test('with prefix is empty', () => {
+      const component = new PhoneNumberComponent({ countries, name, onChange });
+      component.pressKey('1');
 
-    expect(onChange).toBeCalledWith(name, '1');
+      expect(onChange).toBeCalledWith(name, '1');
 
-    component.pressKey('2');
+      component.pressKey('2');
 
-    expect(onChange).toBeCalledWith(name, '12');
+      expect(onChange).toBeCalledWith(name, '12');
+    });
+
+    test('with prefix is filled', () => {
+      const defaultProps = {
+        countries: countries,
+        label: 'Phone',
+        name: 'phone',
+        prefix: '34'
+      };
+      const props = { ...defaultProps, onChange };
+      const component = shallow(<PhoneNumber {...props} />);
+      const input = component.find('input');
+
+      input.simulate('change', {
+        target: { value: '1' }
+      });
+
+      expect(onChange).toBeCalledWith(name, '+34 1');
+    });
   });
 
   describe('having read-only property', () => {

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import PrefixSelector from './PrefixSelector';
-
 import FormGroup from '../FormGroup';
 
 const NO_VALUE = '';
@@ -18,6 +17,7 @@ class PhoneNumber extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -30,6 +30,7 @@ class PhoneNumber extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
+    prefix: '',
     readOnly: false
   };
 
@@ -37,52 +38,15 @@ class PhoneNumber extends Component {
     super(props);
     this.numberInputRef = React.createRef();
 
-    const { value: currentNumber = NO_VALUE } = this.props;
-    const prefix = this.getCountryFrom(currentNumber);
+    const { value = NO_VALUE, prefix } = this.props;
+
+    const phoneNumber = value;
 
     this.state = {
-      prefix,
-      formattedNumber: this.getWithoutPrefix(currentNumber, prefix),
-      phoneNumber: currentNumber,
+      prefix: prefix,
+      phoneNumber,
       isFocused: false
     };
-  }
-
-  getFormatNumber(value) {
-    return value.replace(/[^\d]/g, NO_VALUE);
-  }
-
-  getWithoutPrefix(value, prefix = NO_VALUE) {
-    const withoutPrefix = value.replace(prefix, NO_VALUE);
-
-    return this.getFormatNumber(withoutPrefix);
-  }
-
-  getCountryFrom(value) {
-    if (value === NO_VALUE) return NO_VALUE;
-    const { countries } = this.props;
-    const phoneNumber = this.getFormatNumber(value);
-
-    const compareDialingCodeCountries = (country1, country2) => {
-      const {
-        dialingCode: { length: dialingCode1length } = { length: 0 }
-      } = country1;
-      const {
-        dialingCode: { length: dialingCode2length } = { length: 0 }
-      } = country2;
-      if (dialingCode1length > dialingCode2length) return -1;
-      if (dialingCode2length < dialingCode1length) return 1;
-
-      return 0;
-    };
-
-    const selectedCountries = countries
-      .filter(country => phoneNumber.startsWith(country.dialingCode))
-      .sort(compareDialingCodeCountries);
-
-    return selectedCountries.length === 0
-      ? NO_VALUE
-      : selectedCountries[0].dialingCode;
   }
 
   handleBlur = () => {
@@ -96,27 +60,24 @@ class PhoneNumber extends Component {
     const { value: currentNumber } = e.target;
     const { prefix } = this.state;
 
-    const formattedNumber = this.getFormatNumber(currentNumber);
-    const phoneNumber = prefix
-      ? `+${prefix} ${formattedNumber}`
-      : formattedNumber;
+    const phoneNumber = currentNumber.replace(/[^\d]/gm, '');
 
-    this.setState({ formattedNumber, phoneNumber, prefix }, () => {
-      this.sendChange(phoneNumber);
+    const formattedNumber = prefix ? `+${prefix} ${phoneNumber}` : phoneNumber;
+
+    this.setState({ phoneNumber }, () => {
+      this.sendChange(formattedNumber);
     });
   };
 
   handlePrefixClick = prefix => {
-    const { formattedNumber } = this.state;
-    const currentPrefix = this.getCountryFrom(formattedNumber);
-    const withoutPrefix = this.getWithoutPrefix(formattedNumber, currentPrefix);
+    const { phoneNumber } = this.state;
 
-    if (formattedNumber === NO_VALUE) return;
+    if (phoneNumber === NO_VALUE) return;
 
-    const phoneNumber = `+${prefix} ${withoutPrefix}`;
+    const formattedNumber = `+${prefix} ${phoneNumber}`;
 
     this.setState({ prefix }, () => {
-      this.sendChange(phoneNumber);
+      this.sendChange(formattedNumber);
     });
   };
 
@@ -129,7 +90,6 @@ class PhoneNumber extends Component {
 
   sendChange(value) {
     const { name, onChange } = this.props;
-
     onChange(name, value);
   }
 
@@ -151,7 +111,7 @@ class PhoneNumber extends Component {
       ...otherProps
     } = this.props;
 
-    const { formattedNumber, isFocused, prefix } = this.state;
+    const { prefix, phoneNumber, isFocused } = this.state;
 
     return (
       <div className="PhoneNumber" {...otherProps}>
@@ -166,7 +126,7 @@ class PhoneNumber extends Component {
           name={name}
           readOnly={readOnly}
           required={required}
-          hasValue={!!value}
+          hasValue={!!phoneNumber}
         >
           <div className="PhoneNumber-field">
             <PrefixSelector
@@ -191,7 +151,7 @@ class PhoneNumber extends Component {
                 ref={this.numberInputRef}
                 readOnly={readOnly}
                 type="text"
-                value={formattedNumber}
+                value={phoneNumber}
               />
             </div>
           </div>
