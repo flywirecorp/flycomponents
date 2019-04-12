@@ -109,8 +109,6 @@ class PhoneNumber extends Component {
   handlePrefixClick = prefix => {
     const { formattedNumber } = this.state;
 
-    if (formattedNumber === NO_VALUE) return;
-
     const phoneNumber = `+${prefix} ${formattedNumber}`;
 
     this.setState({ prefix }, () => {

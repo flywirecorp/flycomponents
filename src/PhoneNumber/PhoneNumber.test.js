@@ -192,4 +192,37 @@ describe('PhoneNumber', () => {
         .prop('onBlur')
     ).toBe(undefined);
   });
+
+  describe('when changing prefix selector', () => {
+    test('if formatted number then saves the prefix appended with the formatted number as phone number', () => {
+      const onChange = jest.fn();
+      const name = 'phone';
+      const prefix = '34';
+      const formattedNumber = '666666666';
+      const expectedPhoneNumber = '+34 666666666';
+      const value = prefix;
+      const component = new PhoneNumberComponent({ name, onChange });
+
+      const prefixSelector = component.prefixSelector();
+      component.component.setState({ formattedNumber });
+      prefixSelector.simulate('change', name, value);
+
+      expect(onChange).toHaveBeenCalledWith(name, expectedPhoneNumber);
+    });
+
+    test('if no formatted number then saves the prefix as phone number', () => {
+      const onChange = jest.fn();
+      const name = 'phone';
+      const prefix = '34';
+      const expectedPhoneNumber = '+34 ';
+      const value = prefix;
+      const component = new PhoneNumberComponent({ name, onChange });
+
+      const prefixSelector = component.prefixSelector();
+
+      prefixSelector.simulate('change', name, value);
+
+      expect(onChange).toHaveBeenCalledWith(name, expectedPhoneNumber);
+    });
+  });
 });
