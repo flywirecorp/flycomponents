@@ -77,13 +77,53 @@ describe('Modal', () => {
       expect(wrapper.state('isOpen')).toBe(false);
     });
 
-    test('closes clicking outside the modal', () => {
-      const wrapper = mount(<Modal>{dummyContent}</Modal>);
-      const modal = wrapper.find('.Modal');
+    describe('clicking outside the modal', () => {
+      let wrapper;
+      let modal;
 
-      modal.simulate('mouseDown');
+      beforeEach(() => {
+        wrapper = mount(<Modal>{dummyContent}</Modal>);
+        modal = wrapper.find('.Modal');
+      });
 
-      expect(wrapper.state('isOpen')).toBe(false);
+      test.each`
+        mouseEvent       | browser
+        ${{ which: 1 }}  | ${'legacy'}
+        ${{ button: 0 }} | ${'modern'}
+      `(
+        'closes clicking the mouse left button on $browser browsers',
+        ({ mouseEvent }) => {
+          modal.simulate('mouseDown', mouseEvent);
+
+          expect(wrapper.state('isOpen')).toBe(false);
+        }
+      );
+
+      test.each`
+        mouseEvent       | browser
+        ${{ which: 2 }}  | ${'legacy'}
+        ${{ button: 1 }} | ${'modern'}
+      `(
+        'does not close clicking the mouse center button on $browser browsers',
+        ({ mouseEvent }) => {
+          modal.simulate('mouseDown', mouseEvent);
+
+          expect(wrapper.state('isOpen')).toBe(true);
+        }
+      );
+
+      test.each`
+        mouseEvent       | browser
+        ${{ which: 3 }}  | ${'legacy'}
+        ${{ button: 2 }} | ${'modern'}
+      `(
+        'does not close clicking the mouse right button on $browser browsers',
+        ({ mouseEvent }) => {
+          modal.simulate('mouseDown', mouseEvent);
+
+          expect(wrapper.state('isOpen')).toBe(true);
+        }
+      );
     });
   });
 
