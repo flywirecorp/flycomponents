@@ -108,12 +108,10 @@ class PhoneNumber extends Component {
 
   handlePrefixClick = prefix => {
     const { formattedNumber } = this.state;
-    const currentPrefix = this.getCountryFrom(formattedNumber);
-    const withoutPrefix = this.getWithoutPrefix(formattedNumber, currentPrefix);
 
     if (formattedNumber === NO_VALUE) return;
 
-    const phoneNumber = `+${prefix} ${withoutPrefix}`;
+    const phoneNumber = `+${prefix} ${formattedNumber}`;
 
     this.setState({ prefix }, () => {
       this.sendChange(phoneNumber);
