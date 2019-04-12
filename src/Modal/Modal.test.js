@@ -81,7 +81,7 @@ describe('Modal', () => {
       const wrapper = mount(<Modal>{dummyContent}</Modal>);
       const modal = wrapper.find('.Modal');
 
-      modal.simulate('click');
+      modal.simulate('mouseDown');
 
       expect(wrapper.state('isOpen')).toBe(false);
     });
