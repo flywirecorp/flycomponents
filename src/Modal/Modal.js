@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Portal from './Portal';
 
 const ESCAPE_KEY = 27;
+const LEGACY_LEFT_MOUSE_BUTTON = 1;
+const MODERN_LEFT_MOUSE_BUTTON = 0;
 
 class Modal extends Component {
   static propTypes = {
@@ -49,7 +51,14 @@ class Modal extends Component {
     this.setState({ ...this.state, isOpen: false }, onClose);
   };
 
-  handleClick = event => {
+  handleMouseDown = event => {
+    const { which, button } = event;
+    const isLegacyLeftMouseButton = which === LEGACY_LEFT_MOUSE_BUTTON;
+    const isModernLeftMouseButton = button === MODERN_LEFT_MOUSE_BUTTON;
+    const isLeftButton = isLegacyLeftMouseButton || isModernLeftMouseButton;
+
+    if (!isLeftButton) return;
+
     if (event.target.getAttribute('data-modal')) {
       this.close();
     }
@@ -106,7 +115,7 @@ class Modal extends Component {
           className={modalClassName}
           tabIndex="-1"
           role="dialog"
-          onClick={this.handleClick}
+          onMouseDown={this.handleMouseDown}
           data-modal
           data-qa="Modal"
         >
