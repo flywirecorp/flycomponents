@@ -73,6 +73,53 @@ describe('PhoneNumber', () => {
     expect(component.input()).toHaveLength(1);
   });
 
+  describe('set class name according to the length of the prefix', () => {
+    const defaultProps = {
+      countries: [
+        {
+          label: 'American Samoa',
+          value: 'as',
+          dialingCode: '1684'
+        },
+        {
+          label: 'Spain',
+          value: 'es',
+          dialingCode: '34'
+        }
+      ],
+      label: 'Phone',
+      name: 'phone'
+    };
+
+    test('when no prefix value', () => {
+      const phoneNumber = shallow(<PhoneNumber {...defaultProps} />);
+
+      expect(phoneNumber.hasClass('width-0')).toBe(true);
+    });
+
+    test('when prefix length is 2', () => {
+      const ownProps = {
+        value: '+34 666666666'
+      };
+      const props = { ...defaultProps, ...ownProps };
+
+      const phoneNumber = shallow(<PhoneNumber {...props} />);
+
+      expect(phoneNumber.hasClass('width-2')).toBe(true);
+    });
+
+    test('when prefix length is 4', () => {
+      const ownProps = {
+        value: '+1684 155555555'
+      };
+      const props = { ...defaultProps, ...ownProps };
+
+      const phoneNumber = shallow(<PhoneNumber {...props} />);
+
+      expect(phoneNumber.hasClass('width-4')).toBe(true);
+    });
+  });
+
   test('handles on blur events in input', () => {
     const onBlur = jest.fn();
     const component = new PhoneNumberComponent({ onBlur });

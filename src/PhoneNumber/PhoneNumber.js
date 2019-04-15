@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import PrefixSelector from './PrefixSelector';
+import classNames from 'classnames';
 
 import FormGroup from '../FormGroup';
 
@@ -18,6 +19,7 @@ class PhoneNumber extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -30,6 +32,7 @@ class PhoneNumber extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
+
     readOnly: false
   };
 
@@ -147,9 +150,13 @@ class PhoneNumber extends Component {
     } = this.props;
 
     const { formattedNumber, isFocused, prefix } = this.state;
+    const widthClassName = `width-${prefix.length}`;
 
     return (
-      <div className="PhoneNumber" {...otherProps}>
+      <div
+        className={classNames('PhoneNumber', widthClassName)}
+        {...otherProps}
+      >
         <FormGroup
           className="PhoneNumber"
           disabled={disabled}
