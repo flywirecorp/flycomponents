@@ -19,7 +19,6 @@ class PhoneNumber extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -32,7 +31,6 @@ class PhoneNumber extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-
     readOnly: false
   };
 
