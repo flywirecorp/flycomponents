@@ -64,15 +64,14 @@ class PhoneNumber extends Component {
     const phoneNumber = this.getFormatNumber(value);
 
     const compareDialingCodeCountries = (country1, country2) => {
-      const {
-        dialingCode: { length: dialingCode1length } = { length: 0 }
-      } = country1;
-      const {
-        dialingCode: { length: dialingCode2length } = { length: 0 }
-      } = country2;
-      if (dialingCode1length > dialingCode2length) return -1;
-      if (dialingCode2length < dialingCode1length) return 1;
+      const { dialingCode: dialingCode1 } = country1;
+      const { dialingCode: dialingCode2 } = country2;
 
+      const length1 = (dialingCode1 && dialingCode1.length) || 0;
+      const length2 = (dialingCode2 && dialingCode2.length) || 0;
+
+      if (length1 > length2) return -1;
+      if (length1 < length2) return 1;
       return 0;
     };
 
