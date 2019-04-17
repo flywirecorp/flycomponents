@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
-import Input from '../Input';
 import FormGroup from '../FormGroup';
 import { applyPattern } from '../utils/formatter';
 
@@ -43,12 +42,20 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
 
+    this.inputRef = React.createRef();
+
     this.state = {
       value: props.value,
       hasValue: !!props.value,
       isFocused: false,
       caretPosition: 0
     };
+  }
+
+  componentDidUpdate() {
+    const { caretPosition } = this.state;
+
+    this.inputRef.current.setSelectionRange(caretPosition, caretPosition);
   }
 
   fieldValue() {
@@ -138,8 +145,10 @@ class TextInput extends Component {
     } = this.props;
 
     return (
-      <Input
+      <input
         {...inputAttrs}
+        ref={this.inputRef}
+        className="Input"
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}

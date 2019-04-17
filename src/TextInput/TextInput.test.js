@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import TextInput from './TextInput';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
-import Input from '../Input';
 
 describe('TextInput', () => {
   class TextInputComponent {
@@ -12,6 +11,7 @@ describe('TextInput', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(<TextInput {...props} />);
+      this.mockRefs();
     }
 
     inputGroup() {
@@ -23,7 +23,7 @@ describe('TextInput', () => {
     }
 
     input() {
-      return this.component.find(Input);
+      return this.component.find('input');
     }
 
     simulateBlur(name) {
@@ -36,6 +36,12 @@ describe('TextInput', () => {
       this.input().simulate('change', {
         target: { name, value }
       });
+    }
+
+    mockRefs(mock = () => {}) {
+      this.component.instance().inputRef.current = {
+        setSelectionRange: mock
+      };
     }
   }
 
@@ -66,6 +72,18 @@ describe('TextInput', () => {
 
     expect(inputGroup).toHaveLength(1);
     expect(inputGroup.prop('suffix')).toEqual('suffix');
+  });
+
+  describe('componentDidUpdate', () => {
+    test('sets the input caret position with the position in the state', () => {
+      const wrapper = new TextInputComponent();
+      const setSelectionRange = jest.fn();
+      wrapper.mockRefs(setSelectionRange);
+
+      wrapper.component.setState({ caretPosition: 2 });
+
+      expect(setSelectionRange).toHaveBeenCalledWith(2, 2);
+    });
   });
 
   describe('onChange', () => {
