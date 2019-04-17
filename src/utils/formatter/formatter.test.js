@@ -57,4 +57,28 @@ describe('applyPattern', () => {
 
     expect(text).toBe(expectedText);
   });
+
+  describe('shouldAddSeparatorBeforeTyping', () => {
+    test('does not add separator if it is the next character when it is false', () => {
+      const pattern = '../..';
+      const expectedText = '12';
+
+      const text = applyPattern('12', pattern, {
+        shouldAddSeparatorBeforeTyping: false
+      });
+
+      expect(text).toEqual(expectedText);
+    });
+
+    test('add separator if it is the next character when it is true', () => {
+      const pattern = '../..';
+      const expectedText = '12/';
+
+      const text = applyPattern('12', pattern, {
+        shouldAddSeparatorBeforeTyping: true
+      });
+
+      expect(text).toEqual(expectedText);
+    });
+  });
 });

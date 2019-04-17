@@ -68,15 +68,142 @@ describe('TextInput', () => {
     expect(inputGroup.prop('suffix')).toEqual('suffix');
   });
 
-  test('handles on change events in input', () => {
-    const onChange = jest.fn();
-    const props = { onChange };
+  describe('onChange', () => {
+    test('handles on change events in input', () => {
+      const onChange = jest.fn();
+      const props = { onChange };
 
-    const component = new TextInputComponent(props);
+      const component = new TextInputComponent(props);
 
-    component.simulateChange('name', 'Dolores');
+      component.simulateChange('name', 'Dolores');
 
-    expect(onChange).toBeCalledWith('name', 'Dolores');
+      expect(onChange).toBeCalledWith('name', 'Dolores');
+    });
+
+    describe('when format is not provided', () => {
+      test('saves in the state the value and caret position', () => {
+        const value = 'a_value';
+        const caretPosition = 2;
+        const name = 'a_name';
+        const event = {
+          target: { name, value, selectionStart: caretPosition }
+        };
+        const wrapper = new TextInputComponent();
+
+        const input = wrapper.input();
+        input.simulate('change', event);
+
+        const {
+          value: stateValue,
+          caretPosition: stateCaretPosition
+        } = wrapper.component.state();
+        expect(stateValue).toEqual(value);
+        expect(stateCaretPosition).toEqual(caretPosition);
+      });
+
+      test('calls onChange callback with name and value', () => {
+        const onChange = jest.fn();
+        const value = 'a_value';
+        const name = 'a_name';
+        const event = { target: { name, value } };
+        const wrapper = new TextInputComponent({ name, onChange });
+
+        const input = wrapper.input();
+        input.simulate('change', event);
+
+        expect(onChange).toHaveBeenCalledWith(name, value);
+      });
+    });
+
+    describe('when format is provided', () => {
+      const onChange = jest.fn();
+      const format = {
+        pattern: '..-../..',
+        options: { shouldAddSeparatorBeforeTyping: true }
+      };
+
+      test('formats the input value on change if format is provnameed', () => {
+        const value = '123456';
+        const formattedValue = '12-34/56';
+        const event = { target: { value } };
+        const name = 'a_name';
+        const wrapper = new TextInputComponent({ name, onChange, format });
+
+        let input = wrapper.input();
+        input.simulate('change', event);
+
+        input = wrapper.input();
+        expect(input.prop('value')).toEqual(formattedValue);
+      });
+
+      test('calls onChange callback with name and formatted value', () => {
+        const value = '123456';
+        const name = 'a_name';
+        const onChange = jest.fn();
+        const formattedValue = '12-34/56';
+        const event = { target: { name, value } };
+        const wrapper = new TextInputComponent({ name, onChange, format });
+
+        const input = wrapper.input();
+        input.simulate('change', event);
+
+        expect(onChange).toHaveBeenCalledWith(name, formattedValue);
+      });
+
+      describe('sets input caret position', () => {
+        test('does not modifies the caret position if no format changes have been applied', () => {
+          const value = '1';
+          const caretPosition = 1;
+          const event = { target: { value, selectionStart: caretPosition } };
+          const name = 'a_name';
+          const wrapper = new TextInputComponent({ name, format });
+
+          const input = wrapper.input();
+          input.simulate('change', event);
+
+          const {
+            caretPosition: stateCaretPosition
+          } = wrapper.component.state();
+
+          expect(stateCaretPosition).toEqual(caretPosition);
+        });
+
+        test('increases the caret position if a separator is added by the formatting', () => {
+          const value = '12';
+          const caretPosition = 2;
+          const event = { target: { value, selectionStart: caretPosition } };
+          const name = 'a_name';
+          const wrapper = new TextInputComponent({ name, format });
+
+          const input = wrapper.input();
+          input.simulate('change', event);
+
+          const {
+            caretPosition: stateCaretPosition
+          } = wrapper.component.state();
+
+          expect(stateCaretPosition).toBeGreaterThan(caretPosition);
+        });
+
+        test('does not increases the caret position by formatting if user is deleting', () => {
+          const value = '12-';
+          const caretPosition = 2;
+          const event = { target: { value, selectionStart: caretPosition } };
+          const name = 'a_name';
+          const wrapper = new TextInputComponent({ name, format });
+
+          wrapper.component.setState({ value: '12-' });
+          const input = wrapper.input();
+          input.simulate('change', event);
+
+          const {
+            caretPosition: stateCaretPosition
+          } = wrapper.component.state();
+
+          expect(stateCaretPosition).toEqual(caretPosition);
+        });
+      });
+    });
   });
 
   test('handles on blur events in input', () => {

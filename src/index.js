@@ -2,6 +2,7 @@ import Accordion from './Accordion';
 import Alert from './Alert';
 import Autocomplete from './Autocomplete';
 import Button from './Button';
+import CardForm from './CardForm';
 import Checkbox from './Checkbox';
 import Datepicker from './Datepicker';
 import Dropdown from './Dropdown';
@@ -27,6 +28,7 @@ export {
   Alert,
   Autocomplete,
   Button,
+  CardForm,
   Checkbox,
   Datepicker,
   Dropdown,

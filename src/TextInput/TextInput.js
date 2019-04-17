@@ -4,12 +4,17 @@ import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
 import Input from '../Input';
 import FormGroup from '../FormGroup';
+import { applyPattern } from '../utils/formatter';
 
 class TextInput extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
+    format: PropTypes.shape({
+      pattern: PropTypes.string,
+      options: PropTypes.object
+    }),
     hint: PropTypes.string,
     label: PropTypes.string,
     multiline: PropTypes.bool,
@@ -31,7 +36,8 @@ class TextInput extends Component {
     onBlur: () => {},
     onChange: () => {},
     readOnly: false,
-    type: 'text'
+    type: 'text',
+    value: ''
   };
 
   constructor(props) {
@@ -40,7 +46,8 @@ class TextInput extends Component {
     this.state = {
       value: props.value,
       hasValue: !!props.value,
-      isFocused: false
+      isFocused: false,
+      caretPosition: 0
     };
   }
 
@@ -56,12 +63,61 @@ class TextInput extends Component {
     onBlur(name);
   };
 
+  getSeparatorsToPosition = (value, toPosition) => {
+    return (value && value.substring(0, toPosition).match(/[^0-9]/g)) || [];
+  };
+
+  hasFormatChange = (lengthDiff, separatorsDiff) =>
+    lengthDiff >= 0 && separatorsDiff !== 0;
+
+  setCaretPosition = (currentPosition, currentValue, newValue) => {
+    const { value } = this.state;
+    if (
+      currentValue.length < value.length &&
+      value.length === newValue.length
+    ) {
+      currentPosition--;
+    } else if (newValue.length > currentValue.length) {
+      currentPosition++;
+    }
+
+    if (newValue.length > currentValue.length) {
+      currentPosition++;
+    }
+
+    const currentSeparators = this.getSeparatorsToPosition(
+      currentValue,
+      currentPosition
+    );
+
+    const newSeparators = this.getSeparatorsToPosition(
+      newValue,
+      currentPosition
+    );
+
+    let lengthDiff = newValue.length - currentValue.length;
+    let separatorsDiff = newSeparators.length - currentSeparators.length;
+
+    const position = this.hasFormatChange(lengthDiff, separatorsDiff)
+      ? currentPosition + (lengthDiff || 1)
+      : currentPosition;
+
+    return position;
+  };
+
   handleChange = e => {
-    const { onChange } = this.props;
-    let { name, value } = e.target;
+    const { onChange, format } = this.props;
+    let { name, value: currentValue, selectionStart: caretPosition } = e.target;
+    let value = currentValue;
+
+    if (format) {
+      const { pattern, options } = format;
+      value = applyPattern(currentValue, pattern, options);
+      caretPosition = this.setCaretPosition(caretPosition, currentValue, value);
+    }
 
     onChange(name, value);
-    this.setState({ value, hasValue: !!value });
+    this.setState({ value, hasValue: !!value, caretPosition });
   };
 
   handleFocus = e => {
@@ -77,6 +133,7 @@ class TextInput extends Component {
       suffix,
       prefix,
       type,
+      format,
       ...inputAttrs
     } = this.props;
 
