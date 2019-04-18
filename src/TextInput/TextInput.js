@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
 import FormGroup from '../FormGroup';
-import { applyPattern } from '../utils/formatter';
+import { format as formatText } from '../utils/formatter';
 
 class TextInput extends Component {
   static propTypes = {
+    allowedCharacters: PropTypes.instanceOf(RegExp),
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
-    format: PropTypes.shape({
-      pattern: PropTypes.string,
-      options: PropTypes.object
-    }),
+    format: PropTypes.object,
     hint: PropTypes.string,
     label: PropTypes.string,
     multiline: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func,
     prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
@@ -34,6 +34,8 @@ class TextInput extends Component {
     multiline: false,
     onBlur: () => {},
     onChange: () => {},
+    onFocus: () => {},
+    onKeyDown: () => {},
     readOnly: false,
     type: 'text',
     value: ''
@@ -55,7 +57,13 @@ class TextInput extends Component {
   componentDidUpdate() {
     const { caretPosition } = this.state;
 
-    this.inputRef.current.setSelectionRange(caretPosition, caretPosition);
+    if (this.isFocused) {
+      this.inputRef.current.setSelectionRange(caretPosition, caretPosition);
+    }
+  }
+
+  get isFocused() {
+    return document.activeElement === this.inputRef.current;
   }
 
   fieldValue() {
@@ -64,10 +72,10 @@ class TextInput extends Component {
 
   handleBlur = e => {
     const { onBlur } = this.props;
-    const { name } = e.target;
+    const { name, value } = e.target;
     this.setState({ isFocused: false });
 
-    onBlur(name);
+    onBlur(name, value);
   };
 
   getSeparatorsToPosition = (value, toPosition) => {
@@ -118,8 +126,7 @@ class TextInput extends Component {
     let value = currentValue;
 
     if (format) {
-      const { pattern, options } = format;
-      value = applyPattern(currentValue, pattern, options);
+      value = formatText(currentValue, format);
       caretPosition = this.setCaretPosition(caretPosition, currentValue, value);
     }
 
@@ -128,9 +135,11 @@ class TextInput extends Component {
   };
 
   handleFocus = e => {
-    const { disabled, readOnly } = this.props;
+    const { disabled, readOnly, onFocus, name } = this.props;
     if (disabled || readOnly) return false;
     this.setState({ isFocused: true });
+
+    onFocus(name);
   };
 
   input() {

@@ -1,11 +1,21 @@
 const FORMATTER_PATTERN_CHARACTER = '.';
 
-export const applyPattern = (text, pattern, options = {}) => {
-  if (!text || text.length === 0 || !pattern) return text;
-
-  const sanitizedText = text.replace(/\D/g, '');
-  const defaults = { ignoreExcedingText: true };
+export const format = (text, options = {}) => {
+  if (!text || text.length === 0) return text;
+  const defaults = { ignoreExcedingText: true, allowedCharacters: /.*/g };
   const settings = { ...defaults, ...options };
+
+  const {
+    allowedCharacters,
+    pattern,
+    ignoreExcedingText,
+    shouldAddSeparatorBeforeTyping
+  } = settings;
+
+  const matchingChars = text.match(allowedCharacters);
+  const sanitizedText = matchingChars ? matchingChars.join('') : '';
+
+  if (!pattern) return sanitizedText;
 
   const formattedObject = pattern.split('').reduce(
     (acc, character) => {
@@ -27,8 +37,6 @@ export const applyPattern = (text, pattern, options = {}) => {
     },
     { formattedText: '', remainingText: sanitizedText.split('') }
   );
-
-  const { ignoreExcedingText, shouldAddSeparatorBeforeTyping } = settings;
 
   let formattedText =
     formattedObject.formattedText + formattedObject.remainingText.join('');
@@ -52,8 +60,4 @@ const applyNextSeparator = (text, pattern) => {
   }
 
   return text;
-};
-
-export const getDigits = value => {
-  return value.replace(/\D+/g, '');
 };

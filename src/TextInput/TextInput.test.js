@@ -26,16 +26,20 @@ describe('TextInput', () => {
       return this.component.find('input');
     }
 
-    simulateBlur(name) {
-      this.input().simulate('blur', {
-        target: { name }
+    simulateBlur(name, value) {
+      this.simulate('blur', {
+        target: { name, value }
       });
     }
 
     simulateChange(name, value) {
-      this.input().simulate('change', {
+      this.simulate('change', {
         target: { name, value }
       });
+    }
+
+    simulate(eventName, event) {
+      this.input().simulate(eventName, event);
     }
 
     mockRefs(mock = () => {}) {
@@ -75,14 +79,30 @@ describe('TextInput', () => {
   });
 
   describe('componentDidUpdate', () => {
-    test('sets the input caret position with the position in the state', () => {
+    test('sets the input caret position with the position in the state when it is focused', () => {
       const wrapper = new TextInputComponent();
       const setSelectionRange = jest.fn();
+      Object.defineProperty(wrapper.component.instance(), 'isFocused', {
+        get: () => true
+      });
       wrapper.mockRefs(setSelectionRange);
 
       wrapper.component.setState({ caretPosition: 2 });
 
       expect(setSelectionRange).toHaveBeenCalledWith(2, 2);
+    });
+
+    test('does not set the input caret position when it is not focused', () => {
+      const wrapper = new TextInputComponent();
+      Object.defineProperty(wrapper.component.instance(), 'isFocused', {
+        get: () => false
+      });
+      const setSelectionRange = jest.fn();
+      wrapper.mockRefs(setSelectionRange);
+
+      wrapper.component.setState({ caretPosition: 2 });
+
+      expect(setSelectionRange).not.toHaveBeenCalled();
     });
   });
 
@@ -137,7 +157,8 @@ describe('TextInput', () => {
       const onChange = jest.fn();
       const format = {
         pattern: '..-../..',
-        options: { shouldAddSeparatorBeforeTyping: true }
+        shouldAddSeparatorBeforeTyping: true,
+        allowedCharacters: /\d/g
       };
 
       test('formats the input value on change if format is provnameed', () => {
@@ -228,9 +249,9 @@ describe('TextInput', () => {
     const onBlur = jest.fn();
     const component = new TextInputComponent({ onBlur });
 
-    component.simulateBlur('name');
+    component.simulateBlur('name', 'a_value');
 
-    expect(onBlur).toBeCalled();
+    expect(onBlur).toBeCalledWith('name', 'a_value');
   });
 
   test('renders an input with type password', () => {
@@ -246,5 +267,17 @@ describe('TextInput', () => {
     const component = new TextInputComponent({ type, suffix });
 
     expect(component.inputGroup().prop('type')).toEqual('password');
+  });
+
+  describe('onFocus', () => {
+    test('calls the onFocus callback when on focus', () => {
+      const name = 'a_name';
+      const onFocus = jest.fn();
+      const component = new TextInputComponent({ name, onFocus });
+
+      component.simulate('focus');
+
+      expect(onFocus).toHaveBeenCalledWith(name);
+    });
   });
 });
