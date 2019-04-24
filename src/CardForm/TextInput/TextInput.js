@@ -20,7 +20,6 @@ class TextInput extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
-    onKeyDown: PropTypes.func,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     type: PropTypes.string,
@@ -33,7 +32,6 @@ class TextInput extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-    onKeyDown: () => {},
     readOnly: false,
     type: 'text',
     value: ''
@@ -144,6 +142,7 @@ class TextInput extends Component {
       floatingLabel,
       type,
       format,
+      name,
       className,
       children,
       ...inputAttrs
@@ -154,6 +153,8 @@ class TextInput extends Component {
     return (
       <input
         {...inputAttrs}
+        name={name}
+        id={name}
         ref={this.inputRef}
         className={inputClassName}
         onBlur={this.handleBlur}
