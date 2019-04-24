@@ -2,24 +2,20 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
+import Input from '../Input';
 import FormGroup from '../FormGroup';
-import { format as formatText } from '../utils/formatter';
 
 class TextInput extends Component {
   static propTypes = {
-    allowedCharacters: PropTypes.instanceOf(RegExp),
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
-    format: PropTypes.object,
     hint: PropTypes.string,
     label: PropTypes.string,
     multiline: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onKeyDown: PropTypes.func,
     prefix: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
@@ -34,36 +30,18 @@ class TextInput extends Component {
     multiline: false,
     onBlur: () => {},
     onChange: () => {},
-    onFocus: () => {},
-    onKeyDown: () => {},
     readOnly: false,
-    type: 'text',
-    value: ''
+    type: 'text'
   };
 
   constructor(props) {
     super(props);
 
-    this.inputRef = React.createRef();
-
     this.state = {
       value: props.value,
       hasValue: !!props.value,
-      isFocused: false,
-      caretPosition: 0
+      isFocused: false
     };
-  }
-
-  componentDidUpdate() {
-    const { caretPosition } = this.state;
-
-    if (this.isFocused) {
-      this.inputRef.current.setSelectionRange(caretPosition, caretPosition);
-    }
-  }
-
-  get isFocused() {
-    return document.activeElement === this.inputRef.current;
   }
 
   fieldValue() {
@@ -72,74 +50,24 @@ class TextInput extends Component {
 
   handleBlur = e => {
     const { onBlur } = this.props;
-    const { name, value } = e.target;
+    const { name } = e.target;
     this.setState({ isFocused: false });
 
-    onBlur(name, value);
-  };
-
-  getSeparatorsToPosition = (value, toPosition) => {
-    return (value && value.substring(0, toPosition).match(/[^0-9]/g)) || [];
-  };
-
-  hasFormatChange = (lengthDiff, separatorsDiff) =>
-    lengthDiff >= 0 && separatorsDiff !== 0;
-
-  setCaretPosition = (currentPosition, currentValue, newValue) => {
-    const { value } = this.state;
-    if (
-      currentValue.length < value.length &&
-      value.length === newValue.length
-    ) {
-      currentPosition--;
-    } else if (newValue.length > currentValue.length) {
-      currentPosition++;
-    }
-
-    if (newValue.length > currentValue.length) {
-      currentPosition++;
-    }
-
-    const currentSeparators = this.getSeparatorsToPosition(
-      currentValue,
-      currentPosition
-    );
-
-    const newSeparators = this.getSeparatorsToPosition(
-      newValue,
-      currentPosition
-    );
-
-    let lengthDiff = newValue.length - currentValue.length;
-    let separatorsDiff = newSeparators.length - currentSeparators.length;
-
-    const position = this.hasFormatChange(lengthDiff, separatorsDiff)
-      ? currentPosition + (lengthDiff || 1)
-      : currentPosition;
-
-    return position;
+    onBlur(name);
   };
 
   handleChange = e => {
-    const { onChange, format } = this.props;
-    let { name, value: currentValue, selectionStart: caretPosition } = e.target;
-    let value = currentValue;
-
-    if (format) {
-      value = formatText(currentValue, format);
-      caretPosition = this.setCaretPosition(caretPosition, currentValue, value);
-    }
+    const { onChange } = this.props;
+    let { name, value } = e.target;
 
     onChange(name, value);
-    this.setState({ value, hasValue: !!value, caretPosition });
+    this.setState({ value, hasValue: !!value });
   };
 
   handleFocus = e => {
-    const { disabled, readOnly, onFocus, name } = this.props;
+    const { disabled, readOnly } = this.props;
     if (disabled || readOnly) return false;
     this.setState({ isFocused: true });
-
-    onFocus(name);
   };
 
   input() {
@@ -149,15 +77,12 @@ class TextInput extends Component {
       suffix,
       prefix,
       type,
-      format,
       ...inputAttrs
     } = this.props;
 
     return (
-      <input
+      <Input
         {...inputAttrs}
-        ref={this.inputRef}
-        className="Input"
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
