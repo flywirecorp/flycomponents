@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TextInput from '../TextInput';
+import TextInput from './TextInput';
+import CardNumberInput from './CardNumberInput';
 import Button from '../Button';
 import {
   validateExpirationDate,
@@ -9,6 +10,7 @@ import {
   validateCvvInput
 } from '../utils/validators';
 import { getCardType } from '../utils/card';
+import CVVInput from './CVVInput/CVVInput';
 
 const LETTERS_AND_SPACE_REGEX = /[a-zA-Z ]*/g;
 const NUMBERS_REGEX = /[0-9]*/g;
@@ -49,6 +51,7 @@ class CardForm extends Component {
       cardNumber: PropTypes.string,
       expiryDate: PropTypes.string,
       cvv: PropTypes.string,
+      cvvTooltip: PropTypes.string,
       submit: PropTypes.string,
       cancel: PropTypes.string
     }),
@@ -72,6 +75,7 @@ class CardForm extends Component {
       cardNumber: 'Card number',
       expiryDate: 'Expiry date (MM/YY)',
       cvv: 'CVV',
+      cvvTooltip: '3 digits in the back of your card or 4 digits in the front',
       submit: 'Submit',
       cancel: 'Cancel'
     },
@@ -174,6 +178,7 @@ class CardForm extends Component {
           format={TEXT_ONLY_FORMAT}
           name="name"
           label={labels.name}
+          floatingLabel
           error={errors.name}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
@@ -188,7 +193,7 @@ class CardForm extends Component {
           onFocus={this.handleFocus}
           onChange={this.handleChange}
         />
-        <TextInput
+        <CardNumberInput
           format={CARD_NUMBER_FORMAT}
           name="cardNumber"
           label={labels.cardNumber}
@@ -206,10 +211,11 @@ class CardForm extends Component {
           onFocus={this.handleFocus}
           onChange={this.handleChange}
         />
-        <TextInput
+        <CVVInput
           format={CVV_FORMAT}
           name="cvv"
           label={labels.cvv}
+          cvvTooltip={labels.cvvTooltip}
           error={errors.cvv}
           onBlur={this.handleBlur}
           onFocus={this.handleFocus}
