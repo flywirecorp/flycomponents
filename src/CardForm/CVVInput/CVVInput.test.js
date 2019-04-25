@@ -14,6 +14,15 @@ describe('CVVInput', () => {
       expect(textInput.props()).toEqual(expect.objectContaining(props));
     });
 
+    test('a TextInput with the provided className', () => {
+      const props = { name: 'a_name', className: 'a_className' };
+      const wrapper = shallow(<CVVInput {...props} />);
+
+      const textInput = wrapper.find(TextInput);
+
+      expect(textInput.hasClass('a_className')).toEqual(true);
+    });
+
     test('a checkbox', () => {
       const props = { name: 'a_name' };
       const wrapper = shallow(<CVVInput {...props} />);

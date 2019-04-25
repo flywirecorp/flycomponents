@@ -13,6 +13,13 @@ describe('CardNumberInput', () => {
 
       expect(textInput.props()).toEqual(expect.objectContaining(props));
     });
+
+    test('a TextInput witht the provided className', () => {
+      const props = { name: 'a_name', className: 'a_className' };
+      const wrapper = shallow(<CardNumberInput {...props} />);
+
+      expect(wrapper.find(TextInput).hasClass('a_className')).toEqual(true);
+    });
   });
 
   describe('onChange', () => {
@@ -48,6 +55,22 @@ describe('CardNumberInput', () => {
           expect(wrapper.find(TextInput).hasClass(cardType)).toEqual(true);
         }
       );
+
+      test('adds the card type className to the already passed on', () => {
+        const name = 'a_name';
+        const cardNumber = '4111111111111111';
+        const cardType = 'visa';
+        const className = 'a_className';
+        const wrapper = shallow(
+          <CardNumberInput name={name} className={className} />
+        );
+
+        const textInput = wrapper.find(TextInput);
+        textInput.simulate('change', name, cardNumber);
+
+        expect(wrapper.find(TextInput).hasClass(className)).toEqual(true);
+        expect(wrapper.find(TextInput).hasClass(cardType)).toEqual(true);
+      });
 
       test('cleans className when value is invalid', () => {
         const name = 'a_name';

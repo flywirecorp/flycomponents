@@ -48,9 +48,9 @@ describe('TextInput', () => {
 
   test('renders an input field with the provided className', () => {
     const className = 'a_className';
-    const component = new TextInputComponent({ className });
+    const component = new TextInputComponent({ className }).component;
 
-    expect(component.input().hasClass('a_className')).toEqual(true);
+    expect(component.hasClass('a_className')).toEqual(true);
   });
 
   test('renders the provided children', () => {

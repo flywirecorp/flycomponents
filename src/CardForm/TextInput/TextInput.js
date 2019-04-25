@@ -137,6 +137,7 @@ class TextInput extends Component {
 
     onFocus(name);
   };
+
   input() {
     const {
       floatingLabel,
@@ -148,15 +149,13 @@ class TextInput extends Component {
       ...inputAttrs
     } = this.props;
 
-    const inputClassName = classNames('Input', className);
-
     return (
       <input
         {...inputAttrs}
         name={name}
         id={name}
         ref={this.inputRef}
-        className={inputClassName}
+        className="Input"
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
@@ -169,6 +168,7 @@ class TextInput extends Component {
   render() {
     const {
       disabled,
+      className,
       error,
       floatingLabel,
       hint,
@@ -181,9 +181,11 @@ class TextInput extends Component {
 
     const { isFocused, hasValue } = this.state;
 
+    const formGroupClassName = classNames('TextInput', className);
+
     return (
       <FormGroup
-        className="TextInput"
+        className={formGroupClassName}
         disabled={disabled}
         error={error}
         floatingLabel={floatingLabel}

@@ -6,6 +6,7 @@ import { getCardType } from '../../utils/card';
 
 class CardNumberInput extends Component {
   static propTypes = {
+    className: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func
   };
@@ -29,18 +30,18 @@ class CardNumberInput extends Component {
 
   render() {
     const { cardType } = this.state;
-    const { onChange, ...otherProps } = this.props;
+    const { onChange, className, ...otherProps } = this.props;
 
     const cardTypeClassName = cardType.toLowerCase();
 
-    const className = classNames('CardNumberInput', {
+    const textInputClassName = classNames('CardNumberInput', className, {
       [cardTypeClassName]: !!cardType
     });
 
     return (
       <TextInput
         onChange={this.handleChange}
-        className={className}
+        className={textInputClassName}
         {...otherProps}
       />
     );

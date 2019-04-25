@@ -174,62 +174,80 @@ class CardForm extends Component {
 
     return (
       <form onSubmit={this.handleSubmit}>
-        <TextInput
-          format={TEXT_ONLY_FORMAT}
-          name="name"
-          label={labels.name}
-          floatingLabel
-          error={errors.name}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-        />
-        <TextInput
-          format={TEXT_ONLY_FORMAT}
-          name="surname"
-          label={labels.surname}
-          error={errors.surname}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-        />
-        <CardNumberInput
-          format={CARD_NUMBER_FORMAT}
-          name="cardNumber"
-          label={labels.cardNumber}
-          error={errors.cardNumber || errors.cardType}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-        />
-        <TextInput
-          format={EXPIRY_DATE_FORMAT}
-          name="expiryDate"
-          label={labels.expiryDate}
-          error={errors.expiryDate}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-        />
-        <CVVInput
-          format={CVV_FORMAT}
-          name="cvv"
-          label={labels.cvv}
-          cvvTooltip={labels.cvvTooltip}
-          error={errors.cvv}
-          onBlur={this.handleBlur}
-          onFocus={this.handleFocus}
-          onChange={this.handleChange}
-        />
-        {children}
-        {onCancel && (
-          <Button type="button" value={labels.cancel} onClick={onCancel}>
-            {labels.cancel}
+        <div className="CardForm">
+          <TextInput
+            format={TEXT_ONLY_FORMAT}
+            name="name"
+            label={labels.name}
+            floatingLabel
+            error={errors.name}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            className="CardForm-Input"
+          />
+          <TextInput
+            format={TEXT_ONLY_FORMAT}
+            name="surname"
+            label={labels.surname}
+            error={errors.surname}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            className="CardForm-Input"
+          />
+          <CardNumberInput
+            format={CARD_NUMBER_FORMAT}
+            name="cardNumber"
+            label={labels.cardNumber}
+            error={errors.cardNumber || errors.cardType}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            className="CardForm-Input"
+          />
+          <TextInput
+            format={EXPIRY_DATE_FORMAT}
+            name="expiryDate"
+            label={labels.expiryDate}
+            error={errors.expiryDate}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            className="CardForm-Input CardForm-Input--ExpiryDate"
+          />
+          <CVVInput
+            format={CVV_FORMAT}
+            name="cvv"
+            label={labels.cvv}
+            cvvTooltip={labels.cvvTooltip}
+            error={errors.cvv}
+            onBlur={this.handleBlur}
+            onFocus={this.handleFocus}
+            onChange={this.handleChange}
+            className="CardForm-Input CardForm-Input--CVV"
+          />
+          {children}
+        </div>
+        <div className="CardForm-Buttons">
+          {onCancel && (
+            <Button
+              className="Button Button--default Button--block"
+              type="button"
+              value={labels.cancel}
+              onClick={onCancel}
+            >
+              {labels.cancel}
+            </Button>
+          )}
+          <Button
+            className="Button Button--primary Button--block"
+            type="submit"
+            value={labels.submit}
+          >
+            {labels.submit}
           </Button>
-        )}
-        <Button type="submit" value={labels.submit}>
-          {labels.submit}
-        </Button>
+        </div>
       </form>
     );
   }

@@ -5,6 +5,6 @@ import README from './README.md';
 
 export default () => (
   <Component readme={README}>
-    <CardForm onSubmit={console.log} onCancel={() => alert('are you sure?')} />
+    <CardForm onSubmit={console.log} />
   </Component>
 );
