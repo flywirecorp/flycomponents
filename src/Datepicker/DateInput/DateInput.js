@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
-import { applyPattern } from '../../utils/formatter';
+import { format } from '../../utils/formatter';
 
 const DATE_FORMAT = 'MM/DD/YYYY';
 const DATE_PATTERN = '../../....';
@@ -35,7 +35,7 @@ class DateInput extends Component {
       value = value.slice(0, -1);
     }
 
-    const formatedDate = applyPattern(value, DATE_PATTERN);
+    const formatedDate = format(value, { pattern: DATE_PATTERN });
 
     setSelectedDate(formatedDate);
   };

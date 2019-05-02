@@ -11,6 +11,7 @@ import Accordion from './components/Accordion';
 import Alert from './components/Alert';
 import Autocomplete from './components/Autocomplete';
 import Button from './components/Button';
+import CardForm from './components/CardForm';
 import Datepicker from './components/Datepicker';
 import Dropdown from './components/Dropdown';
 import Checkbox from './components/Checkbox';
@@ -62,6 +63,11 @@ const routes = [
     path: '/button',
     label: 'Button',
     component: Button
+  },
+  {
+    path: '/cardForm',
+    label: 'CardForm',
+    component: CardForm
   },
   {
     path: '/datepicker',

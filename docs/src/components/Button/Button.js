@@ -10,5 +10,7 @@ export default () => (
       onClick={() => alert('You clicked me!')}
       children="Click Me!"
     />
+
+    <Button onClick={() => alert('You clicked me!')} children="Click Me!" />
   </Component>
 );
