@@ -84,7 +84,6 @@ class CardForm extends Component {
 
   state = {
     errors: {},
-    cardType: '',
     values: {
       name: '',
       surname: '',
@@ -156,7 +155,9 @@ class CardForm extends Component {
 
     this.setState({ errors });
 
-    if (Object.entries(errors).length === 0) onSubmit(values);
+    const cardType = getCardType(values.cardNumber);
+    const payload = { ...values, cardType };
+    if (Object.entries(errors).length === 0) onSubmit(payload);
   };
 
   validateField = (name, value) => {

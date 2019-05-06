@@ -243,7 +243,8 @@ describe('CardForm', () => {
         surname: 'a_surname',
         cardNumber: '4111111111111111',
         expiryDate: '12/23',
-        cvv: '555'
+        cvv: '555',
+        cardType: 'VISA'
       }
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
       wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
