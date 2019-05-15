@@ -76,6 +76,16 @@ describe('Dropdown', () => {
     expect(component.selectedOptionText()).toBe('Spanish');
   });
 
+  test('if default value is not in the options list select the first option value', () => {
+    const component = setupDropdownWithDefaultValueTo('fr');
+
+    expect(component.selectedOptionText()).toBe('English');
+  });
+
+  test('if no options do not throw on pre-selecting value', () => {
+    expect(() => new DropdownComponent({ defaultValue: 'en' })).not.toThrow();
+  });
+
   test('is not case sensitive', () => {
     const component = setupDropdownWithDefaultValueTo('ES');
 

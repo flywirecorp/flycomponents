@@ -25,7 +25,9 @@ export class Dropdown extends Component {
     const selectedOption = options.find(option => {
       return this.sameValue(option.value, selectedValue);
     });
-    return selectedOption.label;
+
+    if (selectedOption) return selectedOption.label;
+    if (options.length > 0) return options[0].label;
   }
 
   handleClickOutside() {
