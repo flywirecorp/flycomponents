@@ -22,6 +22,7 @@ import Textarea from './Textarea';
 import TextInput from './TextInput';
 import Radio from './Radio';
 import Switch from './Switch';
+import SignaturePad from './SignaturePad';
 
 export {
   Accordion,
@@ -43,6 +44,7 @@ export {
   PhoneNumber,
   Rating,
   Select,
+  SignaturePad,
   Switch,
   Tabs,
   Textarea,

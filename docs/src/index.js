@@ -32,10 +32,25 @@ import Rating from './components/Rating';
 import Home from './components/Home';
 import Radio from './components/Radio';
 import Switch from './components/Switch';
+import SignaturePad from './components/SignaturePad';
 import icon from './images/hamburger-menu.svg';
 import './index.css';
 
 const { bool, func, string } = PropTypes;
+
+const byLabel = (a, b) => {
+  const labelA = a.label;
+  const labelB = b.label;
+
+  let comparison = 0;
+  if (labelA > labelB) {
+    comparison = 1;
+  } else if (labelA < labelB) {
+    comparison = -1;
+  }
+
+  return comparison;
+};
 
 const routes = [
   {
@@ -158,6 +173,11 @@ const routes = [
     path: '/text-input',
     label: 'TextInput',
     component: TextInput
+  },
+  {
+    path: '/signature-pad',
+    label: 'SignaturePad',
+    component: SignaturePad
   }
 ];
 
@@ -201,14 +221,16 @@ class NavBar extends Component {
         <img className="Docs-icon" src={icon} onClick={this.handleClick} />
         <Title />
         <ul className="Docs-navMenu">
-          {routes.map((route, index) => (
-            <MenuLink
-              key={index}
-              activeOnlyWhenExact={route.exact}
-              to={route.path}
-              label={route.label}
-            />
-          ))}
+          {routes
+            .sort(byLabel)
+            .map((route, index) => (
+              <MenuLink
+                key={index}
+                activeOnlyWhenExact={route.exact}
+                to={route.path}
+                label={route.label}
+              />
+            ))}
         </ul>
       </div>
     );

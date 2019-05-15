@@ -1,0 +1,36 @@
+.SignaturePad {
+  position: relative;
+  background-color: #f0f5fa;
+  width: 500px;
+  height: 300px;
+}
+
+.SignaturePad canvas {
+  position: absolute;
+  background-color: transparent;
+}
+
+.SignaturePad canvas:active,
+.SignaturePad canvas:hover {
+  cursor: pointer;
+}
+
+.SignaturePad h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  color: #798ca0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  display: inline-block;
+}
+
+.SignaturePad span {
+  color: #bbc6d0;
+  font-size: 16px;
+  font-weight: 400;
+  display: block;
+}
