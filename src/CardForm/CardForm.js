@@ -56,6 +56,7 @@ class CardForm extends Component {
       cancel: PropTypes.string
     }),
     onCancel: PropTypes.func,
+    onChange: PropTypes.func,
     onSubmit: PropTypes.func
   };
 
@@ -79,7 +80,8 @@ class CardForm extends Component {
       submit: 'Submit',
       cancel: 'Cancel'
     },
-    onSubmit: () => {}
+    onSubmit: () => {},
+    onChange: () => {}
   };
 
   state = {
@@ -94,10 +96,13 @@ class CardForm extends Component {
   };
 
   handleChange = (name, value) => {
+    const { onChange } = this.props;
     const { values: previousValues } = this.state;
     const values = { ...previousValues, [name]: value };
 
     this.setState({ values });
+
+    onChange(name, value);
   };
 
   handleFocus = name => {

@@ -5,6 +5,10 @@ import README from './README.md';
 
 export default () => (
   <Component readme={README}>
-    <CardForm onSubmit={console.log} onCancel={console.log} />
+    <CardForm
+      onSubmit={console.log}
+      onCancel={console.log}
+      onChange={console.log}
+    />
   </Component>
 );

@@ -17,6 +17,7 @@ Formulary to allow users to provide cards
 | errors            | no  | object | List of error messages (see `errors` table below)                     |                 |
 | labels            | no  | object | List of label messages (see `labels` table below)                     |                 |
 | onCancel          | no  | string | Callback to execute when clicking cancel button                       |                 |
+| onChange          | no  | string | Callback to execute when changing any form's value                    |                 |
 | onSubmit          | no  | string | Callback to execute when clicking submit button with the field values |                 |
 
 ### Label texts

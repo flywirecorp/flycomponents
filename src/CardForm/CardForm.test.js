@@ -180,16 +180,14 @@ describe('CardForm', () => {
     });
 
     describe('CVV should be valid for the given card number', () => {
-      const errors = { cvv: 'invalid_cvv', };
+      const errors = { cvv: 'invalid_cvv' };
 
       describe('when there is no card number', () => {
         test('has no error when the cvv is invalid', () => {
           const wrapper = shallow(<CardForm errors={errors} />);
           const invalidCvv = 1;
 
-          wrapper
-            .find(`[name="cvv"]`)
-            .simulate('blur', 'cvv', invalidCvv);
+          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', invalidCvv);
 
           expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
         });
@@ -204,9 +202,7 @@ describe('CardForm', () => {
             .find(`[name="cardNumber"]`)
             .simulate('change', 'cardNumber', validCardNumber);
 
-          wrapper
-            .find(`[name="cvv"]`)
-            .simulate('blur', 'cvv', validCvv);
+          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', validCvv);
 
           expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
         });
@@ -219,11 +215,11 @@ describe('CardForm', () => {
             .find(`[name="cardNumber"]`)
             .simulate('change', 'cardNumber', validCardNumber);
 
-          wrapper
-            .find(`[name="cvv"]`)
-            .simulate('blur', 'cvv', invalidCvv);
+          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', invalidCvv);
 
-          expect(wrapper.find(`[name="cvv"]`).prop('error')).toBe('invalid_cvv');
+          expect(wrapper.find(`[name="cvv"]`).prop('error')).toBe(
+            'invalid_cvv'
+          );
         });
       });
     });
@@ -236,7 +232,7 @@ describe('CardForm', () => {
       expect(wrapper.find(Button)).toHaveLength(1);
     });
 
-    test('executes onSubmit callback with form values when clicking on submit button',  () =>{
+    test('executes onSubmit callback with form values when clicking on submit button', () => {
       const onSubmit = jest.fn();
       const formValues = {
         name: 'a_name',
@@ -245,17 +241,23 @@ describe('CardForm', () => {
         expiryDate: '12/23',
         cvv: '555',
         cardType: 'VISA'
-      }
+      };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
       wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper.find('[name="surname"]').simulate('change', 'surname', formValues.surname);
-      wrapper.find('[name="cardNumber"]').simulate('change', 'cardNumber', formValues.cardNumber);
-      wrapper.find('[name="expiryDate"]').simulate('change', 'expiryDate', formValues.expiryDate);
+      wrapper
+        .find('[name="surname"]')
+        .simulate('change', 'surname', formValues.surname);
+      wrapper
+        .find('[name="cardNumber"]')
+        .simulate('change', 'cardNumber', formValues.cardNumber);
+      wrapper
+        .find('[name="expiryDate"]')
+        .simulate('change', 'expiryDate', formValues.expiryDate);
       wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {}});
-      
+      form.simulate('submit', { preventDefault: () => {} });
+
       expect(onSubmit).toHaveBeenCalledWith(formValues);
     });
 
@@ -264,19 +266,23 @@ describe('CardForm', () => {
       const formValues = {
         name: 'a_name',
         surname: 'a_surname',
-        
+
         expiryDate: '12/23',
         cvv: '555'
-      }
+      };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
       wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper.find('[name="surname"]').simulate('change', 'surname', formValues.surname);
-      wrapper.find('[name="expiryDate"]').simulate('change', 'expiryDate', formValues.expiryDate);
+      wrapper
+        .find('[name="surname"]')
+        .simulate('change', 'surname', formValues.surname);
+      wrapper
+        .find('[name="expiryDate"]')
+        .simulate('change', 'expiryDate', formValues.expiryDate);
       wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {}});
-      
+      form.simulate('submit', { preventDefault: () => {} });
+
       expect(onSubmit).not.toHaveBeenCalled();
     });
 
@@ -288,17 +294,23 @@ describe('CardForm', () => {
         surname: 'a_surname',
         expiryDate: '12/23',
         cvv: '55'
-      }
+      };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
       wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper.find('[name="surname"]').simulate('change', 'surname', formValues.surname);
-      wrapper.find('[name="cardNumber"]').simulate('change', 'cardNumber', formValues.cardNumber);
-      wrapper.find('[name="expiryDate"]').simulate('change', 'expiryDate', formValues.expiryDate);
+      wrapper
+        .find('[name="surname"]')
+        .simulate('change', 'surname', formValues.surname);
+      wrapper
+        .find('[name="cardNumber"]')
+        .simulate('change', 'cardNumber', formValues.cardNumber);
+      wrapper
+        .find('[name="expiryDate"]')
+        .simulate('change', 'expiryDate', formValues.expiryDate);
       wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {}});
-      
+      form.simulate('submit', { preventDefault: () => {} });
+
       expect(onSubmit).not.toHaveBeenCalled();
     });
   });
@@ -312,19 +324,34 @@ describe('CardForm', () => {
 
     test('renders a cancel button if onCancel is provided', () => {
       const onCancel = () => {};
-      const wrapper = shallow(<CardForm onCancel={onCancel}/>);
+      const wrapper = shallow(<CardForm onCancel={onCancel} />);
 
       expect(wrapper.find('Button [type="button"]')).toHaveLength(1);
     });
 
     test('calls onCancel when clicking on cancel button', () => {
       const onCancel = jest.fn();
-      const wrapper = shallow(<CardForm onCancel={onCancel}/>);
+      const wrapper = shallow(<CardForm onCancel={onCancel} />);
 
       const cancelButton = wrapper.find('Button [type="button"]');
       cancelButton.simulate('click');
 
       expect(onCancel).toHaveBeenCalled();
+    });
+  });
+
+  describe('onChange', () => {
+    test('executes onChange callback when changing any form value', () => {
+      const onChange = jest.fn();
+      const fieldName = 'name';
+      const fieldValue = 'a_name';
+      const wrapper = shallow(<CardForm onChange={onChange} />);
+
+      wrapper
+        .find(`[name="${fieldName}"]`)
+        .simulate('change', fieldName, fieldValue);
+
+      expect(onChange).toHaveBeenCalledWith(fieldName, fieldValue);
     });
   });
 });
