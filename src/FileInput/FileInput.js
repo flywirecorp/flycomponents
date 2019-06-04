@@ -41,7 +41,7 @@ export class FileInput extends Component {
     } = this.props;
 
     return (
-      <div className="FileInput">
+      <div className={classNames('FileInput', className)}>
         <input
           ref={this.fileInputRef}
           type="file"
@@ -58,13 +58,9 @@ export class FileInput extends Component {
         />
 
         <button
-          className={classNames(
-            'FileInput-submit',
-            {
-              'FileInput--uploading': uploading
-            },
-            className
-          )}
+          className={classNames('FileInput-submit', {
+            'FileInput--uploading': uploading
+          })}
           disabled={uploading}
           onClick={this.handleClick}
           onChange={onChange}
