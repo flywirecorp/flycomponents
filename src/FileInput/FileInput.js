@@ -6,6 +6,7 @@ export class FileInput extends Component {
   static propTypes = {
     accepts: PropTypes.string,
     buttonText: PropTypes.string,
+    className: PropTypes.string,
     hint: PropTypes.string,
     multiple: PropTypes.bool,
     onChange: PropTypes.func,
@@ -31,6 +32,7 @@ export class FileInput extends Component {
   render() {
     const {
       accepts,
+      className,
       hint,
       multiple,
       onChange,
@@ -56,9 +58,13 @@ export class FileInput extends Component {
         />
 
         <button
-          className={classNames('FileInput-submit', {
-            'FileInput--uploading': uploading
-          })}
+          className={classNames(
+            'FileInput-submit',
+            {
+              'FileInput--uploading': uploading
+            },
+            className
+          )}
           disabled={uploading}
           onClick={this.handleClick}
           onChange={onChange}
