@@ -8,11 +8,20 @@ class Radio extends Component {
     error: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool
   };
 
   render() {
-    const { className, id, name, error, label, ...otherProps } = this.props;
+    const {
+      className,
+      id,
+      name,
+      error,
+      label,
+      required,
+      ...otherProps
+    } = this.props;
 
     return (
       <label
@@ -26,6 +35,8 @@ class Radio extends Component {
           id={id || name}
           className="Radio-input"
           type="Radio"
+          required={required}
+          aria-required={required}
           {...otherProps}
         />
         <span className="Radio-label">{label}</span>

@@ -8,11 +8,20 @@ class Checkbox extends Component {
     error: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool
   };
 
   render() {
-    const { className, id, name, error, label, ...otherProps } = this.props;
+    const {
+      className,
+      id,
+      name,
+      error,
+      label,
+      required,
+      ...otherProps
+    } = this.props;
 
     return (
       <label
@@ -26,6 +35,8 @@ class Checkbox extends Component {
           id={id || name}
           className="Checkbox-input"
           type="checkbox"
+          required={required}
+          aria-required={required}
           {...otherProps}
         />
         <span className="Checkbox-label">{label}</span>

@@ -7,11 +7,12 @@ class Switch extends Component {
     className: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    required: PropTypes.bool
   };
 
   render() {
-    const { className, id, name, label, ...otherProps } = this.props;
+    const { className, id, name, label, required, ...otherProps } = this.props;
 
     return (
       <label htmlFor={id || name} className={classNames('Switch', className)}>
@@ -20,6 +21,8 @@ class Switch extends Component {
           id={id || name}
           className="Switch-input"
           type="checkbox"
+          required={required}
+          aria-required={required}
           {...otherProps}
         />
         <span className="Switch-label">{label}</span>

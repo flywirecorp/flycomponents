@@ -8,6 +8,7 @@ const Textarea = ({ name, required, ...other }) => (
     id={name}
     name={name}
     required={required}
+    aria-required={required}
     {...other}
   />
 );
