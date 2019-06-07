@@ -145,6 +145,20 @@ describe('Autocomplete', () => {
     expect(component.options().prop('option').label).toBe('United States');
   });
 
+  test('sorts options', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'China', value: 'CN' }
+    ];
+
+    const component = new AutocompleteComponent({ options, shouldSort: true });
+    const renderedOptions = component
+      .options()
+      .map(o => o.prop('option').label);
+
+    expect(renderedOptions).toEqual(['China', 'Spain']);
+  });
+
   test('moves the focus to the next option when pressing key down', () => {
     const options = [
       { label: 'Spain', value: 'ES' },

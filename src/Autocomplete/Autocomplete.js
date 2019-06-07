@@ -30,6 +30,7 @@ export class Autocomplete extends Component {
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
+    shouldSort: PropTypes.bool,
     template: PropTypes.func,
     value: PropTypes.string
   };
@@ -38,7 +39,6 @@ export class Autocomplete extends Component {
     disabled: false,
     floatingLabel: true,
     fuseConfig: {
-      shouldSort: true,
       tokenize: true,
       matchAllTokens: true,
       threshold: 0.3,
@@ -52,7 +52,8 @@ export class Autocomplete extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-    readOnly: false
+    readOnly: false,
+    shouldSort: false
   };
 
   constructor(props) {
@@ -196,11 +197,11 @@ export class Autocomplete extends Component {
     const { searchQuery } = this.state;
 
     if (searchOff || !searchQuery) {
-      return options;
+      return this.sortIfNeeded(options);
     }
 
     const fuse = new Fuse(options, fuseConfig);
-    return fuse.search(searchQuery);
+    return this.sortIfNeeded(fuse.search(searchQuery));
   }
 
   moveIndex(offset) {
@@ -296,6 +297,13 @@ export class Autocomplete extends Component {
       },
       this.adjustOffset
     );
+  }
+
+  sortIfNeeded(options = []) {
+    const { shouldSort } = this.props;
+    const compareLabel = (a, b) => (a.label > b.label ? 1 : -1);
+
+    return shouldSort ? options.sort(compareLabel) : options;
   }
 
   render() {
