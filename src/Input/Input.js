@@ -8,6 +8,7 @@ const Input = ({ name, required, type, value, ...other }) => (
     id={name}
     name={name}
     required={required}
+    aria-required={required}
     type={type}
     defaultValue={value}
     {...other}

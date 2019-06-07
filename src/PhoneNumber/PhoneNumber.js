@@ -192,6 +192,8 @@ class PhoneNumber extends Component {
                 readOnly={readOnly}
                 type="text"
                 value={formattedNumber}
+                required={required}
+                aria-required={required}
               />
             </div>
           </div>

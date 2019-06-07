@@ -366,6 +366,8 @@ export class Autocomplete extends Component {
             readOnly={!searchOn}
             type="search"
             value={searchQuery}
+            required={required}
+            aria-required={required}
           />
           <Options ref={this.optionListRef}>{optionList}</Options>
         </div>
