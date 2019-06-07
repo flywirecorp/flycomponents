@@ -103,6 +103,7 @@ const countryTemplate = country => (
 | placeholder         | no  | string | Short hint that describes the expected value of the input field       |          |
 | readOnly            | no  | bool   | Input field is read only                                              | false    |
 | required            | no  | bool   | Set the field to required                                             | false    |
+| shouldShort         | no  | bool   | Sort options                                                          | false    |
 | template            | no  | func   | Callback function that returns a JSX template to represent the option |          |
 | value               | no  | string | Default value                                                         | null     |
 

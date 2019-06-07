@@ -59,26 +59,26 @@ class PhoneNumber extends Component {
     return this.getFormatNumber(withoutPrefix);
   }
 
+  compareNameAndDialingCode(country1, country2) {
+    const { label: label1, dialingCode: dialingCode1 } = country1;
+    const { label: label2, dialingCode: dialingCode2 } = country2;
+
+    return label1 > label2
+      ? 1
+      : label1 === label2
+        ? dialingCode1 > dialingCode2
+          ? 1
+          : -1
+        : -1;
+  }
+
   getCountryFrom(value) {
     if (value === NO_VALUE) return NO_VALUE;
     const { countries } = this.props;
     const phoneNumber = this.getFormatNumber(value);
-
-    const compareDialingCodeCountries = (country1, country2) => {
-      const { dialingCode: dialingCode1 } = country1;
-      const { dialingCode: dialingCode2 } = country2;
-
-      const length1 = (dialingCode1 && dialingCode1.length) || 0;
-      const length2 = (dialingCode2 && dialingCode2.length) || 0;
-
-      if (length1 > length2) return -1;
-      if (length1 < length2) return 1;
-      return 0;
-    };
-
     const selectedCountries = countries
       .filter(country => phoneNumber.startsWith(country.dialingCode))
-      .sort(compareDialingCodeCountries);
+      .sort(this.compareNameAndDialingCode);
 
     return selectedCountries.length === 0
       ? NO_VALUE
@@ -149,6 +149,7 @@ class PhoneNumber extends Component {
 
     const { formattedNumber, isFocused, prefix } = this.state;
     const widthClassName = `width-${prefix.length}`;
+    const orderedCountries = countries.sort(this.compareNameAndDialingCode);
 
     return (
       <div
@@ -174,7 +175,7 @@ class PhoneNumber extends Component {
               name={name}
               onChange={(name, value) => this.handlePrefixClick(value)}
               onFocus={onFocus}
-              options={countries}
+              options={orderedCountries}
               readOnly={readOnly}
               value={prefix}
             />
