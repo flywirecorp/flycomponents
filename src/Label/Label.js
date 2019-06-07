@@ -4,7 +4,7 @@ import React from 'react';
 const Label = ({ htmlFor, required, value, ...other }) => (
   <label className="Label" {...other} htmlFor={htmlFor}>
     {value}
-    {required ? <span> (*)</span> : null}
+    {required ? <span> *</span> : null}
   </label>
 );
 

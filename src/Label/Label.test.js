@@ -24,6 +24,6 @@ describe('Label', () => {
     const props = { htmlFor: 'amount', required: true, value: 'Amount' };
     const component = new LabelComponent(props);
 
-    expect(component.label('amount')).toBe('Amount (*)');
+    expect(component.label('amount')).toBe('Amount *');
   });
 });
