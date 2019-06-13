@@ -39,6 +39,7 @@ export class Autocomplete extends Component {
     disabled: false,
     floatingLabel: true,
     fuseConfig: {
+      shouldSort: true,
       tokenize: true,
       matchAllTokens: true,
       threshold: 0.3,
