@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/peertransfer/flycomponents#readme",
   "dependencies": {
+    "@babel/runtime": "^7.4.5",
     "accounting": "^0.4.1",
     "classnames": "^2.2.6",
     "dom-scroll-into-view": "^1.2.1",
@@ -41,10 +42,21 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/plugin-proposal-decorators": "^7.0.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0",
+    "@babel/plugin-proposal-function-sent": "^7.0.0",
+    "@babel/plugin-proposal-json-strings": "^7.0.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.0.0",
+    "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0",
+    "@babel/plugin-syntax-import-meta": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-stage-2": "^7.0.0",
-    "babel-eslint": "^8.2.3",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^9.0.0",
+    "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-add-module-exports": "^0.2.1",
     "cross-env": "^5.1.6",
@@ -81,11 +93,30 @@
     "moduleId": "flycomponents",
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-stage-2"
+      "@babel/preset-react"
     ],
     "plugins": [
-      "add-module-exports"
+      "add-module-exports",
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-syntax-import-meta",
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-proposal-json-strings",
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
+      "@babel/plugin-proposal-function-sent",
+      "@babel/plugin-proposal-export-namespace-from",
+      "@babel/plugin-proposal-numeric-separator",
+      "@babel/plugin-proposal-throw-expressions",
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "regenerator": true
+        }
+      ]
     ]
   },
   "eslintConfig": {
