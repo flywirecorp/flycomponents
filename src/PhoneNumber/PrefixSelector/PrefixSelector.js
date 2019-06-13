@@ -6,7 +6,6 @@ import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
-import isEmpty from '../../utils/isEmpty';
 
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40];
@@ -42,8 +41,7 @@ export class PrefixSelector extends Component {
       dialingCode: value,
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
-      typedQuery: '',
-      options: this.validOptions
+      typedQuery: ''
     };
 
     this.typedQueryTimer = 0;
@@ -55,13 +53,13 @@ export class PrefixSelector extends Component {
   }
 
   getOptionIndexByValue(value) {
-    const { options } = this.state;
+    const { options } = this.props;
 
     return options.findIndex(option => option.value === value);
   }
 
   getDialingCodeByValue(index) {
-    const { options } = this.state;
+    const { options } = this.props;
     const dialingCode =
       index === INITIAL_INDEX ? '' : options[index].dialingCode;
 
@@ -157,7 +155,8 @@ export class PrefixSelector extends Component {
   }
 
   moveIndex(offset) {
-    const { options } = this.state;
+    const { options } = this.props;
+
     const optionsLength = options.length;
     const normalize = index => {
       if (index < 0) {
@@ -183,7 +182,8 @@ export class PrefixSelector extends Component {
   }
 
   searchTypedCountry() {
-    const { options, typedQuery } = this.state;
+    const { typedQuery } = this.state;
+    const { options } = this.props;
 
     const searchedOptionIndex = options.findIndex(option =>
       option.label.toLowerCase().startsWith(typedQuery)
@@ -206,7 +206,8 @@ export class PrefixSelector extends Component {
   }
 
   selectCurrentOption() {
-    const { options, selectedIndex } = this.state;
+    const { selectedIndex } = this.state;
+    const { options } = this.props;
 
     if (selectedIndex === INITIAL_INDEX) {
       return;
@@ -221,12 +222,6 @@ export class PrefixSelector extends Component {
     if (readOnly) return false;
 
     this.setState({ isOpen: true });
-  }
-
-  get validOptions() {
-    const { options } = this.props;
-
-    return options.filter(({ dialingCode }) => !isEmpty(dialingCode));
   }
 
   renderOption = (option, index) => {
@@ -251,8 +246,8 @@ export class PrefixSelector extends Component {
   };
 
   render() {
-    const { disabled, readOnly } = this.props;
-    const { dialingCode, isOpen, options } = this.state;
+    const { disabled, readOnly, options } = this.props;
+    const { dialingCode, isOpen } = this.state;
     const optionList = options.map(this.renderOption);
 
     return (
@@ -266,7 +261,7 @@ export class PrefixSelector extends Component {
         <span className="Autocomplete-search PhoneNumber-menu-input">
           {dialingCode && `+ ${dialingCode}`}
         </span>
-        {!disabled ? (
+        {!disabled && (
           <div
             className="PhoneNumber-menu-fakeInput"
             onClick={this.handleMenuClick}
@@ -275,7 +270,7 @@ export class PrefixSelector extends Component {
             style={styles.fakeInput}
             tabIndex={-1}
           />
-        ) : null}
+        )}
 
         <Options ref={this.optionListRef}>{optionList}</Options>
       </div>
