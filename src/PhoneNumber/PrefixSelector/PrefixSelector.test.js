@@ -90,29 +90,6 @@ describe('PrefixSelector', () => {
     expect(component.options()).toHaveLength(2);
   });
 
-  test('ignores invalid options', () => {
-    const options = [
-      {
-        label: 'Spain',
-        value: 'ES',
-        dialingCode: '34'
-      },
-      {
-        label: 'United States',
-        value: 'US',
-        dialingCode: null
-      },
-      {
-        label: 'Canada',
-        value: 'CA',
-        dialingCode: undefined
-      }
-    ];
-    const component = new PrefixSelectorComponent({ options });
-
-    expect(component.options()).toHaveLength(1);
-  });
-
   test('displays options when clicking the menu', () => {
     const component = new PrefixSelectorComponent();
 

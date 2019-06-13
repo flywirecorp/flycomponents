@@ -195,6 +195,30 @@ describe('PhoneNumber', () => {
     });
   });
 
+  describe('ignores invalid countries', () => {
+    test('ignores invalid options', () => {
+      const countries = [
+        {
+          label: 'Spain',
+          value: 'ES',
+          dialingCode: '34'
+        },
+        {
+          label: 'United States',
+          value: 'US',
+          dialingCode: null
+        },
+        {
+          label: 'Canada',
+          value: 'CA',
+          dialingCode: undefined
+        }
+      ];
+      const component = new PhoneNumberComponent({ countries });
+      expect(component.prefixSelector().prop('options')).toHaveLength(1);
+    });
+  });
+
   describe('having disabled property', () => {
     const countries = [
       {

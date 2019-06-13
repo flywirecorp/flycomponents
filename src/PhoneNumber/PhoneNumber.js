@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import PrefixSelector from './PrefixSelector';
 import classNames from 'classnames';
-
+import isEmpty from '../utils/isEmpty';
 import FormGroup from '../FormGroup';
 
 const NO_VALUE = '';
@@ -129,9 +129,14 @@ class PhoneNumber extends Component {
     onChange(name, value);
   }
 
+  get validOptions() {
+    const { countries } = this.props;
+
+    return countries.filter(({ dialingCode }) => !isEmpty(dialingCode));
+  }
+
   render() {
     const {
-      countries,
       disabled,
       error,
       floatingLabel,
@@ -174,7 +179,7 @@ class PhoneNumber extends Component {
               name={name}
               onChange={(name, value) => this.handlePrefixClick(value)}
               onFocus={onFocus}
-              options={countries}
+              options={this.validOptions}
               readOnly={readOnly}
               value={prefix}
             />
