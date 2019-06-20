@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TextInput from './TextInput';
 import CardNumberInput from './CardNumberInput';
 import Button from '../Button';
@@ -56,6 +57,7 @@ class CardForm extends Component {
       expiryDate: PropTypes.string,
       cvv: PropTypes.string
     }),
+    isCompressed: PropTypes.bool,
     labels: PropTypes.shape({
       name: PropTypes.string,
       surname: PropTypes.string,
@@ -92,6 +94,7 @@ class CardForm extends Component {
       submit: 'Submit',
       cancel: 'Cancel'
     },
+    isCompressed: false,
     onSubmit: () => {},
     onChange: () => {}
   };
@@ -210,12 +213,31 @@ class CardForm extends Component {
   }
 
   getFieldClassName = field => {
-    if (field === CVV_FIELD) return 'CardForm-Input CardForm-Input--CVV';
+    const { isCompressed } = this.props;
 
-    if (field === EXPIRY_DATE_FIELD)
-      return 'CardForm-Input CardForm-Input--ExpiryDate';
+    let classes = classNames('CardForm-Input', {
+      'CardForm-Input--Compressed': isCompressed
+    });
 
-    return 'CardForm-Input';
+    switch (field) {
+      case CVV_FIELD:
+        classes = classNames(classes, 'CardForm-Input--CVV');
+        break;
+      case EXPIRY_DATE_FIELD:
+        classes = classNames(classes, 'CardForm-Input--ExpiryDate');
+        break;
+      case CARD_NUMBER_FIELD:
+        classes = classNames(classes, 'CardForm-Input--Number');
+        break;
+      case NAME_FIELD:
+        classes = classNames(classes, 'CardForm-Input--Name');
+        break;
+      case SURNAME_FIELD:
+        classes = classNames(classes, 'CardForm-Input--Surname');
+        break;
+    }
+
+    return classes;
   };
 
   getFieldError = field => {
@@ -265,11 +287,14 @@ class CardForm extends Component {
   };
 
   render() {
-    const { labels, children, onCancel } = this.props;
+    const { labels, children, onCancel, isCompressed } = this.props;
 
+    const classes = classNames('CardForm', {
+      'CardForm--Compressed': isCompressed
+    });
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="CardForm">
+        <div className={classes}>
           {Object.entries(this.requiredFields).map(([name]) => {
             return this.renderField(name);
           })}
