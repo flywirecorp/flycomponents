@@ -10,15 +10,16 @@ Formulary to allow users to provide cards
 
 ## Properties
 
-| Property          | Req | Type   | Description                                                           | Default         |
-| ----------------- | --- | ------ | --------------------------------------------------------------------- | --------------- |
-| acceptedCards     | no  | array  | List of accepted credit cards                                         | `['visa', mc']` |
-| children          | no  | node   | Children node                                                         |                 |
-| errors            | no  | object | List of error messages (see `errors` table below)                     |                 |
-| labels            | no  | object | List of label messages (see `labels` table below)                     |                 |
-| onCancel          | no  | string | Callback to execute when clicking cancel button                       |                 |
-| onChange          | no  | string | Callback to execute when changing any form's value                    |                 |
-| onSubmit          | no  | string | Callback to execute when clicking submit button with the field values |                 |
+| Property      | Req | Type   | Description                                                                                                            | Default          |
+| ------------- | --- | ------ | ---------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| acceptedCards | no  | array  | List of accepted credit cards. Valid values: `VISA` (Visa), `MC` (Mastercard), `AMEX` (America Express), `UNIONPAY` (UnionPay) | `['VISA', 'MC']` |
+| children      | no  | node   | Children node                                                                                                          |                  |
+| errors        | no  | object | List of error messages (see `errors` table below)                                                                      |                  |
+| labels        | no  | object | List of label messages (see `labels` table below)                                                                      |                  |
+| onCancel      | no  | string | Callback to execute when clicking cancel button                                                                        |                  |
+| onChange      | no  | string | Callback to execute when changing any form's value                                                                     |                  |
+| onSubmit      | no  | string | Callback to execute when clicking submit button with the field values                                                  |                  |
+| optionalFields      | no  | array | List of optional fields that will not be used in the form. Valid values: `name`, `surname`, `expiryDate`, `cvv`                                                  |                  |
 
 ### Label texts
 
@@ -32,7 +33,6 @@ Formulary to allow users to provide cards
 | labels.cvvTooltip | no  | string | Label for the cvv explanation tooltip | `3 digits in the back of your card or 4 digits in the front` |
 | labels.submit     | no  | string | Label for the submit button           | `Submit`                                                     |
 | labels.cancel     | no  | string | Label for the cancel button           | `Cancel`                                                     |
-
 
 ### Error texts
 

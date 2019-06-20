@@ -9,28 +9,39 @@ import {
   validateCardType,
   validateCvvInput
 } from '../utils/validators';
-import { getCardType } from '../utils/card';
+import { VISA, MASTERCARD, UNIONPAY, getCardType } from '../utils/card';
 import CVVInput from './CVVInput/CVVInput';
+
+const CARD_NUMBER_FIELD = 'cardNumber';
+const NAME_FIELD = 'name';
+const SURNAME_FIELD = 'surname';
+const EXPIRY_DATE_FIELD = 'expiryDate';
+const CVV_FIELD = 'cvv';
 
 const LETTERS_AND_SPACE_REGEX = /[a-zA-Z ]*/g;
 const NUMBERS_REGEX = /[0-9]*/g;
 
-const EXPIRY_DATE_FORMAT = {
-  pattern: '../..',
-  shouldAddSeparatorBeforeTyping: true,
-  allowedCharacters: NUMBERS_REGEX
-};
-const CARD_NUMBER_FORMAT = {
-  pattern: '....-....-....-....',
-  shouldAddSeparatorBeforeTyping: true,
-  allowedCharacters: NUMBERS_REGEX
-};
-const CVV_FORMAT = {
-  pattern: '....',
-  allowedCharacters: NUMBERS_REGEX
-};
-const TEXT_ONLY_FORMAT = {
-  allowedCharacters: LETTERS_AND_SPACE_REGEX
+const DEFAULT_FORMATS = {
+  [NAME_FIELD]: {
+    allowedCharacters: LETTERS_AND_SPACE_REGEX
+  },
+  [SURNAME_FIELD]: {
+    allowedCharacters: LETTERS_AND_SPACE_REGEX
+  },
+  [CARD_NUMBER_FIELD]: {
+    pattern: '....-....-....-....',
+    shouldAddSeparatorBeforeTyping: true,
+    allowedCharacters: NUMBERS_REGEX
+  },
+  [EXPIRY_DATE_FIELD]: {
+    pattern: '../..',
+    shouldAddSeparatorBeforeTyping: true,
+    allowedCharacters: NUMBERS_REGEX
+  },
+  [CVV_FIELD]: {
+    pattern: '....',
+    allowedCharacters: NUMBERS_REGEX
+  }
 };
 
 class CardForm extends Component {
@@ -57,25 +68,26 @@ class CardForm extends Component {
     }),
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    optionalFields: PropTypes.array
   };
 
   static defaultProps = {
-    acceptedCards: ['VISA', 'MC'],
+    acceptedCards: [VISA, MASTERCARD],
     errors: {
-      name: 'Invalid name',
-      surname: 'Invalid surname',
-      cardNumber: 'Invalid card',
+      [NAME_FIELD]: 'Invalid name',
+      [SURNAME_FIELD]: 'Invalid surname',
+      [CARD_NUMBER_FIELD]: 'Invalid card',
       cardType: 'Only Visa and Mastercard are supported',
-      expiryDate: 'Invalid expiration date',
-      cvv: 'Invalid CVV number'
+      [EXPIRY_DATE_FIELD]: 'Invalid expiration date',
+      [CVV_FIELD]: 'Invalid CVV number'
     },
     labels: {
-      name: `Cardholder's name`,
-      surname: `Cardholder's surname`,
-      cardNumber: 'Card number',
-      expiryDate: 'Expiry date (MM/YY)',
-      cvv: 'CVV',
+      [NAME_FIELD]: `Cardholder's name`,
+      [SURNAME_FIELD]: `Cardholder's surname`,
+      [CARD_NUMBER_FIELD]: 'Card number',
+      [EXPIRY_DATE_FIELD]: 'Expiry date (MM/YY)',
+      [CVV_FIELD]: 'CVV',
       cvvTooltip: '3 digits in the back of your card or 4 digits in the front',
       submit: 'Submit',
       cancel: 'Cancel'
@@ -87,11 +99,11 @@ class CardForm extends Component {
   state = {
     errors: {},
     values: {
-      name: '',
-      surname: '',
-      cardNumber: '',
-      expiryDate: '',
-      cvv: ''
+      [NAME_FIELD]: '',
+      [SURNAME_FIELD]: '',
+      [CARD_NUMBER_FIELD]: '',
+      [EXPIRY_DATE_FIELD]: '',
+      [CVV_FIELD]: ''
     }
   };
 
@@ -120,48 +132,49 @@ class CardForm extends Component {
   validateCvvField(value) {
     const { errors } = this.props;
     const {
-      values: { cardNumber }
+      values: { [CARD_NUMBER_FIELD]: cardNumber }
     } = this.state;
     const cardType = getCardType(cardNumber);
 
     if (!cardType) return;
 
     const isValid = validateCvvInput(value, cardType);
-    if (!isValid) return { cvv: errors['cvv'] };
+    if (!isValid) return { [CVV_FIELD]: errors[CVV_FIELD] };
   }
 
   validateExpiryDateField(value) {
     const { errors } = this.props;
 
     if (!validateExpirationDate(value))
-      return { expiryDate: errors.expiryDate };
+      return { [EXPIRY_DATE_FIELD]: errors[EXPIRY_DATE_FIELD] };
   }
 
   validateCardNumberField(value) {
     const { acceptedCards, errors } = this.props;
 
-    if (!validateCardNumber(value)) return { cardNumber: errors.cardNumber };
+    if (!validateCardNumber(value))
+      return { [CARD_NUMBER_FIELD]: errors[CARD_NUMBER_FIELD] };
 
     if (!validateCardType(value, acceptedCards))
-      return { cardNumber: errors.cardType };
+      return { [CARD_NUMBER_FIELD]: errors.cardType };
   }
 
   handleSubmit = e => {
     const { onSubmit } = this.props;
-    const { values } = this.state;
 
     e.preventDefault();
 
-    let errors = {};
-
-    Object.entries(values).forEach(([name, value]) => {
-      errors = { ...errors, ...this.validateField(name, value) };
-    });
+    const errors = Object.entries(this.requiredFields).reduce(
+      (errors, [name, value]) => {
+        return { ...errors, ...this.validateField(name, value) };
+      },
+      {}
+    );
 
     this.setState({ errors });
 
-    const cardType = getCardType(values.cardNumber);
-    const payload = { ...values, cardType };
+    const cardType = getCardType(this.requiredFields[CARD_NUMBER_FIELD]);
+    const payload = { ...this.requiredFields, cardType };
     if (Object.entries(errors).length === 0) onSubmit(payload);
   };
 
@@ -169,70 +182,97 @@ class CardForm extends Component {
     const { errors } = this.props;
 
     if (!value) return { [name]: errors[name] };
-    if (name === 'expiryDate') return this.validateExpiryDateField(value);
-    if (name === 'cardNumber') return this.validateCardNumberField(value);
-    if (name === 'cvv') return this.validateCvvField(value);
+    if (name === EXPIRY_DATE_FIELD) return this.validateExpiryDateField(value);
+    if (name === CARD_NUMBER_FIELD) return this.validateCardNumberField(value);
+    if (name === CVV_FIELD) return this.validateCvvField(value);
+  };
+
+  isRequiredField = fieldName => {
+    const { optionalFields } = this.props;
+
+    return !(optionalFields && optionalFields.includes(fieldName));
+  };
+
+  get requiredFields() {
+    const { values } = this.state;
+
+    const requiredFields = Object.entries(values).reduce(
+      (requiredFields, [name, value]) => {
+        if (this.isRequiredField(name))
+          return { ...requiredFields, [name]: value };
+
+        return requiredFields;
+      },
+      {}
+    );
+
+    return requiredFields;
+  }
+
+  getFieldClassName = field => {
+    if (field === CVV_FIELD) return 'CardForm-Input CardForm-Input--CVV';
+
+    if (field === EXPIRY_DATE_FIELD)
+      return 'CardForm-Input CardForm-Input--ExpiryDate';
+
+    return 'CardForm-Input';
+  };
+
+  getFieldError = field => {
+    const { errors } = this.state;
+
+    if (field === CARD_NUMBER_FIELD)
+      return errors[CARD_NUMBER_FIELD] || errors.cardType;
+
+    return errors[field];
+  };
+
+  getFieldFormat = field => {
+    const { acceptedCards } = this.props;
+
+    if (field === CARD_NUMBER_FIELD && acceptedCards.includes(UNIONPAY))
+      return {
+        pattern: '....-....-....-....-...',
+        shouldAddSeparatorBeforeTyping: false,
+        allowedCharacters: NUMBERS_REGEX
+      };
+
+    return DEFAULT_FORMATS[field];
+  };
+
+  renderField = field => {
+    const { labels } = this.props;
+
+    const props = {
+      key: field,
+      format: this.getFieldFormat(field),
+      name: field,
+      label: labels[field],
+      error: this.getFieldError(field),
+      onBlur: this.handleBlur,
+      onFocus: this.handleFocus,
+      onChange: this.handleChange,
+      className: this.getFieldClassName(field)
+    };
+
+    if (field === CARD_NUMBER_FIELD) {
+      return <CardNumberInput {...props} />;
+    } else if (field === CVV_FIELD) {
+      return <CVVInput {...props} cvvTooltip={labels.cvvTooltip} />;
+    } else {
+      return <TextInput {...props} floatingLabel />;
+    }
   };
 
   render() {
     const { labels, children, onCancel } = this.props;
-    const { errors } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="CardForm">
-          <TextInput
-            format={TEXT_ONLY_FORMAT}
-            name="name"
-            label={labels.name}
-            floatingLabel
-            error={errors.name}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            className="CardForm-Input"
-          />
-          <TextInput
-            format={TEXT_ONLY_FORMAT}
-            name="surname"
-            label={labels.surname}
-            error={errors.surname}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            className="CardForm-Input"
-          />
-          <CardNumberInput
-            format={CARD_NUMBER_FORMAT}
-            name="cardNumber"
-            label={labels.cardNumber}
-            error={errors.cardNumber || errors.cardType}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            className="CardForm-Input"
-          />
-          <TextInput
-            format={EXPIRY_DATE_FORMAT}
-            name="expiryDate"
-            label={labels.expiryDate}
-            error={errors.expiryDate}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            className="CardForm-Input CardForm-Input--ExpiryDate"
-          />
-          <CVVInput
-            format={CVV_FORMAT}
-            name="cvv"
-            label={labels.cvv}
-            cvvTooltip={labels.cvvTooltip}
-            error={errors.cvv}
-            onBlur={this.handleBlur}
-            onFocus={this.handleFocus}
-            onChange={this.handleChange}
-            className="CardForm-Input CardForm-Input--CVV"
-          />
+          {Object.entries(this.requiredFields).map(([name]) => {
+            return this.renderField(name);
+          })}
           {children}
         </div>
         <div className="CardForm-Buttons">
