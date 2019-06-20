@@ -59,7 +59,7 @@ describe('CardForm', () => {
       test('has an error when is empty', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper.find(`[name="${fieldName}"]`).simulate('blur', fieldName, '');
+        blurField(wrapper, fieldName, '');
 
         expect(wrapper.find(`[name="${fieldName}"]`).prop('error')).toEqual(
           error
@@ -69,10 +69,8 @@ describe('CardForm', () => {
       test('has no error when is not empty', () => {
         const wrapper = shallow(<CardForm />);
 
-        wrapper
-          .find(`[name="${fieldName}"]`)
-          .simulate('blur', fieldName, fieldValue);
-
+        blurField(wrapper, fieldName, fieldValue);
+        
         expect(
           wrapper.find(`[name="${fieldName}"]`).prop('error')
         ).toBeUndefined();
@@ -98,9 +96,7 @@ describe('CardForm', () => {
       test('has no error if is a valid future date', () => {
         const wrapper = shallow(<CardForm />);
 
-        wrapper
-          .find(`[name="expiryDate"]`)
-          .simulate('blur', 'expiryDate', '12/30');
+        blurField(wrapper, 'expiryDate', '12/30');
 
         expect(
           wrapper.find(`[name="expiryDate"]`).prop('error')
@@ -110,9 +106,7 @@ describe('CardForm', () => {
       test('has error if is an invalid date', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper
-          .find(`[name="expiryDate"]`)
-          .simulate('blur', 'expiryDate', '12/');
+        blurField(wrapper, 'expiryDate', '12/');
 
         expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
           'invalid_expiry_date'
@@ -122,9 +116,7 @@ describe('CardForm', () => {
       test('has error if is a past date', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper
-          .find(`[name="expiryDate"]`)
-          .simulate('blur', 'expiryDate', '12/12');
+        blurField(wrapper, 'expiryDate', '12/12');
 
         expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
           'invalid_expiry_date'
@@ -145,9 +137,7 @@ describe('CardForm', () => {
       test('has no error if is a valid accepted card', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper
-          .find(`[name="cardNumber"]`)
-          .simulate('blur', 'cardNumber', validVisaCardNumber);
+        blurField(wrapper, 'cardNumber', validVisaCardNumber);
 
         expect(
           wrapper.find(`[name="cardNumber"]`).prop('error')
@@ -157,9 +147,7 @@ describe('CardForm', () => {
       test('has error if has an invalid value', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper
-          .find(`[name="cardNumber"]`)
-          .simulate('blur', 'cardNumber', invalidCardNumber);
+        blurField(wrapper, 'cardNumber', invalidCardNumber);
 
         expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
           'invalid_card_number'
@@ -169,9 +157,7 @@ describe('CardForm', () => {
       test('has error if has an unnacepted card type', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
-        wrapper
-          .find(`[name="cardNumber"]`)
-          .simulate('blur', 'cardNumber', validAMEXCardNumber);
+        blurField(wrapper, 'cardNumber', validAMEXCardNumber);
 
         expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
           'invalid_card_type'
@@ -187,7 +173,7 @@ describe('CardForm', () => {
           const wrapper = shallow(<CardForm errors={errors} />);
           const invalidCvv = 1;
 
-          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', invalidCvv);
+          blurField(wrapper, 'cvv', invalidCvv);
 
           expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
         });
@@ -198,11 +184,9 @@ describe('CardForm', () => {
           const wrapper = shallow(<CardForm errors={errors} />);
           const validCvv = 111;
           const validCardNumber = '4111111111111111';
-          wrapper
-            .find(`[name="cardNumber"]`)
-            .simulate('change', 'cardNumber', validCardNumber);
+          fillField(wrapper, 'cardNumber', validCardNumber);
 
-          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', validCvv);
+          blurField(wrapper, 'cvv', validCvv);
 
           expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
         });
@@ -211,11 +195,9 @@ describe('CardForm', () => {
           const wrapper = shallow(<CardForm errors={errors} />);
           const invalidCvv = 11;
           const validCardNumber = '4111111111111111';
-          wrapper
-            .find(`[name="cardNumber"]`)
-            .simulate('change', 'cardNumber', validCardNumber);
+          fillField(wrapper, 'cardNumber', validCardNumber);
 
-          wrapper.find(`[name="cvv"]`).simulate('blur', 'cvv', invalidCvv);
+          blurField(wrapper, 'cvv', invalidCvv);
 
           expect(wrapper.find(`[name="cvv"]`).prop('error')).toBe(
             'invalid_cvv'
@@ -243,17 +225,11 @@ describe('CardForm', () => {
         cardType: 'VISA'
       };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper
-        .find('[name="surname"]')
-        .simulate('change', 'surname', formValues.surname);
-      wrapper
-        .find('[name="cardNumber"]')
-        .simulate('change', 'cardNumber', formValues.cardNumber);
-      wrapper
-        .find('[name="expiryDate"]')
-        .simulate('change', 'expiryDate', formValues.expiryDate);
-      wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
+      fillField(wrapper, 'name', formValues.name);
+      fillField(wrapper, 'surname', formValues.surname);
+      fillField(wrapper, 'cardNumber', formValues.cardNumber);
+      fillField(wrapper, 'expiryDate', formValues.expiryDate);
+      fillField(wrapper, 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
       form.simulate('submit', { preventDefault: () => {} });
@@ -266,19 +242,14 @@ describe('CardForm', () => {
       const formValues = {
         name: 'a_name',
         surname: 'a_surname',
-
         expiryDate: '12/23',
         cvv: '555'
       };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper
-        .find('[name="surname"]')
-        .simulate('change', 'surname', formValues.surname);
-      wrapper
-        .find('[name="expiryDate"]')
-        .simulate('change', 'expiryDate', formValues.expiryDate);
-      wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
+      fillField(wrapper, 'name', formValues.name);
+      fillField(wrapper, 'surname', formValues.surname);
+      fillField(wrapper, 'expiryDate', formValues.expiryDate);
+      fillField(wrapper, 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
       form.simulate('submit', { preventDefault: () => {} });
@@ -296,17 +267,11 @@ describe('CardForm', () => {
         cvv: '55'
       };
       const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      wrapper.find('[name="name"]').simulate('change', 'name', formValues.name);
-      wrapper
-        .find('[name="surname"]')
-        .simulate('change', 'surname', formValues.surname);
-      wrapper
-        .find('[name="cardNumber"]')
-        .simulate('change', 'cardNumber', formValues.cardNumber);
-      wrapper
-        .find('[name="expiryDate"]')
-        .simulate('change', 'expiryDate', formValues.expiryDate);
-      wrapper.find('[name="cvv"]').simulate('change', 'cvv', formValues.cvv);
+      fillField(wrapper, 'name', formValues.name);
+      fillField(wrapper, 'surname', formValues.surname);
+      fillField(wrapper, 'cardNumber', formValues.cardNumber);
+      fillField(wrapper, 'expiryDate', formValues.expiryDate);
+      fillField(wrapper, 'cvv', formValues.cvv);
 
       const form = wrapper.find('form');
       form.simulate('submit', { preventDefault: () => {} });
@@ -347,11 +312,97 @@ describe('CardForm', () => {
       const fieldValue = 'a_name';
       const wrapper = shallow(<CardForm onChange={onChange} />);
 
-      wrapper
-        .find(`[name="${fieldName}"]`)
-        .simulate('change', fieldName, fieldValue);
+      fillField(wrapper, fieldName, fieldValue);
 
       expect(onChange).toHaveBeenCalledWith(fieldName, fieldValue);
     });
   });
+
+  describe('card number format', () => {
+    test('format allows up to 19 digits if accepted card types include UnionPay', () => {
+      const acceptedCards = ['VISA', 'MC', 'UNIONPAY'];
+      const expectedFormat = {
+        pattern: '....-....-....-....-...',
+        shouldAddSeparatorBeforeTyping: false,
+        allowedCharacters: /[0-9]*/g
+      }
+      
+      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+    });
+
+    test('format allows up to 16 digits if accepted cards do not include UnionPay', () => { 
+      const acceptedCards = ['VISA', 'MC'];
+      const expectedFormat = {
+        pattern: '....-....-....-....',
+        shouldAddSeparatorBeforeTyping: true,
+        allowedCharacters: /[0-9]*/g
+      }
+      
+      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+    });
+
+    test('updates card number format if acceptedCards prop changes', () => {
+      const acceptedCards = ['VISA', 'MC'];
+      const expectedFormat = {
+        pattern: '....-....-....-....-...',
+        shouldAddSeparatorBeforeTyping: false,
+        allowedCharacters: /[0-9]*/g
+      }
+      
+      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+      wrapper.setProps({ acceptedCards: ['VISA', 'UNIONPAY']});
+
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+    });
+  });
+
+  describe('optional fields', () => {
+    test('does not render optional fields', () => {
+      const optionalFields = ['expiryDate', 'cvv'];
+
+      const wrapper = shallow(<CardForm optionalFields={optionalFields}/>);
+
+      expect(wrapper.find(`[name="expiryDate"]`)).toHaveLength(0);
+      expect(wrapper.find(`[name="cvv"]`)).toHaveLength(0);
+    });
+
+    test('does not validate optinal fields on submit', () => {
+      const optionalFields = ['expiryDate', 'cvv'];
+      const onSubmit = jest.fn();
+      const props = { onSubmit, optionalFields}
+      const expectedSubmittedValues = { 
+        name: 'a_name', 
+        surname: 'a_surname', 
+        cardNumber:'4111111111111111',
+        cardType: 'VISA' 
+      };
+
+      const wrapper = shallow(<CardForm {...props}/>);
+
+      fillField(wrapper, 'name', 'a_name');
+      fillField(wrapper, 'surname', 'a_surname');
+      fillField(wrapper, 'cardNumber', '4111111111111111');
+
+      const form = wrapper.find('form');
+      form.simulate('submit', { preventDefault: () => {} });
+
+      expect(onSubmit).toHaveBeenCalledWith(expectedSubmittedValues);
+    });
+  });
 });
+
+const fillField = (wrapper, name, value) => {
+  wrapper
+  .find(`[name="${name}"]`)
+  .simulate('change', name, value);
+};
+
+const blurField = (wrapper, name, value) => {
+  wrapper
+  .find(`[name="${name}"]`)
+  .simulate('blur', name, value);
+};

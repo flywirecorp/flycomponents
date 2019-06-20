@@ -1,20 +1,25 @@
-export const AMEX_VAULT = 'AMEX';
-export const VISA_VAULT = 'VISA';
-export const MASTERCARD_VAULT = 'MC';
+export const AMEX = 'AMEX';
+export const VISA = 'VISA';
+export const MASTERCARD = 'MC';
+export const UNIONPAY = 'UNIONPAY';
 
 export const getCardType = cardNumber => {
   const cardPatterns = [
     {
-      vaultKey: AMEX_VAULT,
+      vaultKey: AMEX,
       pat: /^(34|37)[0-9]{13}$/
     },
     {
-      vaultKey: MASTERCARD_VAULT,
+      vaultKey: MASTERCARD,
       pat: /^5[1-5][0-9]{14}$/
     },
     {
-      vaultKey: VISA_VAULT,
+      vaultKey: VISA,
       pat: /^4([0-9]{15}|[0-9]{12})$/
+    },
+    {
+      vaultKey: UNIONPAY,
+      pat: /^62([0-9]{14,17})$/
     }
   ];
 
