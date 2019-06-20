@@ -7,12 +7,13 @@ import {
 
 describe('validators', () => {
   describe.each`
-    cardType     | cardNumber            | expectedResult
-    ${'VISA'}    | ${'4888561607586807'} | ${true}
-    ${'MC'}      | ${'5145320070972135'} | ${true}
-    ${'AMEX'}    | ${'377890057846155'}  | ${true}
-    ${'invalid'} | ${'121'}              | ${false}
-    ${'empty'}   | ${''}                 | ${false}
+    cardType      | cardNumber            | expectedResult
+    ${'VISA'}     | ${'4888561607586807'} | ${true}
+    ${'MC'}       | ${'5145320070972135'} | ${true}
+    ${'AMEX'}     | ${'377890057846155'}  | ${true}
+    ${'UNIONPAY'} | ${'6204112013151257'} | ${true}
+    ${'invalid'}  | ${'121'}              | ${false}
+    ${'empty'}    | ${''}                 | ${false}
   `('validateCardNumber', ({ cardType, cardNumber, expectedResult }) => {
     test(`returns ${expectedResult} when card is ${cardType}`, () => {
       expect(validateCardNumber(cardNumber)).toBe(expectedResult);

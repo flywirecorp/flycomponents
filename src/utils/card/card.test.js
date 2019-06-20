@@ -20,6 +20,12 @@ describe('card', () => {
       expect(getCardType(visaCardNumber)).toEqual('VISA');
     });
 
+    test('returns UNIONPAY if is a UnionPay card number', () => {
+      const unionpayCardNumber = '6204112013151257';
+
+      expect(getCardType(unionpayCardNumber)).toEqual('UNIONPAY');
+    });
+
     test('returns undefined if is not of a supported type', () => {
       const visaCardNumber = '2123456789123';
 
