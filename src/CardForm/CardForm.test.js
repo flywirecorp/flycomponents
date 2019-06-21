@@ -10,6 +10,13 @@ describe('CardForm', () => {
     expect(wrapper.find('form')).toHaveLength(1);
   });
 
+  test('renders a compressed form', () => {
+    const wrapper = shallow(<CardForm isCompressed />);
+
+    expect(wrapper.find('form')).toHaveLength(1);
+    expect(wrapper.find('.CardForm-Input--Compressed')).toHaveLength(5);
+  });
+
   test('renders the passed children', () => {
     const ChildrenComponent = () => <div />;
 

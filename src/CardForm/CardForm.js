@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import TextInput from './TextInput';
 import CardNumberInput from './CardNumberInput';
 import Button from '../Button';
@@ -56,6 +57,7 @@ class CardForm extends Component {
       expiryDate: PropTypes.string,
       cvv: PropTypes.string
     }),
+    isCompressed: PropTypes.bool,
     labels: PropTypes.shape({
       name: PropTypes.string,
       surname: PropTypes.string,
@@ -92,6 +94,7 @@ class CardForm extends Component {
       submit: 'Submit',
       cancel: 'Cancel'
     },
+    isCompressed: false,
     onSubmit: () => {},
     onChange: () => {}
   };
@@ -210,12 +213,16 @@ class CardForm extends Component {
   }
 
   getFieldClassName = field => {
-    if (field === CVV_FIELD) return 'CardForm-Input CardForm-Input--CVV';
+    const { isCompressed } = this.props;
 
-    if (field === EXPIRY_DATE_FIELD)
-      return 'CardForm-Input CardForm-Input--ExpiryDate';
+    let classes = classNames('CardForm-Input', {
+      'CardForm-Input--Compressed': isCompressed
+    });
 
-    return 'CardForm-Input';
+    if (field === CVV_FIELD) return classNames(classes, 'CardForm-Input--CVV');
+
+    const capitalizedFieldName = field.charAt(0).toUpperCase() + field.slice(1);
+    return classNames(classes, `CardForm-Input--${capitalizedFieldName}`);
   };
 
   getFieldError = field => {
@@ -265,11 +272,14 @@ class CardForm extends Component {
   };
 
   render() {
-    const { labels, children, onCancel } = this.props;
+    const { labels, children, onCancel, isCompressed } = this.props;
 
+    const classes = classNames('CardForm', {
+      'CardForm--Compressed': isCompressed
+    });
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="CardForm">
+        <div className={classes}>
           {Object.entries(this.requiredFields).map(([name]) => {
             return this.renderField(name);
           })}
