@@ -31,4 +31,7 @@ build:
 build-docs:
 	docker-compose run --rm dev npm run build:docs
 
+yalc-publish:
+	docker-compose run --rm dev npm run build:clean && yalc publish --push
+
 default: up
