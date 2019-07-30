@@ -97,7 +97,7 @@ function buildConfig() {
       new webpack.optimize.AggressiveMergingPlugin(),
       new webpack.ContextReplacementPlugin(
         /moment[\/\\]locale$/,
-        /en|es|fr|ja|ko|pt|zh-cn/
+        /en|es|fr|ja|ko|pt|zh-cn|id/
       )
     ],
     module: {
