@@ -1,6 +1,9 @@
 import { getCardType } from '../card';
 
-export const validateCardNumber = creditCardNumber => {
+const UNIONPAY_CODE = 'UPOP';
+export const validateCardNumber = (creditCardNumber, acceptedCards = []) => {
+  if (acceptedCards.includes(UNIONPAY_CODE)) return true;
+
   const cardType = getCardType(creditCardNumber);
   if (!cardType) return false;
 
@@ -8,6 +11,8 @@ export const validateCardNumber = creditCardNumber => {
 };
 
 export const validateCardType = (creditCardNumber, acceptedCards) => {
+  if (acceptedCards.includes(UNIONPAY_CODE)) return true;
+
   const cardType = getCardType(creditCardNumber);
 
   return acceptedCards.includes(cardType);

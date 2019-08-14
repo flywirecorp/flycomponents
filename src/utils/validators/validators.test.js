@@ -16,7 +16,15 @@ describe('validators', () => {
     ${'empty'}    | ${''}                 | ${false}
   `('validateCardNumber', ({ cardType, cardNumber, expectedResult }) => {
     test(`returns ${expectedResult} when card is ${cardType}`, () => {
-      expect(validateCardNumber(cardNumber)).toBe(expectedResult);
+      expect(validateCardNumber(cardNumber, [])).toBe(expectedResult);
+    });
+  });
+
+  describe('validateCardNumber', () => {
+    test('does not validate number if accepted card is from UPOP', () => {
+      const cardNumber = '4111';
+
+      expect(validateCardNumber(cardNumber, ['UPOP'])).toBe(true);
     });
   });
 
@@ -33,6 +41,13 @@ describe('validators', () => {
       const amexCard = '377890057846155';
 
       expect(validateCardType(amexCard, acceptedCards)).toBe(false);
+    });
+
+    test('does not validate if accepted card is UPOP', () => {
+      const acceptedCards = ['UPOP'];
+      const card = '4111';
+
+      expect(validateCardType(card, acceptedCards)).toBe(true);
     });
   });
 

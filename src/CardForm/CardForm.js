@@ -155,7 +155,7 @@ class CardForm extends Component {
   validateCardNumberField(value) {
     const { acceptedCards, errors } = this.props;
 
-    if (!validateCardNumber(value))
+    if (!validateCardNumber(value, acceptedCards))
       return { [CARD_NUMBER_FIELD]: errors[CARD_NUMBER_FIELD] };
 
     if (!validateCardType(value, acceptedCards))
