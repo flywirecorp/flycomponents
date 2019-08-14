@@ -24,7 +24,7 @@ describe('validators', () => {
     test('does not validate number if accepted card is from UPOP', () => {
       const cardNumber = '4111';
 
-      expect(validateCardNumber(cardNumber, ['UPOP'])).toBe(true);
+      expect(validateCardNumber(cardNumber, ['UNIONPAY'])).toBe(true);
     });
   });
 
@@ -44,7 +44,7 @@ describe('validators', () => {
     });
 
     test('does not validate if accepted card is UPOP', () => {
-      const acceptedCards = ['UPOP'];
+      const acceptedCards = ['UNIONPAY'];
       const card = '4111';
 
       expect(validateCardType(card, acceptedCards)).toBe(true);
