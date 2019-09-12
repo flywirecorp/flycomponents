@@ -164,9 +164,12 @@ class Datepicker extends Component {
     const { selectedDate } = this.state;
     const startDate = parseDateOrToday(selectedDate);
 
-    this.setState(() => {
-      return { isOpen: false, startDate };
-    }, wasOpen ? this.sendBlur : null);
+    this.setState(
+      () => {
+        return { isOpen: false, startDate };
+      },
+      wasOpen ? this.sendBlur : null
+    );
   };
 
   get datepickerBottomPosition() {

@@ -13,6 +13,7 @@ describe('FormGroup', () => {
         <FormGroup {...props}>{children || <span>children</span>}</FormGroup>
       );
     }
+
     disabledText() {
       return this.component.find('.is-disabled').text();
     }

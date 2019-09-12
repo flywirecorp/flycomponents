@@ -1,39 +1,71 @@
-import moment from 'moment';
-import 'moment/locale/es';
+import dayjs from 'dayjs';
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
+const DEFAULT_LOCALE = 'en';
+const DEFAULT_WEEK_START = 0;
+const DEFAULT_WEEKDAYS_SHORT = [
+  'Sun',
+  'Mon',
+  'Tue',
+  'Wed',
+  'Thu',
+  'Fri',
+  'Sat'
+];
 
-export const isWeekInMonth = (weekDate, month) => {
-  const date = weekDate.clone();
-  const startingWeekDateMonth = date.startOf('week').month();
-  const endingWeekDateMonth = date.endOf('week').month();
-  if (startingWeekDateMonth === month || endingWeekDateMonth === month) {
-    return true;
+const DEFAULT_MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+const valueOrDefault = (value, defaultValue) => {
+  if (typeof value === 'object') {
+    return Object.keys(value).length ? value : defaultValue;
   }
 
-  return false;
+  return value || defaultValue;
 };
 
-export const monthStartingWeekDates = monthDate => {
-  const currentMonth = monthDate.month();
-  const weekStartingDate = monthDate
-    .clone()
+const getLocaleDate = async locale =>
+  import(`dayjs/locale/${locale.toLowerCase()}`);
+
+export const monthStartingWeekDates = async (date, locale = DEFAULT_LOCALE) => {
+  const { name: localeCode } = await getLocaleDate(locale);
+
+  let firstDayOfWeek = dayjs(date)
+    .locale(localeCode)
     .startOf('month')
     .startOf('week');
 
-  const monthWeeks = [];
-  while (isWeekInMonth(weekStartingDate, currentMonth)) {
-    monthWeeks.push(weekStartingDate.clone());
-    weekStartingDate.add(1, 'week');
-  }
+  const lastDayOfMonth = dayjs(date)
+    .locale(localeCode)
+    .endOf('month')
+    .endOf('week');
 
-  return monthWeeks;
+  const firstDaysOfWeeks = [];
+
+  do {
+    firstDaysOfWeeks.push(firstDayOfWeek.clone());
+    firstDayOfWeek = firstDayOfWeek.add(1, 'week');
+  } while (firstDayOfWeek.isBefore(lastDayOfMonth));
+
+  return firstDaysOfWeeks;
 };
 
-export const daysOfWeek = (locale = 'en') => {
-  const momentInLocale = moment.localeData(locale);
-  const firstDayOfWeek = momentInLocale.firstDayOfWeek();
-  const dayNames = momentInLocale.weekdaysShort();
+export const daysOfWeek = async (locale = DEFAULT_LOCALE) => {
+  const { weekdaysShort, weekStart } = await getLocaleDate(locale);
+  const firstDayOfWeek = valueOrDefault(weekStart, DEFAULT_WEEK_START);
+  const dayNames = valueOrDefault(weekdaysShort, DEFAULT_WEEKDAYS_SHORT);
 
   return [
     ...dayNames.slice(firstDayOfWeek),
@@ -41,18 +73,18 @@ export const daysOfWeek = (locale = 'en') => {
   ];
 };
 
-export const monthNames = (locale = 'en') => {
-  const momentInLocale = moment.localeData(locale);
+export const monthNames = async (locale = DEFAULT_LOCALE) => {
+  const localeData = await getLocaleDate(locale);
 
-  return momentInLocale.months();
+  return valueOrDefault(localeData.months, DEFAULT_MONTH_NAMES);
 };
 
 export const parseDateOrToday = stringDate => {
   const DATE_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-  const parsedDate = moment(stringDate, DATE_FORMAT);
+  const parsedDate = dayjs(stringDate, DATE_FORMAT);
   if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) {
     return parsedDate;
   }
 
-  return moment();
+  return dayjs();
 };

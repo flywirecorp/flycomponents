@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import Calendar from './Calendar';
 import Navigation from './Navigation';
 import DayNames from './DayNames';
@@ -17,7 +17,7 @@ describe('Calendar', () => {
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
         selectedDate: '',
-        startDate: moment('2016-11-13')
+        startDate: dayjs('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 

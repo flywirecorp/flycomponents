@@ -1,7 +1,31 @@
 import React from 'react';
+import dayjs from 'dayjs';
+import { monthNames } from '../../../utils/date';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import Navigation from './Navigation';
+
+jest.mock('../../../utils/date', () => {
+  return {
+    monthNames: jest.fn(locale => [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ])
+  };
+});
+
+beforeEach(() => {
+  monthNames.mockClear();
+});
 
 describe('Navigation', () => {
   class NavigationComponent {
@@ -12,7 +36,7 @@ describe('Navigation', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        startDate: moment('2016-11-13')
+        startDate: dayjs('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -93,12 +117,15 @@ describe('Navigation', () => {
   });
 
   describe('month selector', () => {
-    test('exists', () => {
+    test('exists', async () => {
       const component = new NavigationComponent();
+      await Promise.resolve();
+
       const monthSelector = component.monthSelector();
+      const lastCall = monthNames.mock.calls.pop(0);
 
+      expect(lastCall).toEqual(['en']);
       expect(monthSelector).toHaveLength(1);
-
       expect(monthSelector.prop('values')).toHaveLength(12);
     });
   });
@@ -111,7 +138,7 @@ describe('Navigation', () => {
     });
 
     test('has a hundred of years', () => {
-      const startDate = moment('2000-01-01');
+      const startDate = dayjs('2000-01-01');
       const component = new NavigationComponent({ startDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];

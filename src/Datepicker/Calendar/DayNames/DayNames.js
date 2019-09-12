@@ -1,22 +1,39 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { Component } from 'react';
 import { daysOfWeek } from '../../../utils/date';
 
-const DayNames = (props, { locale }) => {
-  const dayNames = daysOfWeek(locale);
+class DayNames extends Component {
+  state = {
+    dayNames: []
+  };
 
-  return (
-    <thead>
-      <tr>
-        {dayNames.map(day => (
-          <th key={day} className="Calendar-weekday">
-            {day}
-          </th>
-        ))}
-      </tr>
-    </thead>
-  );
-};
+  componentDidMount() {
+    this.setDayNames();
+  }
+
+  async setDayNames() {
+    const { locale } = this.context;
+    const dayNames = await daysOfWeek(locale);
+
+    this.setState({ dayNames });
+  }
+
+  render() {
+    const { dayNames } = this.state;
+
+    return (
+      <thead>
+        <tr>
+          {dayNames.map(day => (
+            <th key={day} className="Calendar-weekday">
+              {day}
+            </th>
+          ))}
+        </tr>
+      </thead>
+    );
+  }
+}
 
 const { string } = PropTypes;
 

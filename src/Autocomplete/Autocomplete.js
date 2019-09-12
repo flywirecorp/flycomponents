@@ -264,14 +264,17 @@ export class Autocomplete extends Component {
     const { isOpen: wasSearching } = this.state;
     const { options } = this.props;
 
-    return this.setState(prevState => {
-      const { selectedValue } = prevState;
+    return this.setState(
+      prevState => {
+        const { selectedValue } = prevState;
 
-      return {
-        isOpen: false,
-        searchQuery: this.getOptionLabelByValue(options, selectedValue)
-      };
-    }, wasSearching ? this.sendBlur : null);
+        return {
+          isOpen: false,
+          searchQuery: this.getOptionLabelByValue(options, selectedValue)
+        };
+      },
+      wasSearching ? this.sendBlur : null
+    );
   }
 
   sendBlur() {

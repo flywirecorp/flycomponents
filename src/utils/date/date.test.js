@@ -4,17 +4,17 @@ import {
   monthStartingWeekDates,
   parseDateOrToday
 } from './date';
-import moment from 'moment';
+
+import dayjs from 'dayjs';
 
 describe('monthStartingWeekDates', () => {
   const dateFormat = 'MM/DD/YYYY';
-  moment.locale('en');
 
   describe('when a month starts on a start-of-week (sunday)', () => {
-    const date = moment('01/01/2017', dateFormat);
+    const date = dayjs('01/01/2017', dateFormat);
 
-    test('returns the correct weeks', () => {
-      const weeks = monthStartingWeekDates(date);
+    test('returns the correct weeks', async () => {
+      const weeks = await monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '01/01/2017',
@@ -29,10 +29,10 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month ends on a end-of-week (saturday)', () => {
-    const date = moment('12/01/2016', dateFormat);
+    const date = dayjs('12/01/2016', dateFormat);
 
-    test('returns the correct weeks', () => {
-      const weeks = monthStartingWeekDates(date);
+    test('returns the correct weeks', async () => {
+      const weeks = await monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '11/27/2016',
@@ -47,10 +47,10 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month starts on a end-of-week and end on a start-of-week', () => {
-    const date = moment('04/01/2017', dateFormat);
+    const date = dayjs('04/01/2017', dateFormat);
 
-    test('returns the correct weeks', () => {
-      const weeks = monthStartingWeekDates(date);
+    test('returns the correct weeks', async () => {
+      const weeks = await monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '03/26/2017',
@@ -67,15 +67,15 @@ describe('monthStartingWeekDates', () => {
 });
 
 describe('daysOfWeek', () => {
-  test('returns the days of week', () => {
-    const days = daysOfWeek();
+  test('returns the days of week', async () => {
+    const days = await daysOfWeek();
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     expect(days).toEqual(expectedDays);
   });
 
-  test('returns the days of week in the given locale', () => {
-    const days = daysOfWeek('es');
+  test('returns the days of week in the given locale', async () => {
+    const days = await daysOfWeek('es');
     const expectedDays = [
       'lun.',
       'mar.',
@@ -91,21 +91,21 @@ describe('daysOfWeek', () => {
 });
 
 describe('monthNames', () => {
-  test('returs month names in the given locale', () => {
-    const months = monthNames('es');
+  test('returs month names in the given locale', async () => {
+    const months = await monthNames('es');
     const expectedMonths = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
     ];
 
     expect(months).toEqual(expectedMonths);
@@ -119,7 +119,7 @@ describe('parseDateOrToday', () => {
     const date = parseDateOrToday('01/01/2016');
 
     test('returns a parsed date', () => {
-      const expectedDate = moment('01/01/2016', dateFormat);
+      const expectedDate = dayjs('01/01/2016', dateFormat);
 
       expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });
@@ -129,7 +129,7 @@ describe('parseDateOrToday', () => {
     const date = parseDateOrToday('01/01');
 
     test('returns a parsed date', () => {
-      const expectedDate = moment();
+      const expectedDate = dayjs();
 
       expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });
