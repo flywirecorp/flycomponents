@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import DayNames from './DayNames';
 import { daysOfWeek } from '../../../utils/date';
 
@@ -18,13 +18,13 @@ jest.mock('../../../utils/date', () => {
 });
 
 describe('DayNames', () => {
-  test('renders the days of the week', async () => {
+  test('renders the days of the week', () => {
     const locale = 'en';
-    const component = shallow(<DayNames />, {
-      context: { locale }
+    const table = document.createElement('table');
+    const component = mount(<DayNames />, {
+      context: { locale },
+      attachTo: table
     });
-
-    await Promise.resolve();
 
     const days = component.find('.Calendar-weekday').map(d => d.text());
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import { monthNames } from '../../../utils/date';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Navigation from './Navigation';
 
 jest.mock('../../../utils/date', () => {
@@ -29,7 +29,7 @@ beforeEach(() => {
 
 describe('Navigation', () => {
   class NavigationComponent {
-    constructor(ownProps) {
+    constructor({ renderStrategy = shallow, ...ownProps } = {}) {
       const FAKE_CALLBACK = () => {};
       const defaultProps = {
         onMonthChange: FAKE_CALLBACK,
@@ -40,7 +40,7 @@ describe('Navigation', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Navigation {...props} />, {
+      this.component = renderStrategy(<Navigation {...props} />, {
         context: { locale: 'en' }
       });
     }
@@ -117,10 +117,8 @@ describe('Navigation', () => {
   });
 
   describe('month selector', () => {
-    test('exists', async () => {
-      const component = new NavigationComponent();
-      await Promise.resolve();
-
+    test('has 12 months', () => {
+      const component = new NavigationComponent({ renderStrategy: mount });
       const monthSelector = component.monthSelector();
       const lastCall = monthNames.mock.calls.pop(0);
 

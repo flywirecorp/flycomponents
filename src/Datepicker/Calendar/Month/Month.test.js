@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import dayjs from 'dayjs';
 import Month from './Month';
 import Week from '../Week';
@@ -21,7 +21,8 @@ jest.mock('../../../utils/date', () => {
 });
 
 describe('Month', () => {
-  test('has 5 weeks', async () => {
+  test('has 5 weeks', () => {
+    const table = document.createElement('table');
     const locale = 'en';
     const startDate = dayjs('2016-11-13');
     const props = {
@@ -30,11 +31,10 @@ describe('Month', () => {
       startDate
     };
 
-    const component = shallow(<Month {...props} />, {
-      context: { locale }
+    const component = mount(<Month {...props} />, {
+      context: { locale },
+      attachTo: table
     });
-
-    await Promise.resolve();
 
     const month = component.find('tbody');
     const weeks = month.find(Week);

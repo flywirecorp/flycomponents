@@ -1,4 +1,17 @@
 import dayjs from 'dayjs';
+import capitalize from '../capitalize';
+import localeData from 'dayjs/plugin/localeData';
+import 'dayjs/locale/ar';
+import 'dayjs/locale/en';
+import 'dayjs/locale/es';
+import 'dayjs/locale/fr';
+import 'dayjs/locale/id';
+import 'dayjs/locale/ja';
+import 'dayjs/locale/ko';
+import 'dayjs/locale/pt';
+import 'dayjs/locale/zh-cn';
+
+dayjs.extend(localeData);
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
 const DEFAULT_LOCALE = 'en';
@@ -36,19 +49,17 @@ const valueOrDefault = (value, defaultValue) => {
   return value || defaultValue;
 };
 
-const getLocaleDate = async locale =>
-  import(`dayjs/locale/${locale.toLowerCase()}`);
+const getLocaleData = locale =>
+  dayjs()
+    .locale(locale.toLowerCase())
+    .localeData();
 
-export const monthStartingWeekDates = async (date, locale = DEFAULT_LOCALE) => {
-  const { name: localeCode } = await getLocaleDate(locale);
-
+export const monthStartingWeekDates = (date, locale = DEFAULT_LOCALE) => {
   let firstDayOfWeek = dayjs(date)
-    .locale(localeCode)
     .startOf('month')
     .startOf('week');
 
   const lastDayOfMonth = dayjs(date)
-    .locale(localeCode)
     .endOf('month')
     .endOf('week');
 
@@ -62,10 +73,14 @@ export const monthStartingWeekDates = async (date, locale = DEFAULT_LOCALE) => {
   return firstDaysOfWeeks;
 };
 
-export const daysOfWeek = async (locale = DEFAULT_LOCALE) => {
-  const { weekdaysShort, weekStart } = await getLocaleDate(locale);
+export const daysOfWeek = (locale = DEFAULT_LOCALE) => {
+  const localeData = getLocaleData(locale);
+  const weekdaysShort = localeData.weekdaysShort();
+  const weekStart = localeData.firstDayOfWeek();
   const firstDayOfWeek = valueOrDefault(weekStart, DEFAULT_WEEK_START);
-  const dayNames = valueOrDefault(weekdaysShort, DEFAULT_WEEKDAYS_SHORT);
+  const dayNames = valueOrDefault(weekdaysShort, DEFAULT_WEEKDAYS_SHORT).map(
+    capitalize
+  );
 
   return [
     ...dayNames.slice(firstDayOfWeek),
@@ -73,10 +88,13 @@ export const daysOfWeek = async (locale = DEFAULT_LOCALE) => {
   ];
 };
 
-export const monthNames = async (locale = DEFAULT_LOCALE) => {
-  const localeData = await getLocaleDate(locale);
+export const monthNames = (locale = DEFAULT_LOCALE) => {
+  const localeData = getLocaleData(locale);
+  const months = valueOrDefault(localeData.months(), DEFAULT_MONTH_NAMES).map(
+    capitalize
+  );
 
-  return valueOrDefault(localeData.months, DEFAULT_MONTH_NAMES);
+  return months;
 };
 
 export const parseDateOrToday = stringDate => {

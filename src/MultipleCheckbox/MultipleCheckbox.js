@@ -86,7 +86,7 @@ class MultipleCheckbox extends Component {
         name={name}
         required={required}
       >
-        <React.Fragment>{checkboxes}</React.Fragment>
+        <>{checkboxes}</>
       </FormGroup>
     );
   }

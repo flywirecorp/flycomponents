@@ -1,49 +1,36 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Week from '../Week';
 import { monthStartingWeekDates } from '../../../utils/date';
 
 const DATE_FORMAT = 'MM/DD/YYYY';
 
-class Month extends Component {
-  state = {
-    monthWeeks: []
-  };
+const Month = (props, { locale }) => {
+  const { onDateClick, selectedDate, startDate } = props;
+  const currentMonth = startDate.month();
+  const [monthWeeks, setMonthWeeks] = useState([]);
 
-  componentDidMount() {
-    this.setMonthWeeks();
-  }
+  useEffect(() => {
+    function getMonthWeeks(startDate) {
+      const response = monthStartingWeekDates(startDate, locale);
+      const monthWeeks = response.map(weekStartingDate => (
+        <Week
+          key={weekStartingDate.format(DATE_FORMAT)}
+          startingDate={weekStartingDate.clone()}
+          month={currentMonth}
+          onDateClick={onDateClick}
+          selected={selectedDate}
+        />
+      ));
 
-  componentDidUpdate(prevProps) {
-    if (this.props.startDate !== prevProps.startDate) {
-      this.setMonthWeeks();
+      setMonthWeeks(monthWeeks);
     }
-  }
 
-  async setMonthWeeks() {
-    const { locale } = this.context;
-    const { startDate } = this.props;
-    const monthWeeks = await monthStartingWeekDates(startDate, locale);
-    this.setState({ monthWeeks });
-  }
+    getMonthWeeks(startDate);
+  }, [startDate, locale]);
 
-  render() {
-    const { onDateClick, selectedDate, startDate } = this.props;
-    const { monthWeeks } = this.state;
-    const currentMonth = startDate.month();
-    const month = monthWeeks.map(weekStartingDate => (
-      <Week
-        key={weekStartingDate.format(DATE_FORMAT)}
-        startingDate={weekStartingDate.clone()}
-        month={currentMonth}
-        onDateClick={onDateClick}
-        selected={selectedDate}
-      />
-    ));
-
-    return <tbody>{month}</tbody>;
-  }
-}
+  return <tbody>{monthWeeks}</tbody>;
+};
 
 const { func, object, string } = PropTypes;
 

@@ -1,92 +1,93 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from '../../../Select';
 import { monthNames } from '../../../utils/date';
 
-class Navigation extends Component {
-  state = {
-    months: []
-  };
+const Navigation = (
+  {
+    onMonthChange,
+    onNextMonthClick,
+    onPrevMonthClick,
+    onYearChange,
+    startDate
+  },
+  { locale }
+) => {
+  const [months, setMonths] = useState([]);
+  const currentMonth = startDate.month();
+  const currentYear = startDate.year();
+  const years = [...Array(200).keys()].map(i => {
+    const year = currentYear - 100 + i;
+    return { value: year, label: year };
+  });
 
-  async componentDidMount() {
-    const { locale } = this.context;
-    const response = await monthNames(locale);
-    const months = response.map((month, i) => ({
-      value: i,
-      label: month
-    }));
-
-    this.setState({ months });
-  }
-
-  handleClick = e => {
+  const handleClick = e => {
     e.stopPropagation();
   };
 
-  handleMonthChange = e => {
-    const { onMonthChange } = this.props;
+  const handleMonthChange = e => {
     const month = e.target.value;
-
     onMonthChange(month);
   };
 
-  handleYearChange = e => {
-    const { onYearChange } = this.props;
+  const handleYearChange = e => {
     const year = e.target.value;
-
     onYearChange(year);
   };
 
-  render() {
-    const { onNextMonthClick, onPrevMonthClick, startDate } = this.props;
-    const currentMonth = startDate.month();
-    const currentYear = startDate.year();
-    const { months } = this.state;
-    const years = [...Array(200).keys()].map(i => {
-      const year = currentYear - 100 + i;
-      return { value: year, label: year };
-    });
+  useEffect(() => {
+    function getMonths() {
+      const response = monthNames(locale);
+      const months = response.map((month, i) => ({
+        value: i,
+        label: month
+      }));
 
-    return (
-      <nav className="Calendar-header">
-        <div className="Calendar-header-nav Calendar-header-nav--prev">
-          <button
-            className="Button Button--default Calendar-header-navItem"
-            onClick={onPrevMonthClick}
-          >
-            <span className="Icon Icon--arrowLeft Icon--xs" />
-          </button>
-        </div>
-        <div className="Calendar-header-nav Calendar-header-nav--month">
-          <Select
-            className="Calendar-header-navItem"
-            selectedValue={currentMonth}
-            onChange={this.handleMonthChange}
-            onClick={this.handleClick}
-            values={months}
-          />
-        </div>
-        <div className="Calendar-header-nav Calendar-header-nav--year">
-          <Select
-            className="Calendar-header-navItem"
-            selectedValue={currentYear}
-            onChange={this.handleYearChange}
-            onClick={this.handleClick}
-            values={years}
-          />
-        </div>
-        <div className="Calendar-header-nav Calendar-header-nav--next">
-          <button
-            className="Button Button--default Calendar-header-navItem"
-            onClick={onNextMonthClick}
-          >
-            <span className="Icon Icon--arrowRight Icon--xs" />
-          </button>
-        </div>
-      </nav>
-    );
-  }
-}
+      setMonths(months);
+    }
+
+    getMonths(locale);
+  }, [locale]);
+
+  return (
+    <nav className="Calendar-header">
+      <div className="Calendar-header-nav Calendar-header-nav--prev">
+        <button
+          className="Button Button--default Calendar-header-navItem"
+          onClick={onPrevMonthClick}
+        >
+          <span className="Icon Icon--arrowLeft Icon--xs" />
+        </button>
+      </div>
+      <div className="Calendar-header-nav Calendar-header-nav--month">
+        <Select
+          className="Calendar-header-navItem"
+          selectedValue={currentMonth}
+          onChange={handleMonthChange}
+          onClick={handleClick}
+          values={months}
+        />
+      </div>
+      <div className="Calendar-header-nav Calendar-header-nav--year">
+        <Select
+          className="Calendar-header-navItem"
+          selectedValue={currentYear}
+          onChange={handleYearChange}
+          onClick={handleClick}
+          values={years}
+        />
+      </div>
+      <div className="Calendar-header-nav Calendar-header-nav--next">
+        <button
+          className="Button Button--default Calendar-header-navItem"
+          onClick={onNextMonthClick}
+        >
+          <span className="Icon Icon--arrowRight Icon--xs" />
+        </button>
+      </div>
+    </nav>
+  );
+};
 
 const { func, object, string } = PropTypes;
 

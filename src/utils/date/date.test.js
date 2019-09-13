@@ -13,8 +13,8 @@ describe('monthStartingWeekDates', () => {
   describe('when a month starts on a start-of-week (sunday)', () => {
     const date = dayjs('01/01/2017', dateFormat);
 
-    test('returns the correct weeks', async () => {
-      const weeks = await monthStartingWeekDates(date);
+    test('returns the correct weeks', () => {
+      const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '01/01/2017',
@@ -31,8 +31,8 @@ describe('monthStartingWeekDates', () => {
   describe('when a month ends on a end-of-week (saturday)', () => {
     const date = dayjs('12/01/2016', dateFormat);
 
-    test('returns the correct weeks', async () => {
-      const weeks = await monthStartingWeekDates(date);
+    test('returns the correct weeks', () => {
+      const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '11/27/2016',
@@ -49,8 +49,8 @@ describe('monthStartingWeekDates', () => {
   describe('when a month starts on a end-of-week and end on a start-of-week', () => {
     const date = dayjs('04/01/2017', dateFormat);
 
-    test('returns the correct weeks', async () => {
-      const weeks = await monthStartingWeekDates(date);
+    test('returns the correct weeks', () => {
+      const weeks = monthStartingWeekDates(date);
       const formatedWeeks = weeks.map(week => week.format(dateFormat));
       const expectedWeeks = [
         '03/26/2017',
@@ -67,23 +67,23 @@ describe('monthStartingWeekDates', () => {
 });
 
 describe('daysOfWeek', () => {
-  test('returns the days of week', async () => {
-    const days = await daysOfWeek();
+  test('returns the days of week', () => {
+    const days = daysOfWeek();
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     expect(days).toEqual(expectedDays);
   });
 
-  test('returns the days of week in the given locale', async () => {
-    const days = await daysOfWeek('es');
+  test('returns the days of week in the given locale', () => {
+    const days = daysOfWeek('es');
     const expectedDays = [
-      'lun.',
-      'mar.',
-      'mié.',
-      'jue.',
-      'vie.',
-      'sáb.',
-      'dom.'
+      'Lun.',
+      'Mar.',
+      'Mié.',
+      'Jue.',
+      'Vie.',
+      'Sáb.',
+      'Dom.'
     ];
 
     expect(days).toEqual(expectedDays);
@@ -91,8 +91,8 @@ describe('daysOfWeek', () => {
 });
 
 describe('monthNames', () => {
-  test('returs month names in the given locale', async () => {
-    const months = await monthNames('es');
+  test('returs month names in the given locale', () => {
+    const months = monthNames('es');
     const expectedMonths = [
       'Enero',
       'Febrero',
