@@ -33,16 +33,44 @@ describe('Modal', () => {
     expect(wrapper.state('isOpen')).toBe(false);
   });
 
-  test('executes callback when it opens', () => {
+  test('executes callback when opens', () => {
     const onOpen = jest.fn();
-    const wrapper = shallow(<Modal onOpen={onOpen}>{dummyContent}</Modal>);
 
-    wrapper.find('.Modal-closeButton').simulate('click');
+    shallow(
+      <Modal onOpen={onOpen} isOpen>
+        {dummyContent}
+      </Modal>
+    );
 
     expect(onOpen).toHaveBeenCalledTimes(1);
   });
 
-  test('executes callback when it closes', () => {
+  test('does not execute callback if closed', () => {
+    const onOpen = jest.fn();
+
+    shallow(
+      <Modal onOpen={onOpen} isOpen={false}>
+        {dummyContent}
+      </Modal>
+    );
+
+    expect(onOpen).toHaveBeenCalledTimes(0);
+  });
+
+  test('executes callback if closed but opens', () => {
+    const onOpen = jest.fn();
+    const wrapper = shallow(
+      <Modal onOpen={onOpen} isOpen={false}>
+        {dummyContent}
+      </Modal>
+    );
+
+    wrapper.setProps({ isOpen: true });
+
+    expect(onOpen).toHaveBeenCalledTimes(1);
+  });
+
+  test('executes callback when closed', () => {
     const onClose = jest.fn();
     const wrapper = shallow(<Modal onClose={onClose}>{dummyContent}</Modal>);
 

@@ -13,7 +13,13 @@ class ModalExample extends React.Component {
   };
 
   handleClose = () => {
+    console.log('modal has closed!');
+
     this.setState({ showModal: false });
+  };
+
+  handleOpen = () => {
+    console.log('modal has opened!');
   };
 
   render() {
@@ -27,6 +33,7 @@ class ModalExample extends React.Component {
         <Modal
           isOpen={showModal}
           onClose={this.handleClose}
+          onOpen={this.handleOpen}
           size="medium"
           className="color-danger"
         >
