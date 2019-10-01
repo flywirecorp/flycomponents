@@ -50,7 +50,6 @@ describe('CardForm', () => {
   });
 
   describe('validations', () => {
-    /* eslint-disable */
     describe.each`
       fieldName       | fieldValue            | error
       ${'name'}       | ${'a_name'}           | ${'invalid_name'}
@@ -62,7 +61,6 @@ describe('CardForm', () => {
       const errors = {
         [fieldName]: error
       };
-
       test('has an error when is empty', () => {
         const wrapper = shallow(<CardForm errors={errors} />);
 
@@ -77,7 +75,7 @@ describe('CardForm', () => {
         const wrapper = shallow(<CardForm />);
 
         blurField(wrapper, fieldName, fieldValue);
-        
+
         expect(
           wrapper.find(`[name="${fieldName}"]`).prop('error')
         ).toBeUndefined();
@@ -106,7 +104,7 @@ describe('CardForm', () => {
         blurField(wrapper, 'expiryDate', '12/30');
 
         expect(
-          wrapper.find(`[name="expiryDate"]`).prop('error')
+          wrapper.find('[name="expiryDate"]').prop('error')
         ).toBeUndefined();
       });
 
@@ -115,7 +113,7 @@ describe('CardForm', () => {
 
         blurField(wrapper, 'expiryDate', '12/');
 
-        expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
+        expect(wrapper.find('[name="expiryDate"]').prop('error')).toEqual(
           'invalid_expiry_date'
         );
       });
@@ -125,7 +123,7 @@ describe('CardForm', () => {
 
         blurField(wrapper, 'expiryDate', '12/12');
 
-        expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
+        expect(wrapper.find('[name="expiryDate"]').prop('error')).toEqual(
           'invalid_expiry_date'
         );
       });
@@ -156,7 +154,7 @@ describe('CardForm', () => {
 
         blurField(wrapper, 'cardNumber', invalidCardNumber);
 
-        expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
+        expect(wrapper.find('[name="cardNumber"]').prop('error')).toBe(
           'invalid_card_number'
         );
       });
@@ -166,7 +164,7 @@ describe('CardForm', () => {
 
         blurField(wrapper, 'cardNumber', validAMEXCardNumber);
 
-        expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
+        expect(wrapper.find('[name="cardNumber"]').prop('error')).toBe(
           'invalid_card_type'
         );
       });
@@ -210,6 +208,26 @@ describe('CardForm', () => {
             'invalid_cvv'
           );
         });
+      });
+    });
+
+    describe('allow chinesse characters', () => {
+      test.each(['name', 'surname'])('on the %s field', name => {
+        const onChange = jest.fn();
+        const wrapper = shallow(<CardForm onChange={onChange} />);
+        const stringWithChineseCharacters = 'hi 名';
+
+        const target = { value: stringWithChineseCharacters, name };
+        wrapper
+          .find(`[name="${name}"]`)
+          .dive()
+          .find('input')
+          .simulate('change', { target });
+
+        expect(onChange).toHaveBeenCalledWith(
+          name,
+          stringWithChineseCharacters
+        );
       });
     });
   });
@@ -332,24 +350,28 @@ describe('CardForm', () => {
         pattern: '....-....-....-....-...',
         shouldAddSeparatorBeforeTyping: false,
         allowedCharacters: /[0-9]*/g
-      }
-      
+      };
+
       const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(
+        expectedFormat
+      );
     });
 
-    test('format allows up to 16 digits if accepted cards do not include UnionPay', () => { 
+    test('format allows up to 16 digits if accepted cards do not include UnionPay', () => {
       const acceptedCards = ['VISA', 'MC'];
       const expectedFormat = {
         pattern: '....-....-....-....',
         shouldAddSeparatorBeforeTyping: true,
         allowedCharacters: /[0-9]*/g
-      }
-      
+      };
+
       const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(
+        expectedFormat
+      );
     });
 
     test('updates card number format if acceptedCards prop changes', () => {
@@ -358,12 +380,14 @@ describe('CardForm', () => {
         pattern: '....-....-....-....-...',
         shouldAddSeparatorBeforeTyping: false,
         allowedCharacters: /[0-9]*/g
-      }
-      
-      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
-      wrapper.setProps({ acceptedCards: ['VISA', 'UNIONPAY']});
+      };
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+      wrapper.setProps({ acceptedCards: ['VISA', 'UNIONPAY'] });
+
+      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(
+        expectedFormat
+      );
     });
   });
 
@@ -371,7 +395,7 @@ describe('CardForm', () => {
     test('does not render optional fields', () => {
       const optionalFields = ['expiryDate', 'cvv'];
 
-      const wrapper = shallow(<CardForm optionalFields={optionalFields}/>);
+      const wrapper = shallow(<CardForm optionalFields={optionalFields} />);
 
       expect(wrapper.find(`[name="expiryDate"]`)).toHaveLength(0);
       expect(wrapper.find(`[name="cvv"]`)).toHaveLength(0);
@@ -380,15 +404,15 @@ describe('CardForm', () => {
     test('does not validate optinal fields on submit', () => {
       const optionalFields = ['expiryDate', 'cvv'];
       const onSubmit = jest.fn();
-      const props = { onSubmit, optionalFields}
-      const expectedSubmittedValues = { 
-        name: 'a_name', 
-        surname: 'a_surname', 
-        cardNumber:'4111111111111111',
-        cardType: 'VISA' 
+      const props = { onSubmit, optionalFields };
+      const expectedSubmittedValues = {
+        name: 'a_name',
+        surname: 'a_surname',
+        cardNumber: '4111111111111111',
+        cardType: 'VISA'
       };
 
-      const wrapper = shallow(<CardForm {...props}/>);
+      const wrapper = shallow(<CardForm {...props} />);
 
       fillField(wrapper, 'name', 'a_name');
       fillField(wrapper, 'surname', 'a_surname');
@@ -403,13 +427,9 @@ describe('CardForm', () => {
 });
 
 const fillField = (wrapper, name, value) => {
-  wrapper
-  .find(`[name="${name}"]`)
-  .simulate('change', name, value);
+  wrapper.find(`[name="${name}"]`).simulate('change', name, value);
 };
 
 const blurField = (wrapper, name, value) => {
-  wrapper
-  .find(`[name="${name}"]`)
-  .simulate('blur', name, value);
+  wrapper.find(`[name="${name}"]`).simulate('blur', name, value);
 };
