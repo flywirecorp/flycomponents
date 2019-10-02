@@ -40,6 +40,14 @@ class Modal extends Component {
     document.addEventListener('keydown', this.handleKeyDown);
   }
 
+  componentDidUpdate(prevProps) {
+    const { isOpen, onOpen } = this.props;
+
+    if (prevProps.isOpen !== isOpen && isOpen) {
+      onOpen();
+    }
+  }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
