@@ -1,20 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import Month from './Month';
 import Week from '../Week';
 
 describe('Month', () => {
   class MonthComponent {
     constructor(ownProps) {
+      const locale = 'EN';
       const defaultProps = {
         onDateClick: () => {},
         selectedDate: '',
-        startDate: moment('2016-11-13')
+        startDate: dayjs('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Month {...props} />);
+      this.component = shallow(<Month {...props} />, { locale });
     }
 
     month() {
@@ -27,7 +28,7 @@ describe('Month', () => {
   }
 
   test('has 5 weeks', () => {
-    const startDate = moment('2016-11-13');
+    const startDate = dayjs('2016-11-13');
     const component = new MonthComponent({ startDate });
 
     expect(component.weeks()).toHaveLength(5);

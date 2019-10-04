@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import Navigation from './Navigation';
 
 describe('Navigation', () => {
@@ -12,7 +12,7 @@ describe('Navigation', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        startDate: moment('2016-11-13')
+        startDate: dayjs('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -111,7 +111,7 @@ describe('Navigation', () => {
     });
 
     test('has a hundred of years', () => {
-      const startDate = moment('2000-01-01');
+      const startDate = dayjs('2000-01-01');
       const component = new NavigationComponent({ startDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];

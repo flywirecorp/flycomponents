@@ -4,14 +4,15 @@ import {
   monthStartingWeekDates,
   parseDateOrToday
 } from './date';
-import moment from 'moment';
+
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
 
 describe('monthStartingWeekDates', () => {
   const dateFormat = 'MM/DD/YYYY';
-  moment.locale('en');
 
   describe('when a month starts on a start-of-week (sunday)', () => {
-    const date = moment('01/01/2017', dateFormat);
+    const date = dayjs('01/01/2017', dateFormat);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
@@ -29,7 +30,7 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month ends on a end-of-week (saturday)', () => {
-    const date = moment('12/01/2016', dateFormat);
+    const date = dayjs('12/01/2016', dateFormat);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
@@ -47,7 +48,7 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month starts on a end-of-week and end on a start-of-week', () => {
-    const date = moment('04/01/2017', dateFormat);
+    const date = dayjs('04/01/2017', dateFormat);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
@@ -77,13 +78,13 @@ describe('daysOfWeek', () => {
   test('returns the days of week in the given locale', () => {
     const days = daysOfWeek('es');
     const expectedDays = [
-      'lun.',
-      'mar.',
-      'mié.',
-      'jue.',
-      'vie.',
-      'sáb.',
-      'dom.'
+      'Lun.',
+      'Mar.',
+      'Mié.',
+      'Jue.',
+      'Vie.',
+      'Sáb.',
+      'Dom.'
     ];
 
     expect(days).toEqual(expectedDays);
@@ -94,18 +95,18 @@ describe('monthNames', () => {
   test('returs month names in the given locale', () => {
     const months = monthNames('es');
     const expectedMonths = [
-      'enero',
-      'febrero',
-      'marzo',
-      'abril',
-      'mayo',
-      'junio',
-      'julio',
-      'agosto',
-      'septiembre',
-      'octubre',
-      'noviembre',
-      'diciembre'
+      'Enero',
+      'Febrero',
+      'Marzo',
+      'Abril',
+      'Mayo',
+      'Junio',
+      'Julio',
+      'Agosto',
+      'Septiembre',
+      'Octubre',
+      'Noviembre',
+      'Diciembre'
     ];
 
     expect(months).toEqual(expectedMonths);
@@ -119,7 +120,7 @@ describe('parseDateOrToday', () => {
     const date = parseDateOrToday('01/01/2016');
 
     test('returns a parsed date', () => {
-      const expectedDate = moment('01/01/2016', dateFormat);
+      const expectedDate = dayjs('01/01/2016', dateFormat);
 
       expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });
@@ -129,7 +130,7 @@ describe('parseDateOrToday', () => {
     const date = parseDateOrToday('01/01');
 
     test('returns a parsed date', () => {
-      const expectedDate = moment();
+      const expectedDate = dayjs();
 
       expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
     });

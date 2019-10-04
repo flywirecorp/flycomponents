@@ -7,15 +7,15 @@ const DATE_FORMAT = 'MM/DD/YYYY';
 const Week = ({ startingDate, month, onDateClick, selected }) => {
   const weekDays = [0, 1, 2, 3, 4, 5, 6]
     .map(dayIndex => startingDate.clone().add(dayIndex, 'day'))
-    .map(moment => {
-      const stringDate = moment.format(DATE_FORMAT);
+    .map(day => {
+      const stringDate = day.format(DATE_FORMAT);
 
       return (
         <Day
-          current={moment.isSame(new Date(), 'day')}
+          current={day.isSame(new Date(), 'day')}
           date={stringDate}
-          dayOfMonth={moment.date()}
-          disabled={moment.month() !== month}
+          dayOfMonth={day.date()}
+          disabled={day.month() !== month}
           key={stringDate}
           onDateClick={onDateClick}
           selected={stringDate === selected}

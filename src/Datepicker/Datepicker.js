@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
-import { parseDateOrToday } from '../utils/date';
+import { parseDateOrToday, DEFAULT_LOCALE } from '../utils/date';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
@@ -36,7 +36,8 @@ class Datepicker extends Component {
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
-    readOnly: false
+    readOnly: false,
+    locale: DEFAULT_LOCALE
   };
 
   constructor(props) {
@@ -44,6 +45,8 @@ class Datepicker extends Component {
 
     const { locale, value } = this.props;
     const startDate = parseDateOrToday(value);
+
+    Datepicker.locale(locale);
     startDate.locale(locale);
 
     this.datepickerRef = React.createRef();
@@ -59,6 +62,7 @@ class Datepicker extends Component {
 
   getChildContext() {
     const { locale } = this.props;
+
     return { locale };
   }
 
@@ -86,7 +90,6 @@ class Datepicker extends Component {
 
   setSelectedDateAndCloseCalendar = date => {
     this.setSelectedDate(date);
-
     this.setState(() => {
       return { isOpen: false };
     }, this.sendBlur);
@@ -104,7 +107,6 @@ class Datepicker extends Component {
     }
 
     this.setStyles();
-
     this.setState(prevState => {
       return { isOpen: !prevState.isOpen };
     });
@@ -117,14 +119,15 @@ class Datepicker extends Component {
     if (disabled || isOpen || readOnly) {
       return;
     }
+
     this.setState({ isOpen: true });
     this.setStyles();
   };
 
   handleFocus = () => {
     const { onFocus } = this.props;
-    this.setState({ isFocused: true });
 
+    this.setState({ isFocused: true });
     onFocus();
   };
 
@@ -164,15 +167,18 @@ class Datepicker extends Component {
     const { selectedDate } = this.state;
     const startDate = parseDateOrToday(selectedDate);
 
-    this.setState(() => {
-      return { isOpen: false, startDate };
-    }, wasOpen ? this.sendBlur : null);
+    this.setState(
+      () => {
+        return { isOpen: false, startDate };
+      },
+      wasOpen ? this.sendBlur : null
+    );
   };
 
   get datepickerBottomPosition() {
     const element = this.datepickerRef.current;
-
     const { top: datepickerTopPosition } = element.getBoundingClientRect();
+
     return datepickerTopPosition + DATEPICKER_HEIGHT;
   }
 
@@ -191,14 +197,17 @@ class Datepicker extends Component {
 
   setStyles = () => {
     const element = this.datepickerRef.current;
+
     if (!element) return false;
 
     const isAbove = !this.fitsBelow && this.fitsAbove;
+
     this.setState({ isAbove: isAbove });
   };
 
   sendBlur() {
     const { name, onBlur } = this.props;
+
     onBlur(name);
   }
 
@@ -265,5 +274,9 @@ class Datepicker extends Component {
     );
   }
 }
+
+Datepicker.locale = locale => {
+  require(`dayjs/locale/${locale.toLowerCase()}`);
+};
 
 export default Datepicker;

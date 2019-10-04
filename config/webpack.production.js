@@ -40,11 +40,11 @@ function buildConfig() {
         commonjs: 'dom-scroll-into-view',
         amd: 'dom-scroll-into-view'
       },
-      moment: {
-        root: 'moment',
-        commonjs2: 'moment',
-        commonjs: 'moment',
-        amd: 'moment'
+      dayjs: {
+        root: 'dayjs',
+        commonjs2: 'dayjs',
+        commonjs: 'dayjs',
+        amd: 'dayjs'
       },
       'prop-types': {
         root: 'PropTypes',
@@ -77,9 +77,7 @@ function buildConfig() {
           uglifyOptions: {
             ecma: 8,
             ie8: false,
-            compress: {
-              warnings: false
-            },
+            warnings: false,
             output: {
               comments: false
             }
@@ -94,11 +92,7 @@ function buildConfig() {
         }
       }),
       new webpack.optimize.OccurrenceOrderPlugin(),
-      new webpack.optimize.AggressiveMergingPlugin(),
-      new webpack.ContextReplacementPlugin(
-        /moment[\/\\]locale$/,
-        /en|es|fr|ja|ko|pt|zh-cn|id|ar/
-      )
+      new webpack.optimize.AggressiveMergingPlugin()
     ],
     module: {
       rules: [

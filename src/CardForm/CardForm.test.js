@@ -309,21 +309,21 @@ describe('CardForm', () => {
     test('does not render a cancel button if onCancel is not provided', () => {
       const wrapper = shallow(<CardForm />);
 
-      expect(wrapper.find('Button [type="button"]')).toHaveLength(0);
+      expect(wrapper.find('Button[type="button"]')).toHaveLength(0);
     });
 
     test('renders a cancel button if onCancel is provided', () => {
       const onCancel = () => {};
       const wrapper = shallow(<CardForm onCancel={onCancel} />);
 
-      expect(wrapper.find('Button [type="button"]')).toHaveLength(1);
+      expect(wrapper.find('Button[type="button"]')).toHaveLength(1);
     });
 
     test('calls onCancel when clicking on cancel button', () => {
       const onCancel = jest.fn();
       const wrapper = shallow(<CardForm onCancel={onCancel} />);
 
-      const cancelButton = wrapper.find('Button [type="button"]');
+      const cancelButton = wrapper.find('Button[type="button"]');
       cancelButton.simulate('click');
 
       expect(onCancel).toHaveBeenCalled();
