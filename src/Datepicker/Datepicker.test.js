@@ -64,11 +64,11 @@ describe('Datepicker', () => {
     }
 
     simulatePrevMonthClick() {
-      this.calendar().simulate('prevMonthClick');
+      this.calendar().simulate('prevMonthClick', { preventDefault() {} });
     }
 
     simulateNextMonthClick() {
-      this.calendar().simulate('nextMonthClick');
+      this.calendar().simulate('nextMonthClick', { preventDefault() {} });
     }
 
     simulateMonthChange(month) {

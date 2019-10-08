@@ -137,13 +137,15 @@ class Datepicker extends Component {
     });
   };
 
-  handleNextMonthClick = () => {
+  handleNextMonthClick = e => {
+    e.preventDefault();
     this.setState(prevState => {
       return { startDate: prevState.startDate.add(1, 'month') };
     });
   };
 
-  handlePrevMonthClick = () => {
+  handlePrevMonthClick = e => {
+    e.preventDefault();
     this.setState(prevState => {
       return { startDate: prevState.startDate.subtract(1, 'month') };
     });
