@@ -31,7 +31,14 @@ const FormGroup = ({
       'FormGroup--hasSuffix': hasSuffix
     })}
   >
-    {label && <Label htmlFor={name} required={required} value={label} />}
+    {label && (
+      <Label
+        htmlFor={name}
+        id={`${name}-label`}
+        required={required}
+        value={label}
+      />
+    )}
     {children}
     {error && <p className="FormGroup-feedback">{error}</p>}
     {hint && <p className="FormGroup-hint">{hint}</p>}

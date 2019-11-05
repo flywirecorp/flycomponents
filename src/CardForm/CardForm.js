@@ -215,7 +215,7 @@ class CardForm extends Component {
   getFieldClassName = field => {
     const { isCompressed } = this.props;
 
-    let classes = classNames('CardForm-Input', {
+    const classes = classNames('CardForm-Input', {
       'CardForm-Input--Compressed': isCompressed
     });
 
