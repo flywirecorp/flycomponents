@@ -12,6 +12,21 @@ import FormGroup from '../FormGroup';
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40, 9];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
+const getA11yStatusMessage = ({ isOpen, options }) => {
+  if (!isOpen) {
+    return '';
+  }
+
+  const resultCount = options.length;
+
+  if (resultCount === 0) {
+    return 'No results are available';
+  }
+
+  return `${resultCount} result${
+    resultCount === 1 ? ' is' : 's are'
+  } available, use up and down arrow keys to navigate. Press Enter key to select.`;
+};
 
 export class Autocomplete extends Component {
   static propTypes = {
@@ -19,6 +34,7 @@ export class Autocomplete extends Component {
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
     fuseConfig: PropTypes.object,
+    getA11yStatusMessage: PropTypes.func,
     hint: PropTypes.string,
     label: PropTypes.string,
     minOptionsForSearch: PropTypes.number,
@@ -49,6 +65,7 @@ export class Autocomplete extends Component {
       minMatchCharLength: 1,
       keys: ['label']
     },
+    getA11yStatusMessage: getA11yStatusMessage,
     minOptionsForSearch: Infinity,
     onBlur: () => {},
     onChange: () => {},
@@ -168,8 +185,10 @@ export class Autocomplete extends Component {
 
     switch (e.keyCode) {
       case ARROW_DOWN:
+        e.preventDefault();
         return this.moveIndexUp();
       case ARROW_UP:
+        e.preventDefault();
         return this.moveIndexDown();
       case ENTER:
       case TAB:
@@ -312,18 +331,19 @@ export class Autocomplete extends Component {
       disabled,
       error,
       floatingLabel,
+      getA11yStatusMessage,
       hint,
       label,
       name,
       placeholder,
-      required,
       readOnly,
+      required,
       template
     } = this.props;
     const options = this.loadOptions();
     const searchOn = this.searchOn();
     const { isOpen, searchQuery, selectedIndex, selectedValue } = this.state;
-
+    const a11yStatusMessage = getA11yStatusMessage({ isOpen, options });
     const optionList = options.map((option, i) => (
       <Option
         key={option.value}
@@ -336,6 +356,7 @@ export class Autocomplete extends Component {
         selectedValue={new RegExp(`^${selectedValue}$`, 'i').test(option.value)}
         template={template}
         highlighText={searchOn}
+        id={`${name}-option-${i}`}
       />
     ));
 
@@ -359,6 +380,11 @@ export class Autocomplete extends Component {
             { 'Autocomplete--noReadOnly': !readOnly },
             { 'Autocomplete--searchDisabled': !searchOn }
           )}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
+          aria-owns={`${name}-options`}
+          aria-labelledby={`${name}-label`}
         >
           <input
             autoComplete="off"
@@ -376,9 +402,24 @@ export class Autocomplete extends Component {
             type="search"
             value={searchQuery}
             required={required}
-            aria-required={required}
+            aria-autocomplete="list"
+            aria-controls={`${name}-options`}
+            aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+            aria-labelledby={`${name}-label`}
           />
-          <Options ref={this.optionListRef}>{optionList}</Options>
+
+          <Options ref={this.optionListRef} id={`${name}-options`}>
+            {optionList}
+          </Options>
+        </div>
+        <div
+          id="a11y-status-message"
+          role="status"
+          aria-live="polite"
+          aria-relevant="additions text"
+          style={{ opacity: 0 }}
+        >
+          {a11yStatusMessage}
         </div>
       </FormGroup>
     );

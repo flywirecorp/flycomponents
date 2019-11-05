@@ -27,6 +27,10 @@ describe('Autocomplete', () => {
       return this.component.find('span');
     }
 
+    get a11yStatusMessage() {
+      return this.component.find('#a11y-status-message').text();
+    }
+
     options() {
       return this.component.find(Options).children();
     }
@@ -336,6 +340,39 @@ describe('Autocomplete', () => {
     test('does not show the options menu', () => {
       component.simulateClick();
       expect(component.optionsListIsVisible()).toBe(false);
+    });
+  });
+
+  describe('getA11yStatusMessage', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ];
+
+    const component = new AutocompleteComponent({ options });
+    component.simulateClick();
+
+    test('reports that no results are available', () => {
+      component.filterOption('Andorra');
+
+      expect(component.a11yStatusMessage).toBe('No results are available');
+    });
+
+    test('reports that one result is available', () => {
+      component.filterOption('Spain');
+
+      expect(component.a11yStatusMessage).toBe(
+        '1 result is available, use up and down arrow keys to navigate. Press Enter key to select.'
+      );
+    });
+
+    test('reports that two results ara available', () => {
+      component.filterOption('in');
+
+      expect(component.a11yStatusMessage).toBe(
+        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select.'
+      );
     });
   });
 });
