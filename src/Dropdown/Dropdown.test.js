@@ -59,6 +59,16 @@ describe('Dropdown', () => {
     }
   }
 
+  let focusActivatorStub;
+
+  beforeEach(() => {
+    focusActivatorStub = jest.spyOn(Dropdown.prototype, 'focusActivator');
+  });
+
+  afterEach(() => {
+    focusActivatorStub.mockReset();
+  });
+
   test('add className to component', () => {
     const props = {
       className: 'ClassName',

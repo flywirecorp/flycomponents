@@ -4,17 +4,18 @@ import Component from '../Component';
 import README from './README.md';
 
 const options = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' }
+  { label: 'Spanish', value: 'spanish' },
+  { label: 'English', value: 'english' },
+  { label: 'French', value: 'french' }
 ];
 
 export default () => (
   <Component readme={README}>
     <Dropdown
       className="textAlign-right"
-      defaultValue="option1"
+      defaultValue="spanish"
       options={options}
+      label="Select your preferred locale"
     />
   </Component>
 );
