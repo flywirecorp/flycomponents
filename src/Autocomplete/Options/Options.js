@@ -6,7 +6,7 @@ class Options extends Component {
     const { id, children } = this.props;
 
     return (
-      <ul className="Autocomplete-options" role="listbox" id={id}>
+      <ul className="Autocomplete-options" role="listbox" id={id} tabIndex={-1}>
         {children}
       </ul>
     );

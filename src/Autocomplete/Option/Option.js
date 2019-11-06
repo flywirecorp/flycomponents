@@ -51,6 +51,7 @@ class Option extends Component {
         onClick={() => onClick(value)}
         onMouseEnter={() => onMouseEnter(value)}
         role="option"
+        tabIndex={-1}
         value={value}
       >
         {typeof template === 'function'
