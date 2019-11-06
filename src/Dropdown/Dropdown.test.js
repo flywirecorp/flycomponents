@@ -1,6 +1,18 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Dropdown } from './Dropdown';
+import debounce from '../utils/debounce';
+
+jest.mock('../utils/debounce', () => {
+  return jest.fn(fn => {
+    fn.cancel = jest.fn();
+    return fn;
+  });
+});
+
+afterAll(() => {
+  debounce.mockReset();
+});
 
 describe('Dropdown', () => {
   class DropdownComponent {
@@ -22,7 +34,7 @@ describe('Dropdown', () => {
     }
 
     options() {
-      return this.component.find('.Dropdown-option');
+      return this.component.find('Option');
     }
 
     optionsAreVisible() {
@@ -34,7 +46,7 @@ describe('Dropdown', () => {
     }
 
     findOption(label) {
-      return this.component.find(`[data-label='${label}']`);
+      return this.component.findWhere(c => c.prop('data-label') === label);
     }
 
     selectOption(label) {
@@ -57,7 +69,21 @@ describe('Dropdown', () => {
     isAlignedRight() {
       return this.component.find('.Dropdown-options--upwardRight').length === 1;
     }
+
+    get a11yStatusMessage() {
+      return this.component.find('#a11y-status-message').text();
+    }
   }
+
+  let focusActivatorStub;
+
+  beforeEach(() => {
+    focusActivatorStub = jest.spyOn(Dropdown.prototype, 'focusActivator');
+  });
+
+  afterEach(() => {
+    focusActivatorStub.mockReset();
+  });
 
   test('add className to component', () => {
     const props = {
@@ -186,6 +212,48 @@ describe('Dropdown', () => {
     component.selectOption('Spanish');
 
     expect(onChange).toBeCalledWith('es');
+  });
+
+  describe('getA11yStatusMessage', () => {
+    test('reports that one result is available', () => {
+      const options = [
+        { label: 'English', value: 'en' },
+        { label: 'Spanish', value: 'es' }
+      ];
+      const component = new DropdownComponent({ options, defaultValue: 'en' });
+      component.openDropdown();
+
+      expect(component.a11yStatusMessage).toBe(
+        '1 option is available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+      );
+    });
+
+    test('reports that two results ara available', () => {
+      const options = [
+        { label: 'English', value: 'en' },
+        { label: 'Spanish', value: 'es' },
+        { label: 'French', value: 'fr' }
+      ];
+      const component = new DropdownComponent({ options, defaultValue: 'en' });
+      component.openDropdown();
+
+      expect(component.a11yStatusMessage).toBe(
+        '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+      );
+    });
+
+    test('reports selected option', () => {
+      const options = [
+        { label: 'English', value: 'en' },
+        { label: 'Spanish', value: 'es' },
+        { label: 'French', value: 'fr' }
+      ];
+      const component = new DropdownComponent({ options, defaultValue: 'en' });
+      component.openDropdown();
+      component.selectOption('Spanish');
+
+      expect(component.a11yStatusMessage).toBe('Spanish is selected.');
+    });
   });
 
   const setupDropdownWithDefaultValueTo = defaultValue => {
