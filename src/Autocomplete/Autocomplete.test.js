@@ -101,16 +101,19 @@ describe('Autocomplete', () => {
     }
   }
 
-  let adjustOffsetStub, blurSearchInputStub;
+  let adjustOffsetStub, focusSearchInputStub;
 
   beforeEach(() => {
     adjustOffsetStub = jest.spyOn(Autocomplete.prototype, 'adjustOffset');
-    blurSearchInputStub = jest.spyOn(Autocomplete.prototype, 'blurSearchInput');
+    focusSearchInputStub = jest.spyOn(
+      Autocomplete.prototype,
+      'focusSearchInput'
+    );
   });
 
   afterEach(() => {
     adjustOffsetStub.mockReset();
-    blurSearchInputStub.mockReset();
+    focusSearchInputStub.mockReset();
   });
 
   test('has a search input', () => {
@@ -316,7 +319,7 @@ describe('Autocomplete', () => {
     component.filterOption('China');
     component.pressEnterKey();
 
-    expect(blurSearchInputStub).toBeCalled();
+    expect(focusSearchInputStub).toBeCalled();
   });
 
   describe('having read-only property', () => {

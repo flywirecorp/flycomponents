@@ -138,8 +138,8 @@ export class Autocomplete extends Component {
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
   }
 
-  blurSearchInput() {
-    this.searchInputRef.current.blur();
+  focusSearchInput() {
+    this.searchInputRef.current.focus();
   }
 
   handleClickOutside() {
@@ -173,7 +173,7 @@ export class Autocomplete extends Component {
       },
       () => {
         this.sendChange(value);
-        this.blurSearchInput();
+        this.focusSearchInput();
       }
     );
   };
@@ -196,6 +196,9 @@ export class Autocomplete extends Component {
         e.preventDefault();
         return this.moveIndexDown();
       case ENTER:
+        return this.state.isOpen
+          ? this.selectCurrentOption()
+          : this.handleSearchClick();
       case TAB:
         return this.selectCurrentOption();
       case ESC:
