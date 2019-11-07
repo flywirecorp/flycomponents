@@ -106,8 +106,8 @@ class TextInput extends Component {
       currentPosition
     );
 
-    let lengthDiff = newValue.length - currentValue.length;
-    let separatorsDiff = newSeparators.length - currentSeparators.length;
+    const lengthDiff = newValue.length - currentValue.length;
+    const separatorsDiff = newSeparators.length - currentSeparators.length;
 
     const position = this.hasFormatChange(lengthDiff, separatorsDiff)
       ? currentPosition + (lengthDiff || 1)
