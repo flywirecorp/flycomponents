@@ -206,6 +206,8 @@ export class Autocomplete extends Component {
         this.moveIndexDown();
         break;
       case ENTER:
+        e.preventDefault();
+
         if (isOpen) {
           shouldOpenOptions = false;
         }
