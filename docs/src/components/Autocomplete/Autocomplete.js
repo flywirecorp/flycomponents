@@ -26,6 +26,25 @@ export default () => {
     </div>
   );
 
+  const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
+    const optionsClosed = !isOpen;
+    const { label } = selectedOption;
+
+    if (optionsClosed) {
+      return label ? `You have selected ${label}` : '';
+    }
+
+    const resultCount = options.length;
+
+    if (resultCount === 0) {
+      return 'No results are available';
+    }
+
+    return `${resultCount} ${
+      resultCount === 1 ? 'result is' : 'results are'
+    } available, use up and down arrow keys to navigate. Press Enter key to select.`;
+  };
+
   return (
     <Component readme={README}>
       <Autocomplete
@@ -35,6 +54,7 @@ export default () => {
         placeholder="Select a country"
         required
         template={countryTemplate}
+        getA11yStatusMessage={getA11yStatusMessage}
       />
       <Autocomplete
         floatingLabel={false}

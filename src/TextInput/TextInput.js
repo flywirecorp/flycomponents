@@ -58,7 +58,7 @@ class TextInput extends Component {
 
   handleChange = e => {
     const { onChange } = this.props;
-    let { name, value } = e.target;
+    const { name, value } = e.target;
 
     onChange(name, value);
     this.setState({ value, hasValue: !!value });

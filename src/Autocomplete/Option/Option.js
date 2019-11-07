@@ -7,6 +7,7 @@ class Option extends Component {
   static propTypes = {
     hasFocus: PropTypes.bool.isRequired,
     highlighText: PropTypes.bool,
+    id: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     onMouseEnter: PropTypes.func.isRequired,
     option: PropTypes.shape({
@@ -25,6 +26,7 @@ class Option extends Component {
     const {
       hasFocus,
       highlighText,
+      id,
       onClick,
       onMouseEnter,
       option,
@@ -42,9 +44,14 @@ class Option extends Component {
 
     return (
       <li
+        aria-label={label}
+        aria-selected={hasFocus}
         className={classNames('Autocomplete-option', { 'is-active': hasFocus })}
+        id={id}
         onClick={() => onClick(value)}
         onMouseEnter={() => onMouseEnter(value)}
+        role="option"
+        tabIndex={-1}
         value={value}
       >
         {typeof template === 'function'

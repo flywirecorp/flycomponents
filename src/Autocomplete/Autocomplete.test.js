@@ -2,6 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Autocomplete } from './Autocomplete';
 import Options from './Options';
+import debounce from '../utils/debounce';
+
+jest.mock('../utils/debounce', () => {
+  return jest.fn(fn => {
+    fn.cancel = jest.fn();
+    return fn;
+  });
+});
+
+afterAll(() => {
+  debounce.mockReset();
+});
 
 describe('Autocomplete', () => {
   class AutocompleteComponent {
@@ -25,6 +37,10 @@ describe('Autocomplete', () => {
 
     spanField() {
       return this.component.find('span');
+    }
+
+    get a11yStatusMessage() {
+      return this.component.find('#a11y-status-message').text();
     }
 
     options() {
@@ -77,6 +93,14 @@ describe('Autocomplete', () => {
       this.simulateKeyDown(13);
     }
 
+    pressEnterKeyInFocusedOption() {
+      console.log('this.focusedOption()', this.focusedOption());
+      this.focusedOption().simulate('keyDown', {
+        keyCode: 13,
+        preventDefault: () => {}
+      });
+    }
+
     simulateKeyDown(keyCode) {
       this.searchField().simulate('keyDown', {
         keyCode,
@@ -85,16 +109,19 @@ describe('Autocomplete', () => {
     }
   }
 
-  let adjustOffsetStub, blurSearchInputStub;
+  let adjustOffsetStub, focusSearchInputStub;
 
   beforeEach(() => {
     adjustOffsetStub = jest.spyOn(Autocomplete.prototype, 'adjustOffset');
-    blurSearchInputStub = jest.spyOn(Autocomplete.prototype, 'blurSearchInput');
+    focusSearchInputStub = jest.spyOn(
+      Autocomplete.prototype,
+      'focusSearchInput'
+    );
   });
 
   afterEach(() => {
     adjustOffsetStub.mockReset();
-    blurSearchInputStub.mockReset();
+    focusSearchInputStub.mockReset();
   });
 
   test('has a search input', () => {
@@ -231,7 +258,15 @@ describe('Autocomplete', () => {
     expect(component.selectedOption().prop('option').value).toBe('ES');
   });
 
-  test('hides options when pressing the enter key', () => {
+  test('shows the options when pressing the enter key in the search input', () => {
+    const component = new AutocompleteComponent();
+
+    component.pressEnterKey();
+
+    expect(component.optionsListIsVisible()).toBe(true);
+  });
+
+  test('hides options when pressing the enter key in a option', () => {
     const component = new AutocompleteComponent();
 
     component.simulateClick();
@@ -288,7 +323,7 @@ describe('Autocomplete', () => {
     expect(component.selectedIndex()).toBe(2);
   });
 
-  test('blurs the search field when an option is selected', () => {
+  test('focuss the search field when an option is selected', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
@@ -300,7 +335,7 @@ describe('Autocomplete', () => {
     component.filterOption('China');
     component.pressEnterKey();
 
-    expect(blurSearchInputStub).toBeCalled();
+    expect(focusSearchInputStub).toBeCalled();
   });
 
   describe('having read-only property', () => {
@@ -336,6 +371,49 @@ describe('Autocomplete', () => {
     test('does not show the options menu', () => {
       component.simulateClick();
       expect(component.optionsListIsVisible()).toBe(false);
+    });
+  });
+
+  describe('getA11yStatusMessage', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'China', value: 'CN' }
+    ];
+
+    const component = new AutocompleteComponent({ options });
+    component.simulateClick();
+
+    test('reports that no results are available', () => {
+      component.filterOption('Andorra');
+
+      expect(component.a11yStatusMessage).toBe('No results are available');
+    });
+
+    test('reports that one result is available', () => {
+      component.filterOption('Spain');
+
+      expect(component.a11yStatusMessage).toBe(
+        '1 result is available, use up and down arrow keys to navigate. Press Enter key to select.'
+      );
+    });
+
+    test('reports that two results ara available', () => {
+      jest.useFakeTimers();
+      component.filterOption('in');
+
+      expect(component.a11yStatusMessage).toBe(
+        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select.'
+      );
+    });
+
+    test('reports selected option', () => {
+      jest.useFakeTimers();
+
+      component.filterOption('China');
+      component.pressEnterKey();
+
+      expect(component.a11yStatusMessage).toBe('You have selected China');
     });
   });
 });
