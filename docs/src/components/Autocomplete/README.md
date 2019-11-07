@@ -28,6 +28,25 @@ const countryTemplate = country => (
   </div>
 );
 
+const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
+  const optionsClosed = !isOpen;
+  const { label } = selectedOption;
+
+  if (optionsClosed) {
+    return label ? `You have selected ${label}` : '';
+  }
+
+  const resultCount = options.length;
+
+  if (resultCount === 0) {
+    return 'No results are available';
+  }
+
+  return `${resultCount} ${
+    resultCount === 1 ? 'result is' : 'results are'
+  } available, use up and down arrow keys to navigate. Press Enter key to select.`;
+};
+
 <Autocomplete
   label="Search enabled"
   name="search"
@@ -35,6 +54,7 @@ const countryTemplate = country => (
   placeholder="Select a country"
   required
   template={countryTemplate}
+  getA11yStatusMessage={getA11yStatusMessage}
 />
 
 <Autocomplete
@@ -91,6 +111,7 @@ const countryTemplate = country => (
 | error               | no  | string | Error message                                                         |          |
 | floatingLabel       | no  | bool   | Floating label inside the input field                                 | true     |
 | fuseConfig          | no  | object | Fuse.js configuration                                                 | \(\*\)   |
+| getA11yStatusMessage| no  | func   | Default messages provided in English | "No results are available."  or "`x` results are available, use up and down arrow keys to navigate. Press Enter key to select."        |
 | hint                | no  | string | Help message below the autocomplete                                   |          |
 | hint                | no  | string | Help message below the autocomplete                                   |          |
 | label               | no  | string | The text string to use for HTML label tag                             |          |
