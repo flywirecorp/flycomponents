@@ -36,6 +36,7 @@ export default class MultipleCheckboxExample extends React.Component {
           name="countries-2"
           onChange={({ checked }) => this.setState({ checked })}
           options={this.countries}
+          required
         />
 
         <p>You visited: {this.state.checked.join('-')}</p>
@@ -50,6 +51,7 @@ export default class MultipleCheckboxExample extends React.Component {
             })
           }
           options={this.countries}
+          required
         />
       </Component>
     );
