@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import isEmpty from '../utils/isEmpty';
 
 class Checkbox extends Component {
   static propTypes = {
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     error: PropTypes.string,
     id: PropTypes.string,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -20,26 +22,35 @@ class Checkbox extends Component {
       error,
       label,
       required,
+      disabled,
       ...otherProps
     } = this.props;
 
+    const idOrName = id || name;
+
     return (
       <label
-        htmlFor={id || name}
+        htmlFor={idOrName}
         className={classNames('Checkbox', className, {
           'has-error': error
         })}
       >
         <input
-          name={name}
-          id={id || name}
-          className="Checkbox-input"
-          type="checkbox"
-          required={required}
+          aria-invalid={!isEmpty(error)}
+          aria-labelledby={`${idOrName}-label`}
+          aria-readonly={disabled}
           aria-required={required}
+          className="Checkbox-input"
+          disabled={disabled}
+          id={idOrName}
+          name={name}
+          required={required}
+          type="checkbox"
           {...otherProps}
         />
-        <span className="Checkbox-label">{label}</span>
+        <span className="Checkbox-label" id={`${idOrName}-label`}>
+          {label}
+        </span>
         {error && <div className="FormGroup-feedback">{error}</div>}
       </label>
     );
