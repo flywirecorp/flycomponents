@@ -391,7 +391,6 @@ describe('Autocomplete', () => {
     });
 
     test('reports that two results ara available', () => {
-      jest.useFakeTimers();
       component.filterOption('in');
 
       expect(component.a11yStatusMessage).toBe(
@@ -400,8 +399,6 @@ describe('Autocomplete', () => {
     });
 
     test('reports selected option', () => {
-      jest.useFakeTimers();
-
       component.filterOption('China');
       component.pressEnterKey();
 
