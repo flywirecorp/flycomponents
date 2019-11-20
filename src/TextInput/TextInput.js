@@ -44,7 +44,7 @@ class TextInput extends Component {
     };
   }
 
-  fieldValue() {
+  get fieldValue() {
     return this.state.value;
   }
 
@@ -70,60 +70,63 @@ class TextInput extends Component {
     this.setState({ isFocused: true });
   };
 
-  input() {
+  get inputAttrs() {
     const {
-      floatingLabel,
-      multiline,
-      suffix,
-      prefix,
+      floatingLabel: _floatingLabel,
+      multiline: _multiline,
+      hint: _hint,
+      label: _label,
+      onBlur: _onBlur,
+      onChange: _onChange,
       type,
-      ...inputAttrs
+      disabled,
+      error,
+      name,
+      readOnly,
+      required,
+      ...other
     } = this.props;
 
+    return {
+      type,
+      disabled,
+      error,
+      name,
+      readOnly,
+      required,
+      value: this.fieldValue,
+      ...other
+    };
+  }
+
+  input() {
     return (
       <Input
-        {...inputAttrs}
+        {...this.inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
-        type={type}
-        value={this.fieldValue()}
       />
     );
   }
 
   inputGroup() {
-    const {
-      floatingLabel,
-      multiline,
-      prefix,
-      suffix,
-      type,
-      ...inputAttrs
-    } = this.props;
+    const { prefix, suffix } = this.props;
 
     return (
       <InputGroup
-        {...inputAttrs}
+        {...this.inputAttrs}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
         prefix={prefix}
         suffix={suffix}
-        type={type}
-        value={this.fieldValue()}
       />
     );
   }
 
   textArea() {
-    const {
-      floatingLabel,
-      multiline,
-      prefix,
-      suffix,
-      ...inputAttrs
-    } = this.props;
+    const { type: _type, ...inputAttrs } = this.inputAttrs;
 
     return (
       <Textarea
@@ -131,7 +134,6 @@ class TextInput extends Component {
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
-        value={this.fieldValue()}
       />
     );
   }

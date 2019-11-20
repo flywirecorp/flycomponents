@@ -14,15 +14,22 @@ class Switch extends Component {
   render() {
     const { className, id, name, label, required, ...otherProps } = this.props;
 
+    const idOrName = id || name;
+
     return (
-      <label htmlFor={id || name} className={classNames('Switch', className)}>
+      <label
+        htmlFor={idOrName}
+        className={classNames('Switch', className)}
+        id={`${idOrName}-label`}
+      >
         <input
+          aria-labelledby={`${idOrName}-label`}
+          aria-required={required}
           name={name}
           id={id || name}
           className="Switch-input"
           type="checkbox"
           required={required}
-          aria-required={required}
           {...otherProps}
         />
         <span className="Switch-label">{label}</span>

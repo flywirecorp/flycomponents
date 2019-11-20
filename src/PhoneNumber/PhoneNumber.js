@@ -185,6 +185,12 @@ class PhoneNumber extends Component {
             />
             <div className="PhoneNumber-input">
               <input
+                aria-describedby={`${name}-error-msg`}
+                aria-disabled={disabled}
+                aria-invalid={!!error}
+                aria-labelledby={`${name}-label`}
+                aria-readonly={readOnly}
+                aria-required={required}
                 autoComplete="off"
                 className="Input PhoneNumber-input-inner"
                 disabled={disabled}
@@ -198,7 +204,6 @@ class PhoneNumber extends Component {
                 type="text"
                 value={formattedNumber}
                 required={required}
-                aria-required={required}
               />
             </div>
           </div>

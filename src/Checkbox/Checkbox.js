@@ -36,6 +36,8 @@ class Checkbox extends Component {
         })}
       >
         <input
+          aria-describedby={`${idOrName}-error-msg`}
+          aria-disabled={disabled}
           aria-invalid={!isEmpty(error)}
           aria-labelledby={`${idOrName}-label`}
           aria-readonly={disabled}
@@ -51,7 +53,15 @@ class Checkbox extends Component {
         <span className="Checkbox-label" id={`${idOrName}-label`}>
           {label}
         </span>
-        {error && <div className="FormGroup-feedback">{error}</div>}
+        {error && (
+          <div
+            className="FormGroup-feedback"
+            id={`${idOrName}-error-msg`}
+            role="alert"
+          >
+            {error}
+          </div>
+        )}
       </label>
     );
   }

@@ -183,7 +183,8 @@ class MoneyInput extends Component {
       name,
       readOnly,
       required,
-      symbolFirst
+      symbolFirst,
+      ...other
     } = this.props;
 
     const inputAttrs = {
@@ -210,6 +211,7 @@ class MoneyInput extends Component {
         required={required}
       >
         <InputGroup
+          {...other}
           {...inputAttrs}
           defaultValue={this.format(amount)}
           key={amount}
