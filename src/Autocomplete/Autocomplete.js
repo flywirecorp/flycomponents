@@ -461,10 +461,12 @@ export class Autocomplete extends Component {
             aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
             aria-autocomplete="list"
             aria-controls={`${name}-options`}
+            aria-describedby={`${name}-error-msg`}
             aria-disabled={disabled}
             aria-invalid={!isEmpty(error)}
             aria-labelledby={`${name}-label`}
             aria-readonly={readOnly}
+            aria-required={required}
             autoComplete="off"
             className="Autocomplete-search"
             disabled={disabled}

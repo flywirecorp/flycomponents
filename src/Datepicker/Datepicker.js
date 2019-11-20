@@ -240,15 +240,18 @@ class Datepicker extends Component {
         >
           <DateInput
             disabled={disabled}
+            error={error}
+            floatingLabel={floatingLabel}
             name={name}
-            onChange={() => {}}
-            onCalendarIconClick={this.handleCalendarIconClick}
             onBlur={this.handleBlur}
+            onCalendarIconClick={this.handleCalendarIconClick}
+            onChange={() => {}}
             onClick={this.handleDateInputClick}
             onFocus={this.handleFocus}
+            readOnly={readOnly}
+            required={required}
             selectedDate={selectedDate}
             setSelectedDate={this.setSelectedDate}
-            readOnly={readOnly}
             value={value}
           />
           <Calendar
