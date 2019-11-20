@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '../Checkbox';
 import FormGroup from '../FormGroup';
+import isEmpty from '../utils/isEmpty';
 
 class MultipleCheckbox extends Component {
   static propTypes = {
@@ -86,7 +87,14 @@ class MultipleCheckbox extends Component {
         name={name}
         required={required}
       >
-        <React.Fragment>{checkboxes}</React.Fragment>
+        <div
+          role="group"
+          aria-labelledby={`${name}-label`}
+          aria-invalid={!isEmpty(error)}
+          aria-required={required}
+        >
+          {checkboxes}
+        </div>
       </FormGroup>
     );
   }

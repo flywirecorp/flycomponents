@@ -10,5 +10,6 @@ export default () => (
     <Checkbox name="cb3" label="Disabled" disabled />
     <Checkbox name="cb4" label="Checked & Disabled" defaultChecked disabled />
     <Checkbox name="cb5" label="With error" error="We have an error" />
+    <Checkbox name="cb6" label="Required" required />
   </Component>
 );

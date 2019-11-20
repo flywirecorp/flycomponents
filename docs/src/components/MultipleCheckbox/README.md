@@ -24,6 +24,7 @@ const values = [
   name="countries-2"
   onChange={({ checked }) => this.setState({ checked })}
   options={this.countries}
+  required
 />
 
 <p>You visited: {this.state.checked.join('-')}</p>
