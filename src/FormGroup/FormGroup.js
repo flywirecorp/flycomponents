@@ -40,8 +40,16 @@ const FormGroup = ({
       />
     )}
     {children}
-    {error && <p className="FormGroup-feedback">{error}</p>}
-    {hint && <p className="FormGroup-hint">{hint}</p>}
+    {error && (
+      <p className="FormGroup-feedback" id={`${name}-error-msg`} role="alert">
+        {error}
+      </p>
+    )}
+    {hint && (
+      <p className="FormGroup-hint" id={`${name}-hint-msg`}>
+        {hint}
+      </p>
+    )}
   </div>
 );
 
