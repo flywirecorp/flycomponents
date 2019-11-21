@@ -141,12 +141,16 @@ describe('Autocomplete', () => {
     expect(component.optionsListIsVisible()).toBe(true);
   });
 
-  test('shows options when focusing the search input', () => {
+  test('closes options when Enter key pressed twice', () => {
     const component = new AutocompleteComponent();
 
     component.simulateFocus();
 
+    component.pressEnterKey();
     expect(component.optionsListIsVisible()).toBe(true);
+
+    component.pressEnterKey();
+    expect(component.optionsListIsVisible()).toBe(false);
   });
 
   test('filters options based on the search value', () => {
