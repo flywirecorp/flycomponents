@@ -141,14 +141,6 @@ describe('Autocomplete', () => {
     expect(component.optionsListIsVisible()).toBe(true);
   });
 
-  test('shows options when focusing the search input', () => {
-    const component = new AutocompleteComponent();
-
-    component.simulateFocus();
-
-    expect(component.optionsListIsVisible()).toBe(true);
-  });
-
   test('filters options based on the search value', () => {
     const options = [
       { label: 'Spain', value: 'ES' },

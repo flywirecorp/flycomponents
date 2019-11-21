@@ -156,7 +156,6 @@ export class Autocomplete extends Component {
   handleFocus = () => {
     const { onFocus } = this.props;
 
-    this.handleSearchClick();
     onFocus();
   };
 
@@ -188,6 +187,7 @@ export class Autocomplete extends Component {
   handleSearchClick = () => {
     const { disabled, readOnly } = this.props;
     if (disabled || readOnly) return false;
+
     this.resetSearchQuery();
     this.showOptions();
   };
@@ -217,6 +217,7 @@ export class Autocomplete extends Component {
       case TAB:
         shouldOpenOptions = false;
         this.selectCurrentOption();
+        this.hideOptions();
         break;
       case ESC:
         shouldOpenOptions = false;
@@ -260,6 +261,10 @@ export class Autocomplete extends Component {
   }, WAIT_TIME);
 
   hideOptions() {
+    const { isOpen } = this.state;
+
+    if (!isOpen) return;
+
     this.setState(() => {
       return { isOpen: false };
     }, this.updateA11yMessage);
@@ -326,6 +331,7 @@ export class Autocomplete extends Component {
     const { selectedIndex } = this.state;
 
     if (selectedIndex === INITIAL_INDEX || !options[selectedIndex]) {
+      this.hideOptions();
       return;
     }
 
