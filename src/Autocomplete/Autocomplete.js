@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
@@ -15,8 +16,8 @@ const NO_OPTION = {};
 const EMPTY_STRING = '';
 const WAIT_TIME = 200;
 const INITIAL_INDEX = -1;
-const KEYS = [13, 27, 38, 40, 9];
-const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
+const KEYS = [13, 27, 38, 40, 9, 16];
+const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB, SHIFT] = KEYS;
 const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
   const optionsClosed = !isOpen;
   const { label } = selectedOption;
@@ -156,7 +157,6 @@ export class Autocomplete extends Component {
   handleFocus = () => {
     const { onFocus } = this.props;
 
-    this.handleSearchClick();
     onFocus();
   };
 
@@ -188,6 +188,7 @@ export class Autocomplete extends Component {
   handleSearchClick = () => {
     const { disabled, readOnly } = this.props;
     if (disabled || readOnly) return false;
+
     this.resetSearchQuery();
     this.showOptions();
   };
@@ -196,16 +197,21 @@ export class Autocomplete extends Component {
     const { isOpen } = this.state;
     let shouldOpenOptions = true;
 
+    console.log('e.keyCode', e.keyCode);
+
     switch (e.keyCode) {
       case ARROW_DOWN:
+        console.log('ARROW_DOWN');
         e.preventDefault();
         this.moveIndexUp();
         break;
       case ARROW_UP:
+        console.log('ARROW_UP');
         e.preventDefault();
         this.moveIndexDown();
         break;
       case ENTER:
+        console.log('ENTER');
         e.preventDefault();
 
         if (isOpen) {
@@ -215,12 +221,18 @@ export class Autocomplete extends Component {
         this.selectCurrentOption();
         break;
       case TAB:
+        console.log('TAB');
         shouldOpenOptions = false;
         this.selectCurrentOption();
+        this.hideOptions();
         break;
       case ESC:
+        console.log('TAB');
         shouldOpenOptions = false;
         this.hideOptions();
+        break;
+      case SHIFT:
+        shouldOpenOptions = false;
         break;
     }
 
@@ -260,6 +272,10 @@ export class Autocomplete extends Component {
   }, WAIT_TIME);
 
   hideOptions() {
+    const { isOpen } = this.state;
+
+    if (!isOpen) return;
+
     this.setState(() => {
       return { isOpen: false };
     }, this.updateA11yMessage);
@@ -326,6 +342,7 @@ export class Autocomplete extends Component {
     const { selectedIndex } = this.state;
 
     if (selectedIndex === INITIAL_INDEX || !options[selectedIndex]) {
+      this.hideOptions();
       return;
     }
 
@@ -339,14 +356,17 @@ export class Autocomplete extends Component {
     const { isOpen: wasSearching } = this.state;
     const { options } = this.props;
 
-    return this.setState(prevState => {
-      const { selectedValue } = prevState;
+    return this.setState(
+      prevState => {
+        const { selectedValue } = prevState;
 
-      return {
-        isOpen: false,
-        searchQuery: this.getOptionLabelByValue(options, selectedValue)
-      };
-    }, wasSearching ? this.sendBlur : null);
+        return {
+          isOpen: false,
+          searchQuery: this.getOptionLabelByValue(options, selectedValue)
+        };
+      },
+      wasSearching ? this.sendBlur : null
+    );
   }
 
   sendBlur() {
