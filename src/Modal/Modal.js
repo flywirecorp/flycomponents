@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Portal from './Portal';
+import FocusTrap from 'focus-trap-react';
 
 const ESCAPE_KEY = 27;
-const LEGACY_LEFT_MOUSE_BUTTON = 1;
-const MODERN_LEFT_MOUSE_BUTTON = 0;
 
 class Modal extends Component {
   static propTypes = {
@@ -26,7 +25,6 @@ class Modal extends Component {
     onOpen: () => {},
     size: 'small'
   };
-
   state = {
     isOpen: this.props.defaultIsOpen
   };
@@ -52,24 +50,22 @@ class Modal extends Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
+  modalDialogRef = React.createRef();
+
   close = () => {
     const { allowClosing, onClose } = this.props;
     if (!allowClosing) return;
 
-    this.setState({ ...this.state, isOpen: false }, onClose);
+    this.setState({ ...this.state, isOpen: false }, () => {
+      if (this.state.activeElement) this.state.activeElement.focus();
+      onClose();
+    });
   };
 
-  handleMouseDown = event => {
-    const { which, button } = event;
-    const isLegacyLeftMouseButton = which === LEGACY_LEFT_MOUSE_BUTTON;
-    const isModernLeftMouseButton = button === MODERN_LEFT_MOUSE_BUTTON;
-    const isLeftButton = isLegacyLeftMouseButton || isModernLeftMouseButton;
+  handleMouseDown = evt => {
+    if (this.modalDialogRef.current.contains(evt.target)) return;
 
-    if (!isLeftButton) return;
-
-    if (event.target.getAttribute('data-modal')) {
-      this.close();
-    }
+    this.close();
   };
 
   handleKeyDown = event => {
@@ -119,21 +115,28 @@ class Modal extends Component {
 
     return (
       <Portal>
-        <div
-          className={modalClassName}
-          tabIndex="-1"
-          role="dialog"
-          onMouseDown={this.handleMouseDown}
-          data-modal
-          data-qa="Modal"
+        <FocusTrap
+          focusTrapOptions={{
+            onActivate: () =>
+              this.setState({ activeElement: document.activeElement })
+          }}
         >
-          <div className="Modal-dialog">
-            {allowClosing && closeButton}
-            <div className="Modal-content" role="document">
-              {children}
+          <div
+            aria-modal
+            className={modalClassName}
+            data-qa="Modal"
+            onMouseDown={this.handleMouseDown}
+            role="alertdialog"
+            tabIndex="-1"
+          >
+            <div className="Modal-dialog" ref={this.modalDialogRef}>
+              <div className="Modal-content" role="document">
+                {children}
+              </div>
+              {allowClosing && closeButton}
             </div>
           </div>
-        </div>
+        </FocusTrap>
       </Portal>
     );
   }

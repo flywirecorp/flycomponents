@@ -35,9 +35,21 @@ class ModalExample extends React.Component {
           onClose={this.handleClose}
           onOpen={this.handleOpen}
           size="medium"
-          className="color-danger"
         >
-          <div>Modal dialog content</div>
+          <h1>Modal dialog content</h1>
+          <form
+            onSubmit={evt => {
+              evt.preventDefault();
+              this.handleClose();
+            }}
+          >
+            First name: <input type="text" name="fname" />
+            <br />
+            Last name: <input type="text" name="lname" />
+            <br />
+            <br />
+            <input type="submit" value="Submit" />
+          </form>
         </Modal>
       </Component>
     );
