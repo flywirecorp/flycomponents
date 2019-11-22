@@ -93,6 +93,10 @@ describe('Autocomplete', () => {
       this.simulateKeyDown(13);
     }
 
+    pressShiftKey() {
+      this.simulateKeyDown(16);
+    }
+
     simulateKeyDown(keyCode) {
       this.searchField().simulate('keyDown', {
         keyCode,
@@ -141,12 +145,16 @@ describe('Autocomplete', () => {
     expect(component.optionsListIsVisible()).toBe(true);
   });
 
-  test('shows options when focusing the search input', () => {
+  test('closes options when Enter key pressed twice', () => {
     const component = new AutocompleteComponent();
 
     component.simulateFocus();
 
+    component.pressEnterKey();
     expect(component.optionsListIsVisible()).toBe(true);
+
+    component.pressEnterKey();
+    expect(component.optionsListIsVisible()).toBe(false);
   });
 
   test('filters options based on the search value', () => {
@@ -264,6 +272,14 @@ describe('Autocomplete', () => {
     component.simulateClick();
     component.pressArrowDownKey();
     component.pressEnterKey();
+
+    expect(component.optionsListIsVisible()).toBe(false);
+  });
+
+  test('does not show options when pressing Shift key', () => {
+    const component = new AutocompleteComponent();
+
+    component.pressShiftKey();
 
     expect(component.optionsListIsVisible()).toBe(false);
   });
