@@ -226,6 +226,7 @@ export class PrefixSelector extends Component {
 
   renderOption = (option, index) => {
     const { label, value, dialingCode } = option;
+    const { name } = this.props;
     const { selectedIndex } = this.state;
 
     const hasFocus = selectedIndex === index;
@@ -241,12 +242,13 @@ export class PrefixSelector extends Component {
         onMouseOver={value => this.handleOptionHover(value)}
         ref={option => this.setOptionRef(index, option)}
         value={value}
+        id={`${name}-option-${index}`}
       />
     );
   };
 
   render() {
-    const { disabled, readOnly, options } = this.props;
+    const { disabled, readOnly, options, name } = this.props;
     const { dialingCode, isOpen } = this.state;
     const optionList = options.map(this.renderOption);
 
@@ -267,6 +269,8 @@ export class PrefixSelector extends Component {
           onKeyDown={this.handleMenuKeydown}
           onClick={this.handleMenuClick}
           readOnly={readOnly}
+          aria-controls="PhoneNumber-menu-options"
+          aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
         >
           {dialingCode && `+ ${dialingCode}`}
         </button>

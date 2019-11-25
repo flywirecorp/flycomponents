@@ -10,7 +10,8 @@ class Option extends Component {
       hasFocus,
       onClick,
       onMouseEnter,
-      value: isoCode
+      value: isoCode,
+      id
     } = this.props;
 
     return (
@@ -21,6 +22,10 @@ class Option extends Component {
         onClick={() => onClick(isoCode)}
         onMouseEnter={() => onMouseEnter(isoCode)}
         value={isoCode}
+        aria-label={country}
+        aria-selected={hasFocus}
+        role="option"
+        id={id}
       >
         <span className="PhoneNumber-option-country">{country}</span>
         <span className="PhoneNumber-option-dial">+{dialingCode}</span>
@@ -35,6 +40,7 @@ Option.propTypes = {
   country: string.isRequired,
   dialingCode: string,
   hasFocus: bool.isRequired,
+  id: string,
   onClick: func.isRequired,
   onMouseEnter: func.isRequired,
   value: string.isRequired

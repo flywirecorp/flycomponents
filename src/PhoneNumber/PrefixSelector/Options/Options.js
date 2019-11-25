@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 class Options extends Component {
   render() {
     return (
-      <ul className="Autocomplete-options PhoneNumber-menu-options">
+      <ul
+        role="listbox"
+        className="Autocomplete-options PhoneNumber-menu-options"
+      >
         {this.props.children}
       </ul>
     );
