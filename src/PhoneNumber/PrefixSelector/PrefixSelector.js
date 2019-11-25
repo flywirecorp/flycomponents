@@ -8,18 +8,8 @@ import Option from './Option';
 import Options from './Options';
 
 const INITIAL_INDEX = -1;
-const KEYS = [13, 27, 38, 40];
-const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS;
-const styles = {
-  fakeInput: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    opacity: 0
-  }
-};
+const KEYS = [13, 27, 38, 40, 9];
+const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
 
 export class PrefixSelector extends Component {
   static propTypes = {
@@ -95,24 +85,34 @@ export class PrefixSelector extends Component {
   };
 
   handleMenuKeydown = e => {
-    if (KEYS.includes(e.keyCode)) {
-      e.preventDefault();
-    }
-
-    this.showOptions();
+    let shouldOpenOptions = true;
 
     switch (e.keyCode) {
       case ARROW_DOWN:
+        e.preventDefault();
         return this.moveIndexUp();
       case ARROW_UP:
+        e.preventDefault();
         return this.moveIndexDown();
       case ENTER:
+        e.preventDefault();
+        this.showOptions();
+
         return this.selectCurrentOption();
+      case TAB:
+        shouldOpenOptions = false;
+        this.selectCurrentOption();
+        this.hideOptions();
+        break;
       case ESC:
+        e.preventDefault();
+        shouldOpenOptions = false;
         return this.hideOptions();
       default:
         return this.handleTypedChar(e.keyCode);
     }
+
+    if (shouldOpenOptions) this.showOptions();
   };
 
   handleOptionHover(value) {
@@ -257,20 +257,19 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        <span className="Autocomplete-search PhoneNumber-menu-input">
+        <button
+          disabled={disabled}
+          className="Autocomplete-search PhoneNumber-menu-input"
+          onKeyDown={this.handleMenuKeydown}
+          onClick={this.handleMenuClick}
+          readOnly={readOnly}
+        >
           {dialingCode && `+ ${dialingCode}`}
-        </span>
-        {!disabled && (
-          <div
-            className="PhoneNumber-menu-fakeInput"
-            onClick={this.handleMenuClick}
-            onKeyDown={this.handleMenuKeydown}
-            readOnly={readOnly}
-            style={styles.fakeInput}
-            tabIndex={-1}
-          />
-        )}
+        </button>
 
         <Options ref={this.optionListRef}>{optionList}</Options>
       </div>
