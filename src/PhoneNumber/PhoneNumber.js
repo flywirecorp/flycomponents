@@ -185,7 +185,7 @@ class PhoneNumber extends Component {
             />
             <div className="PhoneNumber-input">
               <input
-                aria-describedby={`${name}-error-msg`}
+                aria-describedby={`${name}-error-msg ${name}-hint-msg`}
                 aria-disabled={disabled}
                 aria-invalid={!!error}
                 aria-labelledby={`${name}-label`}
