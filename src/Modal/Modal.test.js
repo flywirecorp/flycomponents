@@ -16,6 +16,12 @@ describe('Modal', () => {
     expect(wrapper.exists('form')).toBe(true);
   });
 
+  test('traps the focus', () => {
+    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+
+    expect(wrapper.find('FocusTrap').length).toBe(1);
+  });
+
   test('starts open', () => {
     const wrapper = shallow(<Modal>{dummyContent}</Modal>);
 
