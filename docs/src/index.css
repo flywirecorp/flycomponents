@@ -5,6 +5,10 @@
   --transition: all 200ms ease-out;
 }
 
+*:focus {
+  border: 1px solid black;
+}
+
 .Docs {
   display: flex;
   flex-direction: row;
