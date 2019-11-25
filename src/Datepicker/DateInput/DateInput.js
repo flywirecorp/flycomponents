@@ -10,11 +10,13 @@ const DELETE_KEYCODE = 8;
 class DateInput extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
+    error: PropTypes.string,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
     onFocus: PropTypes.func,
     readOnly: PropTypes.bool,
+    required: PropTypes.bool,
     selectedDate: PropTypes.string,
     setSelectedDate: PropTypes.func.isRequired
   };
@@ -43,17 +45,25 @@ class DateInput extends Component {
   render() {
     const {
       disabled,
+      error,
       name,
-      onCalendarIconClick,
       onBlur,
+      onCalendarIconClick,
       onFocus,
       readOnly,
+      required,
       selectedDate
     } = this.props;
 
     return (
       <div className="InputGroup" onClick={onCalendarIconClick}>
         <input
+          aria-describedby={`${name}-error-msg`}
+          aria-disabled={disabled}
+          aria-invalid={!!error}
+          aria-labelledby={`${name}-label`}
+          aria-readonly={readOnly}
+          aria-required={required}
           disabled={disabled}
           autoComplete="off"
           className="Input InputGroup-input"

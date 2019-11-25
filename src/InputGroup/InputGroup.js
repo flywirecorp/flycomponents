@@ -4,9 +4,17 @@ import Input from '../Input';
 
 const InputGroup = ({ prefix, suffix, ...other }) => (
   <div className="InputGroup">
-    {prefix ? <span className="InputGroup-context">{prefix}</span> : null}
+    {prefix ? (
+      <span className="InputGroup-context" aria-hidden>
+        {prefix}
+      </span>
+    ) : null}
     <Input autoComplete="off" className="Input InputGroup-input" {...other} />
-    {suffix ? <span className="InputGroup-context">{suffix}</span> : null}
+    {suffix ? (
+      <span className="InputGroup-context" aria-hidden>
+        {suffix}
+      </span>
+    ) : null}
   </div>
 );
 
