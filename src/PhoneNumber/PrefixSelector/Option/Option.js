@@ -22,7 +22,7 @@ class Option extends Component {
         onClick={() => onClick(isoCode)}
         onMouseEnter={() => onMouseEnter(isoCode)}
         value={isoCode}
-        aria-label={country}
+        aria-label={`${country} +${dialingCode}`}
         aria-selected={hasFocus}
         role="option"
         id={id}

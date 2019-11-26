@@ -5,6 +5,7 @@ class Options extends Component {
   render() {
     return (
       <ul
+        id="phoneNumber-menu-options"
         role="listbox"
         className="Autocomplete-options PhoneNumber-menu-options"
       >
