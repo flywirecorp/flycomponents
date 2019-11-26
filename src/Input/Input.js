@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import PropTypes from "prop-types";
+import React from "react";
 
 const Input = ({
   disabled,
@@ -33,18 +33,18 @@ const Input = ({
   />
 );
 
-const { bool, string, object } = PropTypes;
+const { bool, string, object, oneOfType } = PropTypes;
 
 Input.defaultProps = {
   disabled: false,
   readOnly: false,
   required: false,
-  type: 'text'
+  type: "text"
 };
 
 Input.propTypes = {
   disabled: bool,
-  error: string,
+  error: oneOfType([string, bool]),
   forwardRef: object,
   name: string.isRequired,
   readOnly: bool,
