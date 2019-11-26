@@ -1,7 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Textarea = ({ disabled, error, name, readOnly, required, ...other }) => (
+const Textarea = ({
+  disabled,
+  error,
+  name,
+  readOnly,
+  required,
+  forwardRef,
+  ...other
+}) => (
   <textarea
     aria-disabled={disabled}
     aria-invalid={!!error}
@@ -13,12 +21,13 @@ const Textarea = ({ disabled, error, name, readOnly, required, ...other }) => (
     id={name}
     name={name}
     readOnly={readOnly}
+    ref={forwardRef}
     required={required}
     {...other}
   />
 );
 
-const { bool, string } = PropTypes;
+const { bool, string, object } = PropTypes;
 
 Textarea.defaultProps = {
   disabled: false,
@@ -29,6 +38,7 @@ Textarea.defaultProps = {
 Textarea.propTypes = {
   disabled: bool,
   error: string,
+  forwardRef: object,
   name: string.isRequired,
   readOnly: bool,
   required: bool

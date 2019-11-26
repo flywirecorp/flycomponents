@@ -9,6 +9,7 @@ const Input = ({
   required,
   type,
   value,
+  forwardRef,
   ...other
 }) => (
   <input
@@ -25,13 +26,14 @@ const Input = ({
     id={name}
     name={name}
     readOnly={readOnly}
+    ref={forwardRef}
     required={required}
     type={type}
     {...other}
   />
 );
 
-const { bool, string } = PropTypes;
+const { bool, string, object } = PropTypes;
 
 Input.defaultProps = {
   disabled: false,
@@ -43,6 +45,7 @@ Input.defaultProps = {
 Input.propTypes = {
   disabled: bool,
   error: string,
+  forwardRef: object,
   name: string.isRequired,
   readOnly: bool,
   required: bool,
