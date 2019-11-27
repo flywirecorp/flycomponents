@@ -6,6 +6,7 @@ import isEmpty from '../utils/isEmpty';
 import FormGroup from '../FormGroup';
 
 const NO_VALUE = '';
+const DEFAULT_PREFIX_LABEL = 'Phone country code';
 
 class PhoneNumber extends Component {
   static propTypes = {
@@ -19,6 +20,7 @@ class PhoneNumber extends Component {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    prefixLabel: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     value: PropTypes.string
@@ -28,6 +30,7 @@ class PhoneNumber extends Component {
     countries: [],
     disabled: false,
     floatingLabel: true,
+    prefixLabel: DEFAULT_PREFIX_LABEL,
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
@@ -149,6 +152,7 @@ class PhoneNumber extends Component {
       readOnly,
       required,
       value,
+      prefixLabel,
       ...otherProps
     } = this.props;
 
@@ -182,6 +186,7 @@ class PhoneNumber extends Component {
               options={this.validOptions}
               readOnly={readOnly}
               value={prefix}
+              label={prefixLabel}
             />
             <div className="PhoneNumber-input">
               <input

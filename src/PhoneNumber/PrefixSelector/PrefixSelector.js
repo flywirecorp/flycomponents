@@ -37,6 +37,7 @@ export class PrefixSelector extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     getA11yStatusMessage: PropTypes.func,
+    label: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -308,7 +309,7 @@ export class PrefixSelector extends Component {
   };
 
   render() {
-    const { disabled, readOnly, options, name } = this.props;
+    const { disabled, readOnly, options, name, label } = this.props;
     const { dialingCode, isOpen, a11yStatusMessage } = this.state;
     const optionList = options.map(this.renderOption);
 
@@ -331,6 +332,7 @@ export class PrefixSelector extends Component {
           readOnly={readOnly}
           aria-controls="phoneNumber-menu-options"
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+          aria-label={label}
         >
           {dialingCode && `+ ${dialingCode}`}
         </button>
