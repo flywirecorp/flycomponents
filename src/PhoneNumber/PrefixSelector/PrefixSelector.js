@@ -227,7 +227,7 @@ export class PrefixSelector extends Component {
     const message = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      dialingCode
+      selectedOption: dialingCode
     });
 
     this.setState({ a11yStatusMessage: message });
