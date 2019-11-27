@@ -14,6 +14,7 @@ class PhoneNumber extends Component {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
+    getA11yStatusMessage: PropTypes.func,
     hint: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -153,6 +154,7 @@ class PhoneNumber extends Component {
       required,
       value,
       prefixLabel,
+      getA11yStatusMessage,
       ...otherProps
     } = this.props;
 
@@ -187,6 +189,7 @@ class PhoneNumber extends Component {
               readOnly={readOnly}
               value={prefix}
               label={prefixLabel}
+              getA11yStatusMessage={getA11yStatusMessage}
             />
             <div className="PhoneNumber-input">
               <input
