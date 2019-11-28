@@ -9,27 +9,30 @@ const Input = ({
   required,
   type,
   value,
+  ariaDescribedBy,
   ...other
-}) => (
-  <input
-    aria-describedby={`${name}-error-msg`}
-    aria-disabled={disabled}
-    aria-invalid={!!error}
-    aria-labelledby={`${name}-label`}
-    aria-readonly={readOnly}
-    aria-required={required}
-    autoComplete="off"
-    className="Input"
-    defaultValue={value}
-    disabled={disabled}
-    id={name}
-    name={name}
-    readOnly={readOnly}
-    required={required}
-    type={type}
-    {...other}
-  />
-);
+}) => {
+  return (
+    <input
+      aria-describedby={`${ariaDescribedBy} ${name}-error-msg`}
+      aria-disabled={disabled}
+      aria-invalid={!!error}
+      aria-labelledby={`${name}-label`}
+      aria-readonly={readOnly}
+      aria-required={required}
+      autoComplete="off"
+      className="Input"
+      defaultValue={value}
+      disabled={disabled}
+      id={name}
+      name={name}
+      readOnly={readOnly}
+      required={required}
+      type={type}
+      {...other}
+    />
+  );
+};
 
 const { bool, string } = PropTypes;
 

@@ -54,4 +54,17 @@ describe('Input', () => {
       return new InputComponent({ value });
     }
   });
+
+  describe('when property aria-describedby is sent', () => {
+    test('merges the properties', () => {
+      const component = new InputComponent({
+        name: 'name',
+        ariaDescribedBy: 'wadus'
+      });
+
+      expect(component.input().prop('aria-describedby')).toEqual(
+        'wadus name-error-msg'
+      );
+    });
+  });
 });
