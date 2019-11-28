@@ -126,11 +126,14 @@ class TextInput extends Component {
   }
 
   textArea() {
-    const { type: _type, ...inputAttrs } = this.inputAttrs;
+    const { type: _type, name, ...inputAttrs } = this.inputAttrs;
 
     return (
       <Textarea
         {...inputAttrs}
+        aria-describedby={`${name}-error-msg`}
+        aria-labelledby={`${name}-label-msg`}
+        name={name}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
         onFocus={this.handleFocus}

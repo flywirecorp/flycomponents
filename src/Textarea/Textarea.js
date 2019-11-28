@@ -6,7 +6,6 @@ const Textarea = ({ disabled, error, name, readOnly, required, ...other }) => (
     aria-describedby={`${name}-error ${name}-hint-msg`}
     aria-disabled={disabled}
     aria-invalid={!!error}
-    aria-labelledby={`${name}-label`}
     aria-readonly={readOnly}
     aria-required={required}
     autoComplete="off"
