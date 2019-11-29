@@ -288,6 +288,7 @@ class CardForm extends Component {
         <div className="CardForm-Buttons">
           {onCancel && (
             <Button
+              aria-label={labels.cancel}
               className="Button Button--default Button--block"
               type="button"
               value={labels.cancel}
@@ -297,6 +298,7 @@ class CardForm extends Component {
             </Button>
           )}
           <Button
+            aria-label={labels.submit}
             className="Button Button--primary Button--block"
             type="submit"
             value={labels.submit}
