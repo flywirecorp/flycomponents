@@ -23,11 +23,13 @@ describe('CVVInput', () => {
       expect(textInput.hasClass('a_className')).toEqual(true);
     });
 
-    test('a checkbox', () => {
+    test('a span with the question logo', () => {
       const props = { name: 'a_name' };
       const wrapper = shallow(<CVVInput {...props} />);
 
-      expect(wrapper.find('input[type="checkbox"]')).toHaveLength(1);
+      expect(
+        wrapper.find('span[className="cvvInput-Icon-Tooltip"]')
+      ).toHaveLength(1);
     });
 
     test('a span with the provided message', () => {
@@ -35,7 +37,9 @@ describe('CVVInput', () => {
       const props = { name: 'a_name', cvvTooltip };
       const wrapper = shallow(<CVVInput {...props} />);
 
-      expect(wrapper.find('span').text()).toEqual(cvvTooltip);
+      expect(
+        wrapper.find('span[className="cvvInput-Label-Tooltip"]').text()
+      ).toEqual(cvvTooltip);
     });
   });
 });

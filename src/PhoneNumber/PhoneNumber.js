@@ -4,12 +4,15 @@ import PrefixSelector from './PrefixSelector';
 import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
 import FormGroup from '../FormGroup';
+import { getAriaDescribedBy } from '../utils/aria';
 
 const NO_VALUE = '';
 const DEFAULT_PREFIX_LABEL = 'Phone country code';
 
 class PhoneNumber extends Component {
   static propTypes = {
+    ariaDescribedBy: PropTypes.string,
+    ariaRequired: PropTypes.bool,
     countries: PropTypes.array.isRequired,
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -28,6 +31,8 @@ class PhoneNumber extends Component {
   };
 
   static defaultProps = {
+    ariaDescribedBy: '',
+    ariaRequired: false,
     countries: [],
     disabled: false,
     floatingLabel: true,
@@ -155,6 +160,8 @@ class PhoneNumber extends Component {
       value,
       prefixLabel,
       getA11yStatusMessage,
+      ariaDescribedBy,
+      ariaRequired,
       ...otherProps
     } = this.props;
 
@@ -193,12 +200,12 @@ class PhoneNumber extends Component {
             />
             <div className="PhoneNumber-input">
               <input
-                aria-describedby={`${name}-error-msg ${name}-hint-msg`}
+                aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
                 aria-disabled={disabled}
                 aria-invalid={!!error}
                 aria-labelledby={`${name}-label`}
                 aria-readonly={readOnly}
-                aria-required={required}
+                aria-required={ariaRequired || required}
                 autoComplete="off"
                 className="Input PhoneNumber-input-inner"
                 disabled={disabled}
