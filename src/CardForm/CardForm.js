@@ -247,24 +247,25 @@ class CardForm extends Component {
     return DEFAULT_FORMATS[field];
   };
 
-  renderField = field => {
+  renderField = ({ fieldName, required }) => {
     const { labels } = this.props;
 
     const props = {
-      key: field,
-      format: this.getFieldFormat(field),
-      name: field,
-      label: labels[field],
-      error: this.getFieldError(field),
+      key: fieldName,
+      format: this.getFieldFormat(fieldName),
+      name: fieldName,
+      label: labels[fieldName],
+      error: this.getFieldError(fieldName),
       onBlur: this.handleBlur,
       onFocus: this.handleFocus,
       onChange: this.handleChange,
-      className: this.getFieldClassName(field)
+      className: this.getFieldClassName(fieldName),
+      ariaRequired: required
     };
 
-    if (field === CARD_NUMBER_FIELD) {
+    if (fieldName === CARD_NUMBER_FIELD) {
       return <CardNumberInput {...props} />;
-    } else if (field === CVV_FIELD) {
+    } else if (fieldName === CVV_FIELD) {
       return <CVVInput {...props} cvvTooltip={labels.cvvTooltip} />;
     } else {
       return <TextInput {...props} floatingLabel />;
@@ -281,13 +282,14 @@ class CardForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <div className={classes}>
           {Object.entries(this.requiredFields).map(([name]) => {
-            return this.renderField(name);
+            return this.renderField({ fieldName: name, required: true });
           })}
           {children}
         </div>
         <div className="CardForm-Buttons">
           {onCancel && (
             <Button
+              aria-label={labels.cancel}
               className="Button Button--default Button--block"
               type="button"
               value={labels.cancel}
@@ -297,6 +299,7 @@ class CardForm extends Component {
             </Button>
           )}
           <Button
+            aria-label={labels.submit}
             className="Button Button--primary Button--block"
             type="submit"
             value={labels.submit}
