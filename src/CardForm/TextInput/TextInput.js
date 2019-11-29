@@ -8,6 +8,7 @@ import { format as formatText } from '../../utils/formatter';
 class TextInput extends Component {
   static propTypes = {
     allowedCharacters: PropTypes.instanceOf(RegExp),
+    ariaDescribedBy: PropTypes.string,
     children: PropTypes.node,
     className: PropTypes.string,
     disabled: PropTypes.bool,
@@ -27,6 +28,7 @@ class TextInput extends Component {
   };
 
   static defaultProps = {
+    ariaDescribedBy: '',
     disabled: false,
     floatingLabel: true,
     onBlur: () => {},
@@ -34,7 +36,8 @@ class TextInput extends Component {
     onFocus: () => {},
     readOnly: false,
     type: 'text',
-    value: ''
+    value: '',
+    required: false
   };
 
   constructor(props) {
@@ -146,12 +149,23 @@ class TextInput extends Component {
       name,
       className,
       children,
+      disabled,
+      error,
+      readOnly,
+      required,
+      ariaDescribedBy,
       ...inputAttrs
     } = this.props;
 
     return (
       <input
         {...inputAttrs}
+        aria-describedby={`${name}-error-msg ${ariaDescribedBy}`}
+        aria-disabled={disabled}
+        aria-invalid={!!error}
+        aria-labelledby={`${name}-label`}
+        aria-readonly={readOnly}
+        aria-required={required}
         name={name}
         id={name}
         ref={this.inputRef}
