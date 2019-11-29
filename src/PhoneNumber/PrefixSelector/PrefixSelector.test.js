@@ -2,13 +2,26 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { PrefixSelector } from './PrefixSelector';
 import Options from './Options';
+import debounce from '../../utils/debounce';
+
+jest.mock('../../utils/debounce', () => {
+  return jest.fn(fn => {
+    fn.cancel = jest.fn();
+    return fn;
+  });
+});
+
+afterAll(() => {
+  debounce.mockReset();
+});
 
 describe('PrefixSelector', () => {
   class PrefixSelectorComponent {
     constructor(ownProps) {
       const defaultProps = {
         name: 'country',
-        options: []
+        options: [],
+        onFocus: () => {}
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -16,7 +29,7 @@ describe('PrefixSelector', () => {
     }
 
     menu() {
-      return this.component.find('.PhoneNumber-menu-fakeInput');
+      return this.component.find('.PhoneNumber-menu-input');
     }
 
     options() {
@@ -59,6 +72,14 @@ describe('PrefixSelector', () => {
       this.simulateKeyPress(83);
       this.simulateKeyPress(80);
       this.simulateKeyPress(65);
+    }
+
+    update() {
+      this.component.update();
+    }
+
+    get a11yStatusMessage() {
+      return this.component.find('div[role="status"]').text();
     }
   }
 
@@ -221,5 +242,30 @@ describe('PrefixSelector', () => {
     component.simulateMenuClick();
 
     expect(component.state('isOpen')).toBe(false);
+  });
+
+  describe('getA11yStatusMessage', () => {
+    const options = [
+      {
+        label: 'Spain',
+        value: 'ES',
+        dialingCode: '34'
+      },
+      {
+        label: 'United States',
+        value: 'US',
+        dialingCode: '1'
+      }
+    ];
+    const component = new PrefixSelectorComponent({ options });
+
+    test('reports that two result are available', () => {
+      component.simulateMenuClick();
+      component.update();
+
+      expect(component.a11yStatusMessage).toBe(
+        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+      );
+    });
   });
 });
