@@ -3,6 +3,7 @@ import React from 'react';
 
 const Textarea = ({ disabled, error, name, readOnly, required, ...other }) => (
   <textarea
+    aria-describedby={`${name}-error-msg ${name}-hint-msg`}
     aria-disabled={disabled}
     aria-invalid={!!error}
     aria-readonly={readOnly}
