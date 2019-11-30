@@ -6,7 +6,7 @@ import { monthStartingWeekDates } from '../../../utils/date';
 const DATE_FORMAT = 'MM/DD/YYYY';
 
 const Month = props => {
-  const { onDateClick, selectedDate, startDate } = props;
+  const { onDateClick, startDate } = props;
   const currentMonth = startDate.month();
 
   const monthWeeks = monthStartingWeekDates(startDate).map(weekStartingDate => (
@@ -15,7 +15,7 @@ const Month = props => {
       startingDate={weekStartingDate.clone()}
       month={currentMonth}
       onDateClick={onDateClick}
-      selected={selectedDate}
+      selectedDate={startDate}
     />
   ));
 
@@ -26,11 +26,10 @@ const Month = props => {
   );
 };
 
-const { func, object, string } = PropTypes;
+const { func, object } = PropTypes;
 
 Month.propTypes = {
   onDateClick: func.isRequired,
-  selectedDate: string,
   startDate: object.isRequired
 };
 

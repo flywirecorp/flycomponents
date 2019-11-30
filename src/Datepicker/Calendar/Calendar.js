@@ -4,7 +4,15 @@ import FocusTrap from 'focus-trap-react';
 import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
-import { ESC } from '../../utils/keycodes';
+
+import {
+  ESC,
+  ARROW_DOWN,
+  ARROW_LEFT,
+  ARROW_RIGHT,
+  ARROW_UP,
+  ENTER
+} from '../../utils/keycodes';
 
 const Calendar = ({
   closeCalendar,
@@ -14,6 +22,7 @@ const Calendar = ({
   onPrevMonthClick,
   onYearChange,
   selectedDate,
+  setDate,
   startDate,
   isOpen
 }) => {
@@ -21,6 +30,27 @@ const Calendar = ({
     switch (evt.keyCode) {
       case ESC:
         closeCalendar();
+        break;
+      case ENTER:
+        evt.preventDefault();
+        setDate(startDate);
+        closeCalendar();
+        break;
+      case ARROW_UP:
+        evt.preventDefault();
+        setDate(startDate.subtract(1, 'week'));
+        break;
+      case ARROW_DOWN:
+        evt.preventDefault();
+        setDate(startDate.add(1, 'week'));
+        break;
+      case ARROW_LEFT:
+        evt.preventDefault();
+        setDate(startDate.subtract(1, 'day'));
+        break;
+      case ARROW_RIGHT:
+        evt.preventDefault();
+        setDate(startDate.add(1, 'day'));
         break;
     }
   };
@@ -36,11 +66,7 @@ const Calendar = ({
       />
       <table className="Calendar-table" role="presentation">
         <DayNames startDate={startDate} />
-        <Month
-          onDateClick={onDateClick}
-          selectedDate={selectedDate}
-          startDate={startDate}
-        />
+        <Month onDateClick={onDateClick} startDate={startDate} />
       </table>
     </div>
   );
@@ -69,6 +95,7 @@ Calendar.propTypes = {
   onPrevMonthClick: func.isRequired,
   onYearChange: func.isRequired,
   selectedDate: string,
+  setDate: func.isRequired,
   startDate: object.isRequired
 };
 

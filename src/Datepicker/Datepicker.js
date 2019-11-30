@@ -77,6 +77,13 @@ class Datepicker extends Component {
     window.removeEventListener('scroll', this.setStyles);
   }
 
+  setDate = date => {
+    const { name, onChange } = this.props;
+
+    this.setState({ startDate: date, selectedDate: date.format('MM/DD/YYYY') });
+    onChange(name, date);
+  };
+
   setSelectedDate = date => {
     const { name, onChange } = this.props;
 
@@ -262,9 +269,11 @@ class Datepicker extends Component {
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
+            setSelectedDate={this.setSelectedDate}
             selectedDate={selectedDate}
             startDate={startDate}
             isOpen={isOpen}
+            setDate={this.setDate}
           />
         </div>
       </FormGroup>

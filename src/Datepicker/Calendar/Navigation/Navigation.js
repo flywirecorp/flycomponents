@@ -56,6 +56,7 @@ const Navigation = (
           onChange={handleMonthChange}
           onClick={handleClick}
           values={months}
+          key={currentMonth}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--year">
@@ -65,6 +66,7 @@ const Navigation = (
           onChange={handleYearChange}
           onClick={handleClick}
           values={years}
+          key={currentYear}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--next">
