@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
-import { parseDateOrToday } from '../utils/date';
+import { parseDateOrToday, DATE_FORMAT } from '../utils/date';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
 
+const DEFAULT_VALUE = '';
 const DATEPICKER_HEIGHT = 420;
 const REQUIRED_SIZE_ABOVE = 780;
 
@@ -42,7 +43,7 @@ class Datepicker extends Component {
   constructor(props) {
     super(props);
 
-    const { locale, value } = this.props;
+    const { locale, value = DEFAULT_VALUE } = this.props;
     const startDate = parseDateOrToday(value);
     startDate.locale(locale);
 
@@ -52,7 +53,7 @@ class Datepicker extends Component {
       isOpen: false,
       isFocused: false,
       isAbove: false,
-      selectedDate: value,
+      value,
       startDate
     };
   }
@@ -79,24 +80,26 @@ class Datepicker extends Component {
 
   setDate = date => {
     const { name, onChange } = this.props;
+    const formattedDate = date.format(DATE_FORMAT);
 
-    this.setState({ startDate: date, selectedDate: date.format('MM/DD/YYYY') });
-    onChange(name, date);
+    this.setState(
+      { startDate: date, value: formattedDate },
+      onChange(name, formattedDate)
+    );
   };
 
-  setSelectedDate = date => {
+  setValue = value => {
     const { name, onChange } = this.props;
 
-    this.setState({ selectedDate: date });
-    onChange(name, date);
+    this.setState({ value }, onChange(name, value));
   };
 
   closeCalendar = () => {
     this.setState({ isOpen: false }, this.sendBlur);
   };
 
-  setSelectedDateAndCloseCalendar = date => {
-    this.setSelectedDate(date);
+  setDateAndCloseCalendar = date => {
+    this.setDate(date);
     this.closeCalendar();
   };
 
@@ -169,8 +172,8 @@ class Datepicker extends Component {
       return;
     }
 
-    const { selectedDate } = this.state;
-    const startDate = parseDateOrToday(selectedDate);
+    const { value } = this.state;
+    const startDate = parseDateOrToday(value);
 
     this.setState(() => {
       return { isOpen: false, startDate };
@@ -211,6 +214,8 @@ class Datepicker extends Component {
   }
 
   render() {
+    const { isOpen, isFocused, isAbove, value, startDate } = this.state;
+
     const {
       disabled,
       error,
@@ -219,10 +224,8 @@ class Datepicker extends Component {
       label,
       name,
       readOnly,
-      required,
-      value
+      required
     } = this.props;
-    const { isOpen, isFocused, isAbove, selectedDate, startDate } = this.state;
 
     return (
       <FormGroup
@@ -230,7 +233,7 @@ class Datepicker extends Component {
         error={error}
         floatingLabel={floatingLabel}
         isFocused={isOpen || isFocused}
-        hasValue={!!selectedDate}
+        hasValue={!!value}
         hasSuffix
         hint={hint}
         label={label}
@@ -258,19 +261,16 @@ class Datepicker extends Component {
             onFocus={this.handleFocus}
             readOnly={readOnly}
             required={required}
-            selectedDate={selectedDate}
-            setSelectedDate={this.setSelectedDate}
+            onKeyDown={this.setValue}
             value={value}
           />
           <Calendar
             closeCalendar={this.closeCalendar}
-            onDateClick={this.setSelectedDateAndCloseCalendar}
+            onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
-            setSelectedDate={this.setSelectedDate}
-            selectedDate={selectedDate}
             startDate={startDate}
             isOpen={isOpen}
             setDate={this.setDate}

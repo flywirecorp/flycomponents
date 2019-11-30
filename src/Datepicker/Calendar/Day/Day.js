@@ -2,17 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 
-const Day = ({
-  current,
-  date,
-  dayOfMonth,
-  disabled,
-  onDateClick,
-  selected
-}) => (
+const Day = ({ current, date, disabled, onDateClick, selected }) => (
   <td
     role="button"
-    aria-label={date}
+    aria-label={date.format('LL')}
     aria-selected={selected}
     aria-disabled={disabled}
     aria-current={current && 'date'}
@@ -24,16 +17,15 @@ const Day = ({
     )}
     onClick={disabled ? null : () => onDateClick(date)}
   >
-    {dayOfMonth}
+    {date.date()}
   </td>
 );
 
-const { bool, func, number, string } = PropTypes;
+const { bool, func, string } = PropTypes;
 
 Day.propTypes = {
   current: bool,
   date: string,
-  dayOfMonth: number,
   disabled: bool,
   onDateClick: func.isRequired,
   selected: bool

@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
 import { BACKSPACE } from '../../utils/keycodes';
-
-const DATE_FORMAT = 'MM/DD/YYYY';
-const DATE_PATTERN = '../../....';
+import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
@@ -15,31 +13,24 @@ class DateInput extends Component {
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
     onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
-    selectedDate: PropTypes.string,
-    setSelectedDate: PropTypes.func.isRequired
+    value: PropTypes.sting
   };
 
-  handleKeyDown = e => {
-    const {
-      disabled,
-      selectedDate = '',
-      setSelectedDate,
-      readOnly
-    } = this.props;
-    const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`;
-    let value = inputValue.replace(/\D/g, '');
+  handleKeyDown = evt => {
+    const { disabled, value, onKeyDown, readOnly } = this.props;
+    const inputValue = `${value}${String.fromCharCode(evt.which)}`;
+    let newValue = inputValue.replace(/\D/g, '');
 
     if (readOnly || disabled) return false;
-
-    if (e.which === BACKSPACE) {
-      value = value.slice(0, -1);
+    if (evt.which === BACKSPACE) {
+      newValue = newValue.slice(0, -1);
     }
 
-    const formatedDate = format(value, { pattern: DATE_PATTERN });
-
-    setSelectedDate(formatedDate);
+    const formatedDate = format(newValue, { pattern: DATE_PATTERN });
+    onKeyDown(formatedDate);
   };
 
   render() {
@@ -52,7 +43,7 @@ class DateInput extends Component {
       onFocus,
       readOnly,
       required,
-      selectedDate
+      value
     } = this.props;
 
     return (
@@ -69,14 +60,13 @@ class DateInput extends Component {
           className="Input InputGroup-input"
           id={name}
           onBlur={onBlur}
-          onChange={() => {}}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
           type="text"
-          value={selectedDate}
+          value={value}
         />
         <span className="InputGroup-context">
           <CalendarIcon onClick={onCalendarIconClick} />

@@ -4,7 +4,6 @@ import FocusTrap from 'focus-trap-react';
 import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
-
 import {
   ESC,
   ARROW_DOWN,
@@ -21,7 +20,6 @@ const Calendar = ({
   onNextMonthClick,
   onPrevMonthClick,
   onYearChange,
-  selectedDate,
   setDate,
   startDate,
   isOpen
@@ -84,7 +82,7 @@ const Calendar = ({
   );
 };
 
-const { bool, func, object, string } = PropTypes;
+const { bool, func, object } = PropTypes;
 
 Calendar.propTypes = {
   closeCalendar: func.isRequired,
@@ -94,7 +92,6 @@ Calendar.propTypes = {
   onNextMonthClick: func.isRequired,
   onPrevMonthClick: func.isRequired,
   onYearChange: func.isRequired,
-  selectedDate: string,
   setDate: func.isRequired,
   startDate: object.isRequired
 };
