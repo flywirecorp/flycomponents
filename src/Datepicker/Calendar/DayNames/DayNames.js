@@ -9,7 +9,12 @@ const DayNames = (props, { locale }) => {
     <thead>
       <tr>
         {dayNames.map(day => (
-          <th key={day} className="Calendar-weekday">
+          <th
+            aria-label={day}
+            className="Calendar-weekday"
+            key={day}
+            scope="col"
+          >
             {day}
           </th>
         ))}

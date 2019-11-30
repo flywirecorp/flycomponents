@@ -23,7 +23,11 @@ const Week = ({ startingDate, month, onDateClick, selected }) => {
       );
     });
 
-  return <tr className="week">{weekDays}</tr>;
+  return (
+    <tr className="week" role="row">
+      {weekDays}
+    </tr>
+  );
 };
 
 const { func, number, object, string } = PropTypes;

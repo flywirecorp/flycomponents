@@ -34,7 +34,7 @@ const Calendar = ({
         onYearChange={onYearChange}
         startDate={startDate}
       />
-      <table className="Calendar-table">
+      <table className="Calendar-table" role="presentation">
         <DayNames startDate={startDate} />
         <Month
           onDateClick={onDateClick}

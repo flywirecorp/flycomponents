@@ -19,7 +19,11 @@ const Month = props => {
     />
   ));
 
-  return <tbody>{monthWeeks}</tbody>;
+  return (
+    <tbody role="grid" aria-readonly="true">
+      {monthWeeks}
+    </tbody>
+  );
 };
 
 const { func, object, string } = PropTypes;

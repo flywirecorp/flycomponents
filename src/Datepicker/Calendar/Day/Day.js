@@ -11,6 +11,11 @@ const Day = ({
   selected
 }) => (
   <td
+    role="button"
+    aria-label={date}
+    aria-selected={selected}
+    aria-disabled={disabled}
+    aria-current={current && 'date'}
     className={classNames(
       'Calendar-day',
       { 'is-current': current },
