@@ -5,16 +5,15 @@ import classNames from 'classnames';
 import Option from './Option';
 import sameValue from '../utils/sameValue';
 import debounce from '../utils/debounce';
+import { ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE } from '../utils/keycodes';
 
 const DOWN = -1;
 const EMPTY_STRING = '';
 const INITIAL_INDEX = -1;
-const KEYS = [13, 27, 38, 40, 32];
 const LEFT = 'Left';
 const RIGHT = 'Right';
 const UP = 1;
 const WAIT_TIME = 200;
-const [ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE] = KEYS;
 const getA11yStatusMessage = ({
   isOpen,
   options = [],
