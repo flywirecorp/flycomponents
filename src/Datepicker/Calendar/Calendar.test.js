@@ -19,7 +19,6 @@ describe('Calendar', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        selectedDate: '',
         startDate: moment('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
