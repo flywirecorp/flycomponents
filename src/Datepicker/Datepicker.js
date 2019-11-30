@@ -84,12 +84,13 @@ class Datepicker extends Component {
     onChange(name, date);
   };
 
+  closeCalendar = () => {
+    this.setState({ isOpen: false }, this.sendBlur);
+  };
+
   setSelectedDateAndCloseCalendar = date => {
     this.setSelectedDate(date);
-
-    this.setState(() => {
-      return { isOpen: false };
-    }, this.sendBlur);
+    this.closeCalendar();
   };
 
   handleBlur = () => {
@@ -255,6 +256,7 @@ class Datepicker extends Component {
             value={value}
           />
           <Calendar
+            closeCalendar={this.closeCalendar}
             onDateClick={this.setSelectedDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}

@@ -5,6 +5,7 @@ import Calendar from './Calendar';
 import Navigation from './Navigation';
 import DayNames from './DayNames';
 import Month from './Month';
+import { ESC } from '../../utils/keycodes';
 
 describe('Calendar', () => {
   class CalendarComponent {
@@ -12,6 +13,7 @@ describe('Calendar', () => {
       const FAKE_CALLBACK = () => {};
       const defaultProps = {
         isOpen: false,
+        closeCalendar: FAKE_CALLBACK,
         onDateClick: FAKE_CALLBACK,
         onMonthChange: FAKE_CALLBACK,
         onNextMonthClick: FAKE_CALLBACK,
@@ -44,6 +46,17 @@ describe('Calendar', () => {
     hasFocusTrap() {
       return this.component.exists('FocusTrap');
     }
+
+    simulateKeyPress(keyCode) {
+      this.calendar().simulate('keyDown', {
+        keyCode,
+        preventDefault: () => {}
+      });
+    }
+
+    pressEscKey() {
+      this.simulateKeyPress(ESC);
+    }
   }
 
   test('has a navigation bar', () => {
@@ -68,5 +81,14 @@ describe('Calendar', () => {
     const component = new CalendarComponent({ isOpen: true });
 
     expect(component.hasFocusTrap()).toBe(true);
+  });
+
+  test('closes the calendar when ESC key pressed', () => {
+    const closeCalendar = jest.fn();
+    const component = new CalendarComponent({ closeCalendar });
+
+    component.pressEscKey();
+
+    expect(closeCalendar).toBeCalled();
   });
 });

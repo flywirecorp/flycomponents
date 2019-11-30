@@ -4,8 +4,10 @@ import FocusTrap from 'focus-trap-react';
 import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
+import { ESC } from '../../utils/keycodes';
 
 const Calendar = ({
+  closeCalendar,
   onDateClick,
   onMonthChange,
   onNextMonthClick,
@@ -15,8 +17,16 @@ const Calendar = ({
   startDate,
   isOpen
 }) => {
+  const handleKeyDown = evt => {
+    switch (evt.keyCode) {
+      case ESC:
+        closeCalendar();
+        break;
+    }
+  };
+
   const calendar = (
-    <div className="Calendar Datepicker-calendar">
+    <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
         onMonthChange={onMonthChange}
         onNextMonthClick={onNextMonthClick}
@@ -51,6 +61,7 @@ const Calendar = ({
 const { bool, func, object, string } = PropTypes;
 
 Calendar.propTypes = {
+  closeCalendar: func.isRequired,
   isOpen: bool.isRequired,
   onDateClick: func.isRequired,
   onMonthChange: func.isRequired,
