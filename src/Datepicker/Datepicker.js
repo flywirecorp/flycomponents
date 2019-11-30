@@ -262,6 +262,7 @@ class Datepicker extends Component {
             onYearChange={this.handleYearChange}
             selectedDate={selectedDate}
             startDate={startDate}
+            isOpen={isOpen}
           />
         </div>
       </FormGroup>

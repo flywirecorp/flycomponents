@@ -11,6 +11,7 @@ describe('Calendar', () => {
     constructor(ownProps) {
       const FAKE_CALLBACK = () => {};
       const defaultProps = {
+        isOpen: false,
         onDateClick: FAKE_CALLBACK,
         onMonthChange: FAKE_CALLBACK,
         onNextMonthClick: FAKE_CALLBACK,
@@ -39,6 +40,10 @@ describe('Calendar', () => {
     month() {
       return this.calendar().find(Month);
     }
+
+    hasFocusTrap() {
+      return this.component.exists('FocusTrap');
+    }
   }
 
   test('has a navigation bar', () => {
@@ -57,5 +62,11 @@ describe('Calendar', () => {
     const component = new CalendarComponent();
 
     expect(component.month()).toHaveLength(1);
+  });
+
+  test('traps the focus when open', () => {
+    const component = new CalendarComponent({ isOpen: true });
+
+    expect(component.hasFocusTrap()).toBe(true);
   });
 });
