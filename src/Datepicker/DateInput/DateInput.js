@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
+import { BACKSPACE } from '../../utils/keycodes';
 
 const DATE_FORMAT = 'MM/DD/YYYY';
 const DATE_PATTERN = '../../....';
-const DELETE_KEYCODE = 8;
 
 class DateInput extends Component {
   static propTypes = {
@@ -33,7 +33,7 @@ class DateInput extends Component {
 
     if (readOnly || disabled) return false;
 
-    if (e.which === DELETE_KEYCODE) {
+    if (e.which === BACKSPACE) {
       value = value.slice(0, -1);
     }
 

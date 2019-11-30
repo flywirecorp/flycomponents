@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Portal from './Portal';
 import FocusTrap from 'focus-trap-react';
-
-const ESCAPE_KEY = 27;
+import { ESC } from '../utils/keycodes';
 
 class Modal extends Component {
   static propTypes = {
@@ -71,7 +70,7 @@ class Modal extends Component {
   handleKeyDown = event => {
     const keyCode = event.keyCode;
 
-    if (keyCode === ESCAPE_KEY) {
+    if (keyCode === ESC) {
       this.close();
     }
   };

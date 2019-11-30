@@ -3,6 +3,29 @@ import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import { toCents, toMoney } from '../utils/money';
 import FormGroup from '../FormGroup';
+import {
+  CKEY,
+  COMMA,
+  DECIMAL_POINT,
+  DELETE,
+  LEFT_ARROW,
+  NUMPAD_0,
+  NUMPAD_1,
+  NUMPAD_2,
+  NUMPAD_3,
+  NUMPAD_4,
+  NUMPAD_5,
+  NUMPAD_6,
+  NUMPAD_7,
+  NUMPAD_8,
+  NUMPAD_9,
+  PERIOD,
+  RIGHT_ARROW,
+  SUPR,
+  TAB,
+  VKEY,
+  XKEY
+} from '../utils/keycodes';
 
 class MoneyInput extends Component {
   static propTypes = {
@@ -118,28 +141,7 @@ class MoneyInput extends Component {
   };
 
   handleKeyDown = e => {
-    const CKEY = 67;
-    const COMMA = 188;
     const CONTROL_KEY = e.ctrlKey || e.metaKey;
-    const DECIMAL_POINT = 110;
-    const DELETE = 8;
-    const LEFT_ARROW = 39;
-    const NUMPAD_0 = 96;
-    const NUMPAD_1 = 97;
-    const NUMPAD_2 = 98;
-    const NUMPAD_3 = 99;
-    const NUMPAD_4 = 100;
-    const NUMPAD_5 = 101;
-    const NUMPAD_6 = 102;
-    const NUMPAD_7 = 103;
-    const NUMPAD_8 = 104;
-    const NUMPAD_9 = 105;
-    const PERIOD = 190;
-    const RIGHT_ARROW = 37;
-    const SUPR = 46;
-    const TAB = 9;
-    const VKEY = 86;
-    const XKEY = 88;
     const isCopy = CONTROL_KEY && e.keyCode === CKEY;
     const isCut = CONTROL_KEY && e.keyCode === XKEY;
     const isNumber = /\d/.test(String.fromCharCode(e.keyCode));
