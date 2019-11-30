@@ -56,7 +56,7 @@ class DateInput extends Component {
     } = this.props;
 
     return (
-      <div className="InputGroup" onClick={onCalendarIconClick}>
+      <div className="InputGroup">
         <input
           aria-describedby={`${name}-error-msg`}
           aria-disabled={disabled}
@@ -79,7 +79,7 @@ class DateInput extends Component {
           value={selectedDate}
         />
         <span className="InputGroup-context">
-          <CalendarIcon />
+          <CalendarIcon onClick={onCalendarIconClick} />
         </span>
       </div>
     );

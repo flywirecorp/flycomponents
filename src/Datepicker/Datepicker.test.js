@@ -211,6 +211,13 @@ describe('Datepicker', () => {
     });
   });
 
+  test('opens the calendar when clicking the calendar icon', () => {
+    const component = new DatepickerComponent();
+    component.simulateCalendarIconClick();
+
+    expect(component.calendarIsVisible()).toBe(true);
+  });
+
   describe('having read-only property', () => {
     const component = new DatepickerComponent({ readOnly: true });
 
