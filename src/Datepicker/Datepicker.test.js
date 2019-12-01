@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import Datepicker from './Datepicker';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
+import { parseDate } from '../utils/date';
 
 describe('Datepicker', () => {
   class DatepickerComponent {
@@ -14,7 +15,7 @@ describe('Datepicker', () => {
         onBlur: () => {},
         onChange: () => {},
         required: false,
-        value: null
+        value: '04/21/1979'
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -56,7 +57,7 @@ describe('Datepicker', () => {
     }
 
     simulateDateInputClick() {
-      this.dateInput().simulate('click');
+      this.dateInput().simulate('calendarIconClick');
     }
 
     simulateDateInputBlur() {
@@ -109,7 +110,7 @@ describe('Datepicker', () => {
     expect(component.calendarIsVisible()).toBe(true);
   });
 
-  test('shows the calendar when clicking the date input', () => {
+  test('shows the calendar when clicking the date icon', () => {
     const component = new DatepickerComponent();
 
     component.simulateDateInputClick();
@@ -171,10 +172,11 @@ describe('Datepicker', () => {
   test('selects date clicking a day', () => {
     const value = '11/22/2016';
     const component = new DatepickerComponent({ value });
+    const day = parseDate('04/21/1979');
 
-    component.simulateDateClick('04/21/1979');
+    component.simulateDateClick(day);
 
-    expect(component.selectedDate()).toBe('04/21/1979');
+    expect(component.selectedDate()).toBe(day);
   });
 
   describe('shows the calendar on the correct position', () => {

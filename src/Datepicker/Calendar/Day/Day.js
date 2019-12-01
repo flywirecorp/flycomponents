@@ -21,11 +21,11 @@ const Day = ({ current, date, disabled, onDateClick, selected }) => (
   </td>
 );
 
-const { bool, func, string } = PropTypes;
+const { bool, func, object } = PropTypes;
 
 Day.propTypes = {
   current: bool,
-  date: string,
+  date: object,
   disabled: bool,
   onDateClick: func.isRequired,
   selected: bool

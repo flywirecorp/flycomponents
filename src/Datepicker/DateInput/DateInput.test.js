@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import DateInput from './DateInput';
+import { parseDate } from '../../utils/date';
 
 describe('DateInput', () => {
   class DateInputComponent {
@@ -8,9 +9,8 @@ describe('DateInput', () => {
       const defaultProps = {
         name: 'name',
         onCalendarIconClick: () => {},
-        onClick: () => {},
-        selectedDate: '',
-        setSelectedDate: () => {}
+        onFocus: () => {},
+        onKeyDown: () => {}
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -45,33 +45,33 @@ describe('DateInput', () => {
   }
 
   test('sets the state value while writing', () => {
-    const setSelectedDate = jest.fn();
-    const component = new DateInputComponent({ setSelectedDate });
+    const onKeyDown = jest.fn();
+    const component = new DateInputComponent({ onKeyDown });
 
     component.pressKey(0);
 
-    expect(setSelectedDate).toBeCalledWith('0');
+    expect(onKeyDown).toBeCalledWith('0');
   });
 
   test('removes the last character when pressing delete key', () => {
-    const setSelectedDate = jest.fn();
-    const selectedDate = '05/12/2016';
-    const component = new DateInputComponent({ selectedDate, setSelectedDate });
+    const onKeyDown = jest.fn();
+    const defaultValue = parseDate('05/12/2016');
+    const component = new DateInputComponent({ defaultValue, onKeyDown });
 
     component.pressKey('delete');
 
-    expect(setSelectedDate).toBeCalledWith('05/12/201');
+    expect(onKeyDown).toBeCalledWith('05/12/201');
   });
 
   test('does not change input field if readOnly prop is passed in', () => {
-    const setSelectedDate = jest.fn();
+    const onKeyDown = jest.fn();
     const component = new DateInputComponent({
-      setSelectedDate,
+      onKeyDown,
       readOnly: true
     });
 
     component.pressKey(0);
 
-    expect(setSelectedDate).not.toBeCalled();
+    expect(onKeyDown).not.toBeCalled();
   });
 });

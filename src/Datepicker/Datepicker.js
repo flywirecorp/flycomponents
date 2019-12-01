@@ -82,7 +82,7 @@ class Datepicker extends Component {
     const formattedDate = date.format(DATE_FORMAT);
 
     this.setState(
-      { startDate: date, selectedDate: formattedDate },
+      { startDate: date, selectedDate: date },
       onChange(name, formattedDate)
     );
   };
@@ -118,17 +118,6 @@ class Datepicker extends Component {
     this.setState(prevState => {
       return { isOpen: !prevState.isOpen };
     });
-  };
-
-  handleDateInputClick = () => {
-    const { isOpen } = this.state;
-    const { disabled, readOnly } = this.props;
-
-    if (disabled || isOpen || readOnly) {
-      return;
-    }
-    this.setState({ isOpen: true });
-    this.setStyles();
   };
 
   handleFocus = () => {
@@ -249,6 +238,7 @@ class Datepicker extends Component {
           ref={this.datepickerRef}
         >
           <DateInput
+            defaultValue={selectedDate}
             disabled={disabled}
             error={error}
             floatingLabel={floatingLabel}
@@ -256,23 +246,21 @@ class Datepicker extends Component {
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
             onChange={() => {}}
-            onClick={this.handleDateInputClick}
             onFocus={this.handleFocus}
+            onKeyDown={this.setSelectedDate}
             readOnly={readOnly}
             required={required}
-            onKeyDown={this.setSelectedDate}
-            defaultValue={selectedDate}
           />
           <Calendar
             closeCalendar={this.closeCalendar}
+            isOpen={isOpen}
             onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
-            startDate={startDate}
-            isOpen={isOpen}
             setDate={this.setDate}
+            startDate={startDate}
           />
         </div>
       </FormGroup>
