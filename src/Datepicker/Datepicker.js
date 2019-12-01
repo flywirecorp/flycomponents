@@ -2,12 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
-import { parseDateOrToday, DATE_FORMAT } from '../utils/date';
+import { parseDate, today, setLocale, DATE_FORMAT } from '../utils/date';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
 
-const DEFAULT_VALUE = '';
 const DATEPICKER_HEIGHT = 420;
 const REQUIRED_SIZE_ABOVE = 780;
 
@@ -43,18 +42,18 @@ class Datepicker extends Component {
   constructor(props) {
     super(props);
 
-    const { locale, value = DEFAULT_VALUE } = this.props;
-    const startDate = parseDateOrToday(value);
-    startDate.locale(locale);
+    const { locale, value } = this.props;
+    setLocale(locale);
+
+    const initDate = parseDate(value);
 
     this.datepickerRef = React.createRef();
-
     this.state = {
       isOpen: false,
       isFocused: false,
       isAbove: false,
-      value,
-      startDate
+      selectedDate: initDate,
+      startDate: initDate || today
     };
   }
 
@@ -83,15 +82,15 @@ class Datepicker extends Component {
     const formattedDate = date.format(DATE_FORMAT);
 
     this.setState(
-      { startDate: date, value: formattedDate },
+      { startDate: date, selectedDate: formattedDate },
       onChange(name, formattedDate)
     );
   };
 
-  setValue = value => {
+  setSelectedDate = value => {
     const { name, onChange } = this.props;
 
-    this.setState({ value }, onChange(name, value));
+    this.setState({ selectedDate: value }, onChange(name, value));
   };
 
   closeCalendar = () => {
@@ -163,6 +162,11 @@ class Datepicker extends Component {
     });
   };
 
+  sendBlur() {
+    const { name, onBlur } = this.props;
+    onBlur(name);
+  }
+
   hideOnDocumentClick = e => {
     const { isOpen: wasOpen } = this.state;
     const { target } = e;
@@ -172,8 +176,8 @@ class Datepicker extends Component {
       return;
     }
 
-    const { value } = this.state;
-    const startDate = parseDateOrToday(value);
+    const { selectedDate } = this.state;
+    const startDate = parseDate(selectedDate) || today;
 
     this.setState(() => {
       return { isOpen: false, startDate };
@@ -208,13 +212,8 @@ class Datepicker extends Component {
     this.setState({ isAbove: isAbove });
   };
 
-  sendBlur() {
-    const { name, onBlur } = this.props;
-    onBlur(name);
-  }
-
   render() {
-    const { isOpen, isFocused, isAbove, value, startDate } = this.state;
+    const { isOpen, isFocused, isAbove, selectedDate, startDate } = this.state;
 
     const {
       disabled,
@@ -233,7 +232,7 @@ class Datepicker extends Component {
         error={error}
         floatingLabel={floatingLabel}
         isFocused={isOpen || isFocused}
-        hasValue={!!value}
+        hasValue={!!selectedDate}
         hasSuffix
         hint={hint}
         label={label}
@@ -261,8 +260,8 @@ class Datepicker extends Component {
             onFocus={this.handleFocus}
             readOnly={readOnly}
             required={required}
-            onKeyDown={this.setValue}
-            value={value}
+            onKeyDown={this.setSelectedDate}
+            defaultValue={selectedDate}
           />
           <Calendar
             closeCalendar={this.closeCalendar}

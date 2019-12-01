@@ -7,6 +7,7 @@ import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
+    defaultValue: PropTypes.sting,
     disabled: PropTypes.bool,
     error: PropTypes.string,
     name: PropTypes.string.isRequired,
@@ -15,25 +16,39 @@ class DateInput extends Component {
     onFocus: PropTypes.func,
     onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    value: PropTypes.sting
+    required: PropTypes.bool
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      value: props.defaultValue && props.defaultValue.format(DATE_FORMAT)
+    };
+  }
+
   handleKeyDown = evt => {
-    const { disabled, value, onKeyDown, readOnly } = this.props;
-    const inputValue = `${value}${String.fromCharCode(evt.which)}`;
-    let newValue = inputValue.replace(/\D/g, '');
-
+    const { disabled, onKeyDown, readOnly } = this.props;
     if (readOnly || disabled) return false;
-    if (evt.which === BACKSPACE) {
-      newValue = newValue.slice(0, -1);
-    }
 
-    const formatedDate = format(newValue, { pattern: DATE_PATTERN });
-    onKeyDown(formatedDate);
+    const pressedKey = evt.which;
+
+    this.setState(
+      prevState => {
+        const inputValue = `${prevState.value}${String.fromCharCode(
+          pressedKey
+        )}`;
+        let value = inputValue.replace(/\D/g, '');
+        if (pressedKey === BACKSPACE) value = value.slice(0, -1);
+
+        return { value: format(value, { pattern: DATE_PATTERN }) };
+      },
+      () => onKeyDown(this.state.value)
+    );
   };
 
   render() {
+    const { value } = this.state;
     const {
       disabled,
       error,
@@ -42,8 +57,7 @@ class DateInput extends Component {
       onCalendarIconClick,
       onFocus,
       readOnly,
-      required,
-      value
+      required
     } = this.props;
 
     return (

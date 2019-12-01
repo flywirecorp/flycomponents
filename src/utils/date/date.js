@@ -56,6 +56,8 @@ export const parseDate = stringDate => {
   }
 };
 
-export const parseDateOrToday = stringDate => {
-  return parseDate(stringDate) || moment();
+export const today = moment();
+
+export const setLocale = locale => {
+  return moment.locale(locale);
 };
