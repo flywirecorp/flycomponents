@@ -9,12 +9,12 @@ const Navigation = (
     onNextMonthClick,
     onPrevMonthClick,
     onYearChange,
-    startDate
+    focussedDate
   },
   { locale }
 ) => {
-  const currentMonth = startDate.month();
-  const currentYear = startDate.year();
+  const currentMonth = focussedDate.month();
+  const currentYear = focussedDate.year();
   const months = monthNames(locale).map((month, i) => ({
     value: i,
     label: month
@@ -84,11 +84,11 @@ const Navigation = (
 const { func, object, string } = PropTypes;
 
 Navigation.propTypes = {
+  focussedDate: object.isRequired,
   onMonthChange: func.isRequired,
   onNextMonthClick: func.isRequired,
   onPrevMonthClick: func.isRequired,
-  onYearChange: func.isRequired,
-  startDate: object.isRequired
+  onYearChange: func.isRequired
 };
 
 Navigation.contextTypes = {
