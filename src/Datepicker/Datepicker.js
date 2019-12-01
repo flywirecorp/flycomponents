@@ -251,11 +251,11 @@ class Datepicker extends Component {
             name={name}
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
-            onChange={() => {}}
             onFocus={this.handleFocus}
             onKeyDown={this.setSelectedDate}
             readOnly={readOnly}
             required={required}
+            key={selectedDate}
           />
           <Calendar
             closeCalendar={this.closeCalendar}
