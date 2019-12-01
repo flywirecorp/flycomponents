@@ -7,7 +7,7 @@ import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
-    defaultValue: PropTypes.sting,
+    defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
     error: PropTypes.string,
     name: PropTypes.string.isRequired,

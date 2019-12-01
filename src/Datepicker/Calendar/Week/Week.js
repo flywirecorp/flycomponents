@@ -5,19 +5,16 @@ import Day from '../Day';
 const Week = ({ startingDate, month, onDateClick, selectedDate }) => {
   const weekDays = [0, 1, 2, 3, 4, 5, 6]
     .map(dayIndex => startingDate.clone().add(dayIndex, 'day'))
-    .map(day => {
-      console.log(day, selectedDate);
-      return (
-        <Day
-          current={day.isSame(new Date(), 'day')}
-          selected={day.isSame(selectedDate, 'day')}
-          disabled={day.month() !== month}
-          date={day}
-          key={`day-${day}`}
-          onDateClick={onDateClick}
-        />
-      );
-    });
+    .map(day => (
+      <Day
+        current={day.isSame(new Date(), 'day')}
+        selected={day.isSame(selectedDate, 'day')}
+        disabled={day.month() !== month}
+        date={day}
+        key={`day-${day}`}
+        onDateClick={onDateClick}
+      />
+    ));
 
   return (
     <tr className="week" role="row">
