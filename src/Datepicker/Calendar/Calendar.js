@@ -21,7 +21,7 @@ const Calendar = ({
   onPrevMonthClick,
   onYearChange,
   setDate,
-  startDate,
+  focussedDate,
   isOpen
 }) => {
   const handleKeyDown = evt => {
@@ -31,24 +31,24 @@ const Calendar = ({
         break;
       case ENTER:
         evt.preventDefault();
-        setDate(startDate);
+        setDate(focussedDate);
         closeCalendar();
         break;
       case ARROW_UP:
         evt.preventDefault();
-        setDate(startDate.subtract(1, 'week'));
+        setDate(focussedDate.subtract(1, 'week'));
         break;
       case ARROW_DOWN:
         evt.preventDefault();
-        setDate(startDate.add(1, 'week'));
+        setDate(focussedDate.add(1, 'week'));
         break;
       case ARROW_LEFT:
         evt.preventDefault();
-        setDate(startDate.subtract(1, 'day'));
+        setDate(focussedDate.subtract(1, 'day'));
         break;
       case ARROW_RIGHT:
         evt.preventDefault();
-        setDate(startDate.add(1, 'day'));
+        setDate(focussedDate.add(1, 'day'));
         break;
     }
   };
@@ -60,11 +60,11 @@ const Calendar = ({
         onNextMonthClick={onNextMonthClick}
         onPrevMonthClick={onPrevMonthClick}
         onYearChange={onYearChange}
-        startDate={startDate}
+        focussedDate={focussedDate}
       />
       <table className="Calendar-table" role="presentation">
-        <DayNames startDate={startDate} />
-        <Month onDateClick={onDateClick} startDate={startDate} />
+        <DayNames focussedDate={focussedDate} />
+        <Month onDateClick={onDateClick} focussedDate={focussedDate} />
       </table>
     </div>
   );
@@ -86,14 +86,14 @@ const { bool, func, object } = PropTypes;
 
 Calendar.propTypes = {
   closeCalendar: func.isRequired,
+  focussedDate: object.isRequired,
   isOpen: bool.isRequired,
   onDateClick: func.isRequired,
   onMonthChange: func.isRequired,
   onNextMonthClick: func.isRequired,
   onPrevMonthClick: func.isRequired,
   onYearChange: func.isRequired,
-  setDate: func.isRequired,
-  startDate: object.isRequired
+  setDate: func.isRequired
 };
 
 export default Calendar;

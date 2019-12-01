@@ -4,18 +4,20 @@ import Week from '../Week';
 import { monthStartingWeekDates } from '../../../utils/date';
 
 const Month = props => {
-  const { onDateClick, startDate } = props;
-  const currentMonth = startDate.month();
+  const { onDateClick, focussedDate } = props;
+  const currentMonth = focussedDate.month();
 
-  const monthWeeks = monthStartingWeekDates(startDate).map(weekStartingDate => (
-    <Week
-      key={`week-${weekStartingDate}`}
-      startingDate={weekStartingDate.clone()}
-      month={currentMonth}
-      onDateClick={onDateClick}
-      selectedDate={startDate}
-    />
-  ));
+  const monthWeeks = monthStartingWeekDates(focussedDate).map(
+    weekStartingDate => (
+      <Week
+        key={`week-${weekStartingDate}`}
+        startingDate={weekStartingDate.clone()}
+        month={currentMonth}
+        onDateClick={onDateClick}
+        selectedDate={focussedDate}
+      />
+    )
+  );
 
   return (
     <tbody role="grid" aria-readonly="true">
@@ -27,8 +29,8 @@ const Month = props => {
 const { func, object } = PropTypes;
 
 Month.propTypes = {
-  onDateClick: func.isRequired,
-  startDate: object.isRequired
+  focussedDate: object.isRequired,
+  onDateClick: func.isRequired
 };
 
 export default Month;

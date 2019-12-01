@@ -53,7 +53,7 @@ class Datepicker extends Component {
       isFocused: false,
       isAbove: false,
       selectedDate: initDate,
-      startDate: initDate || today
+      focussedDate: initDate || today
     };
   }
 
@@ -82,7 +82,7 @@ class Datepicker extends Component {
     const formattedDate = date.format(DATE_FORMAT);
 
     this.setState(
-      { startDate: date, selectedDate: date },
+      { focussedDate: date, selectedDate: date },
       onChange(name, formattedDate)
     );
   };
@@ -129,25 +129,25 @@ class Datepicker extends Component {
 
   handleMonthChange = month => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.set('month', month) };
+      return { focussedDate: prevState.focussedDate.set('month', month) };
     });
   };
 
   handleNextMonthClick = () => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.add(1, 'month') };
+      return { focussedDate: prevState.focussedDate.add(1, 'month') };
     });
   };
 
   handlePrevMonthClick = () => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.subtract(1, 'month') };
+      return { focussedDate: prevState.focussedDate.subtract(1, 'month') };
     });
   };
 
   handleYearChange = year => {
     this.setState(prevState => {
-      return { startDate: prevState.startDate.set('year', year) };
+      return { focussedDate: prevState.focussedDate.set('year', year) };
     });
   };
 
@@ -166,10 +166,10 @@ class Datepicker extends Component {
     }
 
     const { selectedDate } = this.state;
-    const startDate = parseDate(selectedDate) || today;
+    const focussedDate = parseDate(selectedDate) || today;
 
     this.setState(() => {
-      return { isOpen: false, startDate };
+      return { isOpen: false, focussedDate };
     }, wasOpen ? this.sendBlur : null);
   };
 
@@ -202,7 +202,13 @@ class Datepicker extends Component {
   };
 
   render() {
-    const { isOpen, isFocused, isAbove, selectedDate, startDate } = this.state;
+    const {
+      isOpen,
+      isFocused,
+      isAbove,
+      selectedDate,
+      focussedDate
+    } = this.state;
 
     const {
       disabled,
@@ -260,7 +266,7 @@ class Datepicker extends Component {
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
             setDate={this.setDate}
-            startDate={startDate}
+            focussedDate={focussedDate}
           />
         </div>
       </FormGroup>
