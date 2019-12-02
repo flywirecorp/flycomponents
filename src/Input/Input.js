@@ -1,13 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-const getAriaDescribedBy = (name, ariaDescribedBy) => {
-  const defaultAriaDescribedBy = `${name}-error-msg ${name}-hint-msg`;
-
-  if (!ariaDescribedBy) return defaultAriaDescribedBy;
-
-  return `${ariaDescribedBy} ${defaultAriaDescribedBy}`;
-};
+import { getAriaDescribedBy } from '../utils/aria';
 
 const Input = ({
   disabled,

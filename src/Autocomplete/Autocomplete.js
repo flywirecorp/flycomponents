@@ -10,6 +10,7 @@ import Options from './Options';
 import FormGroup from '../FormGroup';
 import debounce from '../utils/debounce';
 import isEmpty from '../utils/isEmpty';
+import { getAriaDescribedBy } from '../utils/aria';
 
 const NO_OPTION = {};
 const EMPTY_STRING = '';
@@ -38,6 +39,7 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 
 export class Autocomplete extends Component {
   static propTypes = {
+    ariaDescribedBy: PropTypes.string,
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
@@ -60,6 +62,7 @@ export class Autocomplete extends Component {
   };
 
   static defaultProps = {
+    ariaDescribedBy: '',
     disabled: false,
     floatingLabel: true,
     fuseConfig: {
@@ -403,7 +406,8 @@ export class Autocomplete extends Component {
       placeholder,
       readOnly,
       required,
-      template
+      template,
+      ariaDescribedBy
     } = this.props;
     const options = this.loadOptions();
     const searchOn = this.searchOn();
@@ -461,7 +465,7 @@ export class Autocomplete extends Component {
             aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
             aria-autocomplete="list"
             aria-controls={`${name}-options`}
-            aria-describedby={`${name}-error-msg`}
+            aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
             aria-disabled={disabled}
             aria-invalid={!isEmpty(error)}
             aria-labelledby={`${name}-label`}
