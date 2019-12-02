@@ -9,7 +9,8 @@ const Select = ({
   onChange,
   onClick,
   selectedValue,
-  values
+  values,
+  ...other
 }) => {
   const options = values.map(option => (
     <option key={option.value} value={option.value}>
@@ -27,6 +28,7 @@ const Select = ({
       onClick={onClick}
       ref={forwardRef}
       value={selectedValue}
+      {...other}
     >
       {options}
     </select>

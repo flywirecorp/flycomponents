@@ -63,7 +63,7 @@ class DateInput extends Component {
     return (
       <div className="InputGroup">
         <input
-          aria-describedby={`${name}-error-msg`}
+          aria-describedby={`${name}-error-msg ${name}-status`}
           aria-disabled={disabled}
           aria-invalid={!!error}
           aria-labelledby={`${name}-label`}

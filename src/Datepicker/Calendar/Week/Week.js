@@ -13,6 +13,7 @@ const Week = ({ startingDate, month, onDateClick, selectedDate }) => {
         date={day}
         key={`day-${day}`}
         onDateClick={onDateClick}
+        name={name}
       />
     ));
 
@@ -23,13 +24,11 @@ const Week = ({ startingDate, month, onDateClick, selectedDate }) => {
   );
 };
 
-const { func, number, object } = PropTypes;
-
 Week.propTypes = {
-  month: number,
-  onDateClick: func.isRequired,
-  selectedDate: object.isRequired,
-  startingDate: object
+  month: PropTypes.number,
+  onDateClick: PropTypes.func.isRequired,
+  selectedDate: PropTypes.object.isRequired,
+  startingDate: PropTypes.object
 };
 
 export default Week;

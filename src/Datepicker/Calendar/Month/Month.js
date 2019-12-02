@@ -19,18 +19,12 @@ const Month = props => {
     )
   );
 
-  return (
-    <tbody role="grid" aria-readonly="true">
-      {monthWeeks}
-    </tbody>
-  );
+  return <tbody role="presentation">{monthWeeks}</tbody>;
 };
 
-const { func, object } = PropTypes;
-
 Month.propTypes = {
-  focussedDate: object.isRequired,
-  onDateClick: func.isRequired
+  focussedDate: PropTypes.object.isRequired,
+  onDateClick: PropTypes.func.isRequired
 };
 
 export default Month;

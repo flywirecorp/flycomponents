@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
-import { SPACE, ENTER } from '../../../utils/keycodes';
 
-const ENABLED = 0;
-const DISABLED = -1;
 const Day = ({ current, date, disabled, onDateClick, selected }) => (
   <td
-    role="button"
-    aria-label={date.format('LL')}
+    id={`${date.month()}-${date.date()}`}
+    role="gridcell button"
+    headers={`header-day-${date.day()}`}
+    aria-label={date.format('dddd, MMMM')}
     aria-selected={selected}
     aria-disabled={disabled}
     aria-current={current && 'date'}
@@ -19,29 +18,17 @@ const Day = ({ current, date, disabled, onDateClick, selected }) => (
       { 'is-selected': selected }
     )}
     onClick={disabled ? null : () => onDateClick(date)}
-    tabIndex={disabled ? DISABLED : ENABLED}
-    onKeyDown={evt => {
-      evt.preventDefault;
-      if (disabled) return;
-
-      const pressedKey = evt.keyCode;
-      if (pressedKey === ENTER || pressedKey === SPACE) {
-        onDateClick(date);
-      }
-    }}
   >
     {date.date()}
   </td>
 );
 
-const { bool, func, object } = PropTypes;
-
 Day.propTypes = {
-  current: bool,
-  date: object,
-  disabled: bool,
-  onDateClick: func.isRequired,
-  selected: bool
+  current: PropTypes.bool,
+  date: PropTypes.object,
+  disabled: PropTypes.bool,
+  onDateClick: PropTypes.func.isRequired,
+  selected: PropTypes.bool
 };
 
 export default Day;
