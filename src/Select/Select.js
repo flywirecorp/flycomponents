@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 const Select = ({
   className,
-  name,
   disabled,
+  forwardRef,
+  name,
   onChange,
   onClick,
   selectedValue,
@@ -24,6 +25,7 @@ const Select = ({
       name={name}
       onChange={onChange}
       onClick={onClick}
+      ref={forwardRef}
       value={selectedValue}
     >
       {options}
@@ -34,6 +36,7 @@ const Select = ({
 Select.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  forwardRef: PropTypes.object,
   name: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   onClick: PropTypes.func.isRequired,
