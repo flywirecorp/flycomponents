@@ -3,19 +3,29 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import { parseDate, today, setLocale, DATE_FORMAT } from '../utils/date';
+import debounce from '../utils/debounce';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
 
-const WAIT_TIME = 50;
+const EMPTY_STRING = '';
+const WAIT_TO_FOCUS = 50;
+const WAIT_TO_UPDATE = 150;
 const DATEPICKER_HEIGHT = 420;
 const REQUIRED_SIZE_ABOVE = 780;
+
+const getA11yStatusMessage = ({ isOpen }) => {
+  return isOpen
+    ? 'Calendar is open, use arrow keys to navigate the days, press enter to select a day or escape key to close.'
+    : `Vicent como estas?.`;
+};
 
 class Datepicker extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
+    getA11yStatusMessage: PropTypes.func,
     hint: PropTypes.string,
     label: PropTypes.string,
     locale: PropTypes.string,
@@ -34,6 +44,7 @@ class Datepicker extends Component {
 
   static defaultProps = {
     disabled: false,
+    getA11yStatusMessage: getA11yStatusMessage,
     onBlur: () => {},
     onChange: () => {},
     onFocus: () => {},
@@ -55,6 +66,7 @@ class Datepicker extends Component {
     this.nextMonthRef = React.createRef();
 
     this.state = {
+      a11yStatusMessage: EMPTY_STRING,
       isOpen: false,
       isFocused: false,
       isAbove: false,
@@ -69,10 +81,14 @@ class Datepicker extends Component {
   }
 
   componentDidMount() {
+    this.updateA11yMessage();
+
     document.addEventListener('click', this.hideOnDocumentClick);
   }
 
   componentDidUpdate() {
+    this.updateA11yMessage();
+
     window.addEventListener('resize', this.setStyles);
     window.addEventListener('scroll', this.setStyles);
   }
@@ -141,7 +157,7 @@ class Datepicker extends Component {
   setFocus = eleRef => {
     setTimeout(() => {
       eleRef.current.focus();
-    }, WAIT_TIME);
+    }, WAIT_TO_FOCUS);
   };
 
   handleMonthChange = month => {
@@ -218,8 +234,19 @@ class Datepicker extends Component {
     this.setState({ isAbove: isAbove });
   };
 
+  updateA11yMessage = debounce(() => {
+    const { isOpen } = this.state;
+
+    const message = this.props.getA11yStatusMessage({
+      isOpen
+    });
+
+    this.setState({ a11yStatusMessage: message });
+  }, WAIT_TO_UPDATE);
+
   render() {
     const {
+      a11yStatusMessage,
       isOpen,
       isFocused,
       isAbove,
@@ -279,6 +306,7 @@ class Datepicker extends Component {
             focussedDate={focussedDate}
             isOpen={isOpen}
             monthRef={this.monthRef}
+            name={name}
             nextMonthRef={this.nextMonthRef}
             onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
@@ -289,6 +317,20 @@ class Datepicker extends Component {
             setDate={this.setDate}
             yearRef={this.yearRef}
           />
+        </div>
+        <div
+          id={`${name}-status`}
+          role="status"
+          aria-live="polite"
+          style={{
+            border: '0px',
+            height: '1px',
+            width: '1px',
+            overflow: 'hidden',
+            padding: '0px'
+          }}
+        >
+          {a11yStatusMessage}
         </div>
       </FormGroup>
     );

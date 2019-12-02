@@ -4,7 +4,6 @@ import FocusTrap from 'focus-trap-react';
 import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
-import debounce from '../../utils/debounce';
 import {
   ESC,
   ARROW_DOWN,
@@ -13,12 +12,12 @@ import {
   ARROW_UP
 } from '../../utils/keycodes';
 
-const WAIT_TIME = 150;
 const Calendar = ({
   closeCalendar,
   focussedDate,
   isOpen,
   monthRef,
+  name,
   nextMonthRef,
   onDateClick,
   onMonthChange,
@@ -53,10 +52,6 @@ const Calendar = ({
     }
   };
 
-  const getA11yStatusMessage = debounce(() => {
-    return focussedDate.format('LL');
-  }, WAIT_TIME);
-
   const calendar = (
     <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
@@ -70,23 +65,34 @@ const Calendar = ({
         prevMonthRef={prevMonthRef}
         yearRef={yearRef}
       />
-      <table className="Calendar-table" role="presentation">
-        <DayNames focussedDate={focussedDate} />
-        <Month onDateClick={onDateClick} focussedDate={focussedDate} />
-        <div
-          role="status"
-          aria-live="polite"
-          style={{
-            border: '0px',
-            height: '1px',
-            width: '1px',
-            overflow: 'hidden',
-            padding: '0px'
-          }}
-        >
-          {getA11yStatusMessage()}
-        </div>
+      <table
+        role="grid"
+        aria-readonly="true"
+        aria-activedescendant={`${focussedDate.month()}-${focussedDate.date()}`}
+        aria-labelledby="datepicker-month-date"
+        tabIndex="0"
+        className="Calendar-table"
+      >
+        <DayNames focussedDate={focussedDate} name={name} />
+        <Month
+          onDateClick={onDateClick}
+          focussedDate={focussedDate}
+          name={name}
+        />
       </table>
+      <div
+        role="status"
+        aria-live="polite"
+        style={{
+          border: '0px',
+          height: '1px',
+          width: '1px',
+          overflow: 'hidden',
+          padding: '0px'
+        }}
+      >
+        {/* {focussedDate.format('LL')} */}
+      </div>
     </div>
   );
 
@@ -103,22 +109,21 @@ const Calendar = ({
   );
 };
 
-const { bool, func, object } = PropTypes;
-
 Calendar.propTypes = {
-  closeCalendar: func.isRequired,
-  focussedDate: object.isRequired,
-  isOpen: bool.isRequired,
-  monthRef: object,
-  nextMonthRef: object,
-  onDateClick: func.isRequired,
-  onMonthChange: func.isRequired,
-  onNextMonthClick: func.isRequired,
-  onPrevMonthClick: func.isRequired,
-  onYearChange: func.isRequired,
-  prevMonthRef: object,
-  setDate: func.isRequired,
-  yearRef: object
+  closeCalendar: PropTypes.func.isRequired,
+  focussedDate: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  monthRef: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  nextMonthRef: PropTypes.object,
+  onDateClick: PropTypes.func.isRequired,
+  onMonthChange: PropTypes.func.isRequired,
+  onNextMonthClick: PropTypes.func.isRequired,
+  onPrevMonthClick: PropTypes.func.isRequired,
+  onYearChange: PropTypes.func.isRequired,
+  prevMonthRef: PropTypes.object,
+  setDate: PropTypes.func.isRequired,
+  yearRef: PropTypes.object
 };
 
 export default Calendar;
