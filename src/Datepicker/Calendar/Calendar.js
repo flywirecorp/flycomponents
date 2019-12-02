@@ -9,8 +9,7 @@ import {
   ARROW_DOWN,
   ARROW_LEFT,
   ARROW_RIGHT,
-  ARROW_UP,
-  ENTER
+  ARROW_UP
 } from '../../utils/keycodes';
 
 const Calendar = ({
@@ -31,11 +30,6 @@ const Calendar = ({
   const handleKeyDown = evt => {
     switch (evt.keyCode) {
       case ESC:
-        closeCalendar();
-        break;
-      case ENTER:
-        evt.preventDefault();
-        setDate(focussedDate);
         closeCalendar();
         break;
       case ARROW_UP:
