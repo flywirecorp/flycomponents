@@ -4,6 +4,7 @@ import FocusTrap from 'focus-trap-react';
 import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
+import debounce from '../../utils/debounce';
 import {
   ESC,
   ARROW_DOWN,
@@ -12,6 +13,7 @@ import {
   ARROW_UP
 } from '../../utils/keycodes';
 
+const WAIT_TIME = 150;
 const Calendar = ({
   closeCalendar,
   focussedDate,
@@ -51,6 +53,10 @@ const Calendar = ({
     }
   };
 
+  const getA11yStatusMessage = debounce(() => {
+    return focussedDate.format('LL');
+  }, WAIT_TIME);
+
   const calendar = (
     <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
@@ -78,7 +84,7 @@ const Calendar = ({
             padding: '0px'
           }}
         >
-          {focussedDate.format('LL')}
+          {getA11yStatusMessage()}
         </div>
       </table>
     </div>
