@@ -1,6 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+const getAriaDescribedBy = (name, ariaDescribedBy) => {
+  const defaultAriaDescribedBy = `${name}-error-msg ${name}-hint-msg`;
+
+  if (!ariaDescribedBy) return defaultAriaDescribedBy;
+
+  return `${ariaDescribedBy} ${defaultAriaDescribedBy}`;
+};
+
 const Input = ({
   disabled,
   error,
@@ -10,33 +18,34 @@ const Input = ({
   type,
   value,
   ariaDescribedBy,
+  forwardRef,
   ...other
-}) => {
-  return (
-    <input
-      aria-describedby={`${ariaDescribedBy} ${name}-error-msg`}
-      aria-disabled={disabled}
-      aria-invalid={!!error}
-      aria-labelledby={`${name}-label`}
-      aria-readonly={readOnly}
-      aria-required={required}
-      autoComplete="off"
-      className="Input"
-      defaultValue={value}
-      disabled={disabled}
-      id={name}
-      name={name}
-      readOnly={readOnly}
-      required={required}
-      type={type}
-      {...other}
-    />
-  );
-};
+}) => (
+  <input
+    aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
+    aria-disabled={disabled}
+    aria-invalid={!!error}
+    aria-labelledby={`${name}-label`}
+    aria-readonly={readOnly}
+    aria-required={required}
+    autoComplete="off"
+    className="Input"
+    defaultValue={value}
+    disabled={disabled}
+    id={name}
+    name={name}
+    readOnly={readOnly}
+    ref={forwardRef}
+    required={required}
+    type={type}
+    {...other}
+  />
+);
 
-const { bool, string } = PropTypes;
+const { bool, string, object, oneOfType } = PropTypes;
 
 Input.defaultProps = {
+  ariaDescribedBy: '',
   disabled: false,
   readOnly: false,
   required: false,
@@ -44,8 +53,10 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
+  ariaDescribedBy: string,
   disabled: bool,
-  error: string,
+  error: oneOfType([string, bool]),
+  forwardRef: object,
   name: string.isRequired,
   readOnly: bool,
   required: bool,

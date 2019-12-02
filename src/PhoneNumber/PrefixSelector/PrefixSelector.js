@@ -6,24 +6,38 @@ import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
+import debounce from '../../utils/debounce';
 
 const INITIAL_INDEX = -1;
-const KEYS = [13, 27, 38, 40];
-const [ENTER, ESC, ARROW_UP, ARROW_DOWN] = KEYS;
-const styles = {
-  fakeInput: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    opacity: 0
+const KEYS = [13, 27, 38, 40, 9];
+const WAIT_TIME = 200;
+const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB] = KEYS;
+const EMPTY_STRING = '';
+const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
+  const optionsClosed = !isOpen;
+
+  if (optionsClosed) {
+    return selectedOption
+      ? `You have selected ${selectedOption}`
+      : EMPTY_STRING;
   }
+
+  const resultCount = options.length;
+
+  if (resultCount === 0) {
+    return 'No results are available';
+  }
+
+  return `${resultCount} ${
+    resultCount === 1 ? 'result is' : 'results are'
+  } available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.`;
 };
 
 export class PrefixSelector extends Component {
   static propTypes = {
     disabled: PropTypes.bool,
+    getA11yStatusMessage: PropTypes.func,
+    label: PropTypes.string,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -32,12 +46,17 @@ export class PrefixSelector extends Component {
     value: PropTypes.string
   };
 
+  static defaultProps = {
+    getA11yStatusMessage: getA11yStatusMessage
+  };
+
   constructor(props) {
     super(props);
 
     const { value } = this.props;
 
     this.state = {
+      a11yStatusMessage: EMPTY_STRING,
       dialingCode: value,
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
@@ -89,30 +108,50 @@ export class PrefixSelector extends Component {
 
     if (readOnly) return false;
 
-    this.setState(prevState => {
-      return { isOpen: !prevState.isOpen };
-    }, onFocus);
+    this.setState(
+      prevState => {
+        return { isOpen: !prevState.isOpen };
+      },
+      () => {
+        onFocus();
+        this.updateA11yMessage();
+      }
+    );
   };
 
   handleMenuKeydown = e => {
-    if (KEYS.includes(e.keyCode)) {
-      e.preventDefault();
-    }
-
-    this.showOptions();
+    let shouldOpenOptions = true;
 
     switch (e.keyCode) {
       case ARROW_DOWN:
+        e.preventDefault();
         return this.moveIndexUp();
       case ARROW_UP:
+        e.preventDefault();
         return this.moveIndexDown();
       case ENTER:
-        return this.selectCurrentOption();
+        e.preventDefault();
+        const { isOpen } = this.state;
+        if (isOpen) {
+          shouldOpenOptions = false;
+        }
+
+        this.selectCurrentOption();
+        break;
+      case TAB:
+        shouldOpenOptions = false;
+        this.selectCurrentOption();
+        this.hideOptions();
+        break;
       case ESC:
+        e.preventDefault();
+        shouldOpenOptions = false;
         return this.hideOptions();
       default:
         return this.handleTypedChar(e.keyCode);
     }
+
+    if (shouldOpenOptions) this.showOptions();
   };
 
   handleOptionHover(value) {
@@ -126,13 +165,19 @@ export class PrefixSelector extends Component {
     const dialingCode = this.getDialingCodeByValue(selectedIndex);
 
     this.hideOptions();
-    this.setState(() => {
-      return {
-        isOpen: false,
-        selectedIndex,
-        dialingCode
-      };
-    }, this.sendChange(dialingCode));
+    this.setState(
+      () => {
+        return {
+          isOpen: false,
+          selectedIndex,
+          dialingCode
+        };
+      },
+      () => {
+        this.sendChange(dialingCode);
+        this.updateA11yMessage();
+      }
+    );
   };
 
   handleTypedChar(keyCode) {
@@ -151,7 +196,9 @@ export class PrefixSelector extends Component {
   }
 
   hideOptions() {
-    this.setState({ isOpen: false });
+    this.setState(() => {
+      return { isOpen: false };
+    });
   }
 
   moveIndex(offset) {
@@ -172,6 +219,19 @@ export class PrefixSelector extends Component {
       return { selectedIndex: normalize(prevState.selectedIndex + offset) };
     }, this.adjustOffet);
   }
+
+  updateA11yMessage = debounce(() => {
+    const { isOpen, dialingCode } = this.state;
+    const { options } = this.props;
+
+    const message = this.props.getA11yStatusMessage({
+      isOpen,
+      options,
+      selectedOption: dialingCode
+    });
+
+    this.setState({ a11yStatusMessage: message });
+  }, WAIT_TIME);
 
   moveIndexDown() {
     this.moveIndex(-1);
@@ -210,10 +270,11 @@ export class PrefixSelector extends Component {
     const { options } = this.props;
 
     if (selectedIndex === INITIAL_INDEX) {
-      return;
+      return this.hideOptions();
     }
 
     const value = options[selectedIndex].value;
+    this.updateA11yMessage();
     return this.handleOptionSelected(value);
   }
 
@@ -221,11 +282,12 @@ export class PrefixSelector extends Component {
     const { readOnly } = this.props;
     if (readOnly) return false;
 
-    this.setState({ isOpen: true });
+    this.setState({ isOpen: true }, this.updateA11yMessage);
   }
 
   renderOption = (option, index) => {
     const { label, value, dialingCode } = option;
+    const { name } = this.props;
     const { selectedIndex } = this.state;
 
     const hasFocus = selectedIndex === index;
@@ -241,13 +303,14 @@ export class PrefixSelector extends Component {
         onMouseOver={value => this.handleOptionHover(value)}
         ref={option => this.setOptionRef(index, option)}
         value={value}
+        id={`${name}-option-${index}`}
       />
     );
   };
 
   render() {
-    const { disabled, readOnly, options } = this.props;
-    const { dialingCode, isOpen } = this.state;
+    const { disabled, readOnly, options, name, label } = this.props;
+    const { dialingCode, isOpen, a11yStatusMessage } = this.state;
     const optionList = options.map(this.renderOption);
 
     return (
@@ -257,22 +320,38 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        <span className="Autocomplete-search PhoneNumber-menu-input">
+        <button
+          disabled={disabled}
+          className="Autocomplete-search PhoneNumber-menu-input"
+          onKeyDown={this.handleMenuKeydown}
+          onClick={this.handleMenuClick}
+          readOnly={readOnly}
+          aria-controls="phoneNumber-menu-options"
+          aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+          aria-label={label}
+        >
           {dialingCode && `+ ${dialingCode}`}
-        </span>
-        {!disabled && (
-          <div
-            className="PhoneNumber-menu-fakeInput"
-            onClick={this.handleMenuClick}
-            onKeyDown={this.handleMenuKeydown}
-            readOnly={readOnly}
-            style={styles.fakeInput}
-            tabIndex={-1}
-          />
-        )}
+        </button>
 
         <Options ref={this.optionListRef}>{optionList}</Options>
+        <div
+          role="status"
+          aria-live="polite"
+          aria-relevant="additions text"
+          style={{
+            border: '0px',
+            height: '1px',
+            width: '1px',
+            overflow: 'hidden',
+            padding: '0px'
+          }}
+        >
+          {a11yStatusMessage}
+        </div>
       </div>
     );
   }

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Alert = ({ children, type }) => (
-  <div className={`Alert Alert--${type}`} role="alert">
+const Alert = ({ children, type, ...other }) => (
+  <div className={`Alert Alert--${type}`} role="alert" {...other}>
     {children}
   </div>
 );
