@@ -5,11 +5,15 @@ import { monthNames } from '../../../utils/date';
 
 const Navigation = (
   {
+    focussedDate,
+    monthRef,
+    nextMonthRef,
     onMonthChange,
     onNextMonthClick,
     onPrevMonthClick,
     onYearChange,
-    focussedDate
+    prevMonthRef,
+    yearRef
   },
   { locale }
 ) => {
@@ -25,17 +29,19 @@ const Navigation = (
     return { value: year, label: year };
   });
 
-  const handleClick = e => {
-    e.stopPropagation();
+  const handleClick = evt => {
+    evt.stopPropagation();
   };
 
-  const handleMonthChange = e => {
-    const month = e.target.value;
+  const handleMonthChange = evt => {
+    evt.stopPropagation();
+    const month = evt.target.value;
     onMonthChange(month);
   };
 
-  const handleYearChange = e => {
-    const year = e.target.value;
+  const handleYearChange = evt => {
+    evt.stopPropagation();
+    const year = evt.target.value;
     onYearChange(year);
   };
 
@@ -45,6 +51,8 @@ const Navigation = (
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onPrevMonthClick}
+          aria-label="Previous month"
+          ref={prevMonthRef}
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
         </button>
@@ -57,6 +65,8 @@ const Navigation = (
           onClick={handleClick}
           values={months}
           key={currentMonth}
+          aria-label="Month"
+          forwardRef={monthRef}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--year">
@@ -67,12 +77,16 @@ const Navigation = (
           onClick={handleClick}
           values={years}
           key={currentYear}
+          aria-label="Year"
+          forwardRef={yearRef}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--next">
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onNextMonthClick}
+          aria-label="Next month"
+          ref={nextMonthRef}
         >
           <span className="Icon Icon--arrowRight Icon--xs" />
         </button>
@@ -85,10 +99,14 @@ const { func, object, string } = PropTypes;
 
 Navigation.propTypes = {
   focussedDate: object.isRequired,
+  monthRef: object,
+  nextMonthRef: object,
   onMonthChange: func.isRequired,
   onNextMonthClick: func.isRequired,
   onPrevMonthClick: func.isRequired,
-  onYearChange: func.isRequired
+  onYearChange: func.isRequired,
+  prevMonthRef: object,
+  yearRef: object
 };
 
 Navigation.contextTypes = {

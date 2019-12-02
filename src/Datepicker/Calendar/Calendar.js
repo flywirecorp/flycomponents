@@ -15,14 +15,18 @@ import {
 
 const Calendar = ({
   closeCalendar,
+  focussedDate,
+  isOpen,
+  monthRef,
+  nextMonthRef,
   onDateClick,
   onMonthChange,
   onNextMonthClick,
   onPrevMonthClick,
   onYearChange,
+  prevMonthRef,
   setDate,
-  focussedDate,
-  isOpen
+  yearRef
 }) => {
   const handleKeyDown = evt => {
     switch (evt.keyCode) {
@@ -56,15 +60,32 @@ const Calendar = ({
   const calendar = (
     <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
+        focussedDate={focussedDate}
+        monthRef={monthRef}
+        nextMonthRef={nextMonthRef}
         onMonthChange={onMonthChange}
         onNextMonthClick={onNextMonthClick}
         onPrevMonthClick={onPrevMonthClick}
         onYearChange={onYearChange}
-        focussedDate={focussedDate}
+        prevMonthRef={prevMonthRef}
+        yearRef={yearRef}
       />
       <table className="Calendar-table" role="presentation">
         <DayNames focussedDate={focussedDate} />
         <Month onDateClick={onDateClick} focussedDate={focussedDate} />
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            border: '0px',
+            height: '1px',
+            width: '1px',
+            overflow: 'hidden',
+            padding: '0px'
+          }}
+        >
+          {focussedDate.format('LL')}
+        </div>
       </table>
     </div>
   );
@@ -88,12 +109,16 @@ Calendar.propTypes = {
   closeCalendar: func.isRequired,
   focussedDate: object.isRequired,
   isOpen: bool.isRequired,
+  monthRef: object,
+  nextMonthRef: object,
   onDateClick: func.isRequired,
   onMonthChange: func.isRequired,
   onNextMonthClick: func.isRequired,
   onPrevMonthClick: func.isRequired,
   onYearChange: func.isRequired,
-  setDate: func.isRequired
+  prevMonthRef: object,
+  setDate: func.isRequired,
+  yearRef: object
 };
 
 export default Calendar;

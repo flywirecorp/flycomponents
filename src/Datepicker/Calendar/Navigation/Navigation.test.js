@@ -54,15 +54,18 @@ describe('Navigation', () => {
     }
 
     simulatePrevMonthClick() {
-      this.prevMonthButton().simulate('click');
+      this.prevMonthButton().simulate('click', { preventDefault: () => {} });
     }
 
     simulateNextMonthClick() {
-      this.nextMonthButton().simulate('click');
+      this.nextMonthButton().simulate('click', { preventDefault: () => {} });
     }
 
     simulateSelectMonth(value) {
-      this.monthSelector().simulate('change', { target: { value } });
+      this.monthSelector().simulate('change', {
+        target: { value },
+        stopPropagation: () => {}
+      });
     }
   }
 

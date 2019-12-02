@@ -7,6 +7,7 @@ import Calendar from './Calendar';
 import DateInput from './DateInput';
 import FormGroup from '../FormGroup';
 
+const WAIT_TIME = 50;
 const DATEPICKER_HEIGHT = 420;
 const REQUIRED_SIZE_ABOVE = 780;
 
@@ -48,6 +49,11 @@ class Datepicker extends Component {
     const initDate = parseDate(value);
 
     this.datepickerRef = React.createRef();
+    this.prevMonthRef = React.createRef();
+    this.monthRef = React.createRef();
+    this.yearRef = React.createRef();
+    this.nextMonthRef = React.createRef();
+
     this.state = {
       isOpen: false,
       isFocused: false,
@@ -87,10 +93,15 @@ class Datepicker extends Component {
     );
   };
 
-  setSelectedDate = value => {
+  setDateFromString = str => {
     const { name, onChange } = this.props;
+    const date = parseDate(str);
 
-    this.setState({ selectedDate: value }, onChange(name, value));
+    if (date) {
+      this.setState({ selectedDate: date, focussedDate: date });
+    }
+
+    onChange(name, str);
   };
 
   closeCalendar = () => {
@@ -127,28 +138,34 @@ class Datepicker extends Component {
     onFocus();
   };
 
+  setFocus = eleRef => {
+    setTimeout(() => {
+      eleRef.current.focus();
+    }, WAIT_TIME);
+  };
+
   handleMonthChange = month => {
     this.setState(prevState => {
       return { focussedDate: prevState.focussedDate.set('month', month) };
-    });
+    }, this.setFocus(this.monthRef));
   };
 
   handleNextMonthClick = () => {
     this.setState(prevState => {
       return { focussedDate: prevState.focussedDate.add(1, 'month') };
-    });
+    }, this.setFocus(this.nextMonthRef));
   };
 
   handlePrevMonthClick = () => {
     this.setState(prevState => {
       return { focussedDate: prevState.focussedDate.subtract(1, 'month') };
-    });
+    }, this.setFocus(this.prevMonthRef));
   };
 
   handleYearChange = year => {
     this.setState(prevState => {
       return { focussedDate: prevState.focussedDate.set('year', year) };
-    });
+    }, this.setFocus(this.yearRef));
   };
 
   sendBlur() {
@@ -252,21 +269,25 @@ class Datepicker extends Component {
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
             onFocus={this.handleFocus}
-            onKeyDown={this.setSelectedDate}
+            onKeyDown={this.setDateFromString}
             readOnly={readOnly}
             required={required}
             key={selectedDate}
           />
           <Calendar
             closeCalendar={this.closeCalendar}
+            focussedDate={focussedDate}
             isOpen={isOpen}
+            monthRef={this.monthRef}
+            nextMonthRef={this.nextMonthRef}
             onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
+            prevMonthRef={this.prevMonthRef}
             setDate={this.setDate}
-            focussedDate={focussedDate}
+            yearRef={this.yearRef}
           />
         </div>
       </FormGroup>

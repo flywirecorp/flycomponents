@@ -73,6 +73,7 @@ class DateInput extends Component {
           autoComplete="off"
           className="Input InputGroup-input"
           id={name}
+          onChange={() => {}}
           onBlur={onBlur}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
@@ -81,6 +82,7 @@ class DateInput extends Component {
           readOnly={readOnly}
           type="text"
           value={value}
+          pattern="MM/DD/YYYY"
         />
         <span className="InputGroup-context">
           <CalendarIcon onClick={onCalendarIconClick} />
