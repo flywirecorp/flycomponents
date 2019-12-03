@@ -3,16 +3,25 @@ import React from 'react';
 import Select from '../../../Select';
 import { monthNames } from '../../../utils/date';
 
+const NEXT_MONTH_LABEL = 'Go to next month';
+const PREV_MONTH_LABEL = 'Go to previous month';
+const SELECT_MONTH_LABEL = 'Select month';
+const SELECT_YEAR_LABEL = 'Select year';
+
 const Navigation = (
   {
     focussedDate,
     monthRef,
+    nextMonthLabel,
     nextMonthRef,
     onMonthChange,
     onNextMonthClick,
     onPrevMonthClick,
     onYearChange,
+    prevMonthLabel,
     prevMonthRef,
+    selectMonthLabel,
+    selectYearLabel,
     yearRef
   },
   { locale }
@@ -51,7 +60,7 @@ const Navigation = (
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onPrevMonthClick}
-          aria-label="Go to previous month"
+          aria-label={prevMonthLabel}
           ref={prevMonthRef}
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
@@ -59,7 +68,7 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--month">
         <Select
-          aria-label="Select month"
+          aria-label={selectMonthLabel}
           className="Calendar-header-navItem"
           selectedValue={currentMonth}
           onChange={handleMonthChange}
@@ -71,7 +80,7 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--year">
         <Select
-          aria-label="Select year"
+          aria-label={selectYearLabel}
           className="Calendar-header-navItem"
           selectedValue={currentYear}
           onChange={handleYearChange}
@@ -85,7 +94,7 @@ const Navigation = (
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onNextMonthClick}
-          aria-label="Go to next month"
+          aria-label={nextMonthLabel}
           ref={nextMonthRef}
         >
           <span className="Icon Icon--arrowRight Icon--xs" />
@@ -95,22 +104,31 @@ const Navigation = (
   );
 };
 
-const { func, object, string } = PropTypes;
-
 Navigation.propTypes = {
-  focussedDate: object.isRequired,
-  monthRef: object,
-  nextMonthRef: object,
-  onMonthChange: func.isRequired,
-  onNextMonthClick: func.isRequired,
-  onPrevMonthClick: func.isRequired,
-  onYearChange: func.isRequired,
-  prevMonthRef: object,
-  yearRef: object
+  focussedDate: PropTypes.object.isRequired,
+  monthRef: PropTypes.object,
+  nextMonthLabel: PropTypes.string,
+  nextMonthRef: PropTypes.object,
+  onMonthChange: PropTypes.func.isRequired,
+  onNextMonthClick: PropTypes.func.isRequired,
+  onPrevMonthClick: PropTypes.func.isRequired,
+  onYearChange: PropTypes.func.isRequired,
+  prevMonthLabel: PropTypes.string,
+  prevMonthRef: PropTypes.object,
+  selectMonthLabel: PropTypes.string,
+  selectYearLabel: PropTypes.string,
+  yearRef: PropTypes.object
+};
+
+Navigation.defaultProps = {
+  nextMonthLabel: NEXT_MONTH_LABEL,
+  prevMonthLabel: PREV_MONTH_LABEL,
+  selectMonthLabel: SELECT_MONTH_LABEL,
+  selectYearLabel: SELECT_YEAR_LABEL
 };
 
 Navigation.contextTypes = {
-  locale: string
+  locale: PropTypes.string
 };
 
 export default Navigation;

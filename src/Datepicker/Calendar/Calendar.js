@@ -19,13 +19,17 @@ const Calendar = ({
   focussedDate,
   isOpen,
   monthRef,
+  nextMonthLabel,
   nextMonthRef,
   onDateClick,
   onMonthChange,
   onNextMonthClick,
   onPrevMonthClick,
   onYearChange,
+  prevMonthLabel,
   prevMonthRef,
+  selectMonthLabel,
+  selectYearLabel,
   setDate,
   yearRef
 }) => {
@@ -75,12 +79,16 @@ const Calendar = ({
       <Navigation
         focussedDate={focussedDate}
         monthRef={monthRef}
+        nextMonthLabel={nextMonthLabel}
         nextMonthRef={nextMonthRef}
         onMonthChange={onMonthChange}
         onNextMonthClick={onNextMonthClick}
         onPrevMonthClick={onPrevMonthClick}
         onYearChange={onYearChange}
+        prevMonthLabel={prevMonthLabel}
         prevMonthRef={prevMonthRef}
+        selectMonthLabel={selectMonthLabel}
+        selectYearLabel={selectYearLabel}
         yearRef={yearRef}
       />
       <table
@@ -129,13 +137,17 @@ Calendar.propTypes = {
   focussedDate: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   monthRef: PropTypes.object,
+  nextMonthLabel: PropTypes.string,
   nextMonthRef: PropTypes.object,
   onDateClick: PropTypes.func.isRequired,
   onMonthChange: PropTypes.func.isRequired,
   onNextMonthClick: PropTypes.func.isRequired,
   onPrevMonthClick: PropTypes.func.isRequired,
   onYearChange: PropTypes.func.isRequired,
+  prevMonthLabel: PropTypes.string,
   prevMonthRef: PropTypes.object,
+  selectMonthLabel: PropTypes.string,
+  selectYearLabel: PropTypes.string,
   setDate: PropTypes.func.isRequired,
   yearRef: PropTypes.object
 };

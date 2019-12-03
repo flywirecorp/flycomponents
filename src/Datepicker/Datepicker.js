@@ -30,11 +30,15 @@ class Datepicker extends Component {
     label: PropTypes.string,
     locale: PropTypes.string,
     name: PropTypes.string.isRequired,
+    nextMonthLabel: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
+    prevMonthLabel: PropTypes.string,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
+    selectMonthLabel: PropTypes.string,
+    selectYearLabel: PropTypes.string,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   };
 
@@ -270,8 +274,12 @@ class Datepicker extends Component {
       hint,
       label,
       name,
+      nextMonthLabel,
+      prevMonthLabel,
       readOnly,
-      required
+      required,
+      selectMonthLabel,
+      selectYearLabel
     } = this.props;
 
     return (
@@ -317,13 +325,17 @@ class Datepicker extends Component {
             focussedDate={focussedDate}
             isOpen={isOpen}
             monthRef={this.monthRef}
+            nextMonthLabel={nextMonthLabel}
             nextMonthRef={this.nextMonthRef}
             onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}
             onYearChange={this.handleYearChange}
+            prevMonthLabel={prevMonthLabel}
             prevMonthRef={this.prevMonthRef}
+            selectMonthLabel={selectMonthLabel}
+            selectYearLabel={selectYearLabel}
             setDate={this.setDate}
             yearRef={this.yearRef}
           />
