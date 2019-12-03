@@ -22,6 +22,7 @@ const getA11yStatusMessage = ({ isOpen }) => {
 
 class Datepicker extends Component {
   static propTypes = {
+    calendarIconLabel: PropTypes.string,
     disabled: PropTypes.bool,
     error: PropTypes.string,
     floatingLabel: PropTypes.bool,
@@ -146,7 +147,9 @@ class Datepicker extends Component {
     this.setState({ isFocused: false }, () => this.sendBlur());
   };
 
-  handleCalendarIconClick = () => {
+  handleCalendarIconClick = evt => {
+    evt.preventDefault();
+
     const { disabled, readOnly } = this.props;
 
     if (disabled || readOnly) {
@@ -154,10 +157,7 @@ class Datepicker extends Component {
     }
 
     this.setStyles();
-
-    this.setState(prevState => {
-      return { isOpen: !prevState.isOpen };
-    });
+    this.toggleCalendar();
   };
 
   handleFocus = () => {
@@ -268,6 +268,7 @@ class Datepicker extends Component {
     } = this.state;
 
     const {
+      calendarIconLabel,
       disabled,
       error,
       floatingLabel,
@@ -305,6 +306,7 @@ class Datepicker extends Component {
           ref={this.datepickerRef}
         >
           <DateInput
+            calendarIconLabel={calendarIconLabel}
             defaultValue={selectedDate}
             disabled={disabled}
             error={error}

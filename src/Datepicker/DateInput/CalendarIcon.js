@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const CalendarIcon = ({ onClick }) => (
-  <button
+const LABEL = 'Show calendar';
+const CalendarIcon = ({ onClick, label }) => (
+  <span
     className="Icon Icon--calendar"
     onClick={onClick}
-    aria-label="Show calendar"
+    onKeyDown={onClick}
+    aria-label={label}
+    role="button"
+    tabIndex={0}
   />
 );
 
-const { func } = PropTypes;
-
 CalendarIcon.propTypes = {
-  onClick: func
+  label: PropTypes.string,
+  onClick: PropTypes.func
+};
+
+CalendarIcon.defaultProps = {
+  label: LABEL
 };
 
 export default CalendarIcon;
