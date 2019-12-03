@@ -71,6 +71,7 @@ class CardForm extends Component {
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
+    onValidate: PropTypes.func,
     optionalFields: PropTypes.array
   };
 
@@ -96,7 +97,8 @@ class CardForm extends Component {
     },
     isCompressed: false,
     onSubmit: () => {},
-    onChange: () => {}
+    onChange: () => {},
+    onValidate: () => {}
   };
 
   state = {
@@ -162,10 +164,8 @@ class CardForm extends Component {
       return { [CARD_NUMBER_FIELD]: errors.cardType };
   }
 
-  handleSubmit = e => {
-    const { onSubmit } = this.props;
-
-    e.preventDefault();
+  validateForm = () => {
+    const { onValidate } = this.props;
 
     const errors = Object.entries(this.requiredFields).reduce(
       (errors, [name, value]) => {
@@ -175,6 +175,16 @@ class CardForm extends Component {
     );
 
     this.setState({ errors });
+    onValidate();
+  };
+
+  handleSubmit = e => {
+    const { onSubmit } = this.props;
+
+    e.preventDefault();
+
+    this.validateForm();
+    const { errors } = this.state;
 
     const cardType = getCardType(this.requiredFields[CARD_NUMBER_FIELD]);
     const payload = { ...this.requiredFields, cardType };
