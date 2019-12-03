@@ -7,9 +7,19 @@ const CVVInput = ({ cvvTooltip, className, ...props }) => {
   const textInputClassName = classNames('cvvInput', className);
 
   return (
-    <TextInput className={textInputClassName} {...props}>
-      <input className="cvvInput-Checkbox" type="checkbox" />
-      <span className="cvvInput-Label-Tooltip">{cvvTooltip}</span>
+    <TextInput
+      className={textInputClassName}
+      ariaDescribedBy={'cvvInput-Label-Tooltip'}
+      {...props}
+    >
+      <span className="cvvInput-Icon-Tooltip" />
+      <span
+        id="cvvInput-Label-Tooltip"
+        className="cvvInput-Label-Tooltip"
+        role="tooltip"
+      >
+        {cvvTooltip}
+      </span>
     </TextInput>
   );
 };
