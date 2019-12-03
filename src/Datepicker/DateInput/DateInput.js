@@ -15,6 +15,7 @@ class DateInput extends Component {
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
     onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
@@ -63,6 +64,7 @@ class DateInput extends Component {
       error,
       forwardRef,
       name,
+      onClick,
       onBlur,
       onCalendarIconClick,
       onFocus,
@@ -84,6 +86,7 @@ class DateInput extends Component {
           className="Input InputGroup-input"
           id={name}
           onChange={() => {}}
+          onClick={onClick}
           onBlur={onBlur}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
