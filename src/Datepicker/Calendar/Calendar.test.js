@@ -6,6 +6,7 @@ import Navigation from './Navigation';
 import DayNames from './DayNames';
 import Month from './Month';
 import {
+  ENTER,
   ESC,
   ARROW_DOWN,
   ARROW_LEFT,
@@ -85,13 +86,14 @@ describe('Calendar', () => {
     expect(component.hasFocusTrap()).toBe(true);
   });
 
-  test('closes the calendar when ESC key pressed', () => {
+  test('closes the calendar when ESC or ENTER key pressed', () => {
     const closeCalendar = jest.fn();
     const component = new CalendarComponent({ closeCalendar });
 
-    component.simulateKeyPress(ESC);
-
-    expect(closeCalendar).toBeCalled();
+    [ENTER, ESC].forEach(key => {
+      component.simulateKeyPress(key);
+      expect(closeCalendar).toBeCalled();
+    });
   });
 
   test('subtracts one week when arrow up key pressed', () => {

@@ -1,27 +1,33 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
+import { LONG_DATE_FORMAT } from '../../../utils/date';
 
-const Day = ({ current, date, disabled, onDateClick, selected }) => (
-  <td
-    id={`${date.month()}-${date.date()}`}
-    role="gridcell button"
-    headers={`header-day-${date.day()}`}
-    aria-label={date.format('dddd, MMMM')}
-    aria-selected={selected}
-    aria-disabled={disabled}
-    aria-current={current && 'date'}
-    className={classNames(
-      'Calendar-day',
-      { 'is-current': current },
-      { 'is-disabled': disabled },
-      { 'is-selected': selected }
-    )}
-    onClick={disabled ? null : () => onDateClick(date)}
-  >
-    {date.date()}
-  </td>
-);
+const Day = ({ current, date, disabled, onDateClick, selected }) => {
+  const formattedDate = date.format(LONG_DATE_FORMAT);
+
+  return (
+    <td
+      aria-label={formattedDate}
+      aria-selected={selected}
+      aria-disabled={disabled}
+      aria-current={current && 'date'}
+      id={`${date.month()}-${date.date()}`}
+      role="button"
+      headers={`header-day-${date.day()}`}
+      className={classNames(
+        'Calendar-day',
+        { 'is-current': current },
+        { 'is-disabled': disabled },
+        { 'is-selected': selected }
+      )}
+      onClick={disabled ? null : () => onDateClick(date)}
+      tabIndex={selected ? 0 : -1}
+    >
+      <span aria-hidden="true">{date.date()}</span>
+    </td>
+  );
+};
 
 Day.propTypes = {
   current: PropTypes.bool,

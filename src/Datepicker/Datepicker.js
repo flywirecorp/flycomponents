@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
-import { parseDate, today, setLocale, DATE_FORMAT } from '../utils/date';
+import { parseDate, today, DATE_FORMAT } from '../utils/date';
 import debounce from '../utils/debounce';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
@@ -16,8 +16,8 @@ const REQUIRED_SIZE_ABOVE = 780;
 
 const getA11yStatusMessage = ({ isOpen }) => {
   return isOpen
-    ? 'Calendar is open, use arrow keys to navigate the days, press enter to select a day or escape key to close.'
-    : `Vicent como estas?.`;
+    ? 'Calendar open, use tab or arrow keys to navigate the days, press enter to select a day or escape key to close.'
+    : 'Enter a date in the format MM/DD/YYYY, or press Enter key to open a calendar.';
 };
 
 class Datepicker extends Component {
@@ -55,9 +55,10 @@ class Datepicker extends Component {
     super(props);
 
     const { locale, value } = this.props;
-    setLocale(locale);
-
     const initDate = parseDate(value);
+
+    today.locale(locale);
+    initDate && initDate.locale(locale);
 
     this.datepickerRef = React.createRef();
     this.prevMonthRef = React.createRef();
@@ -306,7 +307,6 @@ class Datepicker extends Component {
             focussedDate={focussedDate}
             isOpen={isOpen}
             monthRef={this.monthRef}
-            name={name}
             nextMonthRef={this.nextMonthRef}
             onDateClick={this.setDateAndCloseCalendar}
             onMonthChange={this.handleMonthChange}

@@ -1,7 +1,7 @@
 import moment from 'moment';
-import 'moment/locale/es';
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
+export const LONG_DATE_FORMAT = 'dddd, MMMM D YYYY';
 export const DATE_PATTERN = '../../....';
 
 export const isWeekInMonth = (weekDate, month) => {
@@ -57,7 +57,3 @@ export const parseDate = stringDate => {
 };
 
 export const today = moment();
-
-export const setLocale = locale => {
-  return moment.locale(locale);
-};

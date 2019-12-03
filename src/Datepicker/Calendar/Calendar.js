@@ -5,19 +5,20 @@ import DayNames from './DayNames';
 import Month from './Month';
 import Navigation from './Navigation';
 import {
+  ENTER,
   ESC,
   ARROW_DOWN,
   ARROW_LEFT,
   ARROW_RIGHT,
   ARROW_UP
 } from '../../utils/keycodes';
+import { LONG_DATE_FORMAT } from '../../utils/date';
 
 const Calendar = ({
   closeCalendar,
   focussedDate,
   isOpen,
   monthRef,
-  name,
   nextMonthRef,
   onDateClick,
   onMonthChange,
@@ -31,6 +32,7 @@ const Calendar = ({
   const handleKeyDown = evt => {
     switch (evt.keyCode) {
       case ESC:
+      case ENTER:
         closeCalendar();
         break;
       case ARROW_UP:
@@ -73,12 +75,8 @@ const Calendar = ({
         tabIndex="0"
         className="Calendar-table"
       >
-        <DayNames focussedDate={focussedDate} name={name} />
-        <Month
-          onDateClick={onDateClick}
-          focussedDate={focussedDate}
-          name={name}
-        />
+        <DayNames focussedDate={focussedDate} />
+        <Month onDateClick={onDateClick} focussedDate={focussedDate} />
       </table>
       <div
         role="status"
@@ -91,7 +89,7 @@ const Calendar = ({
           padding: '0px'
         }}
       >
-        {/* {focussedDate.format('LL')} */}
+        {focussedDate.format(LONG_DATE_FORMAT)}
       </div>
     </div>
   );
@@ -114,7 +112,6 @@ Calendar.propTypes = {
   focussedDate: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   monthRef: PropTypes.object,
-  name: PropTypes.string.isRequired,
   nextMonthRef: PropTypes.object,
   onDateClick: PropTypes.func.isRequired,
   onMonthChange: PropTypes.func.isRequired,
