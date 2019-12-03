@@ -11,6 +11,7 @@ describe('DateInput', () => {
         name: 'name',
         onCalendarIconClick: () => {},
         onFocus: () => {},
+        onClick: () => {},
         onKeyDown: () => {},
         toggleCalendar: () => {}
       };
