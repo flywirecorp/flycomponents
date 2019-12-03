@@ -49,6 +49,7 @@ const Calendar = ({
         closeCalendar();
         break;
       case ARROW_UP:
+        evt.preventDefault();
         setDate(focussedDate.subtract(1, 'week'));
         break;
       case ARROW_DOWN:
