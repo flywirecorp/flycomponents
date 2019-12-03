@@ -22,7 +22,6 @@ const Day = ({ current, date, disabled, onDateClick, selected }) => {
         { 'is-selected': selected }
       )}
       onClick={disabled ? null : () => onDateClick(date)}
-      tabIndex={selected ? 0 : -1}
     >
       <span aria-hidden="true">{date.date()}</span>
     </td>
