@@ -53,20 +53,11 @@ describe('Calendar', () => {
       return this.component.exists('FocusTrap');
     }
 
-    simulateKeyPressOnCalendar(keyCode) {
+    simulateKeyPress(keyCode) {
       this.calendar().simulate('keyDown', {
         keyCode,
         preventDefault: () => {}
       });
-    }
-
-    simulateKeyPressOnPicker(keyCode) {
-      this.calendar()
-        .find('table')
-        .simulate('keyDown', {
-          keyCode,
-          preventDefault: () => {}
-        });
     }
   }
 
@@ -98,7 +89,7 @@ describe('Calendar', () => {
     const closeCalendar = jest.fn();
     const component = new CalendarComponent({ closeCalendar });
 
-    component.simulateKeyPressOnCalendar(ESC);
+    component.simulateKeyPress(ESC);
     expect(closeCalendar).toBeCalled();
   });
 
@@ -107,7 +98,7 @@ describe('Calendar', () => {
     const setDate = jest.fn();
     const component = new CalendarComponent({ focussedDate, setDate });
 
-    component.simulateKeyPressOnPicker(ARROW_UP);
+    component.simulateKeyPress(ARROW_UP);
 
     expect(setDate).toBeCalledWith(focussedDate.subtract(1, 'week'));
   });
@@ -117,7 +108,7 @@ describe('Calendar', () => {
     const setDate = jest.fn();
     const component = new CalendarComponent({ focussedDate, setDate });
 
-    component.simulateKeyPressOnPicker(ARROW_DOWN);
+    component.simulateKeyPress(ARROW_DOWN);
 
     expect(setDate).toBeCalledWith(focussedDate.add(1, 'week'));
   });
@@ -127,7 +118,7 @@ describe('Calendar', () => {
     const setDate = jest.fn();
     const component = new CalendarComponent({ focussedDate, setDate });
 
-    component.simulateKeyPressOnPicker(ARROW_RIGHT);
+    component.simulateKeyPress(ARROW_RIGHT);
 
     expect(setDate).toBeCalledWith(focussedDate.add(1, 'day'));
   });
@@ -137,7 +128,7 @@ describe('Calendar', () => {
     const setDate = jest.fn();
     const component = new CalendarComponent({ focussedDate, setDate });
 
-    component.simulateKeyPressOnPicker(ARROW_LEFT);
+    component.simulateKeyPress(ARROW_LEFT);
 
     expect(setDate).toBeCalledWith(focussedDate.subtract(1, 'day'));
   });
