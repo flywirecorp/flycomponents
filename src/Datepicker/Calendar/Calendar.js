@@ -33,22 +33,9 @@ const Calendar = ({
   setDate,
   yearRef
 }) => {
-  const handleCalendarKeyDown = evt => {
+  const handleKeyDown = evt => {
     switch (evt.keyCode) {
       case ESC:
-        closeCalendar();
-        break;
-      case ARROW_UP:
-      case ARROW_DOWN:
-      case ARROW_LEFT:
-      case ARROW_RIGHT:
-        evt.preventDefault();
-        break;
-    }
-  };
-
-  const handlePickerKeyDown = evt => {
-    switch (evt.keyCode) {
       case ENTER:
         closeCalendar();
         break;
@@ -72,10 +59,7 @@ const Calendar = ({
   };
 
   const calendar = (
-    <div
-      className="Calendar Datepicker-calendar"
-      onKeyDown={handleCalendarKeyDown}
-    >
+    <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
         focussedDate={focussedDate}
         monthRef={monthRef}
@@ -96,9 +80,7 @@ const Calendar = ({
         aria-readonly="true"
         aria-activedescendant={`${focussedDate.month()}-${focussedDate.date()}`}
         aria-labelledby="datepicker-month-date"
-        tabIndex="0"
         className="Calendar-table"
-        onKeyDown={handlePickerKeyDown}
       >
         <DayNames focussedDate={focussedDate} />
         <Month onDateClick={onDateClick} focussedDate={focussedDate} />
