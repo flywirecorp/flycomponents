@@ -10,6 +10,7 @@ class DateInput extends Component {
     defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
     error: PropTypes.string,
+    forwardRef: PropTypes.object,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
@@ -58,6 +59,7 @@ class DateInput extends Component {
     const {
       disabled,
       error,
+      forwardRef,
       name,
       onBlur,
       onCalendarIconClick,
@@ -88,7 +90,8 @@ class DateInput extends Component {
           readOnly={readOnly}
           type="text"
           value={value}
-          pattern="MM/DD/YYYY"
+          pattern={DATE_PATTERN}
+          ref={forwardRef}
         />
         <span className="InputGroup-context">
           <CalendarIcon onClick={onCalendarIconClick} />

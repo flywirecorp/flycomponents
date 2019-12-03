@@ -61,6 +61,7 @@ class Datepicker extends Component {
     initDate && initDate.locale(locale);
 
     this.datepickerRef = React.createRef();
+    this.dateInputRef = React.createRef();
     this.prevMonthRef = React.createRef();
     this.monthRef = React.createRef();
     this.yearRef = React.createRef();
@@ -122,7 +123,10 @@ class Datepicker extends Component {
   };
 
   closeCalendar = () => {
-    this.setState({ isOpen: false }, this.sendBlur);
+    this.setState({ isOpen: false }, () => {
+      this.sendBlur();
+      this.setFocus(this.dateInputRef);
+    });
   };
 
   toggleCalendar = () => {
@@ -306,6 +310,7 @@ class Datepicker extends Component {
             required={required}
             toggleCalendar={this.toggleCalendar}
             key={selectedDate}
+            forwardRef={this.dateInputRef}
           />
           <Calendar
             closeCalendar={this.closeCalendar}
