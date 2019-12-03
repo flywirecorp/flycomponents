@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
-import { BACKSPACE } from '../../utils/keycodes';
+import { BACKSPACE, ENTER } from '../../utils/keycodes';
 import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
@@ -16,7 +16,8 @@ class DateInput extends Component {
     onFocus: PropTypes.func,
     onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
-    required: PropTypes.bool
+    required: PropTypes.bool,
+    toggleCalendar: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -28,10 +29,15 @@ class DateInput extends Component {
   }
 
   handleKeyDown = evt => {
-    const { disabled, onKeyDown, readOnly } = this.props;
+    const { disabled, onKeyDown, readOnly, toggleCalendar } = this.props;
     if (readOnly || disabled) return false;
 
     const pressedKey = evt.which;
+
+    if (pressedKey === ENTER) {
+      toggleCalendar();
+      return;
+    }
 
     this.setState(
       prevState => {
