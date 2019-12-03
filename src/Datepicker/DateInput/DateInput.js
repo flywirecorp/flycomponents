@@ -7,6 +7,7 @@ import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
+    calendarIconLabel: PropTypes.string,
     defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -57,6 +58,7 @@ class DateInput extends Component {
   render() {
     const { value } = this.state;
     const {
+      calendarIconLabel,
       disabled,
       error,
       forwardRef,
@@ -94,7 +96,10 @@ class DateInput extends Component {
           ref={forwardRef}
         />
         <span className="InputGroup-context">
-          <CalendarIcon onClick={onCalendarIconClick} />
+          <CalendarIcon
+            onClick={onCalendarIconClick}
+            label={calendarIconLabel}
+          />
         </span>
       </div>
     );

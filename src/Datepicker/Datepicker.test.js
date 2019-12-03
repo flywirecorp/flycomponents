@@ -53,11 +53,15 @@ describe('Datepicker', () => {
     }
 
     simulateCalendarIconClick() {
-      this.dateInput().simulate('calendarIconClick');
+      this.dateInput().simulate('calendarIconClick', {
+        preventDefault: () => {}
+      });
     }
 
     simulateDateInputClick() {
-      this.dateInput().simulate('calendarIconClick');
+      this.dateInput().simulate('calendarIconClick', {
+        preventDefault: () => {}
+      });
     }
 
     simulateDateInputBlur() {
