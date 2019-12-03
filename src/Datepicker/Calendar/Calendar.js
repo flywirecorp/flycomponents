@@ -17,8 +17,10 @@ import { LONG_DATE_FORMAT } from '../../utils/date';
 const Calendar = ({
   closeCalendar,
   focussedDate,
+  forwardRef,
   isOpen,
   monthRef,
+  name,
   nextMonthLabel,
   nextMonthRef,
   onDateClick,
@@ -36,7 +38,7 @@ const Calendar = ({
   const handleKeyDown = evt => {
     switch (evt.keyCode) {
       case ESC:
-      case ENTER:
+        evt.preventDefault();
         closeCalendar();
         break;
       case ARROW_UP:
@@ -76,11 +78,21 @@ const Calendar = ({
         yearRef={yearRef}
       />
       <table
-        role="grid"
-        aria-readonly="true"
         aria-activedescendant={`${focussedDate.month()}-${focussedDate.date()}`}
         aria-labelledby="datepicker-month-date"
+        aria-readonly="true"
         className="Calendar-table"
+        id={`${name}-calendar`}
+        ref={forwardRef}
+        role="grid"
+        tabIndex={0}
+        onKeyDown={evt => {
+          evt.preventDefault();
+          if (evt.keyCode === ENTER) {
+            setDate(focussedDate);
+            closeCalendar();
+          }
+        }}
       >
         <DayNames focussedDate={focussedDate} />
         <Month onDateClick={onDateClick} focussedDate={focussedDate} />
@@ -104,7 +116,8 @@ const Calendar = ({
   return isOpen ? (
     <FocusTrap
       focusTrapOptions={{
-        clickOutsideDeactivates: true
+        clickOutsideDeactivates: true,
+        initialFocus: `#${name}-calendar`
       }}
     >
       {calendar}
@@ -117,8 +130,10 @@ const Calendar = ({
 Calendar.propTypes = {
   closeCalendar: PropTypes.func.isRequired,
   focussedDate: PropTypes.object.isRequired,
+  forwardRef: PropTypes.object,
   isOpen: PropTypes.bool.isRequired,
   monthRef: PropTypes.object,
+  name: PropTypes.string,
   nextMonthLabel: PropTypes.string,
   nextMonthRef: PropTypes.object,
   onDateClick: PropTypes.func.isRequired,

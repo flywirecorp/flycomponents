@@ -16,7 +16,7 @@ const REQUIRED_SIZE_ABOVE = 780;
 
 const getA11yStatusMessage = ({ isOpen }) => {
   return isOpen
-    ? 'Calendar open, use tab or arrow keys to navigate the days, press enter to select a day or escape key to close.'
+    ? 'Use tab or arrow keys to navigate the days or Escape key to close.'
     : 'Enter a date in the format MM/DD/YYYY, or press Enter key to open a calendar.';
 };
 
@@ -66,11 +66,12 @@ class Datepicker extends Component {
     initDate && initDate.locale(locale);
 
     this.datepickerRef = React.createRef();
+    this.calendarRef = React.createRef();
     this.dateInputRef = React.createRef();
-    this.prevMonthRef = React.createRef();
     this.monthRef = React.createRef();
-    this.yearRef = React.createRef();
     this.nextMonthRef = React.createRef();
+    this.prevMonthRef = React.createRef();
+    this.yearRef = React.createRef();
 
     this.state = {
       a11yStatusMessage: EMPTY_STRING,
@@ -110,10 +111,10 @@ class Datepicker extends Component {
     const { name, onChange } = this.props;
     const formattedDate = date.format(DATE_FORMAT);
 
-    this.setState(
-      { focussedDate: date, selectedDate: date },
-      onChange(name, formattedDate)
-    );
+    this.setState({ focussedDate: date, selectedDate: date }, () => {
+      onChange(name, formattedDate);
+      this.setFocus(this.calendarRef);
+    });
   };
 
   setDateFromString = str => {
@@ -326,8 +327,10 @@ class Datepicker extends Component {
           <Calendar
             closeCalendar={this.closeCalendar}
             focussedDate={focussedDate}
+            forwardRef={this.calendarRef}
             isOpen={isOpen}
             monthRef={this.monthRef}
+            name={name}
             nextMonthLabel={nextMonthLabel}
             nextMonthRef={this.nextMonthRef}
             onDateClick={this.setDateAndCloseCalendar}
