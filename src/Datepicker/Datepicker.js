@@ -314,6 +314,7 @@ class Datepicker extends Component {
             name={name}
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
+            onClick={this.closeCalendar}
             onFocus={this.handleFocus}
             onKeyDown={this.setDateFromString}
             readOnly={readOnly}
