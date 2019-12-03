@@ -125,6 +125,10 @@ class Datepicker extends Component {
     this.setState({ isOpen: false }, this.sendBlur);
   };
 
+  toggleCalendar = () => {
+    this.setState(prevState => ({ isOpen: !prevState.isOpen }));
+  };
+
   setDateAndCloseCalendar = date => {
     this.setDate(date);
     this.closeCalendar();
@@ -300,6 +304,7 @@ class Datepicker extends Component {
             onKeyDown={this.setDateFromString}
             readOnly={readOnly}
             required={required}
+            toggleCalendar={this.toggleCalendar}
             key={selectedDate}
           />
           <Calendar
