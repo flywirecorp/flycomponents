@@ -87,8 +87,8 @@ const Calendar = ({
         role="grid"
         tabIndex={0}
         onKeyDown={evt => {
-          evt.preventDefault();
           if (evt.keyCode === ENTER) {
+            evt.preventDefault();
             setDate(focussedDate);
             closeCalendar();
           }
