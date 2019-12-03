@@ -54,4 +54,27 @@ describe('Input', () => {
       return new InputComponent({ value });
     }
   });
+
+  describe('when property aria-describedby is sent', () => {
+    test('shows default properties if not sent', () => {
+      const component = new InputComponent({
+        name: 'name'
+      });
+
+      expect(component.input().prop('aria-describedby')).toEqual(
+        'name-error-msg name-hint-msg'
+      );
+    });
+
+    test('merges the properties', () => {
+      const component = new InputComponent({
+        name: 'name',
+        ariaDescribedBy: 'wadus'
+      });
+
+      expect(component.input().prop('aria-describedby')).toEqual(
+        'wadus name-error-msg name-hint-msg'
+      );
+    });
+  });
 });

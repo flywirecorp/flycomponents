@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getAriaDescribedBy } from '../utils/aria';
 
 const Input = ({
   disabled,
@@ -9,11 +10,12 @@ const Input = ({
   required,
   type,
   value,
+  ariaDescribedBy,
   forwardRef,
   ...other
 }) => (
   <input
-    aria-describedby={`${name}-error-msg ${name}-hint-msg`}
+    aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
     aria-disabled={disabled}
     aria-invalid={!!error}
     aria-labelledby={`${name}-label`}
@@ -36,6 +38,7 @@ const Input = ({
 const { bool, string, object, oneOfType } = PropTypes;
 
 Input.defaultProps = {
+  ariaDescribedBy: '',
   disabled: false,
   readOnly: false,
   required: false,
@@ -43,6 +46,7 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
+  ariaDescribedBy: string,
   disabled: bool,
   error: oneOfType([string, bool]),
   forwardRef: object,
