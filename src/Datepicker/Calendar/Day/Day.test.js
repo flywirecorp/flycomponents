@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Day from '../Day';
 import { parseDate } from '../../../utils/date';
-import { SPACE, ENTER } from '../../../utils/keycodes';
 
 describe('Day', () => {
   class DayComponent {
@@ -38,13 +37,6 @@ describe('Day', () => {
     isCurrent() {
       return this.day().hasClass('is-current');
     }
-
-    simulateKeyPress(keyCode) {
-      this.day().simulate('keyDown', {
-        keyCode,
-        preventDefault: () => {}
-      });
-    }
   }
 
   test('renders a day', () => {
@@ -69,16 +61,5 @@ describe('Day', () => {
     const component = new DayComponent({ selected: true });
 
     expect(component.isSelected()).toBe(true);
-  });
-
-  test('sets current day when Enter key pressed', () => {
-    const date = parseDate('04/21/1979');
-    const onDateClick = jest.fn();
-    const component = new DayComponent({ date, onDateClick });
-
-    [SPACE, ENTER].forEach(key => {
-      component.simulateKeyPress(key);
-      expect(onDateClick).toBeCalledWith(date);
-    });
   });
 });

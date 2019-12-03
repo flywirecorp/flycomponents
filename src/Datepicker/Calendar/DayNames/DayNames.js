@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { daysOfWeek } from '../../../utils/date';
 
-const DayNames = ({ name }, { locale }) => {
+const DayNames = (_props, { locale }) => {
   const dayNames = daysOfWeek(locale);
 
   return (
@@ -12,7 +12,7 @@ const DayNames = ({ name }, { locale }) => {
           <th
             scope="col"
             role="columnheader"
-            aria-label={day} // use here the long name
+            aria-label={day}
             className="Calendar-weekday"
             key={day}
             id={`header-day-${index}`}
@@ -23,10 +23,6 @@ const DayNames = ({ name }, { locale }) => {
       </tr>
     </thead>
   );
-};
-
-DayNames.propTypes = {
-  name: PropTypes.string.isRequired
 };
 
 DayNames.contextTypes = {
