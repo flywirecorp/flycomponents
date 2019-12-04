@@ -9,7 +9,7 @@ export default () => (
       label="Date of Birth"
       locale="ES"
       name="birthday"
-      onChange={(name, date) => alert(`Your ${name} is the ${date}`)}
+      onChange={(name, date) => console.log(`Your ${name} is the ${date}`)}
       required
       value="04/21/1979"
     />
