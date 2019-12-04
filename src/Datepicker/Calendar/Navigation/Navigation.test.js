@@ -12,7 +12,7 @@ describe('Navigation', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        startDate: moment('2016-11-13')
+        focussedDate: moment('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -54,15 +54,18 @@ describe('Navigation', () => {
     }
 
     simulatePrevMonthClick() {
-      this.prevMonthButton().simulate('click');
+      this.prevMonthButton().simulate('click', { preventDefault: () => {} });
     }
 
     simulateNextMonthClick() {
-      this.nextMonthButton().simulate('click');
+      this.nextMonthButton().simulate('click', { preventDefault: () => {} });
     }
 
     simulateSelectMonth(value) {
-      this.monthSelector().simulate('change', { target: { value } });
+      this.monthSelector().simulate('change', {
+        target: { value },
+        stopPropagation: () => {}
+      });
     }
   }
 
@@ -111,8 +114,8 @@ describe('Navigation', () => {
     });
 
     test('has a hundred of years', () => {
-      const startDate = moment('2000-01-01');
-      const component = new NavigationComponent({ startDate });
+      const focussedDate = moment('2000-01-01');
+      const component = new NavigationComponent({ focussedDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];
       const lastYear = years[199];

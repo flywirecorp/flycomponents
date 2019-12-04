@@ -2,63 +2,80 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
-import { BACKSPACE } from '../../utils/keycodes';
-
-const DATE_FORMAT = 'MM/DD/YYYY';
-const DATE_PATTERN = '../../....';
+import { BACKSPACE, ENTER } from '../../utils/keycodes';
+import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
+    calendarIconLabel: PropTypes.string,
+    defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
     error: PropTypes.string,
+    forwardRef: PropTypes.object,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
+    onClick: PropTypes.func.isRequired,
     onFocus: PropTypes.func,
+    onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
-    selectedDate: PropTypes.string,
-    setSelectedDate: PropTypes.func.isRequired
+    toggleCalendar: PropTypes.func.isRequired
   };
 
-  handleKeyDown = e => {
-    const {
-      disabled,
-      selectedDate = '',
-      setSelectedDate,
-      readOnly
-    } = this.props;
-    const inputValue = `${selectedDate}${String.fromCharCode(e.which)}`;
-    let value = inputValue.replace(/\D/g, '');
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      value: props.defaultValue && props.defaultValue.format(DATE_FORMAT)
+    };
+  }
+
+  handleKeyDown = evt => {
+    const { disabled, onKeyDown, readOnly, toggleCalendar } = this.props;
     if (readOnly || disabled) return false;
 
-    if (e.which === BACKSPACE) {
-      value = value.slice(0, -1);
+    const pressedKey = evt.which;
+
+    if (pressedKey === ENTER) {
+      toggleCalendar();
+      return;
     }
 
-    const formatedDate = format(value, { pattern: DATE_PATTERN });
+    this.setState(
+      prevState => {
+        const inputValue = `${prevState.value}${String.fromCharCode(
+          pressedKey
+        )}`;
+        let value = inputValue.replace(/\D/g, '');
+        if (pressedKey === BACKSPACE) value = value.slice(0, -1);
 
-    setSelectedDate(formatedDate);
+        return { value: format(value, { pattern: DATE_PATTERN }) };
+      },
+      () => onKeyDown(this.state.value)
+    );
   };
 
   render() {
+    const { value } = this.state;
     const {
+      calendarIconLabel,
       disabled,
       error,
+      forwardRef,
       name,
+      onClick,
       onBlur,
       onCalendarIconClick,
       onFocus,
       readOnly,
-      required,
-      selectedDate
+      required
     } = this.props;
 
     return (
-      <div className="InputGroup" onClick={onCalendarIconClick}>
+      <div className="InputGroup">
         <input
-          aria-describedby={`${name}-error-msg`}
+          aria-describedby={`${name}-error-msg ${name}-status`}
           aria-disabled={disabled}
           aria-invalid={!!error}
           aria-labelledby={`${name}-label`}
@@ -68,18 +85,24 @@ class DateInput extends Component {
           autoComplete="off"
           className="Input InputGroup-input"
           id={name}
-          onBlur={onBlur}
           onChange={() => {}}
+          onClick={onClick}
+          onBlur={onBlur}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
           type="text"
-          value={selectedDate}
+          value={value}
+          pattern={DATE_PATTERN}
+          ref={forwardRef}
         />
         <span className="InputGroup-context">
-          <CalendarIcon />
+          <CalendarIcon
+            onClick={onCalendarIconClick}
+            label={calendarIconLabel}
+          />
         </span>
       </div>
     );

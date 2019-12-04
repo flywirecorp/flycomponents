@@ -2,20 +2,20 @@ import {
   daysOfWeek,
   monthNames,
   monthStartingWeekDates,
-  parseDateOrToday
+  parseDate,
+  DATE_FORMAT
 } from './date';
 import moment from 'moment';
 
 describe('monthStartingWeekDates', () => {
-  const dateFormat = 'MM/DD/YYYY';
   moment.locale('en');
 
   describe('when a month starts on a start-of-week (sunday)', () => {
-    const date = moment('01/01/2017', dateFormat);
+    const date = moment('01/01/2017', DATE_FORMAT);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
-      const formatedWeeks = weeks.map(week => week.format(dateFormat));
+      const formatedWeeks = weeks.map(week => week.format(DATE_FORMAT));
       const expectedWeeks = [
         '01/01/2017',
         '01/08/2017',
@@ -29,11 +29,11 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month ends on a end-of-week (saturday)', () => {
-    const date = moment('12/01/2016', dateFormat);
+    const date = moment('12/01/2016', DATE_FORMAT);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
-      const formatedWeeks = weeks.map(week => week.format(dateFormat));
+      const formatedWeeks = weeks.map(week => week.format(DATE_FORMAT));
       const expectedWeeks = [
         '11/27/2016',
         '12/04/2016',
@@ -47,11 +47,11 @@ describe('monthStartingWeekDates', () => {
   });
 
   describe('when a month starts on a end-of-week and end on a start-of-week', () => {
-    const date = moment('04/01/2017', dateFormat);
+    const date = moment('04/01/2017', DATE_FORMAT);
 
     test('returns the correct weeks', () => {
       const weeks = monthStartingWeekDates(date);
-      const formatedWeeks = weeks.map(week => week.format(dateFormat));
+      const formatedWeeks = weeks.map(week => week.format(DATE_FORMAT));
       const expectedWeeks = [
         '03/26/2017',
         '04/02/2017',
@@ -112,26 +112,17 @@ describe('monthNames', () => {
   });
 });
 
-describe('parseDateOrToday', () => {
-  const dateFormat = 'MM/DD/YYYY';
+describe('parseDatey', () => {
+  test('returns a parsed date is valid', () => {
+    const date = parseDate('01/01/2016');
+    const expectedDate = moment('01/01/2016', DATE_FORMAT);
 
-  describe('passing a string date', () => {
-    const date = parseDateOrToday('01/01/2016');
-
-    test('returns a parsed date', () => {
-      const expectedDate = moment('01/01/2016', dateFormat);
-
-      expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
-    });
+    expect(date.format(DATE_FORMAT)).toBe(expectedDate.format(DATE_FORMAT));
   });
 
-  describe('passing no valid string date', () => {
-    const date = parseDateOrToday('01/01');
+  test('returns undefined is invalid', () => {
+    const date = parseDate('01/01');
 
-    test('returns a parsed date', () => {
-      const expectedDate = moment();
-
-      expect(date.format(dateFormat)).toBe(expectedDate.format(dateFormat));
-    });
+    expect(date).toBeUndefined();
   });
 });
