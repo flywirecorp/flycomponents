@@ -12,7 +12,6 @@ const DEFAULT_PREFIX_LABEL = 'Phone country code';
 class PhoneNumber extends Component {
   static propTypes = {
     ariaDescribedBy: PropTypes.string,
-    ariaRequired: PropTypes.bool,
     countries: PropTypes.array.isRequired,
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -32,7 +31,6 @@ class PhoneNumber extends Component {
 
   static defaultProps = {
     ariaDescribedBy: '',
-    ariaRequired: false,
     countries: [],
     disabled: false,
     floatingLabel: true,
@@ -146,22 +144,22 @@ class PhoneNumber extends Component {
 
   render() {
     const {
+      ariaDescribedBy,
+      countries,
       disabled,
       error,
       floatingLabel,
+      getA11yStatusMessage,
       hint,
       label,
       name,
       onBlur,
       onChange,
       onFocus,
+      prefixLabel,
       readOnly,
       required,
       value,
-      prefixLabel,
-      getA11yStatusMessage,
-      ariaDescribedBy,
-      ariaRequired,
       ...otherProps
     } = this.props;
 
@@ -169,10 +167,7 @@ class PhoneNumber extends Component {
     const widthClassName = `width-${prefix.length}`;
 
     return (
-      <div
-        className={classNames('PhoneNumber', widthClassName)}
-        {...otherProps}
-      >
+      <div className={classNames('PhoneNumber', widthClassName)}>
         <FormGroup
           className="PhoneNumber"
           disabled={disabled}
@@ -205,7 +200,6 @@ class PhoneNumber extends Component {
                 aria-invalid={!!error}
                 aria-labelledby={`${name}-label`}
                 aria-readonly={readOnly}
-                aria-required={ariaRequired || required}
                 autoComplete="off"
                 className="Input PhoneNumber-input-inner"
                 disabled={disabled}
@@ -219,6 +213,7 @@ class PhoneNumber extends Component {
                 type="text"
                 value={formattedNumber}
                 required={required}
+                {...otherProps}
               />
             </div>
           </div>

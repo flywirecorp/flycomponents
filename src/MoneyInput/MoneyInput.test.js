@@ -180,4 +180,12 @@ describe('MoneyInput', () => {
 
     expect(preventDefault).toHaveBeenCalled();
   });
+
+  test('passes other properties to the inner input field', () => {
+    const component = new MoneyInputComponent({ 'aria-required': true });
+
+    const input = component.input();
+
+    expect(input.prop('aria-required')).toBe(true);
+  });
 });

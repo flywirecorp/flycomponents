@@ -71,4 +71,24 @@ describe('Select', () => {
 
     expect(onClick).toHaveBeenCalled();
   });
+
+  describe('other properties', () => {
+    test('can be passed', () => {
+      const wrapper = shallow(<Select values={values} aria-required />);
+
+      const select = wrapper.find('select');
+
+      expect(select.prop('aria-required')).toBe(true);
+    });
+
+    test('can override previous ones', () => {
+      const wrapper = shallow(
+        <Select values={values} required={false} aria-required />
+      );
+
+      const select = wrapper.find('select');
+
+      expect(select.prop('aria-required')).toBe(true);
+    });
+  });
 });
