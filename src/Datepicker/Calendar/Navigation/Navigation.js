@@ -3,18 +3,31 @@ import React from 'react';
 import Select from '../../../Select';
 import { monthNames } from '../../../utils/date';
 
+const NEXT_MONTH_LABEL = 'Go to next month';
+const PREV_MONTH_LABEL = 'Go to previous month';
+const SELECT_MONTH_LABEL = 'Select month';
+const SELECT_YEAR_LABEL = 'Select year';
+
 const Navigation = (
   {
+    focussedDate,
+    monthRef,
+    nextMonthLabel,
+    nextMonthRef,
     onMonthChange,
     onNextMonthClick,
     onPrevMonthClick,
     onYearChange,
-    startDate
+    prevMonthLabel,
+    prevMonthRef,
+    selectMonthLabel,
+    selectYearLabel,
+    yearRef
   },
   { locale }
 ) => {
-  const currentMonth = startDate.month();
-  const currentYear = startDate.year();
+  const currentMonth = focussedDate.month();
+  const currentYear = focussedDate.year();
   const months = monthNames(locale).map((month, i) => ({
     value: i,
     label: month
@@ -25,17 +38,19 @@ const Navigation = (
     return { value: year, label: year };
   });
 
-  const handleClick = e => {
-    e.stopPropagation();
+  const handleClick = evt => {
+    evt.stopPropagation();
   };
 
-  const handleMonthChange = e => {
-    const month = e.target.value;
+  const handleMonthChange = evt => {
+    evt.stopPropagation();
+    const month = evt.target.value;
     onMonthChange(month);
   };
 
-  const handleYearChange = e => {
-    const year = e.target.value;
+  const handleYearChange = evt => {
+    evt.stopPropagation();
+    const year = evt.target.value;
     onYearChange(year);
   };
 
@@ -45,32 +60,44 @@ const Navigation = (
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onPrevMonthClick}
+          aria-label={prevMonthLabel}
+          ref={prevMonthRef}
+          type="button"
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
         </button>
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--month">
         <Select
+          aria-label={selectMonthLabel}
           className="Calendar-header-navItem"
           selectedValue={currentMonth}
           onChange={handleMonthChange}
           onClick={handleClick}
           values={months}
+          key={currentMonth}
+          forwardRef={monthRef}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--year">
         <Select
+          aria-label={selectYearLabel}
           className="Calendar-header-navItem"
           selectedValue={currentYear}
           onChange={handleYearChange}
           onClick={handleClick}
           values={years}
+          key={currentYear}
+          forwardRef={yearRef}
         />
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--next">
         <button
           className="Button Button--default Calendar-header-navItem"
           onClick={onNextMonthClick}
+          aria-label={nextMonthLabel}
+          ref={nextMonthRef}
+          type="button"
         >
           <span className="Icon Icon--arrowRight Icon--xs" />
         </button>
@@ -79,18 +106,31 @@ const Navigation = (
   );
 };
 
-const { func, object, string } = PropTypes;
-
 Navigation.propTypes = {
-  onMonthChange: func.isRequired,
-  onNextMonthClick: func.isRequired,
-  onPrevMonthClick: func.isRequired,
-  onYearChange: func.isRequired,
-  startDate: object.isRequired
+  focussedDate: PropTypes.object.isRequired,
+  monthRef: PropTypes.object,
+  nextMonthLabel: PropTypes.string,
+  nextMonthRef: PropTypes.object,
+  onMonthChange: PropTypes.func.isRequired,
+  onNextMonthClick: PropTypes.func.isRequired,
+  onPrevMonthClick: PropTypes.func.isRequired,
+  onYearChange: PropTypes.func.isRequired,
+  prevMonthLabel: PropTypes.string,
+  prevMonthRef: PropTypes.object,
+  selectMonthLabel: PropTypes.string,
+  selectYearLabel: PropTypes.string,
+  yearRef: PropTypes.object
+};
+
+Navigation.defaultProps = {
+  nextMonthLabel: NEXT_MONTH_LABEL,
+  prevMonthLabel: PREV_MONTH_LABEL,
+  selectMonthLabel: SELECT_MONTH_LABEL,
+  selectYearLabel: SELECT_YEAR_LABEL
 };
 
 Navigation.contextTypes = {
-  locale: string
+  locale: PropTypes.string
 };
 
 export default Navigation;

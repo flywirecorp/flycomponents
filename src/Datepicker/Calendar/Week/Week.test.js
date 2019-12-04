@@ -1,63 +1,72 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 import Week from '../Week';
 import Day from '../Day';
+import { parseDate } from '../../../utils/date';
 
 describe('Week', () => {
   class WeekComponent {
     constructor(ownProps) {
       const NOVEMBER = 10;
       const defaultProps = {
-        startingDate: moment('2016-11-13'),
+        startingDate: parseDate('11/13/2016'),
         month: NOVEMBER,
         onDateClick: () => {},
-        selected: '11/18/2016'
+        selectedDate: parseDate('11/18/2016')
       };
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(<Week {...props} />);
     }
 
-    week() {
-      return this.component.find('.week');
-    }
-
     days() {
       return this.component.find(Day);
-    }
-
-    dayOfMonth(day) {
-      return this.component.find(`[dayOfMonth=${day}]`);
     }
   }
 
   test('has 7 days', () => {
-    const startingDate = moment('2016-11-20');
+    const startingDate = parseDate('11/20/2016');
     const component = new WeekComponent({ startingDate });
+    const days = component.days();
+    expect(days).toHaveLength(7);
 
-    expect(component.days()).toHaveLength(7);
+    expect(
+      days
+        .first()
+        .prop('date')
+        .isSame(startingDate, 'day')
+    ).toBe(true);
+
+    expect(
+      days
+        .last()
+        .prop('date')
+        .isSame(startingDate.add(6, 'day'), 'day')
+    ).toBe(true);
+  });
+
+  test('sets current day', () => {
+    const startingDate = parseDate('11/20/2016');
+    const selectedDate = parseDate('11/20/2016');
+    const component = new WeekComponent({ startingDate, selectedDate });
 
     expect(
       component
         .days()
         .first()
-        .prop('dayOfMonth')
-    ).toBe(20);
-  });
-
-  test('sets current day', () => {
-    const startingDate = moment('2016-11-20');
-    const selected = '11/21/2016';
-    const component = new WeekComponent({ startingDate, selected });
-
-    expect(component.dayOfMonth(21).prop('selected')).toBe(true);
+        .prop('selected')
+    ).toBe(true);
   });
 
   test('sets other month days as disabled', () => {
-    const startingDate = moment('2016-11-27');
+    const startingDate = parseDate('12/01/2019');
     const component = new WeekComponent({ startingDate });
 
-    expect(component.dayOfMonth(2).prop('disabled')).toBe(true);
+    expect(
+      component
+        .days()
+        .first()
+        .prop('disabled')
+    ).toBe(true);
   });
 });
