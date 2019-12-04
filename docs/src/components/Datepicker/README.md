@@ -55,6 +55,7 @@ Datepickers are used to select a single date for an input.
 
 | Property      | Req | Type           | Description                                                         | Default |
 | ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |
+| ariaRequired  | no  | bool           | Input is aria-required                                              |         |
 | disabled      | no  | bool           | Date Picker is disabled                                             | false   |
 | error         | no  | string         | Error message                                                       |         |
 | floatingLabel | no  | bool           | Floating label inside the input field                               | true    |

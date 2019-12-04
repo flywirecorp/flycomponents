@@ -22,6 +22,7 @@ const getA11yStatusMessage = ({ isOpen }) => {
 
 class Datepicker extends Component {
   static propTypes = {
+    ariaRequired: PropTypes.bool,
     calendarIconLabel: PropTypes.string,
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -269,6 +270,7 @@ class Datepicker extends Component {
     } = this.state;
 
     const {
+      ariaRequired,
       calendarIconLabel,
       disabled,
       error,
@@ -307,6 +309,7 @@ class Datepicker extends Component {
           ref={this.datepickerRef}
         >
           <DateInput
+            ariaRequired={ariaRequired}
             calendarIconLabel={calendarIconLabel}
             defaultValue={selectedDate}
             disabled={disabled}

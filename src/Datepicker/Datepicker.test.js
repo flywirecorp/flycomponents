@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Datepicker from './Datepicker';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
@@ -7,7 +7,7 @@ import { parseDate } from '../utils/date';
 
 describe('Datepicker', () => {
   class DatepickerComponent {
-    constructor(ownProps) {
+    constructor(ownProps, renderer = shallow) {
       const defaultProps = {
         error: '',
         label: 'Your birthday',
@@ -19,7 +19,7 @@ describe('Datepicker', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Datepicker {...props} />);
+      this.component = renderer(<Datepicker {...props} />);
     }
 
     datepicker() {
@@ -261,6 +261,32 @@ describe('Datepicker', () => {
       component.simulateCalendarIconClick();
 
       expect(component.calendarIsVisible()).toBe(false);
+    });
+  });
+
+  describe('having required property', () => {
+    const component = new DatepickerComponent({ required: true }, mount);
+    const input = component.dateInput().find('input');
+
+    test('renders a required input', () => {
+      expect(input.prop('required')).toBe(true);
+    });
+
+    test('renders an aria-required input', () => {
+      expect(input.prop('aria-required')).toBe(true);
+    });
+  });
+
+  describe('having ariaRequired property', () => {
+    const component = new DatepickerComponent({ ariaRequired: true }, mount);
+    const input = component.dateInput().find('input');
+
+    test('renders an input with required as default', () => {
+      expect(input.prop('required')).toBe(false);
+    });
+
+    test('renders an aria-required input', () => {
+      expect(input.prop('aria-required')).toBe(true);
     });
   });
 });

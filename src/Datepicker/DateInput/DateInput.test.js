@@ -87,4 +87,30 @@ describe('DateInput', () => {
 
     expect(toggleCalendar).toBeCalledWith();
   });
+
+  describe('aria-required', () => {
+    test('is undefined by default', () => {
+      const component = new DateInputComponent();
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBeUndefined();
+    });
+
+    test('is true if required is set', () => {
+      const component = new DateInputComponent({ required: true });
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBe(true);
+    });
+
+    test('is true if ariaRequired is set', () => {
+      const component = new DateInputComponent({ ariaRequired: true });
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBe(true);
+    });
+  });
 });

@@ -7,6 +7,7 @@ import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
+    ariaRequired: PropTypes.bool,
     calendarIconLabel: PropTypes.string,
     defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
@@ -59,6 +60,7 @@ class DateInput extends Component {
   render() {
     const { value } = this.state;
     const {
+      ariaRequired,
       calendarIconLabel,
       disabled,
       error,
@@ -80,7 +82,7 @@ class DateInput extends Component {
           aria-invalid={!!error}
           aria-labelledby={`${name}-label`}
           aria-readonly={readOnly}
-          aria-required={required}
+          aria-required={ariaRequired || required}
           disabled={disabled}
           autoComplete="off"
           className="Input InputGroup-input"
@@ -93,6 +95,7 @@ class DateInput extends Component {
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
+          required={required}
           type="text"
           value={value}
           pattern={DATE_PATTERN}

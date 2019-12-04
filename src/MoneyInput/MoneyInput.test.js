@@ -180,4 +180,24 @@ describe('MoneyInput', () => {
 
     expect(preventDefault).toHaveBeenCalled();
   });
+
+  describe('aria-required', () => {
+    test('is undefined by default', () => {
+      const component = new MoneyInputComponent();
+
+      expect(component.input().prop('aria-required')).toBeUndefined();
+    });
+
+    test('is true if set if required', () => {
+      const component = new MoneyInputComponent({ required: true });
+
+      expect(component.input().prop('aria-required')).toBeDefined();
+    });
+
+    test('is set is true if ariaRequired', () => {
+      const component = new MoneyInputComponent({ required: true });
+
+      expect(component.input().prop('aria-required')).toBeDefined();
+    });
+  });
 });

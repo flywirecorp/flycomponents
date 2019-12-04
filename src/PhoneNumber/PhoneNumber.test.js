@@ -296,4 +296,32 @@ describe('PhoneNumber', () => {
       expect(onChange).toHaveBeenCalledWith(name, expectedPhoneNumber);
     });
   });
+
+  describe('aria-required', () => {
+    test('is undefined by default', () => {
+      const component = new PhoneNumberComponent();
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBeUndefined();
+    });
+
+    test('is true if ariaRequired is true', () => {
+      const ariaRequired = true;
+      const component = new PhoneNumberComponent({ ariaRequired });
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBe(true);
+    });
+
+    test('is true if required is true', () => {
+      const required = true;
+      const component = new PhoneNumberComponent({ required });
+
+      const input = component.input();
+
+      expect(input.prop('aria-required')).toBe(true);
+    });
+  });
 });
