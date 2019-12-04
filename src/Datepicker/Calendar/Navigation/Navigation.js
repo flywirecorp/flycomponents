@@ -58,10 +58,11 @@ const Navigation = (
     <nav className="Calendar-header">
       <div className="Calendar-header-nav Calendar-header-nav--prev">
         <button
+          aria-label={prevMonthLabel}
           className="Button Button--default Calendar-header-navItem"
           onClick={onPrevMonthClick}
-          aria-label={prevMonthLabel}
           ref={prevMonthRef}
+          type="button"
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
         </button>
@@ -92,10 +93,11 @@ const Navigation = (
       </div>
       <div className="Calendar-header-nav Calendar-header-nav--next">
         <button
+          aria-label={nextMonthLabel}
           className="Button Button--default Calendar-header-navItem"
           onClick={onNextMonthClick}
-          aria-label={nextMonthLabel}
           ref={nextMonthRef}
+          type="button"
         >
           <span className="Icon Icon--arrowRight Icon--xs" />
         </button>
