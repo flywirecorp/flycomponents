@@ -25,6 +25,7 @@ const values = [
 
 | Property      | Req | Type           | Description                                                         | Default |
 | ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |
+| ariaRequired  | no  | boolean        | Field is aria-required                                              |         |
 | className     | no  | string         | CSS class name                                                      |         |
 | disabled      | no  | boolean        | HTML `disabled` property for the select node                        | false   |
 | name          | no  | string         | `name` property fot the select node                                 |         |
