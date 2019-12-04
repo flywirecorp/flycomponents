@@ -71,4 +71,38 @@ describe('Select', () => {
 
     expect(onClick).toHaveBeenCalled();
   });
+
+  test('can be required', () => {
+    const wrapper = shallow(<Select values={values} required />);
+
+    const select = wrapper.find('select');
+
+    expect(select.props().required).toBe(true);
+  });
+
+  describe('aria-required', () => {
+    test('is undefined by default', () => {
+      const wrapper = shallow(<Select values={values} />);
+
+      const select = wrapper.find('select');
+
+      expect(select.prop('aria-required')).toBeUndefined();
+    });
+
+    test('is true if required is set', () => {
+      const wrapper = shallow(<Select values={values} required />);
+
+      const select = wrapper.find('select');
+
+      expect(select.prop('aria-required')).toBe(true);
+    });
+
+    test('is true if ariaRequired is set', () => {
+      const wrapper = shallow(<Select values={values} ariaRequired />);
+
+      const select = wrapper.find('select');
+
+      expect(select.prop('aria-required')).toBe(true);
+    });
+  });
 });

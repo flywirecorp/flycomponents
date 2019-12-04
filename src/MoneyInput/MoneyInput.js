@@ -6,6 +6,7 @@ import FormGroup from '../FormGroup';
 
 class MoneyInput extends Component {
   static propTypes = {
+    ariaRequired: PropTypes.bool,
     currencySymbol: PropTypes.string,
     decimalMark: PropTypes.string,
     disabled: PropTypes.bool,
@@ -173,6 +174,7 @@ class MoneyInput extends Component {
   render() {
     const { amount, isFocused } = this.state;
     const {
+      ariaRequired,
       currencySymbol: symbol,
       disabled,
       error,
@@ -188,6 +190,7 @@ class MoneyInput extends Component {
     } = this.props;
 
     const inputAttrs = {
+      'aria-required': ariaRequired || required,
       [symbolFirst ? 'prefix' : 'suffix']: symbol,
       disabled,
       maxLength,

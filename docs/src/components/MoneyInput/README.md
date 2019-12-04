@@ -28,6 +28,7 @@ receives the on blur event.
 
 | Property           | Req | Type           | Description                                                         | Default value |
 | ------------------ | --- | -------------- | ------------------------------------------------------------------- | ------------- |
+| ariaRequired       | no  | boolean        | Field is aria-required                                              |               |
 | currencySymbol     | no  | string         | Currency symbol                                                     | `"$"`         |
 | decimalMark        | no  | string         | Decimal separator                                                   | `"."`         |
 | disabled           | no  | bool           | Disable input                                                       | `false`       |

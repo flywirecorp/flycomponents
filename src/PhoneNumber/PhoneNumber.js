@@ -32,7 +32,6 @@ class PhoneNumber extends Component {
 
   static defaultProps = {
     ariaDescribedBy: '',
-    ariaRequired: false,
     countries: [],
     disabled: false,
     floatingLabel: true,
