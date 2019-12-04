@@ -232,6 +232,60 @@ describe('CardForm', () => {
     });
   });
 
+  describe('onValidate', () => {
+    test('executes onValidate callback on form validation before submit if no validation errors', () => {
+      const onValidate = jest.fn();
+      const onSubmit = jest.fn();
+
+      const formValues = {
+        name: 'a_name',
+        surname: 'a_surname',
+        cardNumber: '4111111111111111',
+        expiryDate: '12/23',
+        cvv: '555',
+        cardType: 'VISA'
+      };
+      const wrapper = shallow(
+        <CardForm onSubmit={onSubmit} onValidate={onValidate} />
+      );
+      fillField(wrapper, 'name', formValues.name);
+      fillField(wrapper, 'surname', formValues.surname);
+      fillField(wrapper, 'cardNumber', formValues.cardNumber);
+      fillField(wrapper, 'expiryDate', formValues.expiryDate);
+      fillField(wrapper, 'cvv', formValues.cvv);
+
+      const form = wrapper.find('form');
+      form.simulate('submit', { preventDefault: () => {} });
+
+      expect(onValidate).toHaveBeenCalledTimes(1);
+      expect(onSubmit).toHaveBeenCalledWith(formValues);
+    });
+
+    test('executes onValidate callback on form validtion if validation errors', () => {
+      const onValidate = jest.fn();
+      const onSubmit = jest.fn();
+      const formValues = {
+        name: 'a_name',
+        surname: 'a_surname',
+        expiryDate: '12/23',
+        cvv: '555'
+      };
+      const wrapper = shallow(
+        <CardForm onSubmit={onSubmit} onValidate={onValidate} />
+      );
+      fillField(wrapper, 'name', formValues.name);
+      fillField(wrapper, 'surname', formValues.surname);
+      fillField(wrapper, 'expiryDate', formValues.expiryDate);
+      fillField(wrapper, 'cvv', formValues.cvv);
+
+      const form = wrapper.find('form');
+      form.simulate('submit', { preventDefault: () => {} });
+
+      expect(onValidate).toHaveBeenCalledTimes(1);
+      expect(onSubmit).not.toHaveBeenCalled();
+    });
+  });
+
   describe('onSubmit', () => {
     test('renders a submit button', () => {
       const wrapper = shallow(<CardForm />);
