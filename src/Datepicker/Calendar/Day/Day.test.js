@@ -1,14 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Day from '../Day';
+import { parseDate } from '../../../utils/date';
 
 describe('Day', () => {
   class DayComponent {
     constructor(ownProps) {
       const defaultProps = {
         current: false,
-        date: '',
-        dayOfMonth: 1,
+        date: parseDate('04/21/1979'),
         disabled: false,
         onDateClick: () => {},
         selected: false
@@ -40,9 +40,9 @@ describe('Day', () => {
   }
 
   test('renders a day', () => {
-    const component = new DayComponent({ dayOfMonth: 2 });
+    const component = new DayComponent();
 
-    expect(component.dayOfMonth()).toBe('2');
+    expect(component.dayOfMonth()).toBe('21');
   });
 
   test('sets day as current', () => {

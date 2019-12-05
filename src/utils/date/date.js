@@ -1,7 +1,8 @@
 import moment from 'moment';
-import 'moment/locale/es';
 
 export const DATE_FORMAT = 'MM/DD/YYYY';
+export const LONG_DATE_FORMAT = 'dddd, MMMM D YYYY';
+export const DATE_PATTERN = '../../....';
 
 export const isWeekInMonth = (weekDate, month) => {
   const date = weekDate.clone();
@@ -47,12 +48,12 @@ export const monthNames = (locale = 'en') => {
   return momentInLocale.months();
 };
 
-export const parseDateOrToday = stringDate => {
+export const parseDate = stringDate => {
   const DATE_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/;
   const parsedDate = moment(stringDate, DATE_FORMAT);
   if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) {
     return parsedDate;
   }
-
-  return moment();
 };
+
+export const today = moment();
