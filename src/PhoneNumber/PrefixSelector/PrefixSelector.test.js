@@ -81,6 +81,10 @@ describe('PrefixSelector', () => {
     get a11yStatusMessage() {
       return this.component.find('div[role="status"]').text();
     }
+
+    get ariaLabel() {
+      return this.component.find('button').prop('aria-label');
+    }
   }
 
   let adjustOffetStub;
@@ -266,6 +270,36 @@ describe('PrefixSelector', () => {
       expect(component.a11yStatusMessage).toBe(
         '2 results are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
+    });
+  });
+
+  describe('aria label', () => {
+    test('when no values are sent', () => {
+      const component = new PrefixSelectorComponent();
+
+      expect(component.ariaLabel).toEqual(undefined);
+    });
+    test('shows label when sent', () => {
+      const component = new PrefixSelectorComponent({ label: 'wadus' });
+
+      expect(component.ariaLabel).toEqual('wadus');
+    });
+
+    test('shows prefix', () => {
+      const component = new PrefixSelectorComponent({ value: '34' });
+
+      expect(component.ariaLabel).toEqual('+34');
+    });
+
+    describe('when prefix and label are present', () => {
+      test('merges both values', () => {
+        const component = new PrefixSelectorComponent({
+          label: 'wadus',
+          value: '34'
+        });
+
+        expect(component.ariaLabel).toEqual('+34, wadus');
+      });
     });
   });
 });
