@@ -62,7 +62,6 @@ const Navigation = (
           onClick={onPrevMonthClick}
           aria-label={prevMonthLabel}
           ref={prevMonthRef}
-          type="button"
         >
           <span className="Icon Icon--arrowLeft Icon--xs" />
         </button>
@@ -97,7 +96,6 @@ const Navigation = (
           onClick={onNextMonthClick}
           aria-label={nextMonthLabel}
           ref={nextMonthRef}
-          type="button"
         >
           <span className="Icon Icon--arrowRight Icon--xs" />
         </button>
