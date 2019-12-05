@@ -233,7 +233,7 @@ export class Dropdown extends Component {
         <button
           aria-activedescendant={`${name}-option-${selectedIndex}`}
           aria-controls={`${name}-options`}
-          aria-label={label}
+          aria-label={`${this.selectedLabel}, ${label}`}
           className="Dropdown-selectedOption"
           onClick={evt => {
             evt.preventDefault();
