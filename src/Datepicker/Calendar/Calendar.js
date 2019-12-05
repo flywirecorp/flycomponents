@@ -116,8 +116,7 @@ const Calendar = ({
   return isOpen ? (
     <FocusTrap
       focusTrapOptions={{
-        clickOutsideDeactivates: true,
-        initialFocus: () => `#${name}-calendar`
+        clickOutsideDeactivates: true
       }}
     >
       {calendar}
