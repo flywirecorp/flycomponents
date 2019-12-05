@@ -55,16 +55,22 @@ Datepickers are used to select a single date for an input.
 
 | Property      | Req | Type           | Description                                                         | Default |
 | ------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |
+| calendarIconLabel | no  | string | Show calendar  |         |
 | disabled      | no  | bool           | Date Picker is disabled                                             | false   |
 | error         | no  | string         | Error message                                                       |         |
 | floatingLabel | no  | bool           | Floating label inside the input field                               | true    |
+| getA11yStatusMessage| no  | func   | Default messages provided in English | "Use tab or arrow keys to navigate the days or Escape key to close."  or "Enter a date in the format MM/DD/YYYY, or press Enter key to open a calendar."        |
 | hint          | no  | string         | Help message below the autocomplete                                 |         |
 | label         | no  | string         | The text string to use for HTML label tag                           |         |
 | locale        | no  | string         | Locale                                                              | EN      |
 | name          | yes | string         | Name and id of the input element                                    |         |
+| nextMonthLabel | no  | string | Go to next month |         |
 | onBlur        | no  | func           | Callback function that is fired when component is blurred           |         |
 | onChange      | no  | func           | Callback function that is fired when the components's value changes |         |
 | onFocus       | no  | func           | Callback function that is fired when component is focused           |         |
+| prevMonthLabel | no  | string | Go to previous month |         |
 | readOnly      | no  | bool           | Input field is read-only                                            | false   |
 | required      | no  | bool           | Set the field to required                                           | false   |
+| selectMonthLabel | no  | string | Select month |         |
+| selectYearLabel | no  | string | Select year |         |
 | value         | no  | number, string | field value                                                         |         |
