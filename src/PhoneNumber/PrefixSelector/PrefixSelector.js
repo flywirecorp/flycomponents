@@ -307,8 +307,19 @@ export class PrefixSelector extends Component {
     );
   };
 
+  get ariaLabel() {
+    const { dialingCode } = this.state;
+    const { label } = this.props;
+
+    if (!label && !dialingCode) return;
+    if (dialingCode && !label) return `+${dialingCode}`;
+    if (!dialingCode && label) return label;
+
+    return `+${dialingCode}, ${label}`;
+  }
+
   render() {
-    const { disabled, readOnly, options, name, label } = this.props;
+    const { disabled, readOnly, options, name } = this.props;
     const { dialingCode, isOpen, a11yStatusMessage } = this.state;
     const optionList = options.map(this.renderOption);
 
@@ -329,9 +340,10 @@ export class PrefixSelector extends Component {
           onKeyDown={this.handleMenuKeydown}
           onClick={this.handleMenuClick}
           readOnly={readOnly}
+          type='button'
           aria-controls="phoneNumber-menu-options"
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
-          aria-label={label}
+          aria-label={this.ariaLabel}
         >
           {dialingCode && `+ ${dialingCode}`}
         </button>
