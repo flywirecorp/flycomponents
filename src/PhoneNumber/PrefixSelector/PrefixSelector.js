@@ -340,7 +340,7 @@ export class PrefixSelector extends Component {
           onKeyDown={this.handleMenuKeydown}
           onClick={this.handleMenuClick}
           readOnly={readOnly}
-          type='button'
+          type="button"
           aria-controls="phoneNumber-menu-options"
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
           aria-label={this.ariaLabel}
