@@ -224,6 +224,13 @@ describe('Datepicker', () => {
     expect(component.calendarIsVisible()).toBe(true);
   });
 
+  test('passes other properties to the inner DateInput component', () => {
+    const component = new DatepickerComponent({ 'aria-required': true });
+    const dateInput = component.dateInput();
+
+    expect(dateInput.prop('aria-required')).toBe(true);
+  });
+
   describe('having read-only property', () => {
     const component = new DatepickerComponent({ readOnly: true });
 

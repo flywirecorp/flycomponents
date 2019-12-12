@@ -273,15 +273,22 @@ class Datepicker extends Component {
       disabled,
       error,
       floatingLabel,
+      getA11yStatusMessage,
       hint,
       label,
+      locale,
       name,
       nextMonthLabel,
+      onBlur,
+      onChange,
+      onFocus,
       prevMonthLabel,
       readOnly,
       required,
       selectMonthLabel,
-      selectYearLabel
+      selectYearLabel,
+      value,
+      ...otherProps
     } = this.props;
 
     return (
@@ -323,6 +330,7 @@ class Datepicker extends Component {
             toggleCalendar={this.toggleCalendar}
             key={selectedDate}
             forwardRef={this.dateInputRef}
+            {...otherProps}
           />
           <Calendar
             closeCalendar={this.closeCalendar}

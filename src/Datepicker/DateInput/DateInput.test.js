@@ -87,4 +87,12 @@ describe('DateInput', () => {
 
     expect(toggleCalendar).toBeCalledWith();
   });
+
+  test('pass other properties to the inner input field', () => {
+    const component = new DateInputComponent({ 'aria-required': true });
+
+    const input = component.input();
+
+    expect(input.prop('aria-required')).toBe(true);
+  });
 });

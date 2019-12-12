@@ -60,16 +60,20 @@ class DateInput extends Component {
     const { value } = this.state;
     const {
       calendarIconLabel,
+      defaultValue,
       disabled,
       error,
       forwardRef,
       name,
-      onClick,
       onBlur,
       onCalendarIconClick,
+      onClick,
       onFocus,
+      onKeyDown,
       readOnly,
-      required
+      required,
+      toggleCalendar,
+      ...otherProps
     } = this.props;
 
     return (
@@ -80,7 +84,6 @@ class DateInput extends Component {
           aria-invalid={!!error}
           aria-labelledby={`${name}-label`}
           aria-readonly={readOnly}
-          aria-required={required}
           disabled={disabled}
           autoComplete="off"
           className="Input InputGroup-input"
@@ -93,10 +96,12 @@ class DateInput extends Component {
           placeholder={DATE_FORMAT}
           name={name}
           readOnly={readOnly}
+          required={required}
           type="text"
           value={value}
           pattern={DATE_PATTERN}
           ref={forwardRef}
+          {...otherProps}
         />
         <span className="InputGroup-context">
           <CalendarIcon

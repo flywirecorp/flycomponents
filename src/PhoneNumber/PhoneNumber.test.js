@@ -296,4 +296,12 @@ describe('PhoneNumber', () => {
       expect(onChange).toHaveBeenCalledWith(name, expectedPhoneNumber);
     });
   });
+
+  describe('passes other properties to the inner input field', () => {
+    const component = new PhoneNumberComponent({ 'aria-required': true });
+
+    const input = component.input();
+
+    expect(input.prop('aria-required')).toBe(true);
+  });
 });

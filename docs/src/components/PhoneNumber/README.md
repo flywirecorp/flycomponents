@@ -75,6 +75,7 @@ const countries = [
 
 | Property        | Req | Type   | Description                                                         | Default |
 | --------------- | --- | ------ | ------------------------------------------------------------------- | ------- |
+| ariaDescribedBy | no  | string | String with element identifiers to describe the element             |         |
 | countries       | yes | array  | Array of countries                                                  |         |
 | disabled        | no  | bool   | Input is disabled                                                   | false   |
 | error           | no  | string | Error message                                                       |         |
@@ -88,5 +89,3 @@ const countries = [
 | readOnly        | no  | bool   | Input field is read-only                                            | false   |
 | required        | no  | bool   | Set the field to required                                           | false   |
 | value           | no  | string | Default value                                                       |         |
-| ariaDescribedBy | no  | string | String with element identifiers to describe the element             |         |
-| ariaRequired    | no  | bool    | Input field is aria-required                                       | false   |
