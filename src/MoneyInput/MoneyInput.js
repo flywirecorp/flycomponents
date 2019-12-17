@@ -32,7 +32,7 @@ class MoneyInput extends Component {
     currencySymbol: PropTypes.string,
     decimalMark: PropTypes.string,
     disabled: PropTypes.bool,
-    error: PropTypes.string,
+    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     floatingLabel: PropTypes.bool,
     hint: PropTypes.string,
     label: PropTypes.string,
