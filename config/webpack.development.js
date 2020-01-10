@@ -11,7 +11,10 @@ function buildConfig(options) {
     context: path.resolve(__dirname, '..'),
     target: 'web',
     entry: {
-      main: path.join(__dirname, '..', 'docs', 'src', 'index.js')
+      main: [
+        path.join(__dirname, '..', 'src', 'polyfills.js'),
+        path.join(__dirname, '..', 'docs', 'src', 'index.js')
+      ]
     },
     output: {
       path: path.join(__dirname, '..', 'docs', 'dist'),

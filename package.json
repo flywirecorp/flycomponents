@@ -30,6 +30,7 @@
   "homepage": "https://github.com/peertransfer/flycomponents#readme",
   "dependencies": {
     "accounting": "^0.4.1",
+    "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
     "dom-scroll-into-view": "^1.2.1",
     "flystyles": "^2.20.2",

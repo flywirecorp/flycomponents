@@ -7,7 +7,10 @@ function buildConfig() {
     mode: 'production',
     context: path.resolve(__dirname, '..'),
     entry: {
-      main: path.join(__dirname, '..', 'src', 'index.js')
+      main: [
+        path.join(__dirname, '..', 'src', 'polyfills.js'),
+        path.join(__dirname, '..', 'src', 'index.js')
+      ]
     },
     output: {
       path: path.join(__dirname, '..', 'dist'),
