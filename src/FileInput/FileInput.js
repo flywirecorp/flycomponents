@@ -15,8 +15,9 @@ export class FileInput extends Component {
 
   static defaultProps = {
     accepts: '',
-    multiple: false,
     buttonText: 'Upload',
+    multiple: false,
+    onChange: () => {},
     uploading: false
   };
 
@@ -47,7 +48,10 @@ export class FileInput extends Component {
           type="file"
           accept={accepts}
           multiple={multiple}
-          onChange={onChange}
+          onChange={() => {
+            console.log('onchange input');
+            onChange();
+          }}
           data-qa="fileInput"
         />
 
@@ -63,7 +67,6 @@ export class FileInput extends Component {
           })}
           disabled={uploading}
           onClick={this.handleClick}
-          onChange={onChange}
           data-qa="submitButton"
         >
           {buttonText}
