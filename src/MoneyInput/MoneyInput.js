@@ -176,6 +176,7 @@ class MoneyInput extends Component {
     const { amount, isFocused } = this.state;
     const {
       currencySymbol: symbol,
+      decimalMark,
       disabled,
       error,
       floatingLabel,
@@ -185,7 +186,9 @@ class MoneyInput extends Component {
       name,
       readOnly,
       required,
+      subunitToUnit,
       symbolFirst,
+      thousandsSeparator,
       ...other
     } = this.props;
 
