@@ -39,6 +39,7 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 };
 
 const removeSpecialCharacters = str => {
+  console.log('str', str);
   if (!str) return str;
   return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 };
