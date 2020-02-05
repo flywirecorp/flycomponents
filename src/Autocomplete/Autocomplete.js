@@ -39,7 +39,11 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 };
 
 const removeSpecialCharacters = str => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return str
+    ? String(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+    : str;
 };
 
 export class Autocomplete extends Component {
