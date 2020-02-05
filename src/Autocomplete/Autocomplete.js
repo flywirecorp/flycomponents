@@ -12,6 +12,7 @@ import debounce from '../utils/debounce';
 import isEmpty from '../utils/isEmpty';
 import { getAriaDescribedBy } from '../utils/aria';
 
+const NO_SPECIAL_CHARACTERS = 'noSpecialCharacters';
 const NO_OPTION = {};
 const EMPTY_STRING = '';
 const WAIT_TIME = 200;
@@ -35,6 +36,21 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
   return `${resultCount} ${
     resultCount === 1 ? 'result is' : 'results are'
   } available, use up and down arrow keys to navigate. Press Enter key to select.`;
+};
+
+const removeSpecialCharacters = str => {
+  return str
+    ? String(str)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+    : str;
+};
+
+const withSearchKey = arrOfObjects => {
+  return arrOfObjects.map(props => ({
+    ...props,
+    [NO_SPECIAL_CHARACTERS]: removeSpecialCharacters(props.label)
+  }));
 };
 
 export class Autocomplete extends Component {
@@ -87,11 +103,13 @@ export class Autocomplete extends Component {
 
   constructor(props) {
     super(props);
+
     const { options, value } = this.props;
 
     this.state = {
       a11yStatusMessage: EMPTY_STRING,
       isOpen: false,
+      options: withSearchKey(options),
       searchQuery: this.getOptionLabelByValue(options, value),
       selectedIndex: INITIAL_INDEX,
       selectedValue: value,
@@ -108,13 +126,14 @@ export class Autocomplete extends Component {
   // eslint-disable-next-line
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { options: nextOptions, value: nextValue } = nextProps;
-    const { value: currentValue } = this.props;
+    const { options: currentOptions, value: currentValue } = this.props;
 
-    if (nextValue === currentValue) {
+    if (nextValue === currentValue && nextOptions === currentOptions) {
       return;
     }
 
     this.setState({
+      options: withSearchKey(nextOptions),
       searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
     });
   }
@@ -277,15 +296,19 @@ export class Autocomplete extends Component {
   }
 
   loadOptions() {
-    const { fuseConfig, options } = this.props;
+    const { fuseConfig } = this.props;
     const searchOff = !this.searchOn();
-    const { searchQuery } = this.state;
+    const { options, searchQuery } = this.state;
 
     if (searchOff || !searchQuery) {
       return this.sortIfNeeded(options);
     }
 
-    const fuse = new Fuse(options, fuseConfig);
+    const fuse = new Fuse(options, {
+      ...fuseConfig,
+      keys: [...fuseConfig.keys, ...[NO_SPECIAL_CHARACTERS]]
+    });
+
     return this.sortIfNeeded(fuse.search(searchQuery));
   }
 
