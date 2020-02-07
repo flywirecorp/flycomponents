@@ -172,6 +172,23 @@ describe('Autocomplete', () => {
     expect(component.options().prop('option').label).toBe('United States');
   });
 
+  test('filters options ignoring special characters', () => {
+    const options = [
+      { label: 'Spain', value: 'ES' },
+      { label: 'United States', value: 'US' },
+      { label: 'Japán', value: 'CN' }
+    ];
+    const component = new AutocompleteComponent({ options });
+
+    component.filterOption('Japan');
+    expect(component.options()).toHaveLength(1);
+    expect(component.options().prop('option').label).toBe('Japán');
+
+    component.filterOption('Japán');
+    expect(component.options()).toHaveLength(1);
+    expect(component.options().prop('option').label).toBe('Japán');
+  });
+
   test('sorts options', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
