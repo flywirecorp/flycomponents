@@ -102,6 +102,7 @@ class Datepicker extends Component {
   }
 
   componentWillUnmount() {
+    if (this.updateA11yMessageDebounce) this.updateA11yMessageDebounce.cancel();
     document.removeEventListener('click', this.hideOnDocumentClick);
     window.removeEventListener('resize', this.setStyles);
     window.removeEventListener('scroll', this.setStyles);
@@ -248,15 +249,17 @@ class Datepicker extends Component {
     this.setState({ isAbove: isAbove });
   };
 
-  updateA11yMessage = debounce(() => {
-    const { isOpen } = this.state;
+  updateA11yMessage = () => {
+    this.updateA11yMessageDebounce = debounce(() => {
+      const { isOpen } = this.state;
 
-    const message = this.props.getA11yStatusMessage({
-      isOpen
-    });
+      const message = this.props.getA11yStatusMessage({
+        isOpen
+      });
 
-    this.setState({ a11yStatusMessage: message });
-  }, WAIT_TO_UPDATE);
+      this.setState({ a11yStatusMessage: message });
+    }, WAIT_TO_UPDATE);
+  };
 
   render() {
     const {
