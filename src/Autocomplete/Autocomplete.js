@@ -39,11 +39,13 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 };
 
 const removeSpecialCharacters = str => {
-  return str
-    ? String(str)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-    : str;
+  try {
+    return typeof str === 'string'
+      ? str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      : str;
+  } catch (err) {
+    return str;
+  }
 };
 
 const withSearchKey = arrOfObjects => {
