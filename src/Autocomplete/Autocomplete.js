@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import Fuse from 'fuse.js';
-import onClickOutside from 'react-onclickoutside';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
@@ -125,6 +124,10 @@ export class Autocomplete extends Component {
     };
   }
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.clickOutsideHandler);
+  }
+
   // eslint-disable-next-line
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { options: nextOptions, value: nextValue } = nextProps;
@@ -138,6 +141,10 @@ export class Autocomplete extends Component {
       options: withSearchKey(nextOptions),
       searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
     });
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.clickOutsideHandler);
   }
 
   getOptionIndexByValue(options, value) {
@@ -162,20 +169,27 @@ export class Autocomplete extends Component {
     const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
 
     if (!optionSelected) return;
-
-    const optionList = findDOMNode(this.optionListRef.current);
-
     if (selectedIndex === INITIAL_INDEX) return;
-    scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
+
+    scrollIntoView(optionSelected, this.optionListRef.current, {
+      onlyScrollIfNeeded: true
+    });
   }
 
   focusSearchInput() {
     this.searchInputRef.current.focus();
   }
 
-  handleClickOutside() {
-    return this.selectPreviousOption();
-  }
+  clickOutsideHandler = event => {
+    if (
+      this.searchInputRef.current.contains(event.target) ||
+      this.optionListRef.current.contains(event.target)
+    ) {
+      return;
+    }
+
+    this.selectPreviousOption();
+  };
 
   handleFocus = () => {
     const { onFocus } = this.props;
@@ -515,7 +529,7 @@ export class Autocomplete extends Component {
           <Options
             aria-labelledby={`${name}-label`}
             id={`${name}-options`}
-            ref={this.optionListRef}
+            forwardRef={this.optionListRef}
           >
             {optionList}
           </Options>
@@ -540,4 +554,4 @@ export class Autocomplete extends Component {
   }
 }
 
-export const AutocompleteWithClickOutside = onClickOutside(Autocomplete);
+export const AutocompleteWithClickOutside = Autocomplete;
