@@ -6,3 +6,12 @@ Dockerfile
 Makefile
 docker-compose.yml
 webpack.config.js
+npm-debug.log
+jest
+.DS_Store
+.*.swp
+._*
+.prettierrc.js
+.gitignore
+.cache
+.git
