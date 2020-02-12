@@ -3,22 +3,25 @@ import React, { Component } from 'react';
 
 class Options extends Component {
   render() {
+    const { forwardRef, children } = this.props;
     return (
       <ul
         id="phoneNumber-menu-options"
         role="listbox"
         className="Autocomplete-options PhoneNumber-menu-options"
+        ref={forwardRef}
       >
-        {this.props.children}
+        {children}
       </ul>
     );
   }
 }
 
-const { node } = PropTypes;
+const { node, object } = PropTypes;
 
 Options.propTypes = {
-  children: node.isRequired
+  children: node.isRequired,
+  forwardRef: object
 };
 
 export default Options;

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
-import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
@@ -65,9 +64,18 @@ export class PrefixSelector extends Component {
     this.typedQueryTimer = 0;
 
     this.optionListRef = React.createRef();
+    this.buttonRef = React.createRef();
     this.setOptionRef = (i, e) => {
       this[`option-${i}`] = e;
     };
+  }
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.clickOutsideHandler);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.clickOutsideHandler);
   }
 
   getOptionIndexByValue(value) {
@@ -87,20 +95,27 @@ export class PrefixSelector extends Component {
   adjustOffet() {
     const { selectedIndex } = this.state;
     const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
-    const optionList = findDOMNode(this.optionListRef.current);
+    const optionList = this.optionListRef.current;
 
     if (selectedIndex === INITIAL_INDEX) return;
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
   }
 
-  handleClickOutside(e) {
+  clickOutsideHandler = event => {
+    if (
+      this.optionListRef.current.contains(event.target) ||
+      this.buttonRef.current.contains(event.target)
+    ) {
+      return;
+    }
+
     const { value } = this.props;
     const selectedIndex = this.getOptionIndexByValue(value);
 
     this.setState(() => {
       return { isOpen: false, selectedIndex };
     });
-  }
+  };
 
   handleMenuClick = () => {
     const { onFocus, readOnly } = this.props;
@@ -344,11 +359,12 @@ export class PrefixSelector extends Component {
           aria-controls="phoneNumber-menu-options"
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
           aria-label={this.ariaLabel}
+          ref={this.buttonRef}
         >
           {dialingCode && `+ ${dialingCode}`}
         </button>
 
-        <Options ref={this.optionListRef}>{optionList}</Options>
+        <Options forwardRef={this.optionListRef}>{optionList}</Options>
         <div
           role="status"
           aria-live="polite"
@@ -368,4 +384,4 @@ export class PrefixSelector extends Component {
   }
 }
 
-export default onClickOutside(PrefixSelector);
+export default PrefixSelector;

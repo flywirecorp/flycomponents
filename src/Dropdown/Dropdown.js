@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import onClickOutside from 'react-onclickoutside';
 import classNames from 'classnames';
 import Option from './Option';
 import sameValue from '../utils/sameValue';
@@ -52,7 +51,23 @@ export class Dropdown extends Component {
 
   componentDidMount() {
     this.updateA11yMessage();
+    document.addEventListener('mousedown', this.clickOutsideHandler);
   }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.clickOutsideHandler);
+  }
+
+  clickOutsideHandler = event => {
+    if (
+      this.optionsRef.current.contains(event.target) ||
+      this.dropdownRef.current.contains(event.target)
+    ) {
+      return;
+    }
+
+    this.closeOptions();
+  };
 
   get optionsExceptSelected() {
     const { options } = this.props;
@@ -88,10 +103,6 @@ export class Dropdown extends Component {
     this.setState(() => {
       return { isOpen: false };
     }, this.updateA11yMessage);
-  }
-
-  handleClickOutside() {
-    this.closeOptions();
   }
 
   handleOptionClick = value => {
@@ -309,4 +320,4 @@ Dropdown.propTypes = {
   upward: bool
 };
 
-export default onClickOutside(Dropdown);
+export default Dropdown;

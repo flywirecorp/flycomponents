@@ -3,20 +3,27 @@ import React, { Component } from 'react';
 
 class Options extends Component {
   render() {
-    const { id, children } = this.props;
+    const { id, children, forwardRef } = this.props;
 
     return (
-      <ul className="Autocomplete-options" role="listbox" id={id} tabIndex={-1}>
+      <ul
+        className="Autocomplete-options"
+        role="listbox"
+        id={id}
+        tabIndex={-1}
+        ref={forwardRef}
+      >
         {children}
       </ul>
     );
   }
 }
 
-const { node, string } = PropTypes;
+const { node, string, object } = PropTypes;
 
 Options.propTypes = {
   children: node.isRequired,
+  forwardRef: object,
   id: string
 };
 
