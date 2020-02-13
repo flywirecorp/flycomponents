@@ -129,19 +129,19 @@ export class Autocomplete extends Component {
   }
 
   // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { options: nextOptions, value: nextValue } = nextProps;
-    const { options: currentOptions, value: currentValue } = this.props;
+  //UNSAFE_componentWillReceiveProps(nextProps) {
+  //  const { options: nextOptions, value: nextValue } = nextProps;
+  //  const { options: currentOptions, value: currentValue } = this.props;
 
-    if (nextValue === currentValue && nextOptions === currentOptions) {
-      return;
-    }
+  //  if (nextValue === currentValue && nextOptions === currentOptions) {
+  //    return;
+  //  }
 
-    this.setState({
-      options: withSearchKey(nextOptions),
-      searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
-    });
-  }
+  //  this.setState({
+  //    options: withSearchKey(nextOptions),
+  //    searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
+  //  });
+  // }
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.clickOutsideHandler);
