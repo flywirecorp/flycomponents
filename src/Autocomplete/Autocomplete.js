@@ -182,8 +182,10 @@ export class Autocomplete extends Component {
 
   clickOutsideHandler = event => {
     if (
-      this.searchInputRef.current.contains(event.target) ||
-      this.optionListRef.current.contains(event.target)
+      (this.searchInputRef.current &&
+        this.searchInputRef.current.contains(event.target)) ||
+      (this.optionListRef.current &&
+        this.optionListRef.current.contains(event.target))
     ) {
       return;
     }
