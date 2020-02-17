@@ -128,21 +128,6 @@ export class Autocomplete extends Component {
     document.addEventListener('mousedown', this.clickOutsideHandler);
   }
 
-  // eslint-disable-next-line
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    const { options: nextOptions, value: nextValue } = nextProps;
-    const { options: currentOptions, value: currentValue } = this.props;
-
-    if (nextValue === currentValue && nextOptions === currentOptions) {
-      return;
-    }
-
-    this.setState({
-      options: withSearchKey(nextOptions),
-      searchQuery: this.getOptionLabelByValue(nextOptions, nextValue)
-    });
-  }
-
   componentWillUnmount() {
     document.removeEventListener('mousedown', this.clickOutsideHandler);
   }
