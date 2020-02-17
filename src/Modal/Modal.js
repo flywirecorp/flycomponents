@@ -62,7 +62,11 @@ class Modal extends Component {
   };
 
   handleMouseDown = evt => {
-    if (this.modalDialogRef.current.contains(evt.target)) return;
+    if (
+      this.modalDialogRef.current &&
+      this.modalDialogRef.current.contains(evt.target)
+    )
+      return;
 
     this.close();
   };

@@ -103,8 +103,9 @@ export class PrefixSelector extends Component {
 
   clickOutsideHandler = event => {
     if (
-      this.optionListRef.current.contains(event.target) ||
-      this.buttonRef.current.contains(event.target)
+      (this.optionListRef.current &&
+        this.optionListRef.current.contains(event.target)) ||
+      (this.buttonRef.current && this.buttonRef.current.contains(event.target))
     ) {
       return;
     }

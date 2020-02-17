@@ -60,8 +60,10 @@ export class Dropdown extends Component {
 
   clickOutsideHandler = event => {
     if (
-      this.optionsRef.current.contains(event.target) ||
-      this.dropdownRef.current.contains(event.target)
+      (this.optionsRef.current &&
+        this.optionsRef.current.contains(event.target)) ||
+      (this.dropdownRef.current &&
+        this.dropdownRef.current.contains(event.target))
     ) {
       return;
     }
