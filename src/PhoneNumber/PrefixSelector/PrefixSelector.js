@@ -346,30 +346,29 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
-        role="combobox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
       >
-        <button
-          disabled={disabled}
-          className="Autocomplete-search PhoneNumber-menu-input"
-          onKeyDown={this.handleMenuKeydown}
-          onClick={this.handleMenuClick}
-          readOnly={readOnly}
-          type="button"
-          aria-controls="phoneNumber-menu-options"
+        <span
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+          aria-controls="phoneNumber-menu-options"
+          aria-expanded={isOpen}
+          aria-haspopup="true"
           aria-label={this.ariaLabel}
+          className="Autocomplete-search PhoneNumber-menu-input"
+          disabled={disabled}
+          onClick={this.handleMenuClick}
+          onKeyDown={this.handleMenuKeydown}
+          readOnly={readOnly}
           ref={this.buttonRef}
+          role="listbox"
+          tabIndex={0}
         >
           {dialingCode && `+ ${dialingCode}`}
-        </button>
+        </span>
 
         <Options forwardRef={this.optionListRef}>{optionList}</Options>
         <div
           role="status"
           aria-live="polite"
-          aria-relevant="additions text"
           style={{
             border: '0px',
             height: '1px',

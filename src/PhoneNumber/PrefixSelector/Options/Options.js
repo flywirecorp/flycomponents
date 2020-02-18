@@ -7,9 +7,9 @@ class Options extends Component {
     return (
       <ul
         id="phoneNumber-menu-options"
-        role="listbox"
         className="Autocomplete-options PhoneNumber-menu-options"
         ref={forwardRef}
+        tabIndex={-1}
       >
         {children}
       </ul>

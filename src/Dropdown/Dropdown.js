@@ -237,12 +237,13 @@ export class Dropdown extends Component {
       <div
         className={classNames('Dropdown', { 'is-open': isOpen }, className)}
         ref={this.dropdownRef}
-        role="combobox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        aria-owns={`${name}-options`}
       >
-        <button
+        <span
+          aria-owns={`${name}-options`}
+          tabIndex={0}
+          role="listbox"
+          aria-expanded={isOpen}
+          aria-haspopup="true"
           aria-activedescendant={`${name}-option-${selectedIndex}`}
           aria-controls={`${name}-options`}
           aria-label={`${this.selectedLabel}, ${label}`}
@@ -255,7 +256,7 @@ export class Dropdown extends Component {
           ref={this.activatorRef}
         >
           {this.selectedLabel}
-        </button>
+        </span>
         <ul
           className={classNames('Dropdown-options', {
             'Dropdown--upward': upward,
@@ -263,7 +264,6 @@ export class Dropdown extends Component {
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
-          role="listbox"
           tabIndex={-1}
         >
           {options.map((option, index) => (
@@ -279,10 +279,8 @@ export class Dropdown extends Component {
           ))}
         </ul>
         <div
-          id="a11y-status-message"
           role="status"
           aria-live="polite"
-          aria-relevant="additions text"
           style={{
             border: '0px',
             height: '1px',
