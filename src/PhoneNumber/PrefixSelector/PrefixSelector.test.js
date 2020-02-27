@@ -82,7 +82,7 @@ describe('PrefixSelector', () => {
       return this.component.find('div[role="status"]').text();
     }
 
-    get ariaLabel() {
+    get buttonAriaLabel() {
       return this.component.find('button').prop('aria-label');
     }
   }
@@ -273,33 +273,17 @@ describe('PrefixSelector', () => {
     });
   });
 
-  describe('aria label', () => {
-    test('when no values are sent', () => {
+  describe('button aria label', () => {
+    test('is undefined when no value is selected', () => {
       const component = new PrefixSelectorComponent();
 
-      expect(component.ariaLabel).toEqual(undefined);
-    });
-    test('shows label when sent', () => {
-      const component = new PrefixSelectorComponent({ label: 'wadus' });
-
-      expect(component.ariaLabel).toEqual('wadus');
+      expect(component.buttonAriaLabel).toEqual(undefined);
     });
 
-    test('shows prefix', () => {
+    test('shows prefix when value is selected', () => {
       const component = new PrefixSelectorComponent({ value: '34' });
 
-      expect(component.ariaLabel).toEqual('+34');
-    });
-
-    describe('when prefix and label are present', () => {
-      test('merges both values', () => {
-        const component = new PrefixSelectorComponent({
-          label: 'wadus',
-          value: '34'
-        });
-
-        expect(component.ariaLabel).toEqual('+34, wadus');
-      });
+      expect(component.buttonAriaLabel).toEqual('+34');
     });
   });
 });
