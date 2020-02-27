@@ -274,7 +274,7 @@ describe('PrefixSelector', () => {
   });
 
   describe('button aria label', () => {
-    test('is undefined when no value is selected', () => {
+    test('does not show the prefix when a value is not selected', () => {
       const component = new PrefixSelectorComponent();
 
       expect(component.buttonAriaLabel).toEqual(undefined);
