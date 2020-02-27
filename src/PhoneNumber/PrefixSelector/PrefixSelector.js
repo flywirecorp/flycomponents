@@ -341,7 +341,7 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
-        role="combobox"
+        role="listbox"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-label={label}
@@ -354,7 +354,6 @@ export class PrefixSelector extends Component {
           readOnly={readOnly}
           type="button"
           aria-controls="phoneNumber-menu-options"
-          aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
           aria-label={this.buttonAriaLabel}
           ref={this.buttonRef}
         >
