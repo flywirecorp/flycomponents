@@ -8,7 +8,7 @@ import { ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE } from '../utils/keycodes';
 
 const DOWN = -1;
 const EMPTY_STRING = '';
-const INITIAL_INDEX = -1;
+const INITIAL_INDEX = 0;
 const LEFT = 'Left';
 const RIGHT = 'Right';
 const UP = 1;
@@ -84,7 +84,7 @@ export class Dropdown extends Component {
     const { selectedValue } = this.state;
     const selected = option => sameValue(option.value, selectedValue);
 
-    return options.find(selected);
+    return options.find(selected) || options[0];
   }
 
   get selectedLabel() {
@@ -143,6 +143,8 @@ export class Dropdown extends Component {
   };
 
   moveIndex(offset) {
+    if (!this.state.isOpen) return;
+
     const optionsCount = this.optionsExceptSelected.length;
     const normalize = index => {
       if (index < 0) {
@@ -223,7 +225,7 @@ export class Dropdown extends Component {
   }, WAIT_TIME);
 
   render() {
-    const { name, className, label, template } = this.props;
+    const { name, className, template } = this.props;
     const {
       isOpen,
       upward,
@@ -233,21 +235,18 @@ export class Dropdown extends Component {
     } = this.state;
     const options = this.optionsExceptSelected;
 
+    if (isOpen) this.optionsRef.current.focus();
+
     return (
       <div
         className={classNames('Dropdown', { 'is-open': isOpen }, className)}
         ref={this.dropdownRef}
-        role="combobox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        aria-owns={`${name}-options`}
-        aria-label={`${label}`}
       >
         <button
-          aria-activedescendant={`${name}-option-${selectedIndex}`}
-          aria-controls={`${name}-options`}
-          aria-label={this.selectedOption}
+          aria-label={this.selectedLabel}
+          aria-haspopup="listbox"
           className="Dropdown-selectedOption"
+          aria-expanded={isOpen}
           onClick={evt => {
             evt.preventDefault();
             this.toggleOptions();
@@ -258,13 +257,15 @@ export class Dropdown extends Component {
           {this.selectedLabel}
         </button>
         <ul
+          onKeyDown={this.handleKeyDown}
+          role="listbox"
+          aria-activedescendant={`${name}-option-${selectedIndex}`}
           className={classNames('Dropdown-options', {
             'Dropdown--upward': upward,
             [`Dropdown-options--upward${lineUp}`]: upward
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
-          role="listbox"
           tabIndex={-1}
         >
           {options.map((option, index) => (

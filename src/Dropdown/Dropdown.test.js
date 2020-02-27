@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Dropdown } from './Dropdown';
 import debounce from '../utils/debounce';
 
@@ -16,13 +16,13 @@ afterAll(() => {
 
 describe('Dropdown', () => {
   class DropdownComponent {
-    constructor(ownProps, renderMethod = shallow) {
+    constructor(ownProps) {
       const defaultProps = {
-        options: []
+        options: [{ label: '', value: '' }]
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = renderMethod(<Dropdown {...props} />);
+      this.component = mount(<Dropdown {...props} />);
     }
 
     selectedOption() {
@@ -46,7 +46,7 @@ describe('Dropdown', () => {
     }
 
     findOption(label) {
-      return this.component.findWhere(c => c.prop('data-label') === label);
+      return this.component.find(`li[data-label="${label}"]`);
     }
 
     selectOption(label) {
@@ -91,7 +91,7 @@ describe('Dropdown', () => {
       defaultValue: '',
       options: [{ label: '', value: '' }]
     };
-    const wrapper = shallow(<Dropdown {...props} />);
+    const wrapper = mount(<Dropdown {...props} />);
 
     expect(wrapper.hasClass('ClassName')).toBe(true);
   });
@@ -158,7 +158,7 @@ describe('Dropdown', () => {
         { label: 'Spanish', value: 'es' }
       ];
 
-      return new DropdownComponent({ options, defaultValue, upward }, mount);
+      return new DropdownComponent({ options, defaultValue, upward });
     };
   });
 
