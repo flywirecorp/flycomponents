@@ -129,7 +129,7 @@ class Modal extends Component {
             className={modalClassName}
             data-qa="Modal"
             onMouseDown={this.handleMouseDown}
-            role="alertdialog"
+            role="dialog"
             tabIndex="-1"
           >
             <div className="Modal-dialog" ref={this.modalDialogRef}>
