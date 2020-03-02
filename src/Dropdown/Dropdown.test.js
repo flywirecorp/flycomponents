@@ -18,7 +18,7 @@ describe('Dropdown', () => {
   class DropdownComponent {
     constructor(ownProps, renderMethod = shallow) {
       const defaultProps = {
-        options: []
+        options: [{ label: '', value: '' }]
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -94,6 +94,16 @@ describe('Dropdown', () => {
     const wrapper = shallow(<Dropdown {...props} />);
 
     expect(wrapper.hasClass('ClassName')).toBe(true);
+  });
+
+  test('adds the selected value as aria-label to the button', () => {
+    const props = {
+      defaultValue: 'fr',
+      options: [{ label: 'a_label', value: 'fr' }]
+    };
+    const wrapper = shallow(<Dropdown {...props} />);
+
+    expect(wrapper.find('button').prop('aria-label')).toEqual('a_label');
   });
 
   test('pre-selects the default option', () => {
