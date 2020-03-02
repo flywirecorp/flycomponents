@@ -84,7 +84,7 @@ export class Dropdown extends Component {
     const { selectedValue } = this.state;
     const selected = option => sameValue(option.value, selectedValue);
 
-    return options.find(selected);
+    return options.find(selected) || options[0];
   }
 
   get selectedLabel() {
@@ -241,11 +241,11 @@ export class Dropdown extends Component {
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-owns={`${name}-options`}
-        aria-label={`${label}`}
+        aria-label={label}
       >
         <button
           aria-controls={`${name}-options`}
-          aria-label={this.selectedOption}
+          aria-label={this.selectedOption.label}
           className="Dropdown-selectedOption"
           onClick={evt => {
             evt.preventDefault();
