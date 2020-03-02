@@ -323,19 +323,14 @@ export class PrefixSelector extends Component {
     );
   };
 
-  get ariaLabel() {
+  get buttonAriaLabel() {
     const { dialingCode } = this.state;
-    const { label } = this.props;
 
-    if (!label && !dialingCode) return;
-    if (dialingCode && !label) return `+${dialingCode}`;
-    if (!dialingCode && label) return label;
-
-    return `+${dialingCode}, ${label}`;
+    return dialingCode && `+${dialingCode}`;
   }
 
   render() {
-    const { disabled, readOnly, options, name } = this.props;
+    const { disabled, readOnly, options, name, label } = this.props;
     const { dialingCode, isOpen, a11yStatusMessage } = this.state;
     const optionList = options.map(this.renderOption);
 
@@ -349,6 +344,7 @@ export class PrefixSelector extends Component {
         role="combobox"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        aria-label={label}
       >
         <button
           disabled={disabled}
@@ -359,7 +355,7 @@ export class PrefixSelector extends Component {
           type="button"
           aria-controls="phoneNumber-menu-options"
           aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
-          aria-label={this.ariaLabel}
+          aria-label={this.buttonAriaLabel}
           ref={this.buttonRef}
         >
           {dialingCode && `+ ${dialingCode}`}

@@ -241,11 +241,12 @@ export class Dropdown extends Component {
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-owns={`${name}-options`}
+        aria-label={`${label}`}
       >
         <button
           aria-activedescendant={`${name}-option-${selectedIndex}`}
           aria-controls={`${name}-options`}
-          aria-label={`${this.selectedLabel}, ${label}`}
+          aria-label={this.selectedOption}
           className="Dropdown-selectedOption"
           onClick={evt => {
             evt.preventDefault();
