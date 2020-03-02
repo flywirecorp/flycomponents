@@ -237,14 +237,13 @@ export class Dropdown extends Component {
       <div
         className={classNames('Dropdown', { 'is-open': isOpen }, className)}
         ref={this.dropdownRef}
-        role="combobox"
+        role="listbox"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-owns={`${name}-options`}
         aria-label={`${label}`}
       >
         <button
-          aria-activedescendant={`${name}-option-${selectedIndex}`}
           aria-controls={`${name}-options`}
           aria-label={this.selectedOption}
           className="Dropdown-selectedOption"
