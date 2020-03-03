@@ -330,7 +330,7 @@ export class PrefixSelector extends Component {
   }
 
   render() {
-    const { disabled, readOnly, options, label } = this.props;
+    const { disabled, readOnly, options, name, label } = this.props;
     const { dialingCode, isOpen, a11yStatusMessage } = this.state;
     const optionList = options.map(this.renderOption);
 

@@ -8,7 +8,7 @@ import { ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE } from '../utils/keycodes';
 
 const DOWN = -1;
 const EMPTY_STRING = '';
-const INITIAL_INDEX = -1;
+const INITIAL_INDEX = 0;
 const LEFT = 'Left';
 const RIGHT = 'Right';
 const UP = 1;
@@ -143,6 +143,8 @@ export class Dropdown extends Component {
   };
 
   moveIndex(offset) {
+    if (!this.state.isOpen) return;
+
     const optionsCount = this.optionsExceptSelected.length;
     const normalize = index => {
       if (index < 0) {
@@ -237,15 +239,13 @@ export class Dropdown extends Component {
       <div
         className={classNames('Dropdown', { 'is-open': isOpen }, className)}
         ref={this.dropdownRef}
-        role="listbox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
-        aria-owns={`${name}-options`}
-        aria-label={label}
       >
         <button
           aria-controls={`${name}-options`}
-          aria-label={this.selectedOption.label}
+          role="listbox"
+          aria-label={label}
+          aria-expanded={isOpen}
+          aria-activedescendant={`${name}-option-${selectedIndex}`}
           className="Dropdown-selectedOption"
           onClick={evt => {
             evt.preventDefault();
@@ -263,7 +263,7 @@ export class Dropdown extends Component {
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
-          role="listbox"
+          role="menu"
           tabIndex={-1}
         >
           {options.map((option, index) => (
