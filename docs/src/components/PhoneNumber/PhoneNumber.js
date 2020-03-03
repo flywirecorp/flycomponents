@@ -36,32 +36,32 @@ export default () => {
     <Component readme={README}>
       <PhoneNumber
         countries={countries}
-        name="phone"
+        name="phone1"
         label="Telephone number"
       />
       <PhoneNumber
         countries={countries}
-        name="phone"
+        name="phone2"
         label="Default label"
         floatingLabel={false}
         value="+34"
       />
       <PhoneNumber
         countries={countries}
-        name="phone2"
+        name="phone3"
         label="Default value"
         value="+1684 155555555"
       />
       <PhoneNumber
         countries={countries}
-        name="phone"
+        name="phone4"
         label="Disabled phone input"
         value="+1 55555555"
         disabled
       />
       <PhoneNumber
         countries={countries}
-        name="phone"
+        name="phone5"
         label="Read only phone input"
         value="+1 111111111"
         readOnly

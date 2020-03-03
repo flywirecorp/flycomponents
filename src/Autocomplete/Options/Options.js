@@ -8,7 +8,6 @@ class Options extends Component {
     return (
       <ul
         className="Autocomplete-options"
-        role="listbox"
         id={id}
         tabIndex={-1}
         ref={forwardRef}

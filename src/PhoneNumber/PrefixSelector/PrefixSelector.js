@@ -323,15 +323,14 @@ export class PrefixSelector extends Component {
     );
   };
 
-  get buttonAriaLabel() {
-    const { dialingCode } = this.state;
-
-    return dialingCode && `+${dialingCode}`;
-  }
-
   render() {
-    const { disabled, readOnly, options, name, label } = this.props;
-    const { dialingCode, isOpen, a11yStatusMessage } = this.state;
+    const { label, name, disabled, readOnly, options } = this.props;
+    const {
+      selectedIndex,
+      dialingCode,
+      isOpen,
+      a11yStatusMessage
+    } = this.state;
     const optionList = options.map(this.renderOption);
 
     return (
@@ -341,9 +340,6 @@ export class PrefixSelector extends Component {
           { 'is-searching': isOpen },
           'PhoneNumber-menu'
         )}
-        role="listbox"
-        aria-expanded={isOpen}
-        aria-haspopup="listbox"
         aria-label={label}
       >
         <button
@@ -353,13 +349,16 @@ export class PrefixSelector extends Component {
           onClick={this.handleMenuClick}
           readOnly={readOnly}
           type="button"
+          role="listbox"
+          aria-expanded={isOpen}
+          aria-haspopup="listbox"
           aria-controls="phoneNumber-menu-options"
-          aria-label={this.buttonAriaLabel}
+          aria-activedescendant={`${name}-option-${selectedIndex}`}
+          aria-label={dialingCode && `+${dialingCode}`}
           ref={this.buttonRef}
         >
           {dialingCode && `+ ${dialingCode}`}
         </button>
-
         <Options forwardRef={this.optionListRef}>{optionList}</Options>
         <div
           role="status"
