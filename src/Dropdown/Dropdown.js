@@ -263,7 +263,6 @@ export class Dropdown extends Component {
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
-          role="menu"
           tabIndex={-1}
         >
           {options.map((option, index) => (
