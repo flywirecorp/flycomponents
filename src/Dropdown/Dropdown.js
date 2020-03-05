@@ -235,19 +235,18 @@ export class Dropdown extends Component {
     } = this.state;
     const options = this.optionsExceptSelected;
 
+    if (isOpen) this.optionsRef.current.focus();
+
     return (
       <div
         className={classNames('Dropdown', { 'is-open': isOpen }, className)}
         ref={this.dropdownRef}
       >
         <button
-          aria-controls={`${name}-options`}
           aria-label={label}
           aria-haspopup="listbox"
           className="Dropdown-selectedOption"
-          role="listbox"
           aria-expanded={isOpen}
-          aria-activedescendant={`${name}-option-${selectedIndex}`}
           onClick={evt => {
             evt.preventDefault();
             this.toggleOptions();
@@ -258,13 +257,16 @@ export class Dropdown extends Component {
           {this.selectedLabel}
         </button>
         <ul
+          onKeyDown={this.handleKeyDown}
           role="listbox"
+          aria-activedescendant={`${name}-option-${selectedIndex}`}
           className={classNames('Dropdown-options', {
             'Dropdown--upward': upward,
             [`Dropdown-options--upward${lineUp}`]: upward
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
+          tabIndex={-1}
         >
           {options.map((option, index) => (
             <Option
