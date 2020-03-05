@@ -242,11 +242,12 @@ export class Dropdown extends Component {
       >
         <button
           aria-controls={`${name}-options`}
-          role="listbox"
           aria-label={label}
+          aria-haspopup="listbox"
+          className="Dropdown-selectedOption"
+          role="listbox"
           aria-expanded={isOpen}
           aria-activedescendant={`${name}-option-${selectedIndex}`}
-          className="Dropdown-selectedOption"
           onClick={evt => {
             evt.preventDefault();
             this.toggleOptions();
@@ -257,13 +258,13 @@ export class Dropdown extends Component {
           {this.selectedLabel}
         </button>
         <ul
+          role="listbox"
           className={classNames('Dropdown-options', {
             'Dropdown--upward': upward,
             [`Dropdown-options--upward${lineUp}`]: upward
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
-          tabIndex={-1}
         >
           {options.map((option, index) => (
             <Option
