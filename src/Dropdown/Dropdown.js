@@ -225,7 +225,7 @@ export class Dropdown extends Component {
   }, WAIT_TIME);
 
   render() {
-    const { name, className, label, template } = this.props;
+    const { name, className, template } = this.props;
     const {
       isOpen,
       upward,
@@ -243,7 +243,7 @@ export class Dropdown extends Component {
         ref={this.dropdownRef}
       >
         <button
-          aria-label={label}
+          aria-label={this.selectedLabel}
           aria-haspopup="listbox"
           className="Dropdown-selectedOption"
           aria-expanded={isOpen}
