@@ -7,7 +7,7 @@ class Options extends Component {
     return (
       <ul
         id="phoneNumber-menu-options"
-        role="listbox"
+        role="menu"
         className="Autocomplete-options PhoneNumber-menu-options"
         ref={forwardRef}
       >
