@@ -241,7 +241,7 @@ class App extends Component {
     this.state = { open: false };
   }
 
-  onChange = open => {
+  handleChange = open => {
     this.setState({
       open: open
     });
@@ -251,7 +251,7 @@ class App extends Component {
     return (
       <Router hashType="noslash">
         <div className={`Docs ${this.state.open ? 'is-open' : ''}`}>
-          <NavBar onChange={this.onChange} />
+          <NavBar onChange={this.handleChange} />
           <Content />
         </div>
       </Router>

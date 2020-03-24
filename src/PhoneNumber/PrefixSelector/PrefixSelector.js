@@ -138,13 +138,15 @@ export class PrefixSelector extends Component {
     let shouldOpenOptions = true;
 
     switch (e.keyCode) {
-      case ARROW_DOWN:
+      case ARROW_DOWN: {
         e.preventDefault();
         return this.moveIndexUp();
-      case ARROW_UP:
+      }
+      case ARROW_UP: {
         e.preventDefault();
         return this.moveIndexDown();
-      case ENTER:
+      }
+      case ENTER: {
         e.preventDefault();
         const { isOpen } = this.state;
         if (isOpen) {
@@ -153,17 +155,21 @@ export class PrefixSelector extends Component {
 
         this.selectCurrentOption();
         break;
-      case TAB:
+      }
+      case TAB: {
         shouldOpenOptions = false;
         this.selectCurrentOption();
         this.hideOptions();
         break;
-      case ESC:
+      }
+      case ESC: {
         e.preventDefault();
         shouldOpenOptions = false;
         return this.hideOptions();
-      default:
+      }
+      default: {
         return this.handleTypedChar(e.keyCode);
+      }
     }
 
     if (shouldOpenOptions) this.showOptions();

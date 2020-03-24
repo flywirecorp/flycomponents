@@ -165,25 +165,30 @@ export class Dropdown extends Component {
 
   handleKeyDown = evt => {
     switch (evt.keyCode) {
-      case ARROW_UP:
+      case ARROW_UP: {
         evt.preventDefault();
         this.moveIndex(DOWN);
         break;
-      case ARROW_DOWN:
+      }
+      case ARROW_DOWN: {
         evt.preventDefault();
         this.moveIndex(UP);
         break;
-      case SPACE:
+      }
+      case SPACE: {
         this.toggleOptions();
         break;
-      case ENTER:
+      }
+      case ENTER: {
         evt.preventDefault();
         const { isOpen } = this.state;
         isOpen ? this.selectCurrentOption() : this.toggleOptions();
         break;
-      case ESC:
+      }
+      case ESC: {
         this.closeOptions();
         break;
+      }
     }
   };
 

@@ -24,6 +24,7 @@ class Modal extends Component {
     onOpen: () => {},
     size: 'small'
   };
+
   state = {
     isOpen: this.props.defaultIsOpen
   };
@@ -98,6 +99,8 @@ class Modal extends Component {
     this.setState({ ...this.state, isOpen: true }, onOpen);
   };
 
+  handleClick = () => this.close();
+
   render() {
     const { allowClosing, children, className, size } = this.props;
     const modalClassName = `Modal Modal--${size} ${className}`;
@@ -105,7 +108,7 @@ class Modal extends Component {
       <button
         className="Modal-closeButton"
         type="button"
-        onClick={this.close}
+        onClick={this.handleClick}
         aria-label="Close"
       >
         <span className="Icon Icon--close Icon--xs margin-0" />

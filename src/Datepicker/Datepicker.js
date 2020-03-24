@@ -216,9 +216,12 @@ class Datepicker extends Component {
     const { selectedDate } = this.state;
     const focussedDate = parseDate(selectedDate) || today;
 
-    this.setState(() => {
-      return { isOpen: false, focussedDate };
-    }, wasOpen ? this.sendBlur : null);
+    this.setState(
+      () => {
+        return { isOpen: false, focussedDate };
+      },
+      wasOpen ? this.sendBlur : null
+    );
   };
 
   get datepickerBottomPosition() {
@@ -260,6 +263,12 @@ class Datepicker extends Component {
       this.setState({ a11yStatusMessage: message });
     }, WAIT_TO_UPDATE);
   };
+
+  handleClick = () => this.closeCalendar();
+
+  handleKeyDown = str => this.setDateFromString(str);
+
+  handleDateClick = date => this.setDateAndCloseCalendar(date);
 
   render() {
     const {
@@ -325,9 +334,9 @@ class Datepicker extends Component {
             name={name}
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
-            onClick={this.closeCalendar}
+            onClick={this.handleClick}
             onFocus={this.handleFocus}
-            onKeyDown={this.setDateFromString}
+            onKeyDown={this.handleKeyDown}
             readOnly={readOnly}
             required={required}
             toggleCalendar={this.toggleCalendar}
@@ -344,7 +353,7 @@ class Datepicker extends Component {
             name={name}
             nextMonthLabel={nextMonthLabel}
             nextMonthRef={this.nextMonthRef}
-            onDateClick={this.setDateAndCloseCalendar}
+            onDateClick={this.handleDateClick}
             onMonthChange={this.handleMonthChange}
             onNextMonthClick={this.handleNextMonthClick}
             onPrevMonthClick={this.handlePrevMonthClick}

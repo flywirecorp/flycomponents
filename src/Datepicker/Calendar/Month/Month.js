@@ -7,17 +7,17 @@ const Month = props => {
   const { onDateClick, focussedDate } = props;
   const currentMonth = focussedDate.month();
 
-  const monthWeeks = monthStartingWeekDates(focussedDate).map(
-    weekStartingDate => (
-      <Week
-        key={`week-${weekStartingDate}`}
-        startingDate={weekStartingDate.clone()}
-        month={currentMonth}
-        onDateClick={onDateClick}
-        selectedDate={focussedDate}
-      />
-    )
-  );
+  const monthWeeks = monthStartingWeekDates(
+    focussedDate
+  ).map(weekStartingDate => (
+    <Week
+      key={`week-${weekStartingDate}`}
+      startingDate={weekStartingDate.clone()}
+      month={currentMonth}
+      onDateClick={onDateClick}
+      selectedDate={focussedDate}
+    />
+  ));
 
   return <tbody role="presentation">{monthWeeks}</tbody>;
 };

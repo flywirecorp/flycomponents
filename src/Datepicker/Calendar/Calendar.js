@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-fragments */
 import PropTypes from 'prop-types';
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
