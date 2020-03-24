@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-fragments */
 import PropTypes from 'prop-types';
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
@@ -123,7 +122,7 @@ const Calendar = ({
       {calendar}
     </FocusTrap>
   ) : (
-    <React.Fragment>{calendar}</React.Fragment>
+    <>{calendar}</>
   );
 };
 
