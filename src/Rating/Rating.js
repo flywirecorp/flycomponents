@@ -20,6 +20,8 @@ export class Rating extends Component {
     rating: null
   };
 
+  handleClick = e => this.selectStar(e);
+
   createMultipleStars = numberOfStars => {
     const { errorText, rating } = this.props;
 
@@ -31,7 +33,7 @@ export class Rating extends Component {
           key={starId}
           id={starId}
           selected={starId === parseInt(rating)}
-          onClick={this.selectStar}
+          onClick={this.handleClick}
         />
       );
     }

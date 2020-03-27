@@ -122,7 +122,7 @@ const Calendar = ({
       {calendar}
     </FocusTrap>
   ) : (
-    <React.Fragment>{calendar}</React.Fragment>
+    <>{calendar}</>
   );
 };
 

@@ -9,7 +9,7 @@ const CVVInput = ({ cvvTooltip, className, ...props }) => {
   return (
     <TextInput
       className={textInputClassName}
-      ariaDescribedBy={'cvvInput-Label-Tooltip'}
+      ariaDescribedBy="cvvInput-Label-Tooltip"
       {...props}
     >
       <span className="cvvInput-Icon-Tooltip" />

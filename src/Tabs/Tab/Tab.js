@@ -16,8 +16,8 @@ const Tab = ({ children, isActive, isDisabled, onSelect, onClick }) => {
         isDisabled
           ? 'Tab-link is-disabled'
           : isActive
-            ? 'Tab-link is-active'
-            : 'Tab-link'
+          ? 'Tab-link is-active'
+          : 'Tab-link'
       }
       onClick={handleClick}
     >
