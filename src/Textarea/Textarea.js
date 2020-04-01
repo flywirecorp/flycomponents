@@ -8,6 +8,7 @@ const Textarea = ({
   readOnly,
   required,
   forwardRef,
+  value,
   ...other
 }) => (
   <textarea
@@ -24,6 +25,7 @@ const Textarea = ({
     readOnly={readOnly}
     ref={forwardRef}
     required={required}
+    defaultValue={value}
     {...other}
   />
 );
@@ -33,7 +35,8 @@ const { bool, string, object } = PropTypes;
 Textarea.defaultProps = {
   disabled: false,
   readOnly: false,
-  required: false
+  required: false,
+  value: ''
 };
 
 Textarea.propTypes = {
@@ -42,7 +45,8 @@ Textarea.propTypes = {
   forwardRef: object,
   name: string.isRequired,
   readOnly: bool,
-  required: bool
+  required: bool,
+  value: string
 };
 
 export default Textarea;
