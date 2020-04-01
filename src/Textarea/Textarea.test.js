@@ -32,4 +32,10 @@ describe('Textarea', () => {
 
     expect(component.textarea().prop('readOnly')).toBe(true);
   });
+
+  test('when value property is given sets it as default value', () => {
+    const component = new TextareaComponent({ value: 'a_value' });
+
+    expect(component.textarea().prop('defaultValue')).toBe('a_value');
+  });
 });
