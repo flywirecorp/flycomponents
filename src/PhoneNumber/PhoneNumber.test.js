@@ -2,6 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import PhoneNumber from './PhoneNumber';
 import PrefixSelector from './PrefixSelector';
+import { debounceCallback } from '../utils/debounce';
+
+jest.mock('../utils/debounce', () => ({
+  debounceCallback: jest.fn(fn => fn)
+}));
+
+afterAll(() => {
+  debounceCallback.mockReset();
+});
 
 describe('PhoneNumber', () => {
   class PhoneNumberComponent {

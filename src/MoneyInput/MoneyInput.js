@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import InputGroup from '../InputGroup';
 import { toCents, toMoney } from '../utils/money';
 import FormGroup from '../FormGroup';
+import { debounceCallback, WAIT_TIME } from '../utils/debounce';
 import {
   CKEY,
   COMMA,
@@ -105,13 +106,13 @@ class MoneyInput extends Component {
     target.value = this.format(amountInCents);
   };
 
-  handleChange = e => {
+  handleChange = debounceCallback(e => {
     const { onChange } = this.props;
     const { name, value: amount } = e.target;
     const amountInCents = this.convertToCents(amount);
 
     onChange(name, amountInCents);
-  };
+  }, WAIT_TIME);
 
   handleOut = e => {
     const {

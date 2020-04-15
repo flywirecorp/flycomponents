@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import Option from './Option';
 import sameValue from '../utils/sameValue';
-import debounce from '../utils/debounce';
+import debounce, { WAIT_TIME } from '../utils/debounce';
 import { ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE } from '../utils/keycodes';
 
 const DOWN = -1;
@@ -12,7 +12,6 @@ const INITIAL_INDEX = 0;
 const LEFT = 'Left';
 const RIGHT = 'Right';
 const UP = 1;
-const WAIT_TIME = 200;
 const getA11yStatusMessage = ({
   isOpen,
   options = [],

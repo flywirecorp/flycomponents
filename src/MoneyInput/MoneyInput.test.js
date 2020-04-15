@@ -2,6 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import MoneyInput from './MoneyInput';
 import InputGroup from '../InputGroup';
+import { debounceCallback } from '../utils/debounce';
+
+jest.mock('../utils/debounce', () => ({
+  debounceCallback: jest.fn(fn => fn)
+}));
+
+afterAll(() => {
+  debounceCallback.mockReset();
+});
 
 describe('MoneyInput', () => {
   class MoneyInputComponent {
@@ -77,7 +86,7 @@ describe('MoneyInput', () => {
     expect(e.target.value).toBe('33.00');
   });
 
-  test('handles on change events in input', () => {
+  test.only('handles on change events in input', () => {
     const onChange = jest.fn();
     const props = {
       decimalMark: ',',

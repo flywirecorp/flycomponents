@@ -5,11 +5,10 @@ import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
-import debounce from '../../utils/debounce';
+import debounce, { WAIT_TIME } from '../../utils/debounce';
 import { ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB } from '../../utils/keycodes';
 
 const INITIAL_INDEX = -1;
-const WAIT_TIME = 200;
 const EMPTY_STRING = '';
 const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
   const optionsClosed = !isOpen;

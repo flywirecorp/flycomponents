@@ -4,6 +4,15 @@ import TextInput from './TextInput';
 import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
 import Input from '../Input';
+import { debounceCallback } from '../utils/debounce';
+
+jest.mock('../utils/debounce', () => ({
+  debounceCallback: jest.fn(fn => fn)
+}));
+
+afterAll(() => {
+  debounceCallback.mockReset();
+});
 
 describe('TextInput', () => {
   class TextInputComponent {

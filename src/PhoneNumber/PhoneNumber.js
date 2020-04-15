@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
 import FormGroup from '../FormGroup';
 import { getAriaDescribedBy } from '../utils/aria';
+import { debounceCallback, WAIT_TIME } from '../utils/debounce';
 
 const NO_VALUE = '';
 const DEFAULT_PREFIX_LABEL = 'Phone country code';
@@ -99,7 +100,7 @@ class PhoneNumber extends Component {
     onBlur(name);
   };
 
-  handleChange = e => {
+  handleChange = debounceCallback(e => {
     const { value: currentNumber } = e.target;
     const { prefix } = this.state;
 
@@ -111,7 +112,7 @@ class PhoneNumber extends Component {
     this.setState({ formattedNumber, phoneNumber, prefix }, () => {
       this.sendChange(phoneNumber);
     });
-  };
+  }, WAIT_TIME);
 
   handlePrefixClick = prefix => {
     const { formattedNumber } = this.state;

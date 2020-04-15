@@ -4,6 +4,7 @@ import InputGroup from '../InputGroup';
 import Textarea from '../Textarea';
 import Input from '../Input';
 import FormGroup from '../FormGroup';
+import { debounceCallback, WAIT_TIME } from '../utils/debounce';
 
 class TextInput extends Component {
   static propTypes = {
@@ -56,13 +57,14 @@ class TextInput extends Component {
     onBlur(name);
   };
 
-  handleChange = e => {
+  handleChange = debounceCallback(e => {
     const { onChange } = this.props;
     const { name, value } = e.target;
 
-    onChange(name, value);
-    this.setState({ value, hasValue: !!value });
-  };
+    this.setState(() => {
+      return { value, hasValue: !!value };
+    }, onChange(name, value));
+  }, WAIT_TIME);
 
   handleFocus = e => {
     const { disabled, readOnly } = this.props;

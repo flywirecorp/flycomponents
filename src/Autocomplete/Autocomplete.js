@@ -7,14 +7,13 @@ import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
 import FormGroup from '../FormGroup';
-import debounce from '../utils/debounce';
+import debounce, { WAIT_TIME } from '../utils/debounce';
 import isEmpty from '../utils/isEmpty';
 import { getAriaDescribedBy } from '../utils/aria';
 
 const NO_SPECIAL_CHARACTERS = 'noSpecialCharacters';
 const NO_OPTION = {};
 const EMPTY_STRING = '';
-const WAIT_TIME = 200;
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40, 9, 16];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB, SHIFT] = KEYS;
