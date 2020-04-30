@@ -330,7 +330,6 @@ class Datepicker extends Component {
             defaultValue={selectedDate}
             disabled={disabled}
             error={error}
-            floatingLabel={floatingLabel}
             name={name}
             onBlur={this.handleBlur}
             onCalendarIconClick={this.handleCalendarIconClick}
