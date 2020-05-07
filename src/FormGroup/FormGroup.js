@@ -42,7 +42,7 @@ const FormGroup = ({
     {children}
     {error && (
       <p className="FormGroup-feedback" id={`${name}-error-msg`} role="alert">
-        {error}
+        {typeof error === 'string' ? error : null}
       </p>
     )}
     {hint && (
@@ -53,23 +53,21 @@ const FormGroup = ({
   </div>
 );
 
-const { bool, node, string } = PropTypes;
-
 FormGroup.propTypes = {
-  children: node.isRequired,
-  className: string,
-  disabled: bool,
-  error: string,
-  floatingLabel: bool,
-  hasPrefix: bool,
-  hasSuffix: bool,
-  hasValue: bool,
-  hint: string,
-  isFocused: bool,
-  label: string,
-  name: string.isRequired,
-  readOnly: bool,
-  required: bool
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  floatingLabel: PropTypes.bool,
+  hasPrefix: PropTypes.bool,
+  hasSuffix: PropTypes.bool,
+  hasValue: PropTypes.bool,
+  hint: PropTypes.string,
+  isFocused: PropTypes.bool,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool
 };
 
 FormGroup.defaultProps = {

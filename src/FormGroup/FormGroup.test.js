@@ -18,8 +18,12 @@ describe('FormGroup', () => {
       return this.component.find('.is-disabled').text();
     }
 
+    get error() {
+      return this.component.find('.FormGroup-feedback');
+    }
+
     errorText() {
-      return this.component.find('.FormGroup-feedback').text();
+      return this.error.text();
     }
 
     find(ele) {
@@ -54,6 +58,14 @@ describe('FormGroup', () => {
     const component = new FormGroupComponent({ error });
 
     expect(component.errorText()).toBe('must be greater or equal to 5000');
+  });
+
+  test('renders an error message', () => {
+    const error = true;
+    const component = new FormGroupComponent({ error });
+
+    expect(component.error.length).toBe(1);
+    expect(component.errorText()).toBe('');
   });
 
   test('renders a hint message', () => {
