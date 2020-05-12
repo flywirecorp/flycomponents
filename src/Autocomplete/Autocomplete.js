@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import Fuse from 'fuse.js';
 import scrollIntoView from 'dom-scroll-into-view';
@@ -119,9 +118,9 @@ export class Autocomplete extends Component {
 
     this.searchInputRef = React.createRef();
     this.optionListRef = React.createRef();
-    this.setOptionRef = (i, e) => {
-      this[`option-${i}`] = e;
-    };
+    this.optionRefs = Array.from({ length: options.length }, () =>
+      React.createRef()
+    );
   }
 
   componentDidMount() {
@@ -151,10 +150,12 @@ export class Autocomplete extends Component {
 
   adjustOffset() {
     const { selectedIndex } = this.state;
-    const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
+
+    if (selectedIndex === INITIAL_INDEX) return;
+
+    const optionSelected = this.optionRefs[selectedIndex].current;
 
     if (!optionSelected) return;
-    if (selectedIndex === INITIAL_INDEX) return;
 
     scrollIntoView(optionSelected, this.optionListRef.current, {
       onlyScrollIfNeeded: true
@@ -455,7 +456,7 @@ export class Autocomplete extends Component {
         onMouseEnter={value => this.handleOptionHover(value)}
         hasFocus={selectedIndex === i}
         option={option}
-        ref={option => this.setOptionRef(i, option)}
+        forwardRef={this.optionRefs[i]}
         searchQuery={searchQuery.toString()}
         selectedValue={new RegExp(`^${selectedValue}$`, 'i').test(option.value)}
         template={template}

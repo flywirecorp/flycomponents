@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import { parseDate, today, DATE_FORMAT } from '../utils/date';
 import debounce from '../utils/debounce';
@@ -72,6 +71,7 @@ class Datepicker extends Component {
     this.nextMonthRef = React.createRef();
     this.prevMonthRef = React.createRef();
     this.yearRef = React.createRef();
+    this.formGroupRef = React.createRef();
 
     this.state = {
       a11yStatusMessage: EMPTY_STRING,
@@ -207,7 +207,7 @@ class Datepicker extends Component {
   hideOnDocumentClick = e => {
     const { isOpen: wasOpen } = this.state;
     const { target } = e;
-    const parentElement = findDOMNode(this);
+    const parentElement = this.formGroupRef.current;
 
     if (parentElement.contains(target)) {
       return;
@@ -316,6 +316,7 @@ class Datepicker extends Component {
         name={name}
         required={required}
         readOnly={readOnly}
+        forwardRef={this.formGroupRef}
       >
         <div
           className={classNames(

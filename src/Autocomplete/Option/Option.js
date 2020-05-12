@@ -4,24 +4,6 @@ import classNames from 'classnames';
 import Highlighter from '../Highlighter';
 
 class Option extends Component {
-  static propTypes = {
-    hasFocus: PropTypes.bool.isRequired,
-    highlighText: PropTypes.bool,
-    id: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
-    onMouseEnter: PropTypes.func.isRequired,
-    option: PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    }),
-    searchQuery: PropTypes.string,
-    template: PropTypes.func
-  };
-
-  static defaultProps = {
-    highlighText: true
-  };
-
   render() {
     const {
       hasFocus,
@@ -32,7 +14,8 @@ class Option extends Component {
       option,
       option: { label, value },
       searchQuery,
-      template
+      template,
+      forwardRef
     } = this.props;
 
     const text = label.toString();
@@ -53,6 +36,7 @@ class Option extends Component {
         role="option"
         tabIndex={-1}
         value={value}
+        ref={forwardRef}
       >
         {typeof template === 'function'
           ? template({ ...option, label: highlighedText })
@@ -61,5 +45,24 @@ class Option extends Component {
     );
   }
 }
+
+Option.propTypes = {
+  forwardRef: PropTypes.object,
+  hasFocus: PropTypes.bool.isRequired,
+  highlighText: PropTypes.bool,
+  id: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  option: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  }),
+  searchQuery: PropTypes.string,
+  template: PropTypes.func
+};
+
+Option.defaultProps = {
+  highlighText: true
+};
 
 export default Option;
