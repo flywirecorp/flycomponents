@@ -11,7 +11,8 @@ class Option extends Component {
       onClick,
       onMouseEnter,
       value: isoCode,
-      id
+      id,
+      forwardRef
     } = this.props;
 
     return (
@@ -26,6 +27,7 @@ class Option extends Component {
         aria-selected={hasFocus}
         role="option"
         id={id}
+        ref={forwardRef}
       >
         <span className="PhoneNumber-option-country">{country}</span>
         <span className="PhoneNumber-option-dial">+{dialingCode}</span>
@@ -34,16 +36,15 @@ class Option extends Component {
   }
 }
 
-const { bool, func, string } = PropTypes;
-
 Option.propTypes = {
-  country: string.isRequired,
-  dialingCode: string,
-  hasFocus: bool.isRequired,
-  id: string,
-  onClick: func.isRequired,
-  onMouseEnter: func.isRequired,
-  value: string.isRequired
+  country: PropTypes.string.isRequired,
+  dialingCode: PropTypes.string,
+  forwardRef: PropTypes.object,
+  hasFocus: PropTypes.bool.isRequired,
+  id: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+  onMouseEnter: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired
 };
 
 export default Option;
