@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
@@ -51,7 +50,7 @@ export class PrefixSelector extends Component {
   constructor(props) {
     super(props);
 
-    const { value } = this.props;
+    const { options, value } = this.props;
 
     this.state = {
       a11yStatusMessage: EMPTY_STRING,
@@ -65,9 +64,9 @@ export class PrefixSelector extends Component {
 
     this.optionListRef = React.createRef();
     this.buttonRef = React.createRef();
-    this.setOptionRef = (i, e) => {
-      this[`option-${i}`] = e;
-    };
+    this.optionRefs = Array.from({ length: options.length }, () =>
+      React.createRef()
+    );
   }
 
   componentDidMount() {
@@ -94,10 +93,11 @@ export class PrefixSelector extends Component {
 
   adjustOffet() {
     const { selectedIndex } = this.state;
-    const optionSelected = findDOMNode(this[`option-${selectedIndex}`]);
+    if (selectedIndex === INITIAL_INDEX) return;
+
+    const optionSelected = this.optionRefs[selectedIndex].current;
     const optionList = this.optionListRef.current;
 
-    if (selectedIndex === INITIAL_INDEX) return;
     scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
   }
 
@@ -322,7 +322,7 @@ export class PrefixSelector extends Component {
         onClick={value => this.handleOptionSelected(value)}
         onMouseEnter={value => this.handleOptionHover(value)}
         onMouseOver={value => this.handleOptionHover(value)}
-        ref={option => this.setOptionRef(index, option)}
+        forwardRef={this.optionRefs[index]}
         value={value}
         id={`${name}-option-${index}`}
       />

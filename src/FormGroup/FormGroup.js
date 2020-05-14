@@ -17,7 +17,8 @@ const FormGroup = ({
   label,
   name,
   readOnly,
-  required
+  required,
+  forwardRef
 }) => (
   <div
     className={classNames('FormGroup', className, {
@@ -30,6 +31,7 @@ const FormGroup = ({
       'FormGroup--hasPrefix': hasPrefix,
       'FormGroup--hasSuffix': hasSuffix
     })}
+    ref={forwardRef}
   >
     {label && (
       <Label
@@ -59,6 +61,7 @@ FormGroup.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   floatingLabel: PropTypes.bool,
+  forwardRef: PropTypes.object,
   hasPrefix: PropTypes.bool,
   hasSuffix: PropTypes.bool,
   hasValue: PropTypes.bool,
