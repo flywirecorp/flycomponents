@@ -44,5 +44,13 @@ export default () => (
       required
       value="04/21/1979"
     />
+    <Datepicker
+      label="Test Date Picker with error"
+      locale="ES"
+      name="test"
+      error="an error"
+      required
+      value="21/12/1979"
+    />
   </Component>
 );
