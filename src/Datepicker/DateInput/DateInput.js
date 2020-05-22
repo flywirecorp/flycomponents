@@ -107,6 +107,7 @@ class DateInput extends Component {
           <CalendarIcon
             onClick={onCalendarIconClick}
             label={calendarIconLabel}
+            hasError={!!error}
           />
         </span>
       </div>
