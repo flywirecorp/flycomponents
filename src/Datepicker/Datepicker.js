@@ -126,6 +126,8 @@ class Datepicker extends Component {
       this.setState({ selectedDate: date, focussedDate: date });
     }
 
+    this.setState({ inputValue: str });
+
     onChange(name, str);
   };
 
@@ -277,7 +279,8 @@ class Datepicker extends Component {
       isFocused,
       isAbove,
       selectedDate,
-      focussedDate
+      focussedDate,
+      inputValue
     } = this.state;
 
     const {
@@ -309,7 +312,7 @@ class Datepicker extends Component {
         error={error}
         floatingLabel={floatingLabel}
         isFocused={isOpen || isFocused}
-        hasValue={!!selectedDate}
+        hasValue={!!selectedDate || !!inputValue}
         hasSuffix
         hint={hint}
         label={label}
