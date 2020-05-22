@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import moment from 'moment';
 import DateInput from './DateInput';
-import { parseDate } from '../../utils/date';
+import { parseDate, DATE_FORMAT } from '../../utils/date';
 import { ENTER, BACKSPACE } from '../../utils/keycodes';
 
 describe('DateInput', () => {
@@ -13,6 +14,7 @@ describe('DateInput', () => {
         onFocus: () => {},
         onClick: () => {},
         onKeyDown: () => {},
+        onBlur: () => {},
         toggleCalendar: () => {}
       };
       const props = { ...defaultProps, ...ownProps };
@@ -45,6 +47,10 @@ describe('DateInput', () => {
       };
 
       this.input().simulate('keyDown', keys[k]);
+    }
+
+    blur() {
+      this.input().simulate('blur');
     }
   }
 
@@ -94,5 +100,40 @@ describe('DateInput', () => {
     const input = component.input();
 
     expect(input.prop('aria-required')).toBe(true);
+  });
+
+  describe('onBlur', () => {
+    test('calls the passed onBlur property', () => {
+      const onBlur = jest.fn();
+      const component = new DateInputComponent({ onBlur });
+
+      component.blur();
+
+      expect(onBlur).toHaveBeenCalled();
+    });
+
+    test('cleans the entered value if cannot be parsed', () => {
+      const component = new DateInputComponent();
+
+      component.pressKey(0);
+      component.blur();
+
+      const { value } = component.state();
+
+      expect(value).toEqual('');
+    });
+
+    test('keeps the entered value if has been parsed', () => {
+      const defaultValue = moment();
+      const expectedValue = moment().format(DATE_FORMAT);
+      const component = new DateInputComponent({ defaultValue });
+
+      component.pressKey(0);
+      component.blur();
+
+      const { value } = component.state();
+
+      expect(value).toEqual(expectedValue);
+    });
   });
 });

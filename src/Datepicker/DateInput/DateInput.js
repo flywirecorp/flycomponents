@@ -56,6 +56,15 @@ class DateInput extends Component {
     );
   };
 
+  handleBlur = evt => {
+    const { value } = this.state;
+    const { defaultValue, onBlur } = this.props;
+
+    if (value && !defaultValue) this.setState({ value: '' });
+
+    onBlur(evt);
+  };
+
   render() {
     const { value } = this.state;
     const {
@@ -90,7 +99,7 @@ class DateInput extends Component {
           id={name}
           onChange={() => {}}
           onClick={onClick}
-          onBlur={onBlur}
+          onBlur={this.handleBlur}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
           placeholder={DATE_FORMAT}
