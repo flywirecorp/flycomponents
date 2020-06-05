@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { Component, createContext } from 'react';
 import classNames from 'classnames';
 import { parseDate, today, DATE_FORMAT } from '../utils/date';
 import debounce from '../utils/debounce';
@@ -19,42 +19,8 @@ const getA11yStatusMessage = ({ isOpen }) => {
     : 'Enter a date in the format MM/DD/YYYY, or press Enter key to open a calendar.';
 };
 
+export const Context = createContext();
 class Datepicker extends Component {
-  static propTypes = {
-    calendarIconLabel: PropTypes.string,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    floatingLabel: PropTypes.bool,
-    getA11yStatusMessage: PropTypes.func,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    locale: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    nextMonthLabel: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    prevMonthLabel: PropTypes.string,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    selectMonthLabel: PropTypes.string,
-    selectYearLabel: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  };
-
-  static childContextTypes = {
-    locale: PropTypes.string
-  };
-
-  static defaultProps = {
-    disabled: false,
-    getA11yStatusMessage: getA11yStatusMessage,
-    onBlur: () => {},
-    onChange: () => {},
-    onFocus: () => {},
-    readOnly: false
-  };
-
   constructor(props) {
     super(props);
 
@@ -81,11 +47,6 @@ class Datepicker extends Component {
       selectedDate: initDate,
       focussedDate: initDate || today
     };
-  }
-
-  getChildContext() {
-    const { locale } = this.props;
-    return { locale };
   }
 
   componentDidMount() {
@@ -307,85 +268,118 @@ class Datepicker extends Component {
     } = this.props;
 
     return (
-      <FormGroup
-        disabled={disabled}
-        error={error}
-        floatingLabel={floatingLabel}
-        isFocused={isOpen || isFocused}
-        hasValue={!!selectedDate || !!inputValue}
-        hasSuffix
-        hint={hint}
-        label={label}
-        name={name}
-        required={required}
-        readOnly={readOnly}
-        forwardRef={this.formGroupRef}
-      >
-        <div
-          className={classNames(
-            'Datepicker',
-            { 'is-open': isOpen },
-            { 'is-reverse': isAbove }
-          )}
-          ref={this.datepickerRef}
+      <Context.Provider value={{ locale }}>
+        <FormGroup
+          disabled={disabled}
+          error={error}
+          floatingLabel={floatingLabel}
+          isFocused={isOpen || isFocused}
+          hasValue={!!selectedDate || !!inputValue}
+          hasSuffix
+          hint={hint}
+          label={label}
+          name={name}
+          required={required}
+          readOnly={readOnly}
+          forwardRef={this.formGroupRef}
         >
-          <DateInput
-            calendarIconLabel={calendarIconLabel}
-            defaultValue={selectedDate}
-            disabled={disabled}
-            error={error}
-            name={name}
-            onBlur={this.handleBlur}
-            onCalendarIconClick={this.handleCalendarIconClick}
-            onClick={this.handleClick}
-            onFocus={this.handleFocus}
-            onKeyDown={this.handleKeyDown}
-            readOnly={readOnly}
-            required={required}
-            toggleCalendar={this.toggleCalendar}
-            key={selectedDate}
-            forwardRef={this.dateInputRef}
-            {...otherProps}
-          />
-          <Calendar
-            closeCalendar={this.closeCalendar}
-            focussedDate={focussedDate}
-            forwardRef={this.calendarRef}
-            isOpen={isOpen}
-            monthRef={this.monthRef}
-            name={name}
-            nextMonthLabel={nextMonthLabel}
-            nextMonthRef={this.nextMonthRef}
-            onDateClick={this.handleDateClick}
-            onMonthChange={this.handleMonthChange}
-            onNextMonthClick={this.handleNextMonthClick}
-            onPrevMonthClick={this.handlePrevMonthClick}
-            onYearChange={this.handleYearChange}
-            prevMonthLabel={prevMonthLabel}
-            prevMonthRef={this.prevMonthRef}
-            selectMonthLabel={selectMonthLabel}
-            selectYearLabel={selectYearLabel}
-            setDate={this.setDate}
-            yearRef={this.yearRef}
-          />
-        </div>
-        <div
-          id={`${name}-status`}
-          role="status"
-          aria-live="polite"
-          style={{
-            border: '0px',
-            height: '1px',
-            width: '1px',
-            overflow: 'hidden',
-            padding: '0px'
-          }}
-        >
-          {a11yStatusMessage}
-        </div>
-      </FormGroup>
+          <div
+            className={classNames(
+              'Datepicker',
+              { 'is-open': isOpen },
+              { 'is-reverse': isAbove }
+            )}
+            ref={this.datepickerRef}
+          >
+            <DateInput
+              calendarIconLabel={calendarIconLabel}
+              defaultValue={selectedDate}
+              disabled={disabled}
+              error={error}
+              name={name}
+              onBlur={this.handleBlur}
+              onCalendarIconClick={this.handleCalendarIconClick}
+              onClick={this.handleClick}
+              onFocus={this.handleFocus}
+              onKeyDown={this.handleKeyDown}
+              readOnly={readOnly}
+              required={required}
+              toggleCalendar={this.toggleCalendar}
+              key={selectedDate}
+              forwardRef={this.dateInputRef}
+              {...otherProps}
+            />
+            <Calendar
+              closeCalendar={this.closeCalendar}
+              focussedDate={focussedDate}
+              forwardRef={this.calendarRef}
+              isOpen={isOpen}
+              monthRef={this.monthRef}
+              name={name}
+              nextMonthLabel={nextMonthLabel}
+              nextMonthRef={this.nextMonthRef}
+              onDateClick={this.handleDateClick}
+              onMonthChange={this.handleMonthChange}
+              onNextMonthClick={this.handleNextMonthClick}
+              onPrevMonthClick={this.handlePrevMonthClick}
+              onYearChange={this.handleYearChange}
+              prevMonthLabel={prevMonthLabel}
+              prevMonthRef={this.prevMonthRef}
+              selectMonthLabel={selectMonthLabel}
+              selectYearLabel={selectYearLabel}
+              setDate={this.setDate}
+              yearRef={this.yearRef}
+            />
+          </div>
+          <div
+            id={`${name}-status`}
+            role="status"
+            aria-live="polite"
+            style={{
+              border: '0px',
+              height: '1px',
+              width: '1px',
+              overflow: 'hidden',
+              padding: '0px'
+            }}
+          >
+            {a11yStatusMessage}
+          </div>
+        </FormGroup>
+      </Context.Provider>
     );
   }
 }
+
+Datepicker.propTypes = {
+  calendarIconLabel: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  floatingLabel: PropTypes.bool,
+  getA11yStatusMessage: PropTypes.func,
+  hint: PropTypes.string,
+  label: PropTypes.string,
+  locale: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  nextMonthLabel: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  prevMonthLabel: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  selectMonthLabel: PropTypes.string,
+  selectYearLabel: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
+
+Datepicker.defaultProps = {
+  disabled: false,
+  getA11yStatusMessage: getA11yStatusMessage,
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {},
+  readOnly: false
+};
 
 export default Datepicker;

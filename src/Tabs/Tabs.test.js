@@ -1,15 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Tabs from './Tabs';
+import Tab from './Tab';
 import TabList from './TabList';
 import TabPanels from './TabPanels';
+import TabPanel from './TabPanel';
 
 describe('Tabs', () => {
-  const panelsContent = 'Panels content';
-  const wrapper = shallow(
+  const wrapper = mount(
     <Tabs>
-      <TabList />
-      <TabPanels>{panelsContent}</TabPanels>
+      <TabList>
+        <Tab>First</Tab>
+        <Tab>Second</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>First option content</TabPanel>
+        <TabPanel>Second option content</TabPanel>
+      </TabPanels>
     </Tabs>
   );
 
@@ -22,16 +29,18 @@ describe('Tabs', () => {
   });
 
   test('defaults to first tab active', () => {
-    const activeTabIndex = wrapper.state().activeIndex;
+    const firstTab = wrapper.find(Tab).first();
 
-    expect(activeTabIndex).toBe(0);
+    expect(firstTab.prop('isActive')).toBe(true);
   });
 
   test('merges classNames sent with their default classes', () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Tabs className="customClass">
         <TabList />
-        <TabPanels>{panelsContent}</TabPanels>
+        <TabPanels>
+          <TabPanel>First option content</TabPanel>
+        </TabPanels>
       </Tabs>
     );
 

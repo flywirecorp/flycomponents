@@ -1,10 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Context } from '../../Datepicker';
 import DayNames from './DayNames';
 
 describe('DayNames', () => {
   test('renders the days of the week', () => {
-    const component = shallow(<DayNames />, { context: { locale: 'en' } });
+    const locale = 'en';
+    const component = mount(
+      <Context.Provider value={{ locale }}>
+        <DayNames />
+      </Context.Provider>,
+      {
+        attachTo: document.createElement('table')
+      }
+    );
+
     const days = component.find('.Calendar-weekday').map(d => d.text());
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

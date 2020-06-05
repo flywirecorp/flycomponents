@@ -1,32 +1,29 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import { Context } from '../../Datepicker';
 import { daysOfWeek } from '../../../utils/date';
 
-const DayNames = (_props, { locale }) => {
-  const dayNames = daysOfWeek(locale);
+const DayNames = () => (
+  <Context.Consumer>
+    {({ locale }) => (
+      <thead role="presentation" aria-hidden="false">
+        <tr role="row">
+          {daysOfWeek(locale).map((day, index) => (
+            <th
+              scope="col"
+              role="columnheader"
+              aria-label={day}
+              className="Calendar-weekday"
+              key={day}
+              id={`header-day-${index}`}
+            >
+              <abbr title={day}>{day}</abbr>
+            </th>
+          ))}
+        </tr>
+      </thead>
+    )}
+  </Context.Consumer>
+);
 
-  return (
-    <thead role="presentation" aria-hidden="false">
-      <tr role="row">
-        {dayNames.map((day, index) => (
-          <th
-            scope="col"
-            role="columnheader"
-            aria-label={day}
-            className="Calendar-weekday"
-            key={day}
-            id={`header-day-${index}`}
-          >
-            <abbr title={day}>{day}</abbr>
-          </th>
-        ))}
-      </tr>
-    </thead>
-  );
-};
-
-DayNames.contextTypes = {
-  locale: PropTypes.string
-};
-
+DayNames.displayName = 'DayNames';
 export default DayNames;

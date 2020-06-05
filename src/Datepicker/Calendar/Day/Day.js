@@ -28,6 +28,7 @@ const Day = ({ current, date, disabled, onDateClick, selected }) => {
   );
 };
 
+Day.displayName = 'Day';
 Day.propTypes = {
   current: PropTypes.bool,
   date: PropTypes.object,

@@ -22,6 +22,7 @@ const Month = props => {
   return <tbody role="presentation">{monthWeeks}</tbody>;
 };
 
+Month.displayName = 'Month';
 Month.propTypes = {
   focussedDate: PropTypes.object.isRequired,
   onDateClick: PropTypes.func.isRequired

@@ -126,6 +126,7 @@ const Calendar = ({
   );
 };
 
+Calendar.displayName = 'Calendar';
 Calendar.propTypes = {
   closeCalendar: PropTypes.func.isRequired,
   focussedDate: PropTypes.object.isRequired,
