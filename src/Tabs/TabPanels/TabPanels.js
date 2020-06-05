@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Context } from '../Tabs';
 
-const TabPanels = ({ children }, { activeIndex }) => (
-  <div className="TabPanels">{children[activeIndex]}</div>
+const TabPanels = ({ children }) => (
+  <Context.Consumer>
+    {({ activeIndex }) => (
+      <div className="TabPanels">{children[activeIndex]}</div>
+    )}
+  </Context.Consumer>
 );
 
+TabPanels.displayNane = 'TabPanels';
 TabPanels.propTypes = {
   children: PropTypes.node.isRequired
-};
-
-TabPanels.contextTypes = {
-  activeIndex: PropTypes.number.isRequired
 };
 
 export default TabPanels;

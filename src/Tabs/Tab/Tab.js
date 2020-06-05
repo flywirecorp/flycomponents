@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tab = ({ children, isActive, isDisabled, onSelect, onClick }) => {
+const NOOP = () => {};
+const Tab = ({
+  children,
+  isActive = false,
+  isDisabled = false,
+  onSelect = NOOP,
+  onClick = NOOP
+}) => {
   const handleClick = e => {
     if (isDisabled) e.preventDefault();
 
@@ -24,14 +31,6 @@ const Tab = ({ children, isActive, isDisabled, onSelect, onClick }) => {
       {children}
     </a>
   );
-};
-
-Tab.defaultProps = {
-  children: null,
-  isActive: false,
-  isDisabled: false,
-  onSelect: () => {},
-  onClick: () => {}
 };
 
 Tab.propTypes = {

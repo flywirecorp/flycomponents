@@ -1,33 +1,30 @@
-import React, { Component, Children } from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
+import { Context } from '../Tabs';
 
-export class TabList extends Component {
-  static propTypes = {
-    children: PropTypes.node
-  };
-
-  static contextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    onSelectTab: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    children: null
-  };
-
-  render() {
-    const { activeIndex } = this.context;
-    const children = Children.map(this.props.children, (child, index) => {
-      return React.cloneElement(child, {
-        isActive: index === activeIndex,
-        onSelect: event => {
-          event.preventDefault();
-          this.context.onSelectTab(index);
-        }
-      });
-    });
-    return <nav className="TabList">{children}</nav>;
-  }
+function TabList({ children }) {
+  return (
+    <Context.Consumer>
+      {({ activeIndex, onSelectTab }) => (
+        <nav className="TabList">
+          {Children.map(children, (child, index) =>
+            React.cloneElement(child, {
+              isActive: index === activeIndex,
+              onSelect: event => {
+                event.preventDefault();
+                onSelectTab(index);
+              }
+            })
+          )}
+        </nav>
+      )}
+    </Context.Consumer>
+  );
 }
+
+TabList.displayName = 'TabList';
+TabList.propTypes = {
+  children: PropTypes.node
+};
 
 export default TabList;

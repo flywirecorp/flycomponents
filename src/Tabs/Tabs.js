@@ -1,45 +1,29 @@
-import React, { Component } from 'react';
+import React, { useState, createContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export class Tabs extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    defaultActiveIndex: PropTypes.number
-  };
+export const Context = createContext();
+export function Tabs({ children, className, defaultActiveIndex = 0 }) {
+  const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
+  const tabClassName = classNames('Tabs', className);
 
-  static childContextTypes = {
-    activeIndex: PropTypes.number.isRequired,
-    onSelectTab: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    children: null,
-    defaultActiveIndex: 0
-  };
-
-  state = {
-    activeIndex: this.props.defaultActiveIndex
-  };
-
-  getChildContext() {
-    return {
-      activeIndex: this.state.activeIndex,
-      onSelectTab: this.selectTabIndex
-    };
-  }
-
-  selectTabIndex = activeIndex => {
-    this.setState({ activeIndex });
-  };
-
-  render() {
-    const { className } = this.props;
-    const tabClassName = classNames('Tabs', className);
-
-    return <div className={tabClassName}>{this.props.children}</div>;
-  }
+  return (
+    <Context.Provider
+      value={{
+        activeIndex,
+        onSelectTab: setActiveIndex
+      }}
+    >
+      <div className={tabClassName}>{children}</div>
+    </Context.Provider>
+  );
 }
+
+Tabs.displayName = 'Tabs';
+Tabs.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  defaultActiveIndex: PropTypes.number
+};
 
 export default Tabs;
