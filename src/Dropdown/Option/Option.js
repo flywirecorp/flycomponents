@@ -36,7 +36,7 @@ Option.displayName = 'Option';
 Option.propTypes = {
   id: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClick: PropTypes.func,
   template: PropTypes.func,
   value: PropTypes.string.isRequired

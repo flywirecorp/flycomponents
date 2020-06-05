@@ -54,7 +54,7 @@ Option.propTypes = {
   onClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
   option: PropTypes.shape({
-    label: PropTypes.string.isRequired,
+    label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     value: PropTypes.string.isRequired
   }),
   searchQuery: PropTypes.string,
