@@ -5,31 +5,6 @@ import FormGroup from '../FormGroup';
 import isEmpty from '../utils/isEmpty';
 
 class MultipleCheckbox extends Component {
-  static propTypes = {
-    checked: PropTypes.array,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
-    options: PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string,
-        value: PropTypes.string
-      })
-    ),
-    required: PropTypes.bool
-  };
-
-  static defaultProps = {
-    checked: [],
-    disabled: false,
-    onChange: () => {},
-    options: [],
-    required: false
-  };
-
   state = {
     checked: this.props.checked
   };
@@ -99,5 +74,30 @@ class MultipleCheckbox extends Component {
     );
   }
 }
+
+MultipleCheckbox.propTypes = {
+  checked: PropTypes.array,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  hint: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string
+    })
+  ),
+  required: PropTypes.bool
+};
+
+MultipleCheckbox.defaultProps = {
+  checked: [],
+  disabled: false,
+  onChange: () => {},
+  options: [],
+  required: false
+};
 
 export default MultipleCheckbox;

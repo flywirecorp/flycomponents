@@ -55,6 +55,7 @@ const FormGroup = ({
   </div>
 );
 
+FormGroup.displayName = 'FormGroup';
 FormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,

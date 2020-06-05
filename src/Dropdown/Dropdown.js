@@ -313,20 +313,21 @@ Dropdown.defaultProps = {
   upward: false
 };
 
-const { arrayOf, func, shape, string, bool } = PropTypes;
-
 Dropdown.propTypes = {
-  className: string,
-  defaultValue: string.isRequired,
-  getA11yStatusMessage: func,
-  label: string,
-  name: string,
-  onChange: func,
-  options: arrayOf(
-    shape({ label: string.isRequired, value: string.isRequired })
+  className: PropTypes.string,
+  defaultValue: PropTypes.string.isRequired,
+  getA11yStatusMessage: PropTypes.func,
+  label: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
   ).isRequired,
-  template: func,
-  upward: bool
+  template: PropTypes.func,
+  upward: PropTypes.bool
 };
 
 export default Dropdown;

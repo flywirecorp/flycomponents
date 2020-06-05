@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 class Radio extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    id: PropTypes.string,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool
-  };
-
   render() {
     const {
       className,
@@ -69,5 +58,16 @@ class Radio extends Component {
     );
   }
 }
+
+Radio.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool
+};
 
 export default Radio;

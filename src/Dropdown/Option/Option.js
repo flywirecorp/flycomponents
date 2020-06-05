@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
 
+const NOOP = () => {};
 const Option = ({
   id,
-  isActive,
+  isActive = false,
   label,
-  onClick,
+  onClick = NOOP,
   template,
   value,
   ...otherProps
@@ -40,11 +41,6 @@ Option.propTypes = {
   onClick: PropTypes.func,
   template: PropTypes.func,
   value: PropTypes.string.isRequired
-};
-
-Option.defaultProps = {
-  isActive: false,
-  onClick: () => {}
 };
 
 export default Option;

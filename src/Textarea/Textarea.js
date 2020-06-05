@@ -30,8 +30,7 @@ const Textarea = ({
   />
 );
 
-const { bool, string, object } = PropTypes;
-
+Textarea.displayName = 'Textarea';
 Textarea.defaultProps = {
   disabled: false,
   readOnly: false,
@@ -40,13 +39,13 @@ Textarea.defaultProps = {
 };
 
 Textarea.propTypes = {
-  disabled: bool,
-  error: string,
-  forwardRef: object,
-  name: string.isRequired,
-  readOnly: bool,
-  required: bool,
-  value: string
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  forwardRef: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  value: PropTypes.string
 };
 
 export default Textarea;

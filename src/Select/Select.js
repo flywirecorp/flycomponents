@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const NOOP = () => {};
 const Select = ({
   className,
   disabled,
   forwardRef,
   name,
-  onChange,
-  onClick,
+  onChange = NOOP,
+  onClick = NOOP,
   selectedValue,
   values,
   ...other
@@ -35,6 +36,7 @@ const Select = ({
   );
 };
 
+Select.displayName = 'Select';
 Select.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
@@ -44,11 +46,6 @@ Select.propTypes = {
   onClick: PropTypes.func.isRequired,
   selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   values: PropTypes.array.isRequired
-};
-
-Select.defaultProps = {
-  onChange: () => {},
-  onClick: () => {}
 };
 
 export default Select;

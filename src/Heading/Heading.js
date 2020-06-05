@@ -30,6 +30,7 @@ const joinClassNames = (size, className) => {
   return headingClasses;
 };
 
+Heading.displayName = 'Heading';
 Heading.defaultProps = {
   as: DEFAULT_TAG,
   size: DEFAULT_SIZE

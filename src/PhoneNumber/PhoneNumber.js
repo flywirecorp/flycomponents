@@ -10,37 +10,6 @@ const NO_VALUE = '';
 const DEFAULT_PREFIX_LABEL = 'Phone country code';
 
 class PhoneNumber extends Component {
-  static propTypes = {
-    ariaDescribedBy: PropTypes.string,
-    countries: PropTypes.array.isRequired,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    floatingLabel: PropTypes.bool,
-    getA11yStatusMessage: PropTypes.func,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    prefixLabel: PropTypes.string,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    value: PropTypes.string
-  };
-
-  static defaultProps = {
-    ariaDescribedBy: '',
-    countries: [],
-    disabled: false,
-    floatingLabel: true,
-    prefixLabel: DEFAULT_PREFIX_LABEL,
-    onBlur: () => {},
-    onChange: () => {},
-    onFocus: () => {},
-    readOnly: false
-  };
-
   constructor(props) {
     super(props);
     this.numberInputRef = React.createRef();
@@ -222,5 +191,36 @@ class PhoneNumber extends Component {
     );
   }
 }
+
+PhoneNumber.propTypes = {
+  ariaDescribedBy: PropTypes.string,
+  countries: PropTypes.array.isRequired,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  floatingLabel: PropTypes.bool,
+  getA11yStatusMessage: PropTypes.func,
+  hint: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  prefixLabel: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  value: PropTypes.string
+};
+
+PhoneNumber.defaultProps = {
+  ariaDescribedBy: '',
+  countries: [],
+  disabled: false,
+  floatingLabel: true,
+  prefixLabel: DEFAULT_PREFIX_LABEL,
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {},
+  readOnly: false
+};
 
 export default PhoneNumber;

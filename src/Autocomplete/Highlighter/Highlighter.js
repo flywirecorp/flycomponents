@@ -15,11 +15,10 @@ const Highlighter = ({ text, subString }) => {
   return <span dangerouslySetInnerHTML={createMarkup(highlightedText)} />;
 };
 
-const { string } = PropTypes;
-
+Highlighter.displayName = 'Highlighter';
 Highlighter.propTypes = {
-  subString: string,
-  text: string
+  subString: PropTypes.string,
+  text: PropTypes.string
 };
 
 export default Highlighter;

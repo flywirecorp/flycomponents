@@ -4,16 +4,6 @@ import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
 
 class Checkbox extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    id: PropTypes.string,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired,
-    required: PropTypes.bool
-  };
-
   render() {
     const {
       className,
@@ -66,5 +56,15 @@ class Checkbox extends Component {
     );
   }
 }
+
+Checkbox.propTypes = {
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  name: PropTypes.string.isRequired,
+  required: PropTypes.bool
+};
 
 export default Checkbox;
