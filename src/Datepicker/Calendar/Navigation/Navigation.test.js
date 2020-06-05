@@ -1,5 +1,6 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import { Context } from '../../Datepicker';
 import moment from 'moment';
 import Navigation from './Navigation';
 
@@ -16,9 +17,11 @@ describe('Navigation', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Navigation {...props} />, {
-        context: { locale: 'en' }
-      });
+      this.component = mount(
+        <Context.Provider value={{ locale: 'en' }}>
+          <Navigation {...props} />
+        </Context.Provider>
+      );
     }
 
     navigation() {

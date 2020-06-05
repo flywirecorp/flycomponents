@@ -24,6 +24,7 @@ const Week = ({ startingDate, month, onDateClick, selectedDate }) => {
   );
 };
 
+Week.displayName = 'Week';
 Week.propTypes = {
   month: PropTypes.number,
   onDateClick: PropTypes.func.isRequired,
