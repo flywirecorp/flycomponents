@@ -3,24 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export class FileInput extends Component {
-  static propTypes = {
-    accepts: PropTypes.string,
-    buttonText: PropTypes.string,
-    className: PropTypes.string,
-    hint: PropTypes.string,
-    multiple: PropTypes.bool,
-    onChange: PropTypes.func,
-    uploading: PropTypes.bool
-  };
-
-  static defaultProps = {
-    accepts: '',
-    buttonText: 'Upload',
-    multiple: false,
-    onChange: () => {},
-    uploading: false
-  };
-
   constructor(props) {
     super(props);
     this.fileInputRef = React.createRef();
@@ -72,5 +54,23 @@ export class FileInput extends Component {
     );
   }
 }
+
+FileInput.propTypes = {
+  accepts: PropTypes.string,
+  buttonText: PropTypes.string,
+  className: PropTypes.string,
+  hint: PropTypes.string,
+  multiple: PropTypes.bool,
+  onChange: PropTypes.func,
+  uploading: PropTypes.bool
+};
+
+FileInput.defaultProps = {
+  accepts: '',
+  buttonText: 'Upload',
+  multiple: false,
+  onChange: () => {},
+  uploading: false
+};
 
 export default FileInput;

@@ -7,6 +7,7 @@ const Header = ({ children, setActive }) => (
   </header>
 );
 
+Header.displayName = 'Header';
 Header.propTypes = {
   children: PropTypes.node,
   setActive: PropTypes.func

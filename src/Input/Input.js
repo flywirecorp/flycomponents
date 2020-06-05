@@ -35,8 +35,7 @@ const Input = ({
   />
 );
 
-const { bool, string, object, oneOfType } = PropTypes;
-
+Input.displayName = 'Input';
 Input.defaultProps = {
   ariaDescribedBy: '',
   disabled: false,
@@ -46,15 +45,15 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
-  ariaDescribedBy: string,
-  disabled: bool,
-  error: oneOfType([string, bool]),
-  forwardRef: object,
-  name: string.isRequired,
-  readOnly: bool,
-  required: bool,
-  type: string,
-  value: string
+  ariaDescribedBy: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  forwardRef: PropTypes.object,
+  name: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  type: PropTypes.string,
+  value: PropTypes.string
 };
 
 export default Input;

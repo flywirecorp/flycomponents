@@ -7,10 +7,10 @@ const Alert = ({ children, type, ...other }) => (
   </div>
 );
 
-const { node, string } = PropTypes;
+Alert.displayName = 'Alert';
 Alert.propTypes = {
-  children: node.isRequired,
-  type: string
+  children: PropTypes.node.isRequired,
+  type: PropTypes.string
 };
 
 Alert.defaultProps = {

@@ -6,34 +6,6 @@ import Input from '../Input';
 import FormGroup from '../FormGroup';
 
 class TextInput extends Component {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    error: PropTypes.string,
-    floatingLabel: PropTypes.bool,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    multiline: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    prefix: PropTypes.string,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    suffix: PropTypes.string,
-    type: PropTypes.string,
-    value: PropTypes.string
-  };
-
-  static defaultProps = {
-    disabled: false,
-    floatingLabel: true,
-    multiline: false,
-    onBlur: () => {},
-    onChange: () => {},
-    readOnly: false,
-    type: 'text'
-  };
-
   constructor(props) {
     super(props);
 
@@ -192,5 +164,33 @@ class TextInput extends Component {
     );
   }
 }
+
+TextInput.propTypes = {
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  floatingLabel: PropTypes.bool,
+  hint: PropTypes.string,
+  label: PropTypes.string,
+  multiline: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  prefix: PropTypes.string,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  suffix: PropTypes.string,
+  type: PropTypes.string,
+  value: PropTypes.string
+};
+
+TextInput.defaultProps = {
+  disabled: false,
+  floatingLabel: true,
+  multiline: false,
+  onBlur: () => {},
+  onChange: () => {},
+  readOnly: false,
+  type: 'text'
+};
 
 export default TextInput;

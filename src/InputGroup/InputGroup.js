@@ -18,12 +18,11 @@ const InputGroup = ({ prefix, suffix, ...other }) => (
   </div>
 );
 
-const { oneOfType, node, string } = PropTypes;
-
+InputGroup.displayName = 'InputGroup';
 InputGroup.propTypes = {
-  name: string.isRequired,
-  prefix: oneOfType([string, node]),
-  suffix: oneOfType([string, node])
+  name: PropTypes.string.isRequired,
+  prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
 export default InputGroup;

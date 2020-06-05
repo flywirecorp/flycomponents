@@ -1,23 +1,27 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export const Button = ({ children, onClick, type, ...other }) => (
+const NOOP = () => {};
+export const Button = ({
+  children,
+  onClick = NOOP,
+  type = 'button',
+  ...other
+}) => (
   <button className="Button" onClick={onClick} type={type} {...other}>
     {children || 'Submit'}
   </button>
 );
 
-const { array, func, object, oneOfType, string } = PropTypes;
-
+Button.displayName = 'Button';
 Button.propTypes = {
-  children: oneOfType([array, object, string]),
-  onClick: func,
-  type: string
-};
-
-Button.defaultProps = {
-  onClick: () => {},
-  type: 'button'
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
+  onClick: PropTypes.func,
+  type: PropTypes.string
 };
 
 export default Button;

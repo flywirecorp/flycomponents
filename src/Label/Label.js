@@ -8,13 +8,12 @@ const Label = ({ htmlFor, required, value, id, ...other }) => (
   </label>
 );
 
-const { bool, string } = PropTypes;
-
+Label.displayName = 'Label';
 Label.propTypes = {
-  htmlFor: string.isRequired,
-  id: string.isRequired,
-  required: bool,
-  value: string.isRequired
+  htmlFor: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  required: PropTypes.bool,
+  value: PropTypes.string.isRequired
 };
 
 export default Label;

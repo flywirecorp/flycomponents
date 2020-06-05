@@ -9,6 +9,7 @@ const Content = ({ children, ...props }) => (
   </div>
 );
 
+Content.displayName = 'Content';
 Content.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
 };

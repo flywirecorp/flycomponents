@@ -15,6 +15,7 @@ const Section = ({ children, ...props }) => (
   </section>
 );
 
+Section.displayName = 'Section';
 Section.defaultProps = {
   success: false
 };

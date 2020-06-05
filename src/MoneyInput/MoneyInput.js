@@ -28,42 +28,6 @@ import {
 } from '../utils/keycodes';
 
 class MoneyInput extends Component {
-  static propTypes = {
-    currencySymbol: PropTypes.string,
-    decimalMark: PropTypes.string,
-    disabled: PropTypes.bool,
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    floatingLabel: PropTypes.bool,
-    hint: PropTypes.string,
-    label: PropTypes.string,
-    maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    name: PropTypes.string.isRequired,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    subunitToUnit: PropTypes.number,
-    symbolFirst: PropTypes.bool,
-    thousandsSeparator: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-  };
-
-  static defaultProps = {
-    currencySymbol: '$',
-    decimalMark: '.',
-    disabled: false,
-    floatingLabel: true,
-    maxLength: 10,
-    onBlur: () => {},
-    onChange: () => {},
-    onFocus: () => {},
-    readOnly: false,
-    subunitToUnit: 100,
-    symbolFirst: true,
-    thousandsSeparator: ','
-  };
-
   constructor(props) {
     super(props);
     this.state = { amount: props.value, isFocused: false };
@@ -232,5 +196,41 @@ class MoneyInput extends Component {
     );
   }
 }
+
+MoneyInput.propTypes = {
+  currencySymbol: PropTypes.string,
+  decimalMark: PropTypes.string,
+  disabled: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  floatingLabel: PropTypes.bool,
+  hint: PropTypes.string,
+  label: PropTypes.string,
+  maxLength: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  name: PropTypes.string.isRequired,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  readOnly: PropTypes.bool,
+  required: PropTypes.bool,
+  subunitToUnit: PropTypes.number,
+  symbolFirst: PropTypes.bool,
+  thousandsSeparator: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+};
+
+MoneyInput.defaultProps = {
+  currencySymbol: '$',
+  decimalMark: '.',
+  disabled: false,
+  floatingLabel: true,
+  maxLength: 10,
+  onBlur: () => {},
+  onChange: () => {},
+  onFocus: () => {},
+  readOnly: false,
+  subunitToUnit: 100,
+  symbolFirst: true,
+  thousandsSeparator: ','
+};
 
 export default MoneyInput;

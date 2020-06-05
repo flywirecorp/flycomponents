@@ -31,18 +31,6 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 };
 
 export class PrefixSelector extends Component {
-  static propTypes = {
-    disabled: PropTypes.bool,
-    getA11yStatusMessage: PropTypes.func,
-    label: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    options: PropTypes.array.isRequired,
-    readOnly: PropTypes.bool,
-    value: PropTypes.string
-  };
-
   static defaultProps = {
     getA11yStatusMessage: getA11yStatusMessage
   };
@@ -384,5 +372,17 @@ export class PrefixSelector extends Component {
     );
   }
 }
+
+PrefixSelector.propTypes = {
+  disabled: PropTypes.bool,
+  getA11yStatusMessage: PropTypes.func,
+  label: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  options: PropTypes.array.isRequired,
+  readOnly: PropTypes.bool,
+  value: PropTypes.string
+};
 
 export default PrefixSelector;

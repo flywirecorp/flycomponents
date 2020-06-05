@@ -4,22 +4,6 @@ import classNames from 'classnames';
 import FormGroup from '../FormGroup';
 
 export class Rating extends Component {
-  static propTypes = {
-    errorText: PropTypes.string,
-    higherRatingText: PropTypes.string,
-    lowerRatingText: PropTypes.string,
-    onClick: PropTypes.func,
-    rating: PropTypes.string
-  };
-
-  static defaultProps = {
-    errorText: '',
-    higherRatingText: '',
-    lowerRatingText: '',
-    onClick: () => {},
-    rating: null
-  };
-
   handleClick = e => this.selectStar(e);
 
   createMultipleStars = numberOfStars => {
@@ -68,6 +52,22 @@ export class Rating extends Component {
     );
   }
 }
+
+Rating.propTypes = {
+  errorText: PropTypes.string,
+  higherRatingText: PropTypes.string,
+  lowerRatingText: PropTypes.string,
+  onClick: PropTypes.func,
+  rating: PropTypes.string
+};
+
+Rating.defaultProps = {
+  errorText: '',
+  higherRatingText: '',
+  lowerRatingText: '',
+  onClick: () => {},
+  rating: null
+};
 
 export const Star = ({ id, selected, error, onClick }) => {
   const starClasses = classNames('Star', {

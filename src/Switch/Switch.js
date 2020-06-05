@@ -3,14 +3,6 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 class Switch extends Component {
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string,
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    name: PropTypes.string.isRequired,
-    required: PropTypes.bool
-  };
-
   render() {
     const { className, id, name, label, required, ...otherProps } = this.props;
 
@@ -37,5 +29,13 @@ class Switch extends Component {
     );
   }
 }
+
+Switch.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  name: PropTypes.string.isRequired,
+  required: PropTypes.bool
+};
 
 export default Switch;

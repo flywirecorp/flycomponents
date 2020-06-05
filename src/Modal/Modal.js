@@ -5,26 +5,6 @@ import FocusTrap from 'focus-trap-react';
 import { ESC } from '../utils/keycodes';
 
 class Modal extends Component {
-  static propTypes = {
-    allowClosing: PropTypes.bool,
-    children: PropTypes.node.isRequired,
-    className: PropTypes.string,
-    defaultIsOpen: PropTypes.bool,
-    isOpen: PropTypes.bool,
-    onClose: PropTypes.func,
-    onOpen: PropTypes.func,
-    size: PropTypes.string
-  };
-
-  static defaultProps = {
-    allowClosing: true,
-    className: '',
-    defaultIsOpen: true,
-    onClose: () => {},
-    onOpen: () => {},
-    size: 'small'
-  };
-
   state = {
     isOpen: this.props.defaultIsOpen
   };
@@ -147,5 +127,25 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  allowClosing: PropTypes.bool,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  defaultIsOpen: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onOpen: PropTypes.func,
+  size: PropTypes.string
+};
+
+Modal.defaultProps = {
+  allowClosing: true,
+  className: '',
+  defaultIsOpen: true,
+  onClose: () => {},
+  onOpen: () => {},
+  size: 'small'
+};
 
 export default Modal;
