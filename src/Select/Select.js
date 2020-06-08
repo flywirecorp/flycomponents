@@ -42,8 +42,8 @@ Select.propTypes = {
   disabled: PropTypes.bool,
   forwardRef: PropTypes.object,
   name: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
   selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   values: PropTypes.array.isRequired
 };
