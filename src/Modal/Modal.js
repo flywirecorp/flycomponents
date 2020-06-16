@@ -118,10 +118,10 @@ class Modal extends Component {
             tabIndex="-1"
           >
             <div className="Modal-dialog" ref={this.modalDialogRef}>
+              {allowClosing && closeButton}
               <div className="Modal-content" role="document">
                 {children}
               </div>
-              {allowClosing && closeButton}
             </div>
           </div>
         </FocusTrap>
