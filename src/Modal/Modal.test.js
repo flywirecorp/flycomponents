@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { ESC, TAB } from '../utils/keycodes';
 import Modal from './Modal';
 
 describe('Modal', () => {
@@ -16,10 +17,22 @@ describe('Modal', () => {
     expect(wrapper.exists('form')).toBe(true);
   });
 
-  test('traps the focus', () => {
+  test('does not trap the focus by default', () => {
     const wrapper = shallow(<Modal>{dummyContent}</Modal>);
 
-    expect(wrapper.find('FocusTrap').length).toBe(1);
+    const focusTrap = wrapper.find('FocusTrap');
+
+    expect(focusTrap.prop('active')).toBe(false);
+  });
+
+  test('traps the focus after hitting tab', () => {
+    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+
+    const keyboardEvent = new KeyboardEvent('keydown', { keyCode: TAB });
+    document.dispatchEvent(keyboardEvent);
+
+    const focusTrap = wrapper.find('FocusTrap');
+    expect(focusTrap.prop('active')).toBe(true);
   });
 
   test('starts open', () => {
@@ -141,7 +154,7 @@ describe('Modal', () => {
       const wrapper = shallow(
         <Modal allowClosing={false}>{dummyContent}</Modal>
       );
-      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: ESC });
 
       document.dispatchEvent(keyboardEvent);
 
