@@ -1,5 +1,7 @@
 # Flycomponents
 
+![Node.js Package](https://github.com/peertransfer/flycomponents/workflows/npm%20publish/badge.svg?branch=master)
+
 Flycomponents is a set of react UI components used to create payment forms in Flywire.
 
 ## Installation
