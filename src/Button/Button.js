@@ -6,9 +6,16 @@ export const Button = ({
   children,
   onClick = NOOP,
   type = 'button',
+  forwardRef,
   ...other
 }) => (
-  <button className="Button" onClick={onClick} type={type} {...other}>
+  <button
+    className="Button"
+    onClick={onClick}
+    type={type}
+    ref={forwardRef}
+    {...other}
+  >
     {children || 'Submit'}
   </button>
 );
@@ -20,6 +27,7 @@ Button.propTypes = {
     PropTypes.object,
     PropTypes.string
   ]),
+  forwardRef: PropTypes.object,
   onClick: PropTypes.func,
   type: PropTypes.string
 };
