@@ -33,6 +33,8 @@ import Home from './components/Home';
 import Radio from './components/Radio';
 import Switch from './components/Switch';
 import icon from './images/hamburger-menu.svg';
+import forkme from './images/forkme.svg';
+
 import './index.css';
 
 const { bool, func, string } = PropTypes;
@@ -210,6 +212,13 @@ class NavBar extends Component {
             />
           ))}
         </ul>
+        <a href="https://github.com/peertransfer/flycomponents">
+          <img
+            style={{ position: 'absolute', top: 0, right: 0, border: 0 }}
+            src={forkme}
+            alt="Fork me on GitHub"
+          />
+        </a>
       </div>
     );
   }
