@@ -31,13 +31,13 @@ export class FileInput extends Component {
           accept={accepts}
           multiple={multiple}
           onChange={onChange}
-          data-qa="fileInput"
+          data-testid="fileInput"
         />
 
         <p
           className="FileInput-hint"
           dangerouslySetInnerHTML={{ __html: hint }}
-          data-qa="hint"
+          data-testid="hint"
         />
 
         <button
@@ -46,7 +46,7 @@ export class FileInput extends Component {
           })}
           disabled={uploading}
           onClick={this.handleClick}
-          data-qa="submitButton"
+          data-testid="submitButton"
         >
           {buttonText}
         </button>

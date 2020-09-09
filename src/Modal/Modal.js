@@ -112,7 +112,7 @@ class Modal extends Component {
           <div
             aria-modal
             className={modalClassName}
-            data-qa="Modal"
+            data-testid="Modal"
             onMouseDown={this.handleMouseDown}
             role="dialog"
             tabIndex="-1"

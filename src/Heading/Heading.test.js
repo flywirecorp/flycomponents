@@ -50,10 +50,10 @@ describe('Heading', () => {
 
     test('adds custom attributes', () => {
       const wrapper = shallow(
-        <Heading className="customClass" data-qa="custom" />
+        <Heading className="customClass" data-testid="custom" />
       );
 
-      expect(wrapper.find('.Heading[data-qa="custom"]').length).toEqual(1);
+      expect(wrapper.find('.Heading[data-testid="custom"]').length).toEqual(1);
     });
   });
 });

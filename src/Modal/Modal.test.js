@@ -44,7 +44,7 @@ describe('Modal', () => {
   test('renders with specified size', () => {
     const size = 'medium';
     const wrapper = shallow(<Modal size={size}>{dummyContent}</Modal>);
-    const modal = wrapper.find('[data-qa="Modal"]');
+    const modal = wrapper.find('[data-testid="Modal"]');
 
     expect(modal.hasClass('Modal--medium')).toBe(true);
   });
