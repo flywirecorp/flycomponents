@@ -8,7 +8,7 @@ describe('FileInput', () => {
       const buttonText = 'a_text';
       const wrapper = shallow(<FileInput buttonText={buttonText} />);
 
-      const button = wrapper.find('[data-qa="submitButton"]');
+      const button = wrapper.find('[data-testid="submitButton"]');
 
       expect(button.text()).toContain(buttonText);
     });
@@ -17,7 +17,7 @@ describe('FileInput', () => {
       const hint = 'a_hint';
       const wrapper = shallow(<FileInput hint={hint} />);
 
-      const hintParagraf = wrapper.find('[data-qa="hint"]');
+      const hintParagraf = wrapper.find('[data-testid="hint"]');
 
       expect(hintParagraf.props().dangerouslySetInnerHTML.__html).toContain(
         hint
@@ -28,7 +28,7 @@ describe('FileInput', () => {
   test('handles on change events', () => {
     const onChange = jest.fn();
     const wrapper = shallow(<FileInput onChange={onChange} />);
-    const input = wrapper.find('[data-qa="fileInput"]');
+    const input = wrapper.find('[data-testid="fileInput"]');
 
     input.simulate('change');
 
@@ -39,7 +39,7 @@ describe('FileInput', () => {
     const expectedExtension = '.jpg';
     const wrapper = shallow(<FileInput accepts={expectedExtension} />);
 
-    const inputFile = wrapper.find('[data-qa="fileInput"]');
+    const inputFile = wrapper.find('[data-testid="fileInput"]');
 
     expect(inputFile.prop('accept')).toEqual(expectedExtension);
   });
@@ -47,7 +47,7 @@ describe('FileInput', () => {
   test('accepts multiple files', () => {
     const wrapper = shallow(<FileInput multiple />);
 
-    const inputFile = wrapper.find('[data-qa="fileInput"]');
+    const inputFile = wrapper.find('[data-testid="fileInput"]');
 
     expect(inputFile.prop('multiple')).toBe(true);
   });
@@ -56,7 +56,7 @@ describe('FileInput', () => {
     const animationClass = 'FileInput--uploading';
     const wrapper = shallow(<FileInput uploading />);
 
-    const button = wrapper.find('[data-qa="submitButton"]');
+    const button = wrapper.find('[data-testid="submitButton"]');
 
     expect(button.hasClass(animationClass)).toBe(true);
   });
@@ -64,7 +64,7 @@ describe('FileInput', () => {
   test('renders disabled while uploading', () => {
     const wrapper = shallow(<FileInput uploading />);
 
-    const button = wrapper.find('[data-qa="submitButton"]');
+    const button = wrapper.find('[data-testid="submitButton"]');
 
     expect(button.prop('disabled')).toBe(true);
   });
