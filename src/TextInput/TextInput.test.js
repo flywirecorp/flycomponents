@@ -32,6 +32,12 @@ describe('TextInput', () => {
       });
     }
 
+    simulateFocus() {
+      this.input().simulate('focus', {
+        target: { name }
+      });
+    }
+
     simulateChange(name, value) {
       this.input().simulate('change', {
         target: { name, value }
@@ -86,6 +92,15 @@ describe('TextInput', () => {
     component.simulateBlur('name');
 
     expect(onBlur).toBeCalled();
+  });
+
+  test('handles on focus events', () => {
+    const onFocusMock = jest.fn();
+    const component = new TextInputComponent({ onFocus: onFocusMock });
+
+    component.simulateFocus();
+
+    expect(onFocusMock).toBeCalled();
   });
 
   test('renders an input with type password', () => {
