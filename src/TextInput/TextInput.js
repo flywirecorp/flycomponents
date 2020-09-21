@@ -37,8 +37,10 @@ class TextInput extends Component {
   };
 
   handleFocus = e => {
-    const { disabled, readOnly } = this.props;
+    const { disabled, readOnly, onFocus } = this.props;
     if (disabled || readOnly) return false;
+
+    onFocus();
     this.setState({ isFocused: true });
   };
 
@@ -175,6 +177,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  onFocus: PropTypes.func,
   prefix: PropTypes.string,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
@@ -189,6 +192,7 @@ TextInput.defaultProps = {
   multiline: false,
   onBlur: () => {},
   onChange: () => {},
+  onFocus: () => {},
   readOnly: false,
   type: 'text'
 };
