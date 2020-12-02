@@ -4,14 +4,13 @@ import Component from '../Component';
 import README from './README.md';
 
 export default () => {
-  const handleEvent = e => console.log(e);
-
   return (
     <Component readme={README}>
       <CardForm
-        onSubmit={handleEvent}
-        onCancel={handleEvent}
-        onChange={handleEvent}
+        onValidate={e => console.log('onValidate')}
+        onSubmit={e => console.log('onSubmit')}
+        onCancel={e => console.log('onCancel')}
+        onChange={e => console.log('onChange')}
       />
     </Component>
   );
