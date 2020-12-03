@@ -165,8 +165,6 @@ class CardForm extends Component {
   }
 
   validateForm = () => {
-    const { onValidate } = this.props;
-
     const errors = Object.entries(this.requiredFields).reduce(
       (errors, [name, value]) => {
         return { ...errors, ...this.validateField(name, value) };
@@ -174,17 +172,17 @@ class CardForm extends Component {
       {}
     );
 
-    this.setState({ errors });
-    onValidate();
+    return errors;
   };
 
   handleSubmit = e => {
-    const { onSubmit } = this.props;
+    const { onValidate, onSubmit } = this.props;
 
     e.preventDefault();
 
-    this.validateForm();
-    const { errors } = this.state;
+    const errors = this.validateForm();
+    this.setState({ errors });
+    onValidate();
 
     const cardType = getCardType(this.requiredFields[CARD_NUMBER_FIELD]);
     const payload = { ...this.requiredFields, cardType };
