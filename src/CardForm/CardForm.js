@@ -19,15 +19,15 @@ const SURNAME_FIELD = 'surname';
 const EXPIRY_DATE_FIELD = 'expiryDate';
 const CVV_FIELD = 'cvv';
 
-const LATIN_AND_CHINESE_CHARACTERS_REGEX = /[a-zA-Z \u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/g;
+const LETTERS_AND_SPACE_REGEX = /[a-zA-Z ]*/g;
 const NUMBERS_REGEX = /[0-9]*/g;
 
 const DEFAULT_FORMATS = {
   [NAME_FIELD]: {
-    allowedCharacters: LATIN_AND_CHINESE_CHARACTERS_REGEX
+    allowedCharacters: LETTERS_AND_SPACE_REGEX
   },
   [SURNAME_FIELD]: {
-    allowedCharacters: LATIN_AND_CHINESE_CHARACTERS_REGEX
+    allowedCharacters: LETTERS_AND_SPACE_REGEX
   },
   [CARD_NUMBER_FIELD]: {
     pattern: '....-....-....-....',
