@@ -53,7 +53,7 @@ Input.propTypes = {
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
   type: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export default Input;
