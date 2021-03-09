@@ -31,5 +31,11 @@ describe('card', () => {
 
       expect(getCardType(visaCardNumber)).toBeUndefined();
     });
+
+    test('returns jcb if is a JCB card number', () => {
+      const jcbCardNumber = '3530111333300000';
+
+      expect(getCardType(jcbCardNumber)).toEqual('JCB');
+    });
   });
 });
