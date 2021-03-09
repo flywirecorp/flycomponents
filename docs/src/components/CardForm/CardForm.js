@@ -11,7 +11,7 @@ export default () => {
         onSubmit={e => console.log('onSubmit')}
         onCancel={e => console.log('onCancel')}
         onChange={e => console.log('onChange')}
-        acceptedCards={['JCB']}
+        acceptedCards={['JCB', 'VISA', 'MC']}
       />
     </Component>
   );
