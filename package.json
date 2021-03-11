@@ -1,6 +1,6 @@
 {
   "name": "flycomponents",
-  "version": "4.3.1",
+  "version": "4.3.3",
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {
@@ -32,7 +32,7 @@
     "accounting": "^0.4.1",
     "classnames": "^2.2.6",
     "dom-scroll-into-view": "^1.2.1",
-    "flystyles": "^2.20.5",
+    "flystyles": "2.20.7",
     "focus-trap-react": "^6.0.0",
     "fuse.js": "^3.2.1",
     "moment": "^2.22.2",

@@ -77,7 +77,7 @@ describe('CardForm', () => {
         const wrapper = shallow(<CardForm />);
 
         blurField(wrapper, fieldName, fieldValue);
-        
+
         expect(
           wrapper.find(`[name="${fieldName}"]`).prop('error')
         ).toBeUndefined();
@@ -387,20 +387,20 @@ describe('CardForm', () => {
         shouldAddSeparatorBeforeTyping: false,
         allowedCharacters: /[0-9]*/g
       }
-      
+
       const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
 
       expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
     });
 
-    test('format allows up to 16 digits if accepted cards do not include UnionPay', () => { 
+    test('format allows up to 16 digits if accepted cards do not include UnionPay', () => {
       const acceptedCards = ['VISA', 'MC'];
       const expectedFormat = {
         pattern: '....-....-....-....',
         shouldAddSeparatorBeforeTyping: true,
         allowedCharacters: /[0-9]*/g
       }
-      
+
       const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
 
       expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
@@ -413,7 +413,7 @@ describe('CardForm', () => {
         shouldAddSeparatorBeforeTyping: false,
         allowedCharacters: /[0-9]*/g
       }
-      
+
       const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
       wrapper.setProps({ acceptedCards: ['VISA', 'UNIONPAY']});
 
@@ -435,11 +435,11 @@ describe('CardForm', () => {
       const optionalFields = ['expiryDate', 'cvv'];
       const onSubmit = jest.fn();
       const props = { onSubmit, optionalFields}
-      const expectedSubmittedValues = { 
-        name: 'a_name', 
-        surname: 'a_surname', 
+      const expectedSubmittedValues = {
+        name: 'a_name',
+        surname: 'a_surname',
         cardNumber:'4111111111111111',
-        cardType: 'VISA' 
+        cardType: 'VISA'
       };
 
       const wrapper = shallow(<CardForm {...props}/>);

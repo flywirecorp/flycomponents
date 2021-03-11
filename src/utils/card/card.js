@@ -2,6 +2,7 @@ export const AMEX = 'AMEX';
 export const VISA = 'VISA';
 export const MASTERCARD = 'MC';
 export const UNIONPAY = 'UNIONPAY';
+export const JCB = 'JCB';
 
 export const getCardType = cardNumber => {
   const cardPatterns = [
@@ -20,6 +21,10 @@ export const getCardType = cardNumber => {
     {
       vaultKey: UNIONPAY,
       pat: /^62([0-9]{14,17})$/
+    },
+    {
+      vaultKey: JCB,
+      pat: /^(?:2131|1800|35\d{3})\d{11}$/
     }
   ];
 
