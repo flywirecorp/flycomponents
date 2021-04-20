@@ -16,7 +16,7 @@ import { LONG_DATE_FORMAT } from '../../utils/date';
 
 const Calendar = ({
   closeCalendar,
-  focussedDate,
+  selectedDate,
   forwardRef,
   isOpen,
   monthRef,
@@ -43,19 +43,19 @@ const Calendar = ({
         break;
       case ARROW_UP:
         evt.preventDefault();
-        setDate(focussedDate.subtract(1, 'week'));
+        setDate(selectedDate.subtract(1, 'week'));
         break;
       case ARROW_DOWN:
         evt.preventDefault();
-        setDate(focussedDate.add(1, 'week'));
+        setDate(selectedDate.add(1, 'week'));
         break;
       case ARROW_LEFT:
         evt.preventDefault();
-        setDate(focussedDate.subtract(1, 'day'));
+        setDate(selectedDate.subtract(1, 'day'));
         break;
       case ARROW_RIGHT:
         evt.preventDefault();
-        setDate(focussedDate.add(1, 'day'));
+        setDate(selectedDate.add(1, 'day'));
         break;
     }
   };
@@ -63,7 +63,7 @@ const Calendar = ({
   const calendar = (
     <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
       <Navigation
-        focussedDate={focussedDate}
+        selectedDate={selectedDate}
         monthRef={monthRef}
         nextMonthLabel={nextMonthLabel}
         nextMonthRef={nextMonthRef}
@@ -78,7 +78,7 @@ const Calendar = ({
         yearRef={yearRef}
       />
       <table
-        aria-activedescendant={`${focussedDate.month()}-${focussedDate.date()}`}
+        aria-activedescendant={`${selectedDate.month()}-${selectedDate.date()}`}
         aria-labelledby="datepicker-month-date"
         aria-readonly="true"
         className="Calendar-table"
@@ -89,13 +89,13 @@ const Calendar = ({
         onKeyDown={evt => {
           if (evt.keyCode === ENTER) {
             evt.preventDefault();
-            setDate(focussedDate);
+            setDate(selectedDate);
             closeCalendar();
           }
         }}
       >
-        <DayNames focussedDate={focussedDate} />
-        <Month onDateClick={onDateClick} focussedDate={focussedDate} />
+        <DayNames selectedDate={selectedDate} />
+        <Month onDateClick={onDateClick} selectedDate={selectedDate} />
       </table>
       <div
         role="status"
@@ -108,7 +108,7 @@ const Calendar = ({
           padding: '0px'
         }}
       >
-        {focussedDate.format(LONG_DATE_FORMAT)}
+        {selectedDate.format(LONG_DATE_FORMAT)}
       </div>
     </div>
   );
@@ -129,7 +129,6 @@ const Calendar = ({
 Calendar.displayName = 'Calendar';
 Calendar.propTypes = {
   closeCalendar: PropTypes.func.isRequired,
-  focussedDate: PropTypes.object.isRequired,
   forwardRef: PropTypes.object,
   isOpen: PropTypes.bool.isRequired,
   monthRef: PropTypes.object,
@@ -145,6 +144,7 @@ Calendar.propTypes = {
   prevMonthRef: PropTypes.object,
   selectMonthLabel: PropTypes.string,
   selectYearLabel: PropTypes.string,
+  selectedDate: PropTypes.object.isRequired,
   setDate: PropTypes.func.isRequired,
   yearRef: PropTypes.object
 };

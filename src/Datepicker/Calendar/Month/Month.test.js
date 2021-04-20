@@ -9,8 +9,7 @@ describe('Month', () => {
     constructor(ownProps) {
       const defaultProps = {
         onDateClick: () => {},
-        selectedDate: '',
-        focussedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -27,8 +26,8 @@ describe('Month', () => {
   }
 
   test('has 5 weeks', () => {
-    const focussedDate = moment('2016-11-13');
-    const component = new MonthComponent({ focussedDate });
+    const selectedDate = moment('2016-11-13');
+    const component = new MonthComponent({ selectedDate });
 
     expect(component.weeks()).toHaveLength(5);
   });

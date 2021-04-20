@@ -13,7 +13,7 @@ describe('Navigation', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        focussedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -117,8 +117,8 @@ describe('Navigation', () => {
     });
 
     test('has a hundred of years', () => {
-      const focussedDate = moment('2000-01-01');
-      const component = new NavigationComponent({ focussedDate });
+      const selectedDate = moment('2000-01-01');
+      const component = new NavigationComponent({ selectedDate });
       const years = component.yearSelectorLabels();
       const firstYear = years[0];
       const lastYear = years[199];
