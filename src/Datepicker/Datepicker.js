@@ -44,8 +44,7 @@ class Datepicker extends Component {
       isOpen: false,
       isFocused: false,
       isAbove: false,
-      selectedDate: initDate,
-      focussedDate: initDate || today
+      selectedDate: initDate || today
     };
   }
 
@@ -73,7 +72,7 @@ class Datepicker extends Component {
     const { name, onChange } = this.props;
     const formattedDate = date.format(DATE_FORMAT);
 
-    this.setState({ focussedDate: date, selectedDate: date }, () => {
+    this.setState({ selectedDate: date }, () => {
       onChange(name, formattedDate);
       this.setFocus(this.calendarRef);
     });
@@ -84,7 +83,7 @@ class Datepicker extends Component {
     const date = parseDate(str);
 
     if (date) {
-      this.setState({ selectedDate: date, focussedDate: date });
+      this.setState({ selectedDate: date });
     }
 
     this.setState({ inputValue: str });
@@ -140,25 +139,25 @@ class Datepicker extends Component {
 
   handleMonthChange = month => {
     this.setState(prevState => {
-      return { focussedDate: prevState.focussedDate.set('month', month) };
+      return { selectedDate: prevState.selectedDate.set('month', month) };
     }, this.setFocus(this.monthRef));
   };
 
   handleNextMonthClick = () => {
     this.setState(prevState => {
-      return { focussedDate: prevState.focussedDate.add(1, 'month') };
+      return { selectedDate: prevState.selectedDate.add(1, 'month') };
     }, this.setFocus(this.nextMonthRef));
   };
 
   handlePrevMonthClick = () => {
     this.setState(prevState => {
-      return { focussedDate: prevState.focussedDate.subtract(1, 'month') };
+      return { selectedDate: prevState.selectedDate.subtract(1, 'month') };
     }, this.setFocus(this.prevMonthRef));
   };
 
   handleYearChange = year => {
     this.setState(prevState => {
-      return { focussedDate: prevState.focussedDate.set('year', year) };
+      return { selectedDate: prevState.selectedDate.set('year', year) };
     }, this.setFocus(this.yearRef));
   };
 
@@ -176,12 +175,9 @@ class Datepicker extends Component {
       return;
     }
 
-    const { selectedDate } = this.state;
-    const focussedDate = parseDate(selectedDate) || today;
-
     this.setState(
       () => {
-        return { isOpen: false, focussedDate };
+        return { isOpen: false };
       },
       wasOpen ? this.sendBlur : null
     );
@@ -240,7 +236,6 @@ class Datepicker extends Component {
       isFocused,
       isAbove,
       selectedDate,
-      focussedDate,
       inputValue
     } = this.state;
 
@@ -311,7 +306,7 @@ class Datepicker extends Component {
             />
             <Calendar
               closeCalendar={this.closeCalendar}
-              focussedDate={focussedDate}
+              selectedDate={selectedDate}
               forwardRef={this.calendarRef}
               isOpen={isOpen}
               monthRef={this.monthRef}

@@ -3,19 +3,18 @@ import React from 'react';
 import Week from '../Week';
 import { monthStartingWeekDates } from '../../../utils/date';
 
-const Month = props => {
-  const { onDateClick, focussedDate } = props;
-  const currentMonth = focussedDate.month();
+const Month = ({ onDateClick, selectedDate }) => {
+  const currentMonth = selectedDate.month();
 
   const monthWeeks = monthStartingWeekDates(
-    focussedDate
+    selectedDate
   ).map(weekStartingDate => (
     <Week
       key={`week-${weekStartingDate}`}
       startingDate={weekStartingDate.clone()}
       month={currentMonth}
       onDateClick={onDateClick}
-      selectedDate={focussedDate}
+      selectedDate={selectedDate}
     />
   ));
 
@@ -24,8 +23,8 @@ const Month = props => {
 
 Month.displayName = 'Month';
 Month.propTypes = {
-  focussedDate: PropTypes.object.isRequired,
-  onDateClick: PropTypes.func.isRequired
+  onDateClick: PropTypes.func.isRequired,
+  selectedDate: PropTypes.object.isRequired
 };
 
 export default Month;
