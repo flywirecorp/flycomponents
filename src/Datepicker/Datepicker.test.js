@@ -28,7 +28,7 @@ describe('Datepicker', () => {
 
     currentDate() {
       const state = this.datepicker().state();
-      return state.focussedDate.format('MM/DD/YYYY');
+      return state.selectedDate.format('MM/DD/YYYY');
     }
 
     selectedDate() {

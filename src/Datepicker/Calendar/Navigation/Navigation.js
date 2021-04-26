@@ -10,7 +10,7 @@ const SELECT_MONTH_LABEL = 'Select month';
 const SELECT_YEAR_LABEL = 'Select year';
 
 const Navigation = ({
-  focussedDate,
+  selectedDate,
   monthRef,
   nextMonthLabel,
   nextMonthRef,
@@ -24,8 +24,8 @@ const Navigation = ({
   selectYearLabel,
   yearRef
 }) => {
-  const currentMonth = focussedDate.month();
-  const currentYear = focussedDate.year();
+  const currentMonth = selectedDate.month();
+  const currentYear = selectedDate.year();
   const years = [...Array(200).keys()].map(i => {
     const year = currentYear - 100 + i;
     return { value: year, label: year };
@@ -110,7 +110,6 @@ const Navigation = ({
 
 Navigation.displayName = 'Navigation';
 Navigation.propTypes = {
-  focussedDate: PropTypes.object.isRequired,
   monthRef: PropTypes.object,
   nextMonthLabel: PropTypes.string,
   nextMonthRef: PropTypes.object,
@@ -122,6 +121,7 @@ Navigation.propTypes = {
   prevMonthRef: PropTypes.object,
   selectMonthLabel: PropTypes.string,
   selectYearLabel: PropTypes.string,
+  selectedDate: PropTypes.object.isRequired,
   yearRef: PropTypes.object
 };
 

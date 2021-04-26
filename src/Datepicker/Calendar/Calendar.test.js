@@ -26,7 +26,7 @@ describe('Calendar', () => {
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
         setDate: FAKE_CALLBACK,
-        focussedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13')
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -94,42 +94,42 @@ describe('Calendar', () => {
   });
 
   test('subtracts one week when arrow up key pressed', () => {
-    const focussedDate = moment('2016-11-13');
+    const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
-    const component = new CalendarComponent({ focussedDate, setDate });
+    const component = new CalendarComponent({ selectedDate, setDate });
 
     component.simulateKeyPress(ARROW_UP);
 
-    expect(setDate).toBeCalledWith(focussedDate.subtract(1, 'week'));
+    expect(setDate).toBeCalledWith(selectedDate.subtract(1, 'week'));
   });
 
   test('adds one week when arrow down key pressed', () => {
-    const focussedDate = moment('2016-11-13');
+    const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
-    const component = new CalendarComponent({ focussedDate, setDate });
+    const component = new CalendarComponent({ selectedDate, setDate });
 
     component.simulateKeyPress(ARROW_DOWN);
 
-    expect(setDate).toBeCalledWith(focussedDate.add(1, 'week'));
+    expect(setDate).toBeCalledWith(selectedDate.add(1, 'week'));
   });
 
   test('adds one day when arrow right key pressed', () => {
-    const focussedDate = moment('2016-11-13');
+    const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
-    const component = new CalendarComponent({ focussedDate, setDate });
+    const component = new CalendarComponent({ selectedDate, setDate });
 
     component.simulateKeyPress(ARROW_RIGHT);
 
-    expect(setDate).toBeCalledWith(focussedDate.add(1, 'day'));
+    expect(setDate).toBeCalledWith(selectedDate.add(1, 'day'));
   });
 
   test('subtracts one day when arrow right left pressed', () => {
-    const focussedDate = moment('2016-11-13');
+    const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
-    const component = new CalendarComponent({ focussedDate, setDate });
+    const component = new CalendarComponent({ selectedDate, setDate });
 
     component.simulateKeyPress(ARROW_LEFT);
 
-    expect(setDate).toBeCalledWith(focussedDate.subtract(1, 'day'));
+    expect(setDate).toBeCalledWith(selectedDate.subtract(1, 'day'));
   });
 });
