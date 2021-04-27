@@ -48,11 +48,11 @@ export const monthNames = (locale = 'en') => {
   return momentInLocale.months();
 };
 
-export const parseDate = stringDate => {
-  const DATE_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-  const parsedDate = moment(stringDate, DATE_FORMAT);
-  if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) {
-    return parsedDate;
+export const parseDate = (stringDate, dateFormat = DATE_FORMAT) => {
+  const isValidDate = moment(stringDate, dateFormat, true).isValid();
+
+  if (isValidDate) {
+    return moment(stringDate, dateFormat);
   }
 };
 

@@ -11,7 +11,9 @@ Datepickers are used to select a single date for an input.
   name="birthday"
   onChange={(name, date) => alert(`Your ${name} is the ${date}`)}
   required
-  value="04/21/1979"
+  value="1979-04-21"
+  dateFormat="YYYY-MM-DD"
+  datePattern="....-..-.."
 />
 
 <Datepicker label="Pick a Date" locale="ES" name="floatingLabel" />
@@ -57,6 +59,8 @@ Datepickers are used to select a single date for an input.
 | ------------------- | --- | -------------- | ------------------------------------------------------------------- | ------- |
 | calendarIconLabel   | no  | string         | Show calendar                                                       |         |
 | disabled            | no  | bool           | Date Picker is disabled                                             | false   |
+| dateFormat          | no  | string         | Custom Date Format                                                  | MM/DD/YYYY |
+| datePattern         | no  | string         | Custom Date Pattern                                                 | ../../.... |
 | error               | no  | string         | Error message                                                       |         |
 | floatingLabel       | no  | bool           | Floating label inside the input field                               | true    |
 | getA11yStatusMessage| no  | func           | Default messages provided in English | "Use tab or arrow keys to navigate the days or Escape key to close."  or "Enter a date in the format MM/DD/YYYY, or press Enter key to open a calendar."        |
