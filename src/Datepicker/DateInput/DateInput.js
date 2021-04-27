@@ -3,11 +3,12 @@ import React, { Component } from 'react';
 import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
 import { BACKSPACE, ENTER } from '../../utils/keycodes';
-import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
     calendarIconLabel: PropTypes.string,
+    dateFormat: PropTypes.string,
+    datePattern: PropTypes.string,
     defaultValue: PropTypes.object,
     disabled: PropTypes.bool,
     error: PropTypes.string,
@@ -27,7 +28,8 @@ class DateInput extends Component {
     super(props);
 
     this.state = {
-      value: props.defaultValue && props.defaultValue.format(DATE_FORMAT)
+      value:
+        props.defaultValue && props.defaultValue.format(this.props.dateFormat)
     };
   }
 
@@ -50,7 +52,7 @@ class DateInput extends Component {
         let value = inputValue.replace(/\D/g, '');
         if (pressedKey === BACKSPACE) value = value.slice(0, -1);
 
-        return { value: format(value, { pattern: DATE_PATTERN }) };
+        return { value: format(value, { pattern: this.props.datePattern }) };
       },
       () => onKeyDown(this.state.value)
     );
@@ -60,6 +62,8 @@ class DateInput extends Component {
     const { value } = this.state;
     const {
       calendarIconLabel,
+      dateFormat,
+      datePattern,
       defaultValue,
       disabled,
       error,
@@ -93,13 +97,13 @@ class DateInput extends Component {
           onBlur={onBlur}
           onFocus={onFocus}
           onKeyDown={this.handleKeyDown}
-          placeholder={DATE_FORMAT}
+          placeholder={dateFormat}
           name={name}
           readOnly={readOnly}
           required={required}
           type="text"
           value={value}
-          pattern={DATE_PATTERN}
+          pattern={datePattern}
           ref={forwardRef}
           {...otherProps}
         />

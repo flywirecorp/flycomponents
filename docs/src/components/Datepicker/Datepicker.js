@@ -11,7 +11,9 @@ export default () => (
       name="birthday"
       onChange={(name, date) => console.log(`Your ${name} is the ${date}`)}
       required
-      value="04/21/1979"
+      value="1979-04-21"
+      dateFormat="YYYY-MM-DD"
+      datePattern="....-..-.."
     />
     <Datepicker label="Pick a Date" locale="ES" name="floatingLabel" />
     <Datepicker

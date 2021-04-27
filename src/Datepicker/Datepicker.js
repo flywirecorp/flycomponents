@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component, createContext } from 'react';
 import classNames from 'classnames';
-import { parseDate, today, DATE_FORMAT } from '../utils/date';
+import { parseDate, today, DATE_FORMAT, DATE_PATTERN } from '../utils/date';
 import debounce from '../utils/debounce';
 import Calendar from './Calendar';
 import DateInput from './DateInput';
@@ -24,8 +24,9 @@ class Datepicker extends Component {
   constructor(props) {
     super(props);
 
-    const { locale, value } = this.props;
-    const initDate = parseDate(value);
+    const { locale, value, dateFormat } = this.props;
+    console.log(value, dateFormat);
+    const initDate = parseDate(value, dateFormat);
 
     today.locale(locale);
     initDate && initDate.locale(locale);
@@ -63,14 +64,15 @@ class Datepicker extends Component {
 
   componentWillUnmount() {
     if (this.updateA11yMessageDebounce) this.updateA11yMessageDebounce.cancel();
+
     document.removeEventListener('click', this.hideOnDocumentClick);
     window.removeEventListener('resize', this.setStyles);
     window.removeEventListener('scroll', this.setStyles);
   }
 
   setDate = date => {
-    const { name, onChange } = this.props;
-    const formattedDate = date.format(DATE_FORMAT);
+    const { name, onChange, dateFormat } = this.props;
+    const formattedDate = date.format(dateFormat);
 
     this.setState({ selectedDate: date }, () => {
       onChange(name, formattedDate);
@@ -241,6 +243,8 @@ class Datepicker extends Component {
 
     const {
       calendarIconLabel,
+      dateFormat,
+      datePattern,
       disabled,
       error,
       floatingLabel,
@@ -288,6 +292,8 @@ class Datepicker extends Component {
           >
             <DateInput
               calendarIconLabel={calendarIconLabel}
+              dateFormat={dateFormat}
+              datePattern={datePattern}
               defaultValue={selectedDate}
               disabled={disabled}
               error={error}
@@ -348,6 +354,8 @@ class Datepicker extends Component {
 
 Datepicker.propTypes = {
   calendarIconLabel: PropTypes.string,
+  dateFormat: PropTypes.string,
+  datePattern: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.string,
   floatingLabel: PropTypes.bool,
@@ -369,6 +377,8 @@ Datepicker.propTypes = {
 };
 
 Datepicker.defaultProps = {
+  dateFormat: DATE_FORMAT,
+  datePattern: DATE_PATTERN,
   disabled: false,
   getA11yStatusMessage: getA11yStatusMessage,
   onBlur: () => {},

@@ -48,9 +48,10 @@ export const monthNames = (locale = 'en') => {
   return momentInLocale.months();
 };
 
-export const parseDate = stringDate => {
-  const DATE_REGEX = /^(\d{2})\/(\d{2})\/(\d{4})$/;
-  const parsedDate = moment(stringDate, DATE_FORMAT);
+export const parseDate = (stringDate, dateFormat = DATE_FORMAT) => {
+  const DATE_REGEX = /^\d{1,4}[./-]\d{1,4}[./-]\d{1,4}$/;
+  const parsedDate = moment(stringDate, dateFormat);
+
   if (parsedDate.isValid() && DATE_REGEX.test(stringDate)) {
     return parsedDate;
   }
