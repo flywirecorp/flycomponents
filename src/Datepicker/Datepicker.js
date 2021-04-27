@@ -139,25 +139,33 @@ class Datepicker extends Component {
 
   handleMonthChange = month => {
     this.setState(prevState => {
-      return { selectedDate: prevState.selectedDate.set('month', month) };
+      return {
+        selectedDate: (prevState.selectedDate || today).set('month', month)
+      };
     }, this.setFocus(this.monthRef));
   };
 
   handleNextMonthClick = () => {
     this.setState(prevState => {
-      return { selectedDate: prevState.selectedDate.add(1, 'month') };
+      return {
+        selectedDate: (prevState.selectedDate || today).add(1, 'month')
+      };
     }, this.setFocus(this.nextMonthRef));
   };
 
   handlePrevMonthClick = () => {
     this.setState(prevState => {
-      return { selectedDate: prevState.selectedDate.subtract(1, 'month') };
+      return {
+        selectedDate: (prevState.selectedDate || today).subtract(1, 'month')
+      };
     }, this.setFocus(this.prevMonthRef));
   };
 
   handleYearChange = year => {
     this.setState(prevState => {
-      return { selectedDate: prevState.selectedDate.set('year', year) };
+      return {
+        selectedDate: (prevState.selectedDate || today).set('year', year)
+      };
     }, this.setFocus(this.yearRef));
   };
 
