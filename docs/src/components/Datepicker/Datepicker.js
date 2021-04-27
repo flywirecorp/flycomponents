@@ -52,5 +52,12 @@ export default () => (
       required
       value="21/12/1979"
     />
+    <Datepicker
+      label="Custom format"
+      name="customFormat"
+      value="1979-04-21"
+      dateFormat="YYYY-MM-DD"
+      datePattern="....-..-.."
+    />
   </Component>
 );
