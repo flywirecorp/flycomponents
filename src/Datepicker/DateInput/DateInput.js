@@ -7,6 +7,7 @@ import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
 
 class DateInput extends Component {
   static propTypes = {
+    autoOpenPicker: PropTypes.bool,
     calendarIconLabel: PropTypes.string,
     dateFormat: PropTypes.string,
     datePattern: PropTypes.string,
@@ -62,6 +63,7 @@ class DateInput extends Component {
   render() {
     const { value } = this.state;
     const {
+      autoOpenPicker,
       calendarIconLabel,
       dateFormat,
       datePattern,
@@ -81,8 +83,16 @@ class DateInput extends Component {
       ...otherProps
     } = this.props;
 
+    const onClickEvent = { onClick: onCalendarIconClick };
+    let dateInputClickEvent, calendarIconClickEvent;
+    if (autoOpenPicker) {
+      dateInputClickEvent = onClickEvent;
+    } else {
+      calendarIconClickEvent = onClickEvent;
+    }
+
     return (
-      <div className="InputGroup">
+      <div className="InputGroup" {...dateInputClickEvent}>
         <input
           aria-describedby={`${name}-error-msg ${name}-status`}
           aria-disabled={disabled}
@@ -110,9 +120,9 @@ class DateInput extends Component {
         />
         <span className="InputGroup-context">
           <CalendarIcon
-            onClick={onCalendarIconClick}
             label={calendarIconLabel}
             hasError={!!error}
+            {...calendarIconClickEvent}
           />
         </span>
       </div>

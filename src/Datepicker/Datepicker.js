@@ -248,6 +248,7 @@ class Datepicker extends Component {
     } = this.state;
 
     const {
+      autoOpenPicker,
       calendarIconLabel,
       dateFormat,
       datePattern,
@@ -312,6 +313,7 @@ class Datepicker extends Component {
               readOnly={readOnly}
               required={required}
               toggleCalendar={this.toggleCalendar}
+              autoOpenPicker={autoOpenPicker}
               key={selectedDate}
               forwardRef={this.dateInputRef}
               {...otherProps}
@@ -359,6 +361,7 @@ class Datepicker extends Component {
 }
 
 Datepicker.propTypes = {
+  autoOpenPicker: PropTypes.bool,
   calendarIconLabel: PropTypes.string,
   dateFormat: PropTypes.string,
   datePattern: PropTypes.string,
