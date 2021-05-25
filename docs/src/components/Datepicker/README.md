@@ -18,6 +18,8 @@ Datepickers are used to select a single date for an input.
 
 <Datepicker label="Pick a Date" locale="ES" name="floatingLabel" />
 
+<Datepicker label="Pick a Date from the Picker" autoOpenPicker locale="ES" name="autoOpenLabel" />
+
 <Datepicker
   floatingLabel={false}
   label="Pick a Date"
