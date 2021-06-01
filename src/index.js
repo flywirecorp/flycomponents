@@ -3,6 +3,7 @@ import Alert from './Alert';
 import Autocomplete from './Autocomplete';
 import Button from './Button';
 import CardForm from './CardForm';
+import CardFormInput from './CardForm/TextInput';
 import Checkbox from './Checkbox';
 import Datepicker from './Datepicker';
 import Dropdown from './Dropdown';
@@ -29,6 +30,7 @@ export {
   Autocomplete,
   Button,
   CardForm,
+  CardFormInput,
   Checkbox,
   Datepicker,
   Dropdown,
