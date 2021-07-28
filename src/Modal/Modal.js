@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Portal from './Portal';
 import FocusTrap from 'focus-trap-react';
-import { ESC, TAB } from '../utils/keycodes';
+import { ESC } from '../utils/keycodes';
 
 class Modal extends Component {
   state = {
-    isOpen: this.props.defaultIsOpen,
-    isTrapActive: false
+    isOpen: this.props.defaultIsOpen
   };
 
   componentDidMount() {
@@ -56,8 +55,9 @@ class Modal extends Component {
   handleKeyDown = event => {
     const keyCode = event.keyCode;
 
-    if (keyCode === ESC) this.close();
-    if (keyCode === TAB) this.setState({ isTrapActive: true });
+    if (keyCode === ESC) {
+      this.close();
+    }
   };
 
   get isClosed() {
@@ -83,7 +83,6 @@ class Modal extends Component {
 
   render() {
     const { allowClosing, children, className, size } = this.props;
-    const { isTrapActive } = this.state;
     const modalClassName = `Modal Modal--${size} ${className}`;
     const closeButton = (
       <button
@@ -103,7 +102,6 @@ class Modal extends Component {
     return (
       <Portal>
         <FocusTrap
-          active={isTrapActive}
           focusTrapOptions={{
             onActivate: () =>
               this.setState({ activeElement: document.activeElement })
