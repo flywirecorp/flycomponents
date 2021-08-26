@@ -33,14 +33,14 @@ const joinClassNames = (size, className) => {
 Heading.displayName = 'Heading';
 Heading.defaultProps = {
   as: DEFAULT_TAG,
-  size: DEFAULT_SIZE
+  size: DEFAULT_SIZE,
 };
 
 Heading.propTypes = {
   as: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 export default Heading;

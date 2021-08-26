@@ -13,14 +13,14 @@ describe('TabPanels', () => {
       <Context.Provider
         value={{
           activeIndex: 0,
-          onSelectTab: onSelect
+          onSelectTab: onSelect,
         }}
       >
         <TabPanels>
           <TabPanel>{firstContent}</TabPanel>
           <TabPanel>{secondContent}</TabPanel>
         </TabPanels>
-      </Context.Provider>
+      </Context.Provider>,
     );
 
     const panel = wrapper.find(TabPanel);

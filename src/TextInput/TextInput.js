@@ -12,7 +12,7 @@ class TextInput extends Component {
     this.state = {
       value: props.value,
       hasValue: !!props.value,
-      isFocused: false
+      isFocused: false,
     };
   }
 
@@ -69,7 +69,7 @@ class TextInput extends Component {
       readOnly,
       required,
       value: this.fieldValue,
-      ...other
+      ...other,
     };
   }
 
@@ -140,7 +140,7 @@ class TextInput extends Component {
       prefix,
       readOnly,
       required,
-      suffix
+      suffix,
     } = this.props;
 
     const { isFocused, hasValue } = this.state;
@@ -183,7 +183,7 @@ TextInput.propTypes = {
   required: PropTypes.bool,
   suffix: PropTypes.string,
   type: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -194,7 +194,7 @@ TextInput.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
   readOnly: false,
-  type: 'text'
+  type: 'text',
 };
 
 export default TextInput;

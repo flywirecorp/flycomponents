@@ -38,7 +38,7 @@ describe('Modal', () => {
 
   test('starts closed', () => {
     const wrapper = shallow(
-      <Modal defaultIsOpen={false}>{dummyContent}</Modal>
+      <Modal defaultIsOpen={false}>{dummyContent}</Modal>,
     );
 
     expect(wrapper.state('isOpen')).toBe(false);
@@ -50,7 +50,7 @@ describe('Modal', () => {
     shallow(
       <Modal onOpen={onOpen} isOpen>
         {dummyContent}
-      </Modal>
+      </Modal>,
     );
 
     expect(onOpen).toHaveBeenCalledTimes(1);
@@ -62,7 +62,7 @@ describe('Modal', () => {
     shallow(
       <Modal onOpen={onOpen} isOpen={false}>
         {dummyContent}
-      </Modal>
+      </Modal>,
     );
 
     expect(onOpen).toHaveBeenCalledTimes(0);
@@ -73,7 +73,7 @@ describe('Modal', () => {
     const wrapper = shallow(
       <Modal onOpen={onOpen} isOpen={false}>
         {dummyContent}
-      </Modal>
+      </Modal>,
     );
 
     wrapper.setProps({ isOpen: true });
@@ -92,7 +92,7 @@ describe('Modal', () => {
 
   test('merges content class sent with its default class', () => {
     const wrapper = shallow(
-      <Modal className="customClass">{dummyContent}</Modal>
+      <Modal className="customClass">{dummyContent}</Modal>,
     );
 
     expect(wrapper.find('.customClass').length).toEqual(1);
@@ -131,7 +131,7 @@ describe('Modal', () => {
   describe('when closing is not allowed', () => {
     test('does not show a close button', () => {
       const wrapper = shallow(
-        <Modal allowClosing={false}>{dummyContent}</Modal>
+        <Modal allowClosing={false}>{dummyContent}</Modal>,
       );
 
       expect(wrapper.find('.Modal-closeButton').length).toBe(0);
@@ -139,7 +139,7 @@ describe('Modal', () => {
 
     test('does not close clicking the ESC key', () => {
       const wrapper = shallow(
-        <Modal allowClosing={false}>{dummyContent}</Modal>
+        <Modal allowClosing={false}>{dummyContent}</Modal>,
       );
       const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
 
@@ -164,7 +164,7 @@ describe('Modal', () => {
       const wrapper = shallow(
         <Modal isOpen={isOpen} onClose={() => (isOpen = false)}>
           {dummyContent}
-        </Modal>
+        </Modal>,
       );
 
       wrapper.find('.Modal-closeButton').simulate('click');

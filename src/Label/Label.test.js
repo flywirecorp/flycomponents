@@ -25,7 +25,7 @@ describe('Label', () => {
       htmlFor: 'amount',
       required: true,
       value: 'Amount',
-      id: 'amount'
+      id: 'amount',
     };
     const component = new LabelComponent(props);
 

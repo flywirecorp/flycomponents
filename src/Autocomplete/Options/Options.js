@@ -22,7 +22,7 @@ Options.displayName = 'Options';
 Options.propTypes = {
   children: PropTypes.node.isRequired,
   forwardRef: PropTypes.object,
-  id: PropTypes.string
+  id: PropTypes.string,
 };
 
 export default Options;

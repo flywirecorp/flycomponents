@@ -17,7 +17,7 @@ describe('Tabs', () => {
         <TabPanel>First option content</TabPanel>
         <TabPanel>Second option content</TabPanel>
       </TabPanels>
-    </Tabs>
+    </Tabs>,
   );
 
   test('renders children', () => {
@@ -41,7 +41,7 @@ describe('Tabs', () => {
         <TabPanels>
           <TabPanel>First option content</TabPanel>
         </TabPanels>
-      </Tabs>
+      </Tabs>,
     );
 
     expect(wrapper.find('.Tabs.customClass').length).toEqual(1);

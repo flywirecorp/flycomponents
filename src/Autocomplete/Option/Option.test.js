@@ -12,7 +12,7 @@ describe('Option', () => {
         onClick: () => {},
         onMouseEnter: () => {},
         option: { label: 'Option', value: 'opt' },
-        searchQuery: null
+        searchQuery: null,
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -91,7 +91,7 @@ describe('Option', () => {
     const customTemplate = jest.fn();
     // eslint-disable-next-line
     new OptionComponent({
-      template: customTemplate
+      template: customTemplate,
     });
 
     expect(customTemplate).toBeCalled();

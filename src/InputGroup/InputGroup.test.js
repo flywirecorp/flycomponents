@@ -8,7 +8,7 @@ describe('InputGroup', () => {
     constructor(ownProps) {
       const defaultProps = {
         name: 'name',
-        type: 'text'
+        type: 'text',
       };
       const props = { ...defaultProps, ...ownProps };
 

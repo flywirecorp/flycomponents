@@ -24,7 +24,7 @@ import {
   SUPR,
   TAB,
   VKEY,
-  XKEY
+  XKEY,
 } from '../utils/keycodes';
 
 class MoneyInput extends Component {
@@ -43,14 +43,14 @@ class MoneyInput extends Component {
     const {
       decimalMark: decimal,
       subunitToUnit,
-      thousandsSeparator: thousand
+      thousandsSeparator: thousand,
     } = this.props;
 
     const settings = {
       decimal,
       subunitToUnit,
       symbol: false,
-      thousand
+      thousand,
     };
 
     return toMoney(cents, settings);
@@ -60,7 +60,7 @@ class MoneyInput extends Component {
     const { onBlur } = this.props;
     const {
       target,
-      target: { name, value: amount }
+      target: { name, value: amount },
     } = e;
     const amountInCents = this.convertToCents(amount);
 
@@ -80,7 +80,7 @@ class MoneyInput extends Component {
   handleOut = e => {
     const {
       target,
-      target: { value: amount }
+      target: { value: amount },
     } = e;
     const amountInCents = this.convertToCents(amount);
 
@@ -91,7 +91,7 @@ class MoneyInput extends Component {
   handleClick = e => {
     const {
       target,
-      target: { value }
+      target: { value },
     } = e;
 
     target.setSelectionRange(0, value.length);
@@ -128,7 +128,7 @@ class MoneyInput extends Component {
       PERIOD,
       RIGHT_ARROW,
       SUPR,
-      TAB
+      TAB,
     ].includes(e.keyCode);
 
     if (!isNumber && !allowedChars && !isPaste && !isCopy && !isCut) {
@@ -161,7 +161,7 @@ class MoneyInput extends Component {
       disabled,
       maxLength,
       name,
-      readOnly
+      readOnly,
     };
 
     return (
@@ -215,7 +215,7 @@ MoneyInput.propTypes = {
   subunitToUnit: PropTypes.number,
   symbolFirst: PropTypes.bool,
   thousandsSeparator: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 MoneyInput.defaultProps = {
@@ -230,7 +230,7 @@ MoneyInput.defaultProps = {
   readOnly: false,
   subunitToUnit: 100,
   symbolFirst: true,
-  thousandsSeparator: ','
+  thousandsSeparator: ',',
 };
 
 export default MoneyInput;

@@ -7,7 +7,7 @@ export default () => {
   const values = [
     { label: 'Spain', value: 'ES' },
     { label: 'United States', value: 'US' },
-    { label: 'China', value: 'CN' }
+    { label: 'China', value: 'CN' },
   ];
 
   return (

@@ -2,7 +2,7 @@ import {
   validateCvvInput,
   validateExpirationDate,
   validateCardNumber,
-  validateCardType
+  validateCardType,
 } from './validators';
 
 describe('validators', () => {

@@ -7,7 +7,7 @@ describe('Highlighter', () => {
     constructor(ownProps) {
       const defaultProps = {
         text: '',
-        subString: ''
+        subString: '',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -25,7 +25,7 @@ describe('Highlighter', () => {
     const component = new HighlighterComponent({ text, subString });
 
     expect(component.html()).toBe(
-      "Hello <span class='is-highlighted'>World</span>!"
+      "Hello <span class='is-highlighted'>World</span>!",
     );
   });
 });

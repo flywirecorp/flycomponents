@@ -9,7 +9,7 @@ describe('Button', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(
-        <Button {...props}>{children || 'a message'}</Button>
+        <Button {...props}>{children || 'a message'}</Button>,
       );
     }
 

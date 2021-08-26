@@ -11,8 +11,8 @@ describe('DayNames', () => {
         <DayNames />
       </Context.Provider>,
       {
-        attachTo: document.createElement('table')
-      }
+        attachTo: document.createElement('table'),
+      },
     );
 
     const days = component.find('.Calendar-weekday').map(d => d.text());

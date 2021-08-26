@@ -7,7 +7,7 @@ const toMoney = (number, options) => {
     thousand: ',',
     subunitToUnit: 100,
     symbol: '$',
-    symbolFirst: true
+    symbolFirst: true,
   };
 
   const config = { ...defaults, ...options };
@@ -17,7 +17,7 @@ const toMoney = (number, options) => {
     subunitToUnit,
     symbol,
     symbolFirst,
-    thousand
+    thousand,
   } = config;
   const precision = cents ? Math.log10(subunitToUnit) : 0;
   const amount = number / subunitToUnit;
@@ -32,7 +32,7 @@ const toMoney = (number, options) => {
 const toCents = (number, options) => {
   const defaults = {
     decimal: '.',
-    subunitToUnit: 100
+    subunitToUnit: 100,
   };
 
   const config = { ...defaults, ...options };

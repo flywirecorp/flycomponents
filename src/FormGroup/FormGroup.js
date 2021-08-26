@@ -18,7 +18,7 @@ const FormGroup = ({
   name,
   readOnly,
   required,
-  forwardRef
+  forwardRef,
 }) => (
   <div
     className={classNames('FormGroup', className, {
@@ -29,7 +29,7 @@ const FormGroup = ({
       'is-focused': isFocused,
       'is-readOnly': readOnly,
       'FormGroup--hasPrefix': hasPrefix,
-      'FormGroup--hasSuffix': hasSuffix
+      'FormGroup--hasSuffix': hasSuffix,
     })}
     ref={forwardRef}
   >
@@ -71,7 +71,7 @@ FormGroup.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 FormGroup.defaultProps = {
@@ -82,7 +82,7 @@ FormGroup.defaultProps = {
   hasValue: false,
   isFocused: false,
   readOnly: false,
-  required: false
+  required: false,
 };
 
 export default FormGroup;

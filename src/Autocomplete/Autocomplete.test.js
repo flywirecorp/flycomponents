@@ -23,8 +23,8 @@ describe('Autocomplete', () => {
         options: [
           { label: 'Spain', value: 'ES' },
           { label: 'United States', value: 'US' },
-          { label: 'China', value: 'CN' }
-        ]
+          { label: 'China', value: 'CN' },
+        ],
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -100,7 +100,7 @@ describe('Autocomplete', () => {
     simulateKeyDown(keyCode) {
       this.searchField().simulate('keyDown', {
         keyCode,
-        preventDefault: () => {}
+        preventDefault: () => {},
       });
     }
   }
@@ -111,7 +111,7 @@ describe('Autocomplete', () => {
     adjustOffsetStub = jest.spyOn(Autocomplete.prototype, 'adjustOffset');
     focusSearchInputStub = jest.spyOn(
       Autocomplete.prototype,
-      'focusSearchInput'
+      'focusSearchInput',
     );
   });
 
@@ -130,7 +130,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -161,7 +161,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -176,7 +176,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'Japán', value: 'CN' }
+      { label: 'Japán', value: 'CN' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -192,7 +192,7 @@ describe('Autocomplete', () => {
   test('sorts options', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
 
     const component = new AutocompleteComponent({ options, shouldSort: true });
@@ -206,7 +206,7 @@ describe('Autocomplete', () => {
   test('moves the focus to the next option when pressing key down', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' }
+      { label: 'United States', value: 'US' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -220,7 +220,7 @@ describe('Autocomplete', () => {
   test('moves the focus to the previous option when pressing key up', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' }
+      { label: 'United States', value: 'US' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -244,7 +244,7 @@ describe('Autocomplete', () => {
   test('gives focus to an option when mouse enters', () => {
     const options = [
       { label: 'United States', value: 'US' },
-      { label: 'United States Minor Outlying Islands', value: 'UM' }
+      { label: 'United States Minor Outlying Islands', value: 'UM' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -264,7 +264,7 @@ describe('Autocomplete', () => {
   test('selects current option when pressing the enter key', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' }
+      { label: 'United States', value: 'US' },
     ];
     const component = new AutocompleteComponent({ options });
 
@@ -305,12 +305,12 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const minOptionsForSearch = 4;
     const component = new AutocompleteComponent({
       minOptionsForSearch,
-      options
+      options,
     });
 
     expect(component.searchField().prop('readOnly')).toBe(true);
@@ -320,7 +320,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent(options);
 
@@ -336,7 +336,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent(options);
 
@@ -352,7 +352,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent(options);
 
@@ -367,7 +367,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent({ readOnly: true, options });
 
@@ -385,7 +385,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
     const component = new AutocompleteComponent({ disabled: true, options });
 
@@ -403,7 +403,7 @@ describe('Autocomplete', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
 
     const component = new AutocompleteComponent({ options });
@@ -419,7 +419,7 @@ describe('Autocomplete', () => {
       component.filterOption('Spain');
 
       expect(component.a11yStatusMessage).toBe(
-        '1 result is available, use up and down arrow keys to navigate. Press Enter key to select.'
+        '1 result is available, use up and down arrow keys to navigate. Press Enter key to select.',
       );
     });
 
@@ -427,7 +427,7 @@ describe('Autocomplete', () => {
       component.filterOption('in');
 
       expect(component.a11yStatusMessage).toBe(
-        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select.'
+        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select.',
       );
     });
 

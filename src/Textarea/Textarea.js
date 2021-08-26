@@ -35,7 +35,7 @@ Textarea.defaultProps = {
   disabled: false,
   readOnly: false,
   required: false,
-  value: ''
+  value: '',
 };
 
 Textarea.propTypes = {
@@ -45,7 +45,7 @@ Textarea.propTypes = {
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default Textarea;

@@ -28,7 +28,7 @@ describe('CardNumberInput', () => {
       const name = 'a_name';
       const value = 'a_value';
       const wrapper = shallow(
-        <CardNumberInput name={name} onChange={onChange} />
+        <CardNumberInput name={name} onChange={onChange} />,
       );
 
       wrapper.simulate('change', name, value);
@@ -40,7 +40,7 @@ describe('CardNumberInput', () => {
       const cardTypes = [
         ['visa', '4111111111111111'],
         ['mc', '5340762276893578'],
-        ['amex', '378953407816481']
+        ['amex', '378953407816481'],
       ];
 
       test.each(cardTypes)(
@@ -53,7 +53,7 @@ describe('CardNumberInput', () => {
           textInput.simulate('change', name, cardNumber);
 
           expect(wrapper.find(TextInput).hasClass(cardType)).toEqual(true);
-        }
+        },
       );
 
       test('adds the card type className to the already passed on', () => {
@@ -62,7 +62,7 @@ describe('CardNumberInput', () => {
         const cardType = 'visa';
         const className = 'a_className';
         const wrapper = shallow(
-          <CardNumberInput name={name} className={className} />
+          <CardNumberInput name={name} className={className} />,
         );
 
         const textInput = wrapper.find(TextInput);

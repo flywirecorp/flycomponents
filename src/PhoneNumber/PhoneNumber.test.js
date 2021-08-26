@@ -9,7 +9,7 @@ describe('PhoneNumber', () => {
       const defaultProps = {
         countries: [],
         label: 'Phone',
-        name: 'phone'
+        name: 'phone',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -24,7 +24,7 @@ describe('PhoneNumber', () => {
 
     simulateBlur(name) {
       this.input().simulate('blur', {
-        target: { name }
+        target: { name },
       });
     }
 
@@ -36,7 +36,7 @@ describe('PhoneNumber', () => {
           : this.addKey(prevValue, key, caretPosition);
 
       this.input().simulate('change', {
-        target: { value: nextValue, selectionStart: caretPosition }
+        target: { value: nextValue, selectionStart: caretPosition },
       });
     }
 
@@ -44,7 +44,7 @@ describe('PhoneNumber', () => {
       return caretPosition === 0
         ? `${prevValue}${key}`
         : `${prevValue.slice(0, caretPosition)}${key}${prevValue.slice(
-            caretPosition
+            caretPosition,
           )}`;
     }
 
@@ -52,7 +52,7 @@ describe('PhoneNumber', () => {
       return caretPosition === 0
         ? prevValue.slice(0, -1)
         : `${prevValue.slice(0, caretPosition)}${prevValue.slice(
-            caretPosition + 1
+            caretPosition + 1,
           )}`;
     }
 
@@ -62,7 +62,7 @@ describe('PhoneNumber', () => {
 
     mockRefs(mock = () => {}) {
       this.component.instance().numberInputRef.current = {
-        setSelectionRange: mock
+        setSelectionRange: mock,
       };
     }
   }
@@ -79,16 +79,16 @@ describe('PhoneNumber', () => {
         {
           label: 'American Samoa',
           value: 'as',
-          dialingCode: '1684'
+          dialingCode: '1684',
         },
         {
           label: 'Spain',
           value: 'es',
-          dialingCode: '34'
-        }
+          dialingCode: '34',
+        },
       ],
       label: 'Phone',
-      name: 'phone'
+      name: 'phone',
     };
 
     test('when no prefix value', () => {
@@ -99,7 +99,7 @@ describe('PhoneNumber', () => {
 
     test('when prefix length is 2', () => {
       const ownProps = {
-        value: '+34 666666666'
+        value: '+34 666666666',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -110,7 +110,7 @@ describe('PhoneNumber', () => {
 
     test('when prefix length is 4', () => {
       const ownProps = {
-        value: '+1684 155555555'
+        value: '+1684 155555555',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -134,8 +134,8 @@ describe('PhoneNumber', () => {
       {
         label: 'United States (+1)',
         value: 'us',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const onChange = jest.fn();
     const name = 'phone';
@@ -155,8 +155,8 @@ describe('PhoneNumber', () => {
       {
         label: 'United States (+1)',
         value: 'us',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const onChange = jest.fn();
     const name = 'phone';
@@ -176,13 +176,13 @@ describe('PhoneNumber', () => {
       {
         label: 'Spain (+34)',
         value: 'es',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States (+1)',
         value: 'us',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PhoneNumberComponent({ countries, readOnly: true });
 
@@ -201,18 +201,18 @@ describe('PhoneNumber', () => {
         {
           label: 'Spain',
           value: 'ES',
-          dialingCode: '34'
+          dialingCode: '34',
         },
         {
           label: 'United States',
           value: 'US',
-          dialingCode: null
+          dialingCode: null,
         },
         {
           label: 'Canada',
           value: 'CA',
-          dialingCode: undefined
-        }
+          dialingCode: undefined,
+        },
       ];
       const component = new PhoneNumberComponent({ countries });
       expect(component.prefixSelector().prop('options')).toHaveLength(1);
@@ -224,13 +224,13 @@ describe('PhoneNumber', () => {
       {
         label: 'Spain (+34)',
         value: 'es',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States (+1)',
         value: 'us',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PhoneNumberComponent({ countries, disabled: true });
 
@@ -260,7 +260,7 @@ describe('PhoneNumber', () => {
       component.component
         .find('.PhoneNumber')
         .first()
-        .prop('onBlur')
+        .prop('onBlur'),
     ).toBe(undefined);
   });
 

@@ -22,7 +22,7 @@ class Checkbox extends Component {
       <label
         htmlFor={idOrName}
         className={classNames('Checkbox', className, {
-          'has-error': error
+          'has-error': error,
         })}
       >
         <input
@@ -64,7 +64,7 @@ Checkbox.propTypes = {
   id: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string.isRequired,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default Checkbox;

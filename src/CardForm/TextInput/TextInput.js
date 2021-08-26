@@ -25,7 +25,7 @@ class TextInput extends Component {
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
     type: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
   };
 
   static defaultProps = {
@@ -39,7 +39,7 @@ class TextInput extends Component {
     readOnly: false,
     type: 'text',
     value: '',
-    required: false
+    required: false,
   };
 
   constructor(props) {
@@ -51,7 +51,7 @@ class TextInput extends Component {
       value: props.value,
       hasValue: !!props.value,
       isFocused: false,
-      caretPosition: 0
+      caretPosition: 0,
     };
   }
 
@@ -103,12 +103,12 @@ class TextInput extends Component {
 
     const currentSeparators = this.getSeparatorsToPosition(
       currentValue,
-      currentPosition
+      currentPosition,
     );
 
     const newSeparators = this.getSeparatorsToPosition(
       newValue,
-      currentPosition
+      currentPosition,
     );
 
     const lengthDiff = newValue.length - currentValue.length;
@@ -193,7 +193,7 @@ class TextInput extends Component {
       name,
       readOnly,
       required,
-      children
+      children,
     } = this.props;
 
     const { isFocused, hasValue } = this.state;

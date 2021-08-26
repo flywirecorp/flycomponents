@@ -23,7 +23,7 @@ class DateInput extends Component {
     onKeyDown: PropTypes.func.isRequired,
     readOnly: PropTypes.bool,
     required: PropTypes.bool,
-    toggleCalendar: PropTypes.func.isRequired
+    toggleCalendar: PropTypes.func.isRequired,
   };
 
   constructor(props) {
@@ -31,7 +31,7 @@ class DateInput extends Component {
 
     this.state = {
       value:
-        props.defaultValue && props.defaultValue.format(this.props.dateFormat)
+        props.defaultValue && props.defaultValue.format(this.props.dateFormat),
     };
   }
 
@@ -49,14 +49,14 @@ class DateInput extends Component {
     this.setState(
       prevState => {
         const inputValue = `${prevState.value}${String.fromCharCode(
-          pressedKey
+          pressedKey,
         )}`;
         let value = inputValue.replace(/\D/g, '');
         if (pressedKey === BACKSPACE) value = value.slice(0, -1);
 
         return { value: format(value, { pattern: this.props.datePattern }) };
       },
-      () => onKeyDown(this.state.value)
+      () => onKeyDown(this.state.value),
     );
   };
 
@@ -132,7 +132,7 @@ class DateInput extends Component {
 
 DateInput.defaultProps = {
   dateFormat: DATE_FORMAT,
-  datePattern: DATE_PATTERN
+  datePattern: DATE_PATTERN,
 };
 
 export default DateInput;

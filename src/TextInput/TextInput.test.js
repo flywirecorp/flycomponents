@@ -28,19 +28,19 @@ describe('TextInput', () => {
 
     simulateBlur(name) {
       this.input().simulate('blur', {
-        target: { name }
+        target: { name },
       });
     }
 
     simulateFocus() {
       this.input().simulate('focus', {
-        target: { name }
+        target: { name },
       });
     }
 
     simulateChange(name, value) {
       this.input().simulate('change', {
-        target: { name, value }
+        target: { name, value },
       });
     }
   }

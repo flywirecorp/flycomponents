@@ -7,7 +7,7 @@ const Month = ({ onDateClick, selectedDate }) => {
   const currentMonth = selectedDate.month();
 
   const monthWeeks = monthStartingWeekDates(
-    selectedDate
+    selectedDate,
   ).map(weekStartingDate => (
     <Week
       key={`week-${weekStartingDate}`}
@@ -24,7 +24,7 @@ const Month = ({ onDateClick, selectedDate }) => {
 Month.displayName = 'Month';
 Month.propTypes = {
   onDateClick: PropTypes.func.isRequired,
-  selectedDate: PropTypes.object.isRequired
+  selectedDate: PropTypes.object.isRequired,
 };
 
 export default Month;

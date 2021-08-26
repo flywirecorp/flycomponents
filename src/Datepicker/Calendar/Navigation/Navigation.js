@@ -22,7 +22,7 @@ const Navigation = ({
   prevMonthRef,
   selectMonthLabel,
   selectYearLabel,
-  yearRef
+  yearRef,
 }) => {
   const currentMonth = selectedDate.month();
   const currentYear = selectedDate.year();
@@ -52,7 +52,7 @@ const Navigation = ({
       {({ locale }) => {
         const months = monthNames(locale).map((month, i) => ({
           value: i,
-          label: month
+          label: month,
         }));
 
         return (
@@ -122,14 +122,14 @@ Navigation.propTypes = {
   selectMonthLabel: PropTypes.string,
   selectYearLabel: PropTypes.string,
   selectedDate: PropTypes.object.isRequired,
-  yearRef: PropTypes.object
+  yearRef: PropTypes.object,
 };
 
 Navigation.defaultProps = {
   nextMonthLabel: NEXT_MONTH_LABEL,
   prevMonthLabel: PREV_MONTH_LABEL,
   selectMonthLabel: SELECT_MONTH_LABEL,
-  selectYearLabel: SELECT_YEAR_LABEL
+  selectYearLabel: SELECT_YEAR_LABEL,
 };
 
 export default Navigation;

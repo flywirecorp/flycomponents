@@ -8,7 +8,7 @@ import {
   validateExpirationDate,
   validateCardNumber,
   validateCardType,
-  validateCvvInput
+  validateCvvInput,
 } from '../utils/validators';
 import { VISA, MASTERCARD, UNIONPAY, getCardType } from '../utils/card';
 import CVVInput from './CVVInput/CVVInput';
@@ -24,25 +24,25 @@ const NUMBERS_REGEX = /[0-9]*/g;
 
 const DEFAULT_FORMATS = {
   [NAME_FIELD]: {
-    allowedCharacters: LETTERS_AND_SPACE_REGEX
+    allowedCharacters: LETTERS_AND_SPACE_REGEX,
   },
   [SURNAME_FIELD]: {
-    allowedCharacters: LETTERS_AND_SPACE_REGEX
+    allowedCharacters: LETTERS_AND_SPACE_REGEX,
   },
   [CARD_NUMBER_FIELD]: {
     pattern: '....-....-....-....',
     shouldAddSeparatorBeforeTyping: true,
-    allowedCharacters: NUMBERS_REGEX
+    allowedCharacters: NUMBERS_REGEX,
   },
   [EXPIRY_DATE_FIELD]: {
     pattern: '../..',
     shouldAddSeparatorBeforeTyping: true,
-    allowedCharacters: NUMBERS_REGEX
+    allowedCharacters: NUMBERS_REGEX,
   },
   [CVV_FIELD]: {
     pattern: '....',
-    allowedCharacters: NUMBERS_REGEX
-  }
+    allowedCharacters: NUMBERS_REGEX,
+  },
 };
 
 class CardForm extends Component {
@@ -55,7 +55,7 @@ class CardForm extends Component {
       cardNumber: PropTypes.string,
       cardType: PropTypes.string,
       expiryDate: PropTypes.string,
-      cvv: PropTypes.string
+      cvv: PropTypes.string,
     }),
     isCompressed: PropTypes.bool,
     labels: PropTypes.shape({
@@ -66,13 +66,13 @@ class CardForm extends Component {
       cvv: PropTypes.string,
       cvvTooltip: PropTypes.string,
       submit: PropTypes.string,
-      cancel: PropTypes.string
+      cancel: PropTypes.string,
     }),
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     onValidate: PropTypes.func,
-    optionalFields: PropTypes.array
+    optionalFields: PropTypes.array,
   };
 
   static defaultProps = {
@@ -83,7 +83,7 @@ class CardForm extends Component {
       [CARD_NUMBER_FIELD]: 'Invalid card',
       cardType: 'Only Visa and Mastercard are supported',
       [EXPIRY_DATE_FIELD]: 'Invalid expiration date',
-      [CVV_FIELD]: 'Invalid CVV number'
+      [CVV_FIELD]: 'Invalid CVV number',
     },
     labels: {
       [NAME_FIELD]: `Cardholder's name`,
@@ -93,12 +93,12 @@ class CardForm extends Component {
       [CVV_FIELD]: 'CVV',
       cvvTooltip: '3 digits in the back of your card or 4 digits in the front',
       submit: 'Submit',
-      cancel: 'Cancel'
+      cancel: 'Cancel',
     },
     isCompressed: false,
     onSubmit: () => {},
     onChange: () => {},
-    onValidate: () => {}
+    onValidate: () => {},
   };
 
   state = {
@@ -108,8 +108,8 @@ class CardForm extends Component {
       [SURNAME_FIELD]: '',
       [CARD_NUMBER_FIELD]: '',
       [EXPIRY_DATE_FIELD]: '',
-      [CVV_FIELD]: ''
-    }
+      [CVV_FIELD]: '',
+    },
   };
 
   handleChange = (name, value) => {
@@ -137,7 +137,7 @@ class CardForm extends Component {
   validateCvvField(value) {
     const { errors } = this.props;
     const {
-      values: { [CARD_NUMBER_FIELD]: cardNumber }
+      values: { [CARD_NUMBER_FIELD]: cardNumber },
     } = this.state;
     const cardType = getCardType(cardNumber);
 
@@ -169,7 +169,7 @@ class CardForm extends Component {
       (errors, [name, value]) => {
         return { ...errors, ...this.validateField(name, value) };
       },
-      {}
+      {},
     );
 
     return errors;
@@ -214,7 +214,7 @@ class CardForm extends Component {
 
         return requiredFields;
       },
-      {}
+      {},
     );
 
     return requiredFields;
@@ -224,7 +224,7 @@ class CardForm extends Component {
     const { isCompressed } = this.props;
 
     const classes = classNames('CardForm-Input', {
-      'CardForm-Input--Compressed': isCompressed
+      'CardForm-Input--Compressed': isCompressed,
     });
 
     if (field === CVV_FIELD) return classNames(classes, 'CardForm-Input--CVV');
@@ -249,7 +249,7 @@ class CardForm extends Component {
       return {
         pattern: '....-....-....-....-...',
         shouldAddSeparatorBeforeTyping: false,
-        allowedCharacters: NUMBERS_REGEX
+        allowedCharacters: NUMBERS_REGEX,
       };
 
     return DEFAULT_FORMATS[field];
@@ -268,7 +268,7 @@ class CardForm extends Component {
       onFocus: this.handleFocus,
       onChange: this.handleChange,
       className: this.getFieldClassName(fieldName),
-      ariaRequired: required
+      ariaRequired: required,
     };
 
     if (fieldName === CARD_NUMBER_FIELD) {
@@ -284,7 +284,7 @@ class CardForm extends Component {
     const { labels, children, onCancel, isCompressed } = this.props;
 
     const classes = classNames('CardForm', {
-      'CardForm--Compressed': isCompressed
+      'CardForm--Compressed': isCompressed,
     });
     return (
       <form onSubmit={this.handleSubmit}>

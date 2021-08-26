@@ -13,8 +13,8 @@ function TabList({ children }) {
               onSelect: event => {
                 event.preventDefault();
                 onSelectTab(index);
-              }
-            })
+              },
+            }),
           )}
         </nav>
       )}
@@ -24,7 +24,7 @@ function TabList({ children }) {
 
 TabList.displayName = 'TabList';
 TabList.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default TabList;

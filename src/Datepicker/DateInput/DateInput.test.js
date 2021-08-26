@@ -13,7 +13,7 @@ describe('DateInput', () => {
         onFocus: () => {},
         onClick: () => {},
         onKeyDown: () => {},
-        toggleCalendar: () => {}
+        toggleCalendar: () => {},
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -41,7 +41,7 @@ describe('DateInput', () => {
       const keys = {
         0: { which: 48 },
         delete: { which: BACKSPACE },
-        enter: { which: ENTER }
+        enter: { which: ENTER },
       };
 
       this.input().simulate('keyDown', keys[k]);
@@ -71,7 +71,7 @@ describe('DateInput', () => {
     const onKeyDown = jest.fn();
     const component = new DateInputComponent({
       onKeyDown,
-      readOnly: true
+      readOnly: true,
     });
 
     component.pressKey(0);

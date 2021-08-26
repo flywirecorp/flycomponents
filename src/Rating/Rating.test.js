@@ -4,7 +4,7 @@ import { Rating, Star } from './Rating';
 
 describe('Rating', () => {
   const props = {
-    rating: '3'
+    rating: '3',
   };
 
   test('renders the stars', () => {

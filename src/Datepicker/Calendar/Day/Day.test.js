@@ -11,7 +11,7 @@ describe('Day', () => {
         date: parseDate('04/21/1979'),
         disabled: false,
         onDateClick: () => {},
-        selected: false
+        selected: false,
       };
       const props = { ...defaultProps, ...ownProps };
 

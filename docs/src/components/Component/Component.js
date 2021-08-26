@@ -19,7 +19,7 @@ const { node, string } = PropTypes;
 
 Component.propTypes = {
   children: node.isRequired,
-  readme: string
+  readme: string,
 };
 
 export default Component;

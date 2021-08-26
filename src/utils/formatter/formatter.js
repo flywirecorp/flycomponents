@@ -9,7 +9,7 @@ export const format = (text, options = {}) => {
     allowedCharacters,
     pattern,
     ignoreExcedingText,
-    shouldAddSeparatorBeforeTyping
+    shouldAddSeparatorBeforeTyping,
   } = settings;
 
   const matchingChars = text.match(allowedCharacters);
@@ -26,16 +26,16 @@ export const format = (text, options = {}) => {
       if (character !== FORMATTER_PATTERN_CHARACTER) {
         return {
           formattedText: acc.formattedText + character,
-          remainingText: acc.remainingText
+          remainingText: acc.remainingText,
         };
       }
 
       return {
         formattedText: acc.formattedText + acc.remainingText[0],
-        remainingText: acc.remainingText.slice(1)
+        remainingText: acc.remainingText.slice(1),
       };
     },
-    { formattedText: '', remainingText: sanitizedText.split('') }
+    { formattedText: '', remainingText: sanitizedText.split('') },
   );
 
   let formattedText =

@@ -25,11 +25,11 @@ Button.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   forwardRef: PropTypes.object,
   onClick: PropTypes.func,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default Button;

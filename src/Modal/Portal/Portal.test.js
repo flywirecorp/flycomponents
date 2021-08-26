@@ -15,7 +15,7 @@ describe('<Portal />', () => {
 
     expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
     expect(document.body.lastChild.outerHTML).toBe(
-      '<div class="Modal-container">Foo</div>'
+      '<div class="Modal-container">Foo</div>',
     );
   });
 
@@ -30,12 +30,12 @@ describe('<Portal />', () => {
     document.body.innerHTML = '<div id="root"></div><div id="custom"></div>';
     ReactDOM.render(
       <Portal node={document.getElementById('custom')}>Foo</Portal>,
-      document.getElementById('root')
+      document.getElementById('root'),
     );
 
     expect(document.body.firstChild.outerHTML).toBe('<div id="root"></div>');
     expect(document.getElementById('custom').outerHTML).toBe(
-      '<div id="custom">Foo</div>'
+      '<div id="custom">Foo</div>',
     );
   });
 });

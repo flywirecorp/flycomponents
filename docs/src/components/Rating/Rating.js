@@ -6,7 +6,7 @@ import README from './README.md';
 class RatingExample extends React.Component {
   state = {
     ratingWithErrors: null,
-    ratingWithoutErrors: 4
+    ratingWithoutErrors: 4,
   };
 
   selectRating = rating => {

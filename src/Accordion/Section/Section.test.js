@@ -7,11 +7,11 @@ describe('Section', () => {
     const wrapper = shallow(
       <Section>
         <div className="unique" />
-      </Section>
+      </Section>,
     );
 
     expect(wrapper.contains(<div className="unique" success={false} />)).toBe(
-      true
+      true,
     );
   });
 
@@ -22,7 +22,7 @@ describe('Section', () => {
           expect(isActive).toBe(true);
           return null;
         }}
-      </Section>
+      </Section>,
     );
   });
 

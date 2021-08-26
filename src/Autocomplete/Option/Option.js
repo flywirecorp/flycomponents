@@ -15,7 +15,7 @@ class Option extends Component {
       option: { label, value },
       searchQuery,
       template,
-      forwardRef
+      forwardRef,
     } = this.props;
 
     const text = label.toString();
@@ -55,14 +55,14 @@ Option.propTypes = {
   onMouseEnter: PropTypes.func.isRequired,
   option: PropTypes.shape({
     label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    value: PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
   }),
   searchQuery: PropTypes.string,
-  template: PropTypes.func
+  template: PropTypes.func,
 };
 
 Option.defaultProps = {
-  highlighText: true
+  highlighText: true,
 };
 
 export default Option;

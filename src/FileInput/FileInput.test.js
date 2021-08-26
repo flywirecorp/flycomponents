@@ -20,7 +20,7 @@ describe('FileInput', () => {
       const hintParagraf = wrapper.find('[data-testid="hint"]');
 
       expect(hintParagraf.props().dangerouslySetInnerHTML.__html).toContain(
-        hint
+        hint,
       );
     });
   });

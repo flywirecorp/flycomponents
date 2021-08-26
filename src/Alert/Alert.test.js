@@ -9,7 +9,7 @@ describe('Alert', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(
-        <Alert {...props}>{children || 'a message'}</Alert>
+        <Alert {...props}>{children || 'a message'}</Alert>,
       );
     }
 

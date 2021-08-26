@@ -10,7 +10,7 @@ describe('FormGroup', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(
-        <FormGroup {...props}>{children || <span>children</span>}</FormGroup>
+        <FormGroup {...props}>{children || <span>children</span>}</FormGroup>,
       );
     }
 

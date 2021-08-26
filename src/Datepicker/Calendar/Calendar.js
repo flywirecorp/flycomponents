@@ -10,7 +10,7 @@ import {
   ARROW_DOWN,
   ARROW_LEFT,
   ARROW_RIGHT,
-  ARROW_UP
+  ARROW_UP,
 } from '../../utils/keycodes';
 import { LONG_DATE_FORMAT } from '../../utils/date';
 
@@ -33,7 +33,7 @@ const Calendar = ({
   selectMonthLabel,
   selectYearLabel,
   setDate,
-  yearRef
+  yearRef,
 }) => {
   const handleKeyDown = evt => {
     switch (evt.keyCode) {
@@ -105,7 +105,7 @@ const Calendar = ({
           height: '1px',
           width: '1px',
           overflow: 'hidden',
-          padding: '0px'
+          padding: '0px',
         }}
       >
         {selectedDate.format(LONG_DATE_FORMAT)}
@@ -116,7 +116,7 @@ const Calendar = ({
   return isOpen ? (
     <FocusTrap
       focusTrapOptions={{
-        clickOutsideDeactivates: true
+        clickOutsideDeactivates: true,
       }}
     >
       {calendar}
@@ -146,7 +146,7 @@ Calendar.propTypes = {
   selectYearLabel: PropTypes.string,
   selectedDate: PropTypes.object.isRequired,
   setDate: PropTypes.func.isRequired,
-  yearRef: PropTypes.object
+  yearRef: PropTypes.object,
 };
 
 export default Calendar;

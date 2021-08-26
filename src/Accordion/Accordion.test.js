@@ -9,7 +9,7 @@ describe('Accordion', () => {
       <Accordion {...accordionProps}>
         <Section />
         <Section />
-      </Accordion>
+      </Accordion>,
     );
 
     const firstSection = component.find(Section).first();

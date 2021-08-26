@@ -5,7 +5,7 @@ import Select from './Select';
 describe('Select', () => {
   const values = [
     { label: 'first', value: 'first_value' },
-    { label: 'second', value: 'second_value' }
+    { label: 'second', value: 'second_value' },
   ];
 
   test('renders a select node', () => {
@@ -36,7 +36,7 @@ describe('Select', () => {
   test('selects a default value', () => {
     const selectedValue = 'second_value';
     const wrapper = shallow(
-      <Select values={values} selectedValue={selectedValue} />
+      <Select values={values} selectedValue={selectedValue} />,
     );
 
     const select = wrapper.find('select');
@@ -83,7 +83,7 @@ describe('Select', () => {
 
     test('can override previous ones', () => {
       const wrapper = shallow(
-        <Select values={values} required={false} aria-required />
+        <Select values={values} required={false} aria-required />,
       );
 
       const select = wrapper.find('select');

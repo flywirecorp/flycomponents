@@ -7,7 +7,7 @@ const options = [
   { label: 'Spanish', value: 'spanish', lang: 'es' },
   { label: 'English', value: 'english', lang: 'en' },
   { label: 'French', value: 'french', lang: 'fr' },
-  { label: '\ud55c\uad6d\uc5b4', value: 'ko', lang: 'ko' }
+  { label: '\ud55c\uad6d\uc5b4', value: 'ko', lang: 'ko' },
 ];
 
 // eslint-disable-next-line

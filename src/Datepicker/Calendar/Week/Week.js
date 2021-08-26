@@ -29,7 +29,7 @@ Week.propTypes = {
   month: PropTypes.number,
   onDateClick: PropTypes.func.isRequired,
   selectedDate: PropTypes.object.isRequired,
-  startingDate: PropTypes.object
+  startingDate: PropTypes.object,
 };
 
 export default Week;

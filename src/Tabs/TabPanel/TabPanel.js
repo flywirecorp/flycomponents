@@ -13,7 +13,7 @@ export const TabPanel = ({ children }) =>
 
 TabPanel.displayName = 'TabPanel';
 TabPanel.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 };
 
 export default TabPanel;

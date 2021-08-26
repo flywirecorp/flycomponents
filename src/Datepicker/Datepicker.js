@@ -44,7 +44,7 @@ class Datepicker extends Component {
       isOpen: false,
       isFocused: false,
       isAbove: false,
-      selectedDate: initDate
+      selectedDate: initDate,
     };
   }
 
@@ -140,7 +140,7 @@ class Datepicker extends Component {
   handleMonthChange = month => {
     this.setState(prevState => {
       return {
-        selectedDate: (prevState.selectedDate || today).set('month', month)
+        selectedDate: (prevState.selectedDate || today).set('month', month),
       };
     }, this.setFocus(this.monthRef));
   };
@@ -148,7 +148,7 @@ class Datepicker extends Component {
   handleNextMonthClick = () => {
     this.setState(prevState => {
       return {
-        selectedDate: (prevState.selectedDate || today).add(1, 'month')
+        selectedDate: (prevState.selectedDate || today).add(1, 'month'),
       };
     }, this.setFocus(this.nextMonthRef));
   };
@@ -156,7 +156,7 @@ class Datepicker extends Component {
   handlePrevMonthClick = () => {
     this.setState(prevState => {
       return {
-        selectedDate: (prevState.selectedDate || today).subtract(1, 'month')
+        selectedDate: (prevState.selectedDate || today).subtract(1, 'month'),
       };
     }, this.setFocus(this.prevMonthRef));
   };
@@ -164,7 +164,7 @@ class Datepicker extends Component {
   handleYearChange = year => {
     this.setState(prevState => {
       return {
-        selectedDate: (prevState.selectedDate || today).set('year', year)
+        selectedDate: (prevState.selectedDate || today).set('year', year),
       };
     }, this.setFocus(this.yearRef));
   };
@@ -187,7 +187,7 @@ class Datepicker extends Component {
       () => {
         return { isOpen: false };
       },
-      wasOpen ? this.sendBlur : null
+      wasOpen ? this.sendBlur : null,
     );
   };
 
@@ -205,7 +205,7 @@ class Datepicker extends Component {
   get fitsBelow() {
     const viewportHeight = Math.max(
       document.documentElement.clientHeight,
-      window.innerHeight || 0
+      window.innerHeight || 0,
     );
 
     return viewportHeight >= this.datepickerBottomPosition;
@@ -224,7 +224,7 @@ class Datepicker extends Component {
       const { isOpen } = this.state;
 
       const message = this.props.getA11yStatusMessage({
-        isOpen
+        isOpen,
       });
 
       this.setState({ a11yStatusMessage: message });
@@ -244,7 +244,7 @@ class Datepicker extends Component {
       isFocused,
       isAbove,
       selectedDate,
-      inputValue
+      inputValue,
     } = this.state;
 
     const {
@@ -293,7 +293,7 @@ class Datepicker extends Component {
             className={classNames(
               'Datepicker',
               { 'is-open': isOpen },
-              { 'is-reverse': isAbove }
+              { 'is-reverse': isAbove },
             )}
             ref={this.datepickerRef}
           >
@@ -349,7 +349,7 @@ class Datepicker extends Component {
               height: '1px',
               width: '1px',
               overflow: 'hidden',
-              padding: '0px'
+              padding: '0px',
             }}
           >
             {a11yStatusMessage}
@@ -382,7 +382,7 @@ Datepicker.propTypes = {
   required: PropTypes.bool,
   selectMonthLabel: PropTypes.string,
   selectYearLabel: PropTypes.string,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Datepicker.defaultProps = {
@@ -393,7 +393,7 @@ Datepicker.defaultProps = {
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  readOnly: false
+  readOnly: false,
 };
 
 export default Datepicker;

@@ -12,13 +12,13 @@ describe('TabList', () => {
       <Context.Provider
         value={{
           activeIndex: 0,
-          onSelectTab: jest.fn()
+          onSelectTab: jest.fn(),
         }}
       >
         <TabList>
           <Tab>{option}</Tab>
         </TabList>
-      </Context.Provider>
+      </Context.Provider>,
     );
 
     const tab = wrapper.find(Tab);
@@ -32,14 +32,14 @@ describe('TabList', () => {
       <Context.Provider
         value={{
           activeIndex: 1,
-          onSelectTab: onSelect
+          onSelectTab: onSelect,
         }}
       >
         <TabList>
           <Tab>{option}</Tab>
           <Tab>{option}</Tab>
         </TabList>
-      </Context.Provider>
+      </Context.Provider>,
     );
 
     const secondTab = wrapper.find(Tab).last();

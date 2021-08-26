@@ -7,7 +7,7 @@ const Tab = ({
   isActive = false,
   isDisabled = false,
   onSelect = NOOP,
-  onClick = NOOP
+  onClick = NOOP,
 }) => {
   const handleClick = e => {
     if (isDisabled) e.preventDefault();
@@ -38,7 +38,7 @@ Tab.propTypes = {
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
   onClick: PropTypes.func,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
 };
 
 export default Tab;

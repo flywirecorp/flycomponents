@@ -10,7 +10,7 @@ import {
   ARROW_DOWN,
   ARROW_LEFT,
   ARROW_RIGHT,
-  ARROW_UP
+  ARROW_UP,
 } from '../../utils/keycodes';
 
 describe('Calendar', () => {
@@ -26,7 +26,7 @@ describe('Calendar', () => {
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
         setDate: FAKE_CALLBACK,
-        selectedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13'),
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -56,7 +56,7 @@ describe('Calendar', () => {
     simulateKeyPress(keyCode) {
       this.calendar().simulate('keyDown', {
         keyCode,
-        preventDefault: () => {}
+        preventDefault: () => {},
       });
     }
   }

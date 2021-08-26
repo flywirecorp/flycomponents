@@ -4,8 +4,8 @@ import README from '../../../../README.md';
 
 const styles = {
   container: {
-    padding: '0 2rem'
-  }
+    padding: '0 2rem',
+  },
 };
 
 const Home = () => {

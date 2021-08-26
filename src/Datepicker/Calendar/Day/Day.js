@@ -19,7 +19,7 @@ const Day = ({ current, date, disabled, onDateClick, selected }) => {
         'Calendar-day',
         { 'is-current': current },
         { 'is-disabled': disabled },
-        { 'is-selected': selected }
+        { 'is-selected': selected },
       )}
       onClick={disabled ? null : () => onDateClick(date)}
     >
@@ -34,7 +34,7 @@ Day.propTypes = {
   date: PropTypes.object,
   disabled: PropTypes.bool,
   onDateClick: PropTypes.func.isRequired,
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
 };
 
 export default Day;

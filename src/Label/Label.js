@@ -13,7 +13,7 @@ Label.propTypes = {
   htmlFor: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default Label;

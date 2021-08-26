@@ -15,7 +15,7 @@ const Markdown = ({ source }) => {
     pedantic: false,
     sanitize: false,
     smartLists: true,
-    smartypants: false
+    smartypants: false,
   });
   const html = marked(source);
 
@@ -29,7 +29,7 @@ const Markdown = ({ source }) => {
 const { string } = PropTypes;
 
 Markdown.propTypes = {
-  source: string.isRequired
+  source: string.isRequired,
 };
 
 export default Markdown;

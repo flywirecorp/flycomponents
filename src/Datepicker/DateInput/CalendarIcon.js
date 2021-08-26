@@ -21,11 +21,11 @@ const CalendarIcon = ({ onClick, label, hasError = false }) => {
 CalendarIcon.propTypes = {
   hasError: PropTypes.bool,
   label: PropTypes.string,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 CalendarIcon.defaultProps = {
-  label: LABEL
+  label: LABEL,
 };
 
 export default CalendarIcon;

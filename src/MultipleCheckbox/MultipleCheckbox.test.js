@@ -19,7 +19,7 @@ describe('MultipleCheckbox', () => {
   test('renders as many checkboxes as options we have', () => {
     const options = [
       { label: 'Foo', value: 'foo' },
-      { label: 'Bar', value: 'bar' }
+      { label: 'Bar', value: 'bar' },
     ];
 
     const component = new MultipleCheckboxComponent({ options });
@@ -30,7 +30,7 @@ describe('MultipleCheckbox', () => {
   test('sets checked attributes of checkboxes', () => {
     const options = [
       { label: 'Foo', value: 'foo' },
-      { label: 'Bar', value: 'bar' }
+      { label: 'Bar', value: 'bar' },
     ];
 
     const checked = ['foo'];
@@ -47,7 +47,7 @@ describe('MultipleCheckbox', () => {
     const name = 'name';
     const options = [
       { label: 'Foo', value: 'foo' },
-      { label: 'Bar', value: 'bar' }
+      { label: 'Bar', value: 'bar' },
     ];
 
     const onChange = jest.fn();

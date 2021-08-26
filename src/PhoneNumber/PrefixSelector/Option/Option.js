@@ -12,13 +12,13 @@ class Option extends Component {
       onMouseEnter,
       value: isoCode,
       id,
-      forwardRef
+      forwardRef,
     } = this.props;
 
     return (
       <li
         className={classNames('Autocomplete-option', 'PhoneNumber-option', {
-          'is-active': hasFocus
+          'is-active': hasFocus,
         })}
         onClick={() => onClick(isoCode)}
         onMouseEnter={() => onMouseEnter(isoCode)}
@@ -44,7 +44,7 @@ Option.propTypes = {
   id: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default Option;

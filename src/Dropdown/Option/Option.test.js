@@ -9,7 +9,7 @@ describe('Option', () => {
         id: 'id',
         label: 'Option',
         value: 'val',
-        onClick: () => {}
+        onClick: () => {},
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -31,7 +31,7 @@ describe('Option', () => {
     const customTemplate = jest.fn();
     // eslint-disable-next-line
     new OptionComponent({
-      template: customTemplate
+      template: customTemplate,
     });
 
     expect(customTemplate).toBeCalledWith({
@@ -44,7 +44,7 @@ describe('Option', () => {
       onClick: expect.any(Function),
       role: 'option',
       tabIndex: -1,
-      value: 'val'
+      value: 'val',
     });
   });
 });

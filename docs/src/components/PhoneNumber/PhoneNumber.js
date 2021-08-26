@@ -8,28 +8,28 @@ export default () => {
     {
       label: 'Spain',
       value: 'es',
-      dialingCode: '34'
+      dialingCode: '34',
     },
     {
       label: 'United States',
       value: 'us',
-      dialingCode: '1'
+      dialingCode: '1',
     },
     {
       label: 'Afghanistan',
       value: 'af',
-      dialingCode: '93'
+      dialingCode: '93',
     },
     {
       label: 'American Samoa',
       value: 'as',
-      dialingCode: '1684'
+      dialingCode: '1684',
     },
     {
       label: 'Albania',
       value: 'ab',
-      dialingCode: '213'
-    }
+      dialingCode: '213',
+    },
   ];
 
   return (

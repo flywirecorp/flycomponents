@@ -20,7 +20,7 @@ export class FileInput extends Component {
       multiple,
       onChange,
       buttonText,
-      uploading
+      uploading,
     } = this.props;
 
     return (
@@ -42,7 +42,7 @@ export class FileInput extends Component {
 
         <button
           className={classNames('FileInput-submit', {
-            'FileInput--uploading': uploading
+            'FileInput--uploading': uploading,
           })}
           disabled={uploading}
           onClick={this.handleClick}
@@ -62,7 +62,7 @@ FileInput.propTypes = {
   hint: PropTypes.string,
   multiple: PropTypes.bool,
   onChange: PropTypes.func,
-  uploading: PropTypes.bool
+  uploading: PropTypes.bool,
 };
 
 FileInput.defaultProps = {
@@ -70,7 +70,7 @@ FileInput.defaultProps = {
   buttonText: 'Upload',
   multiple: false,
   onChange: () => {},
-  uploading: false
+  uploading: false,
 };
 
 export default FileInput;

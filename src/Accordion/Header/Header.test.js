@@ -7,7 +7,7 @@ describe('Header', () => {
     const wrapper = shallow(
       <Header>
         <div className="div" />
-      </Header>
+      </Header>,
     );
 
     expect(wrapper.find('.div').length).toEqual(1);

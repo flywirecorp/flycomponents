@@ -9,7 +9,7 @@ const Highlighter = ({ text, subString }) => {
   const escapedSubString = escape(subString);
   const highlightedText = text.replace(
     new RegExp(escapedSubString, 'gi'),
-    match => `<span class='is-highlighted'>${match}</span>`
+    match => `<span class='is-highlighted'>${match}</span>`,
   );
 
   return <span dangerouslySetInnerHTML={createMarkup(highlightedText)} />;
@@ -18,7 +18,7 @@ const Highlighter = ({ text, subString }) => {
 Highlighter.displayName = 'Highlighter';
 Highlighter.propTypes = {
   subString: PropTypes.string,
-  text: PropTypes.string
+  text: PropTypes.string,
 };
 
 export default Highlighter;

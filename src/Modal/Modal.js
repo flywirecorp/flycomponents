@@ -6,7 +6,7 @@ import { ESC } from '../utils/keycodes';
 
 class Modal extends Component {
   state = {
-    isOpen: this.props.defaultIsOpen
+    isOpen: this.props.defaultIsOpen,
   };
 
   componentDidMount() {
@@ -104,7 +104,7 @@ class Modal extends Component {
         <FocusTrap
           focusTrapOptions={{
             onActivate: () =>
-              this.setState({ activeElement: document.activeElement })
+              this.setState({ activeElement: document.activeElement }),
           }}
         >
           <div
@@ -136,7 +136,7 @@ Modal.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  size: PropTypes.string
+  size: PropTypes.string,
 };
 
 Modal.defaultProps = {
@@ -145,7 +145,7 @@ Modal.defaultProps = {
   defaultIsOpen: true,
   onClose: () => {},
   onOpen: () => {},
-  size: 'small'
+  size: 'small',
 };
 
 export default Modal;

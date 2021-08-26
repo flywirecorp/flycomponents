@@ -5,7 +5,7 @@ import {
   HashRouter as Router,
   Link,
   Route,
-  Switch as SwitchRouter
+  Switch as SwitchRouter,
 } from 'react-router-dom';
 import Accordion from './components/Accordion';
 import Alert from './components/Alert';
@@ -44,123 +44,123 @@ const routes = [
     path: '/',
     exact: true,
     label: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/accordion',
     label: 'Accordion',
-    component: Accordion
+    component: Accordion,
   },
   {
     path: '/alert',
     label: 'Alert',
-    component: Alert
+    component: Alert,
   },
   {
     path: '/autocomplete',
     label: 'Autocomplete',
-    component: Autocomplete
+    component: Autocomplete,
   },
   {
     path: '/button',
     label: 'Button',
-    component: Button
+    component: Button,
   },
   {
     path: '/cardForm',
     label: 'CardForm',
-    component: CardForm
+    component: CardForm,
   },
   {
     path: '/datepicker',
     label: 'Datepicker',
-    component: Datepicker
+    component: Datepicker,
   },
   {
     path: '/dropdown',
     label: 'Dropdown',
-    component: Dropdown
+    component: Dropdown,
   },
   {
     path: '/checkbox',
     label: 'Checkbox',
-    component: Checkbox
+    component: Checkbox,
   },
   {
     path: '/switch',
     label: 'Switch',
-    component: Switch
+    component: Switch,
   },
   {
     path: '/fileinput',
     label: 'FileInput',
-    component: FileInput
+    component: FileInput,
   },
   {
     path: '/form-group',
     label: 'FormGroup',
-    component: FormGroup
+    component: FormGroup,
   },
   {
     path: '/heading',
     label: 'Heading',
-    component: Heading
+    component: Heading,
   },
   {
     path: '/input-group',
     label: 'InputGroup',
-    component: InputGroup
+    component: InputGroup,
   },
   {
     path: '/modal',
     label: 'Modal',
-    component: Modal
+    component: Modal,
   },
   {
     path: '/money-input',
     label: 'MoneyInput',
-    component: MoneyInput
+    component: MoneyInput,
   },
   {
     path: '/multiple-checkbox',
     label: 'MultipleCheckbox',
-    component: MultipleCheckbox
+    component: MultipleCheckbox,
   },
   {
     path: '/phone-input',
     label: 'PhoneNumber',
-    component: PhoneNumber
+    component: PhoneNumber,
   },
   {
     path: '/rating',
     label: 'Rating',
-    component: Rating
+    component: Rating,
   },
   {
     path: '/radio',
     label: 'Radio',
-    component: Radio
+    component: Radio,
   },
   {
     path: '/select',
     label: 'Select',
-    component: Select
+    component: Select,
   },
   {
     path: '/tabs',
     label: 'Tabs',
-    component: Tabs
+    component: Tabs,
   },
   {
     path: '/textarea',
     label: 'Textarea',
-    component: Textarea
+    component: Textarea,
   },
   {
     path: '/text-input',
     label: 'TextInput',
-    component: TextInput
-  }
+    component: TextInput,
+  },
 ];
 
 const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
@@ -178,7 +178,7 @@ const MenuLink = ({ label, to, activeOnlyWhenExact }) => (
 MenuLink.propTypes = {
   activeOnlyWhenExact: bool,
   label: string,
-  to: string
+  to: string,
 };
 
 class NavBar extends Component {
@@ -193,7 +193,7 @@ class NavBar extends Component {
       prevState => ({ open: !prevState.open }),
       () => {
         this.props.onChange(this.state.open);
-      }
+      },
     );
   };
 
@@ -225,7 +225,7 @@ class NavBar extends Component {
 }
 
 NavBar.propTypes = {
-  onChange: func
+  onChange: func,
 };
 
 const Content = () => (
@@ -252,7 +252,7 @@ class App extends Component {
 
   handleChange = open => {
     this.setState({
-      open: open
+      open: open,
     });
   };
 

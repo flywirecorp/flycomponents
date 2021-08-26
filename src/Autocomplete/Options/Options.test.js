@@ -7,7 +7,7 @@ describe('Options', () => {
     const component = shallow(
       <Options id="my-options">
         <h1>An option</h1>
-      </Options>
+      </Options>,
     );
 
     expect(component.contains('An option')).toBe(true);

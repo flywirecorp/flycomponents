@@ -10,11 +10,11 @@ const Alert = ({ children, type, ...other }) => (
 Alert.displayName = 'Alert';
 Alert.propTypes = {
   children: PropTypes.node.isRequired,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 Alert.defaultProps = {
-  type: 'info'
+  type: 'info',
 };
 
 export default Alert;

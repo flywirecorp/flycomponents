@@ -32,7 +32,7 @@ const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
 
 export class PrefixSelector extends Component {
   static defaultProps = {
-    getA11yStatusMessage: getA11yStatusMessage
+    getA11yStatusMessage: getA11yStatusMessage,
   };
 
   constructor(props) {
@@ -45,7 +45,7 @@ export class PrefixSelector extends Component {
       dialingCode: value,
       isOpen: false,
       selectedIndex: INITIAL_INDEX,
-      typedQuery: ''
+      typedQuery: '',
     };
 
     this.typedQueryTimer = 0;
@@ -53,7 +53,7 @@ export class PrefixSelector extends Component {
     this.optionListRef = React.createRef();
     this.buttonRef = React.createRef();
     this.optionRefs = Array.from({ length: options.length }, () =>
-      React.createRef()
+      React.createRef(),
     );
   }
 
@@ -118,7 +118,7 @@ export class PrefixSelector extends Component {
       () => {
         onFocus();
         this.updateA11yMessage();
-      }
+      },
     );
   };
 
@@ -179,13 +179,13 @@ export class PrefixSelector extends Component {
         return {
           isOpen: false,
           selectedIndex,
-          dialingCode
+          dialingCode,
         };
       },
       () => {
         this.sendChange(dialingCode);
         this.updateA11yMessage();
-      }
+      },
     );
   };
 
@@ -199,7 +199,7 @@ export class PrefixSelector extends Component {
 
     this.typedQueryTimer = setTimeout(() => {
       this.setState({
-        typedQuery: ''
+        typedQuery: '',
       });
     }, 2000);
   }
@@ -236,7 +236,7 @@ export class PrefixSelector extends Component {
     const message = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      selectedOption: dialingCode
+      selectedOption: dialingCode,
     });
 
     this.setState({ a11yStatusMessage: message });
@@ -255,14 +255,14 @@ export class PrefixSelector extends Component {
     const { options } = this.props;
 
     const searchedOptionIndex = options.findIndex(option =>
-      option.label.toLowerCase().startsWith(typedQuery)
+      option.label.toLowerCase().startsWith(typedQuery),
     );
 
     this.setState(
       {
-        selectedIndex: searchedOptionIndex
+        selectedIndex: searchedOptionIndex,
       },
-      this.adjustOffet
+      this.adjustOffet,
     );
   }
 
@@ -323,7 +323,7 @@ export class PrefixSelector extends Component {
       selectedIndex,
       dialingCode,
       isOpen,
-      a11yStatusMessage
+      a11yStatusMessage,
     } = this.state;
     const optionList = options.map(this.renderOption);
 
@@ -332,7 +332,7 @@ export class PrefixSelector extends Component {
         className={classNames(
           'Autocomplete',
           { 'is-searching': isOpen },
-          'PhoneNumber-menu'
+          'PhoneNumber-menu',
         )}
         aria-label={label}
       >
@@ -363,7 +363,7 @@ export class PrefixSelector extends Component {
             height: '1px',
             width: '1px',
             overflow: 'hidden',
-            padding: '0px'
+            padding: '0px',
           }}
         >
           {a11yStatusMessage}
@@ -382,7 +382,7 @@ PrefixSelector.propTypes = {
   onFocus: PropTypes.func,
   options: PropTypes.array.isRequired,
   readOnly: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default PrefixSelector;

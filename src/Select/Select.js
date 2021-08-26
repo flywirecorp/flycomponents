@@ -45,7 +45,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
   onClick: PropTypes.func,
   selectedValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  values: PropTypes.array.isRequired
+  values: PropTypes.array.isRequired,
 };
 
 export default Select;

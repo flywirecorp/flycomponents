@@ -9,7 +9,7 @@ describe('TabPanel', () => {
     const wrapper = mount(
       <Context.Provider value={{ onSelectTab }}>
         <TabPanel>{({ selectTab }) => <div onClick={selectTab} />}</TabPanel>
-      </Context.Provider>
+      </Context.Provider>,
     );
 
     wrapper.find('div').simulate('click');

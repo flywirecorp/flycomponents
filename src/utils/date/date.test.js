@@ -3,7 +3,7 @@ import {
   monthNames,
   monthStartingWeekDates,
   parseDate,
-  DATE_FORMAT
+  DATE_FORMAT,
 } from './date';
 import moment from 'moment';
 
@@ -21,7 +21,7 @@ describe('monthStartingWeekDates', () => {
         '01/08/2017',
         '01/15/2017',
         '01/22/2017',
-        '01/29/2017'
+        '01/29/2017',
       ];
 
       expect(formatedWeeks).toEqual(expectedWeeks);
@@ -39,7 +39,7 @@ describe('monthStartingWeekDates', () => {
         '12/04/2016',
         '12/11/2016',
         '12/18/2016',
-        '12/25/2016'
+        '12/25/2016',
       ];
 
       expect(formatedWeeks).toEqual(expectedWeeks);
@@ -58,7 +58,7 @@ describe('monthStartingWeekDates', () => {
         '04/09/2017',
         '04/16/2017',
         '04/23/2017',
-        '04/30/2017'
+        '04/30/2017',
       ];
 
       expect(formatedWeeks).toEqual(expectedWeeks);
@@ -83,7 +83,7 @@ describe('daysOfWeek', () => {
       'jue.',
       'vie.',
       'sáb.',
-      'dom.'
+      'dom.',
     ];
 
     expect(days).toEqual(expectedDays);
@@ -105,7 +105,7 @@ describe('monthNames', () => {
       'septiembre',
       'octubre',
       'noviembre',
-      'diciembre'
+      'diciembre',
     ];
 
     expect(months).toEqual(expectedMonths);

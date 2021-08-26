@@ -27,7 +27,7 @@ const CVVInput = ({ cvvTooltip, className, ...props }) => {
 CVVInput.propTypes = {
   className: PropTypes.string,
   cvvTooltip: PropTypes.string,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 export default CVVInput;

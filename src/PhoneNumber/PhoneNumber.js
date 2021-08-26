@@ -21,7 +21,7 @@ class PhoneNumber extends Component {
       prefix,
       formattedNumber: this.getWithoutPrefix(currentNumber, prefix),
       phoneNumber: currentNumber,
-      isFocused: false
+      isFocused: false,
     };
   }
 
@@ -208,7 +208,7 @@ PhoneNumber.propTypes = {
   prefixLabel: PropTypes.string,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 PhoneNumber.defaultProps = {
@@ -220,7 +220,7 @@ PhoneNumber.defaultProps = {
   onBlur: () => {},
   onChange: () => {},
   onFocus: () => {},
-  readOnly: false
+  readOnly: false,
 };
 
 export default PhoneNumber;

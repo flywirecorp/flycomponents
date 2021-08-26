@@ -18,7 +18,7 @@ export class Rating extends Component {
           id={starId}
           selected={starId === parseInt(rating)}
           onClick={this.handleClick}
-        />
+        />,
       );
     }
     return stars;
@@ -58,7 +58,7 @@ Rating.propTypes = {
   higherRatingText: PropTypes.string,
   lowerRatingText: PropTypes.string,
   onClick: PropTypes.func,
-  rating: PropTypes.string
+  rating: PropTypes.string,
 };
 
 Rating.defaultProps = {
@@ -66,13 +66,13 @@ Rating.defaultProps = {
   higherRatingText: '',
   lowerRatingText: '',
   onClick: () => {},
-  rating: null
+  rating: null,
 };
 
 export const Star = ({ id, selected, error, onClick }) => {
   const starClasses = classNames('Star', {
     selected,
-    error
+    error,
   });
 
   return (
@@ -86,7 +86,7 @@ Star.propTypes = {
   error: PropTypes.bool,
   id: PropTypes.number,
   onClick: PropTypes.func,
-  selected: PropTypes.bool
+  selected: PropTypes.bool,
 };
 
 export default Rating;

@@ -23,7 +23,7 @@ class Radio extends Component {
         htmlFor={idOrName}
         id={`${idOrName}-label`}
         className={classNames('Radio', className, {
-          'has-error': error
+          'has-error': error,
         })}
       >
         <input
@@ -67,7 +67,7 @@ Radio.propTypes = {
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default Radio;

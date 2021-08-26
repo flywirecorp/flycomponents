@@ -38,7 +38,7 @@ export const daysOfWeek = (locale = 'en') => {
 
   return [
     ...dayNames.slice(firstDayOfWeek),
-    ...dayNames.slice(0, firstDayOfWeek)
+    ...dayNames.slice(0, firstDayOfWeek),
   ];
 };
 

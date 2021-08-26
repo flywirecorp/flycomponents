@@ -9,7 +9,7 @@ describe('Month', () => {
     constructor(ownProps) {
       const defaultProps = {
         onDateClick: () => {},
-        selectedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13'),
       };
       const props = { ...defaultProps, ...ownProps };
 

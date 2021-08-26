@@ -21,14 +21,14 @@ class Portal extends React.Component {
 
     return createPortal(
       this.props.children,
-      this.props.node || this.defaultNode
+      this.props.node || this.defaultNode,
     );
   }
 }
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,
-  node: PropTypes.any
+  node: PropTypes.any,
 };
 
 export default Portal;

@@ -9,14 +9,14 @@ const NO_ERROR = null;
 export default class MultipleCheckboxExample extends React.Component {
   state = {
     checked: [],
-    error: IS_REQUIRED
+    error: IS_REQUIRED,
   };
 
   get countries() {
     return [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
+      { label: 'China', value: 'CN' },
     ];
   }
 
@@ -47,7 +47,7 @@ export default class MultipleCheckboxExample extends React.Component {
           name="countries-3"
           onChange={({ checked }) =>
             this.setState({
-              error: checked.length === 0 ? IS_REQUIRED : NO_ERROR
+              error: checked.length === 0 ? IS_REQUIRED : NO_ERROR,
             })
           }
           options={this.countries}

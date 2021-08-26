@@ -18,13 +18,13 @@ describe('TextInput', () => {
 
     simulateBlur(name, value) {
       this.simulate('blur', {
-        target: { name, value }
+        target: { name, value },
       });
     }
 
     simulateChange(name, value) {
       this.simulate('change', {
-        target: { name, value }
+        target: { name, value },
       });
     }
 
@@ -34,7 +34,7 @@ describe('TextInput', () => {
 
     mockRefs(mock = () => {}) {
       this.component.instance().inputRef.current = {
-        setSelectionRange: mock
+        setSelectionRange: mock,
       };
     }
   }
@@ -58,7 +58,7 @@ describe('TextInput', () => {
     const wrapper = shallow(
       <TextInput name="a_name">
         <ChildrenComponent />
-      </TextInput>
+      </TextInput>,
     );
 
     expect(wrapper.find(ChildrenComponent)).toHaveLength(1);
@@ -69,7 +69,7 @@ describe('TextInput', () => {
       const wrapper = new TextInputComponent();
       const setSelectionRange = jest.fn();
       Object.defineProperty(wrapper.component.instance(), 'isFocused', {
-        get: () => true
+        get: () => true,
       });
       wrapper.mockRefs(setSelectionRange);
 
@@ -81,7 +81,7 @@ describe('TextInput', () => {
     test('does not set the input caret position when it is not focused', () => {
       const wrapper = new TextInputComponent();
       Object.defineProperty(wrapper.component.instance(), 'isFocused', {
-        get: () => false
+        get: () => false,
       });
       const setSelectionRange = jest.fn();
       wrapper.mockRefs(setSelectionRange);
@@ -110,7 +110,7 @@ describe('TextInput', () => {
         const caretPosition = 2;
         const name = 'a_name';
         const event = {
-          target: { name, value, selectionStart: caretPosition }
+          target: { name, value, selectionStart: caretPosition },
         };
         const wrapper = new TextInputComponent();
 
@@ -119,7 +119,7 @@ describe('TextInput', () => {
 
         const {
           value: stateValue,
-          caretPosition: stateCaretPosition
+          caretPosition: stateCaretPosition,
         } = wrapper.component.state();
         expect(stateValue).toEqual(value);
         expect(stateCaretPosition).toEqual(caretPosition);
@@ -144,7 +144,7 @@ describe('TextInput', () => {
       const format = {
         pattern: '..-../..',
         shouldAddSeparatorBeforeTyping: true,
-        allowedCharacters: /\d/g
+        allowedCharacters: /\d/g,
       };
 
       test('formats the input value on change if format is provnameed', () => {
@@ -187,7 +187,7 @@ describe('TextInput', () => {
           input.simulate('change', event);
 
           const {
-            caretPosition: stateCaretPosition
+            caretPosition: stateCaretPosition,
           } = wrapper.component.state();
 
           expect(stateCaretPosition).toEqual(caretPosition);
@@ -204,7 +204,7 @@ describe('TextInput', () => {
           input.simulate('change', event);
 
           const {
-            caretPosition: stateCaretPosition
+            caretPosition: stateCaretPosition,
           } = wrapper.component.state();
 
           expect(stateCaretPosition).toBeGreaterThan(caretPosition);
@@ -222,7 +222,7 @@ describe('TextInput', () => {
           input.simulate('change', event);
 
           const {
-            caretPosition: stateCaretPosition
+            caretPosition: stateCaretPosition,
           } = wrapper.component.state();
 
           expect(stateCaretPosition).toEqual(caretPosition);

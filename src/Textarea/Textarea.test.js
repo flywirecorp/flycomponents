@@ -6,7 +6,7 @@ describe('Textarea', () => {
   class TextareaComponent {
     constructor(ownProps) {
       const defaultProps = {
-        name: 'name'
+        name: 'name',
       };
       const props = { ...defaultProps, ...ownProps };
 

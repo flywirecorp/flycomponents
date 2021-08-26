@@ -23,7 +23,7 @@ const Option = ({
     tabIndex: -1,
     value,
     id: id,
-    ...otherProps
+    ...otherProps,
   };
 
   return typeof template === 'function' ? (
@@ -40,7 +40,7 @@ Option.propTypes = {
   label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClick: PropTypes.func,
   template: PropTypes.func,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default Option;

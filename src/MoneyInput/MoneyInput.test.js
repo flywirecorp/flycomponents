@@ -13,7 +13,7 @@ describe('MoneyInput', () => {
         name: 'name',
         onChange: () => {},
         subunitToUnit: 100,
-        thousandsSeparator: ','
+        thousandsSeparator: ',',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -26,19 +26,19 @@ describe('MoneyInput', () => {
 
     simulateBlur(name, value) {
       this.input().simulate('blur', {
-        target: { name, value }
+        target: { name, value },
       });
     }
 
     simulateChange(name, value) {
       this.input().simulate('change', {
-        target: { name, value }
+        target: { name, value },
       });
     }
 
     simulateClick(callback = () => {}) {
       this.input().simulate('click', {
-        target: { value: '', setSelectionRange: callback }
+        target: { value: '', setSelectionRange: callback },
       });
     }
 
@@ -48,7 +48,7 @@ describe('MoneyInput', () => {
 
     simulateMouseOut(name, value) {
       this.input().simulate('mouseout', {
-        target: { name, value }
+        target: { name, value },
       });
     }
   }
@@ -85,7 +85,7 @@ describe('MoneyInput', () => {
       subunitToUnit: 100,
       currencySymbol: '€',
       symbolFirst: true,
-      thousandsSeparator: '.'
+      thousandsSeparator: '.',
     };
 
     const component = new MoneyInputComponent(props);

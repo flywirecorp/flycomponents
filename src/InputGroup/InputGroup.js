@@ -22,7 +22,7 @@ InputGroup.displayName = 'InputGroup';
 InputGroup.propTypes = {
   name: PropTypes.string.isRequired,
   prefix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
+  suffix: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 export default InputGroup;

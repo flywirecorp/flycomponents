@@ -20,7 +20,7 @@ class Options extends Component {
 Options.displayName = 'Options';
 Options.propTypes = {
   children: PropTypes.node.isRequired,
-  forwardRef: PropTypes.object
+  forwardRef: PropTypes.object,
 };
 
 export default Options;

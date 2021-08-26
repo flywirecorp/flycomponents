@@ -13,14 +13,14 @@ describe('Navigation', () => {
         onNextMonthClick: FAKE_CALLBACK,
         onPrevMonthClick: FAKE_CALLBACK,
         onYearChange: FAKE_CALLBACK,
-        selectedDate: moment('2016-11-13')
+        selectedDate: moment('2016-11-13'),
       };
       const props = { ...defaultProps, ...ownProps };
 
       this.component = mount(
         <Context.Provider value={{ locale: 'en' }}>
           <Navigation {...props} />
-        </Context.Provider>
+        </Context.Provider>,
       );
     }
 
@@ -67,7 +67,7 @@ describe('Navigation', () => {
     simulateSelectMonth(value) {
       this.monthSelector().simulate('change', {
         target: { value },
-        stopPropagation: () => {}
+        stopPropagation: () => {},
       });
     }
   }

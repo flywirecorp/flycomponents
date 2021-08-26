@@ -15,7 +15,7 @@ describe('Datepicker', () => {
         onBlur: () => {},
         onChange: () => {},
         required: false,
-        value: '04/21/1979'
+        value: '04/21/1979',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -54,13 +54,13 @@ describe('Datepicker', () => {
 
     simulateCalendarIconClick() {
       this.dateInput().simulate('calendarIconClick', {
-        preventDefault: () => {}
+        preventDefault: () => {},
       });
     }
 
     simulateDateInputClick() {
       this.dateInput().simulate('calendarIconClick', {
-        preventDefault: () => {}
+        preventDefault: () => {},
       });
     }
 
@@ -195,7 +195,7 @@ describe('Datepicker', () => {
     test('shows the calendar above when it does not fit below', () => {
       const getBoundingClientRect = () => ({ top: 1200 });
       jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
-        current: { getBoundingClientRect }
+        current: { getBoundingClientRect },
       }));
       const component = new DatepickerComponent();
 
@@ -207,7 +207,7 @@ describe('Datepicker', () => {
     test('shows the calendar below when it does not fit above', () => {
       const getBoundingClientRect = () => ({ top: 100 });
       jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
-        current: { getBoundingClientRect }
+        current: { getBoundingClientRect },
       }));
       const component = new DatepickerComponent();
 

@@ -6,7 +6,7 @@ import isEmpty from '../utils/isEmpty';
 
 class MultipleCheckbox extends Component {
   state = {
-    checked: this.props.checked
+    checked: this.props.checked,
   };
 
   handleChange = ({ value }) => {
@@ -25,7 +25,7 @@ class MultipleCheckbox extends Component {
       () => {
         return { checked: newChecked };
       },
-      () => onChange({ name, checked: newChecked })
+      () => onChange({ name, checked: newChecked }),
     );
   };
 
@@ -37,7 +37,7 @@ class MultipleCheckbox extends Component {
       label,
       name,
       options,
-      required
+      required,
     } = this.props;
     const { checked } = this.state;
     const checkboxes = options.map(option => (
@@ -86,10 +86,10 @@ MultipleCheckbox.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.string
-    })
+      value: PropTypes.string,
+    }),
   ),
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 MultipleCheckbox.defaultProps = {
@@ -97,7 +97,7 @@ MultipleCheckbox.defaultProps = {
   disabled: false,
   onChange: () => {},
   options: [],
-  required: false
+  required: false,
 };
 
 export default MultipleCheckbox;

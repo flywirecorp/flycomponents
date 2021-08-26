@@ -10,7 +10,7 @@ const Header = ({ children, setActive }) => (
 Header.displayName = 'Header';
 Header.propTypes = {
   children: PropTypes.node,
-  setActive: PropTypes.func
+  setActive: PropTypes.func,
 };
 
 export default Header;

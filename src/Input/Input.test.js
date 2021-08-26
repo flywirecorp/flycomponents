@@ -7,7 +7,7 @@ describe('Input', () => {
     constructor(ownProps) {
       const defaultProps = {
         name: 'name',
-        type: 'text'
+        type: 'text',
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -58,22 +58,22 @@ describe('Input', () => {
   describe('when property aria-describedby is sent', () => {
     test('shows default properties if not sent', () => {
       const component = new InputComponent({
-        name: 'name'
+        name: 'name',
       });
 
       expect(component.input().prop('aria-describedby')).toEqual(
-        'name-error-msg name-hint-msg'
+        'name-error-msg name-hint-msg',
       );
     });
 
     test('merges the properties', () => {
       const component = new InputComponent({
         name: 'name',
-        ariaDescribedBy: 'wadus'
+        ariaDescribedBy: 'wadus',
       });
 
       expect(component.input().prop('aria-describedby')).toEqual(
-        'wadus name-error-msg name-hint-msg'
+        'wadus name-error-msg name-hint-msg',
       );
     });
   });

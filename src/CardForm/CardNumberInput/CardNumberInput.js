@@ -8,15 +8,15 @@ class CardNumberInput extends Component {
   static propTypes = {
     className: PropTypes.string,
     name: PropTypes.string.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
   };
 
   state = {
-    cardType: ''
+    cardType: '',
   };
 
   handleChange = (name, value) => {
@@ -35,7 +35,7 @@ class CardNumberInput extends Component {
     const cardTypeClassName = cardType.toLowerCase();
 
     const textInputClassName = classNames('CardNumberInput', className, {
-      [cardTypeClassName]: !!cardType
+      [cardTypeClassName]: !!cardType,
     });
 
     return (

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 class Accordion extends Component {
   static propTypes = {
     activeChildIndex: PropTypes.number,
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   static defaultProps = {
     activeChildIndex: 0,
-    children: []
+    children: [],
   };
 
   constructor(props) {
@@ -17,7 +17,7 @@ class Accordion extends Component {
 
     const { activeChildIndex } = this.props;
     this.state = {
-      activeChildIndex
+      activeChildIndex,
     };
   }
 
@@ -35,9 +35,9 @@ class Accordion extends Component {
             const nextIndex = activeChildIndex + 1;
             const isLastChild = index === numberOfChildren - 1;
             this.setState({
-              activeChildIndex: isLastChild ? index : nextIndex
+              activeChildIndex: isLastChild ? index : nextIndex,
             });
-          }
+          },
         })
       );
     });

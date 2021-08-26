@@ -23,7 +23,7 @@ describe('CardForm', () => {
     const wrapper = shallow(
       <CardForm>
         <ChildrenComponent />
-      </CardForm>
+      </CardForm>,
     );
 
     expect(wrapper.find(ChildrenComponent)).toHaveLength(1);
@@ -35,7 +35,7 @@ describe('CardForm', () => {
       ['surname'],
       ['cardNumber'],
       ['expiryDate'],
-      ['cvv']
+      ['cvv'],
     ];
 
     test.each(inputs)('removes the field errors from %s', name => {

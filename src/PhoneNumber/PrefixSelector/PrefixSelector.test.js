@@ -21,7 +21,7 @@ describe('PrefixSelector', () => {
       const defaultProps = {
         name: 'country',
         options: [],
-        onFocus: () => {}
+        onFocus: () => {},
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -102,13 +102,13 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -130,8 +130,8 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
-      }
+        dialingCode: '34',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -146,13 +146,13 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -178,8 +178,8 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
-      }
+        dialingCode: '34',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -195,8 +195,8 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
-      }
+        dialingCode: '34',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -212,13 +212,13 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -233,13 +233,13 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PrefixSelectorComponent({ options, readOnly: true });
 
@@ -253,13 +253,13 @@ describe('PrefixSelector', () => {
       {
         label: 'Spain',
         value: 'ES',
-        dialingCode: '34'
+        dialingCode: '34',
       },
       {
         label: 'United States',
         value: 'US',
-        dialingCode: '1'
-      }
+        dialingCode: '1',
+      },
     ];
     const component = new PrefixSelectorComponent({ options });
 
@@ -268,7 +268,7 @@ describe('PrefixSelector', () => {
       component.update();
 
       expect(component.a11yStatusMessage).toBe(
-        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.',
       );
     });
   });

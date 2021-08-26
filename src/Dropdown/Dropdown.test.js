@@ -18,7 +18,7 @@ describe('Dropdown', () => {
   class DropdownComponent {
     constructor(ownProps) {
       const defaultProps = {
-        options: [{ label: '', value: '' }]
+        options: [{ label: '', value: '' }],
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -89,7 +89,7 @@ describe('Dropdown', () => {
     const props = {
       className: 'ClassName',
       defaultValue: '',
-      options: [{ label: '', value: '' }]
+      options: [{ label: '', value: '' }],
     };
     const wrapper = mount(<Dropdown {...props} />);
 
@@ -99,7 +99,7 @@ describe('Dropdown', () => {
   test('adds the selected value as aria-label to the button', () => {
     const props = {
       defaultValue: 'fr',
-      options: [{ label: 'a_label', value: 'fr' }]
+      options: [{ label: 'a_label', value: 'fr' }],
     };
     const wrapper = mount(<Dropdown {...props} />);
 
@@ -149,7 +149,7 @@ describe('Dropdown', () => {
     test('aligns options to the left if there is no space at its right', () => {
       Element.prototype.getBoundingClientRect = () => ({ right: 300 });
       Object.defineProperty(window.document, 'document', {
-        documentElement: { clientWidth: 320 }
+        documentElement: { clientWidth: 320 },
       });
 
       const component = setupUpwardDropdown();
@@ -165,7 +165,7 @@ describe('Dropdown', () => {
       const defaultValue = 'en';
       const options = [
         { label: 'English', value: 'en' },
-        { label: 'Spanish', value: 'es' }
+        { label: 'Spanish', value: 'es' },
       ];
 
       return new DropdownComponent({ options, defaultValue, upward });
@@ -209,14 +209,14 @@ describe('Dropdown', () => {
   test('executes on change callback', () => {
     const options = [
       { label: 'English', value: 'en' },
-      { label: 'Spanish', value: 'es' }
+      { label: 'Spanish', value: 'es' },
     ];
     const defaultValue = 'en';
     const onChange = jest.fn();
     const component = new DropdownComponent({
       options,
       defaultValue,
-      onChange
+      onChange,
     });
 
     component.selectOption('Spanish');
@@ -228,13 +228,13 @@ describe('Dropdown', () => {
     test('reports that one result is available', () => {
       const options = [
         { label: 'English', value: 'en' },
-        { label: 'Spanish', value: 'es' }
+        { label: 'Spanish', value: 'es' },
       ];
       const component = new DropdownComponent({ options, defaultValue: 'en' });
       component.openDropdown();
 
       expect(component.a11yStatusMessage).toBe(
-        '1 option is available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+        '1 option is available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.',
       );
     });
 
@@ -242,13 +242,13 @@ describe('Dropdown', () => {
       const options = [
         { label: 'English', value: 'en' },
         { label: 'Spanish', value: 'es' },
-        { label: 'French', value: 'fr' }
+        { label: 'French', value: 'fr' },
       ];
       const component = new DropdownComponent({ options, defaultValue: 'en' });
       component.openDropdown();
 
       expect(component.a11yStatusMessage).toBe(
-        '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+        '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.',
       );
     });
 
@@ -256,7 +256,7 @@ describe('Dropdown', () => {
       const options = [
         { label: 'English', value: 'en' },
         { label: 'Spanish', value: 'es' },
-        { label: 'French', value: 'fr' }
+        { label: 'French', value: 'fr' },
       ];
       const component = new DropdownComponent({ options, defaultValue: 'en' });
       component.openDropdown();
@@ -269,7 +269,7 @@ describe('Dropdown', () => {
   const setupDropdownWithDefaultValueTo = defaultValue => {
     const options = [
       { label: 'English', value: 'en' },
-      { label: 'Spanish', value: 'es' }
+      { label: 'Spanish', value: 'es' },
     ];
 
     return new DropdownComponent({ options, defaultValue });

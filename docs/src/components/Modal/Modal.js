@@ -5,7 +5,7 @@ import README from './README.md';
 
 class ModalExample extends React.Component {
   state = {
-    showModal: false
+    showModal: false,
   };
 
   handleClick = () => {

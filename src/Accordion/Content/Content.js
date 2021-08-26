@@ -11,7 +11,7 @@ const Content = ({ children, ...props }) => (
 
 Content.displayName = 'Content';
 Content.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
 };
 
 export default Content;

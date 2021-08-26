@@ -6,7 +6,7 @@ const Section = ({ children, ...props }) => (
   <section
     className={classNames('Accordion-section', {
       'is-active': props.isActive,
-      'has-success': props.success
+      'has-success': props.success,
     })}
   >
     {typeof children === 'function'
@@ -17,13 +17,13 @@ const Section = ({ children, ...props }) => (
 
 Section.displayName = 'Section';
 Section.defaultProps = {
-  success: false
+  success: false,
 };
 
 Section.propTypes = {
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
   isActive: PropTypes.bool,
-  success: PropTypes.bool
+  success: PropTypes.bool,
 };
 
 export default Section;

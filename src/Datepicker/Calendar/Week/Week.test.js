@@ -12,7 +12,7 @@ describe('Week', () => {
         startingDate: parseDate('11/13/2016'),
         month: NOVEMBER,
         onDateClick: () => {},
-        selectedDate: parseDate('11/18/2016')
+        selectedDate: parseDate('11/18/2016'),
       };
       const props = { ...defaultProps, ...ownProps };
 
@@ -34,14 +34,14 @@ describe('Week', () => {
       days
         .first()
         .prop('date')
-        .isSame(startingDate, 'day')
+        .isSame(startingDate, 'day'),
     ).toBe(true);
 
     expect(
       days
         .last()
         .prop('date')
-        .isSame(startingDate.add(6, 'day'), 'day')
+        .isSame(startingDate.add(6, 'day'), 'day'),
     ).toBe(true);
   });
 
@@ -54,7 +54,7 @@ describe('Week', () => {
       component
         .days()
         .first()
-        .prop('selected')
+        .prop('selected'),
     ).toBe(true);
   });
 
@@ -66,7 +66,7 @@ describe('Week', () => {
       component
         .days()
         .first()
-        .prop('disabled')
+        .prop('disabled'),
     ).toBe(true);
   });
 });

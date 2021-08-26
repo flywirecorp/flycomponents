@@ -28,7 +28,7 @@ describe('CVVInput', () => {
       const wrapper = shallow(<CVVInput {...props} />);
 
       expect(
-        wrapper.find('span[className="cvvInput-Icon-Tooltip"]')
+        wrapper.find('span[className="cvvInput-Icon-Tooltip"]'),
       ).toHaveLength(1);
     });
 
@@ -38,7 +38,7 @@ describe('CVVInput', () => {
       const wrapper = shallow(<CVVInput {...props} />);
 
       expect(
-        wrapper.find('span[className="cvvInput-Label-Tooltip"]').text()
+        wrapper.find('span[className="cvvInput-Label-Tooltip"]').text(),
       ).toEqual(cvvTooltip);
     });
   });

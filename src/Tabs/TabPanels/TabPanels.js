@@ -12,7 +12,7 @@ const TabPanels = ({ children }) => (
 
 TabPanels.displayNane = 'TabPanels';
 TabPanels.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default TabPanels;

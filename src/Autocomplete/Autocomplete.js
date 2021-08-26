@@ -49,7 +49,7 @@ const removeSpecialCharacters = str => {
 const withSearchKey = arrOfObjects => {
   return arrOfObjects.map(props => ({
     ...props,
-    [NO_SPECIAL_CHARACTERS]: removeSpecialCharacters(props.label)
+    [NO_SPECIAL_CHARACTERS]: removeSpecialCharacters(props.label),
   }));
 };
 
@@ -74,7 +74,7 @@ export class Autocomplete extends Component {
     required: PropTypes.bool,
     shouldSort: PropTypes.bool,
     template: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
   };
 
   static defaultProps = {
@@ -90,7 +90,7 @@ export class Autocomplete extends Component {
       distance: 100,
       maxPatternLength: 32,
       minMatchCharLength: 1,
-      keys: ['label']
+      keys: ['label'],
     },
     getA11yStatusMessage: getA11yStatusMessage,
     minOptionsForSearch: Infinity,
@@ -98,7 +98,7 @@ export class Autocomplete extends Component {
     onChange: () => {},
     onFocus: () => {},
     readOnly: false,
-    shouldSort: false
+    shouldSort: false,
   };
 
   constructor(props) {
@@ -113,13 +113,13 @@ export class Autocomplete extends Component {
       searchQuery: this.getOptionLabelByValue(options, value),
       selectedIndex: INITIAL_INDEX,
       selectedValue: value,
-      hasValue: !!value
+      hasValue: !!value,
     };
 
     this.searchInputRef = React.createRef();
     this.optionListRef = React.createRef();
     this.optionRefs = Array.from({ length: options.length }, () =>
-      React.createRef()
+      React.createRef(),
     );
   }
 
@@ -133,7 +133,7 @@ export class Autocomplete extends Component {
 
   getOptionIndexByValue(options, value) {
     const selectedOptionIndex = options.findIndex(
-      option => option.value === value
+      option => option.value === value,
     );
     return selectedOptionIndex === -1 ? INITIAL_INDEX : selectedOptionIndex;
   }
@@ -158,7 +158,7 @@ export class Autocomplete extends Component {
     if (!optionSelected) return;
 
     scrollIntoView(optionSelected, this.optionListRef.current, {
-      onlyScrollIfNeeded: true
+      onlyScrollIfNeeded: true,
     });
   }
 
@@ -200,13 +200,13 @@ export class Autocomplete extends Component {
         return {
           isOpen: false,
           searchQuery: this.getOptionLabelByValue(options, value),
-          selectedValue: value
+          selectedValue: value,
         };
       },
       () => {
         this.updateA11yMessage();
         this.sendChange(value);
-      }
+      },
     );
   };
 
@@ -265,7 +265,7 @@ export class Autocomplete extends Component {
       return {
         a11yStatusMessage: EMPTY_STRING,
         searchQuery: value,
-        selectedIndex: 0
+        selectedIndex: 0,
       };
     }, this.updateA11yMessage);
   };
@@ -283,7 +283,7 @@ export class Autocomplete extends Component {
     const message = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      selectedOption
+      selectedOption,
     });
 
     this.setState({ a11yStatusMessage: message });
@@ -310,7 +310,7 @@ export class Autocomplete extends Component {
 
     const fuse = new Fuse(options, {
       ...fuseConfig,
-      keys: [...fuseConfig.keys, ...[NO_SPECIAL_CHARACTERS]]
+      keys: [...fuseConfig.keys, ...[NO_SPECIAL_CHARACTERS]],
     });
 
     return this.sortIfNeeded(fuse.search(searchQuery));
@@ -344,7 +344,7 @@ export class Autocomplete extends Component {
   resetSearchQuery() {
     return this.setState(() => {
       return {
-        searchQuery: ''
+        searchQuery: '',
       };
     });
   }
@@ -384,10 +384,10 @@ export class Autocomplete extends Component {
 
         return {
           isOpen: false,
-          searchQuery: this.getOptionLabelByValue(options, selectedValue)
+          searchQuery: this.getOptionLabelByValue(options, selectedValue),
         };
       },
-      wasSearching ? this.sendBlur : null
+      wasSearching ? this.sendBlur : null,
     );
   }
 
@@ -412,9 +412,9 @@ export class Autocomplete extends Component {
     this.setState(
       {
         isOpen: true,
-        selectedIndex: this.getOptionIndexByValue(options, selectedValue)
+        selectedIndex: this.getOptionIndexByValue(options, selectedValue),
       },
-      this.adjustOffset
+      this.adjustOffset,
     );
   }
 
@@ -437,7 +437,7 @@ export class Autocomplete extends Component {
       readOnly,
       required,
       template,
-      ariaDescribedBy
+      ariaDescribedBy,
     } = this.props;
     const options = this.loadOptions();
     const searchOn = this.searchOn();
@@ -446,7 +446,7 @@ export class Autocomplete extends Component {
       isOpen,
       searchQuery,
       selectedIndex,
-      selectedValue
+      selectedValue,
     } = this.state;
 
     const optionList = options.map((option, i) => (
@@ -483,7 +483,7 @@ export class Autocomplete extends Component {
             'Autocomplete',
             { 'is-searching': isOpen },
             { 'Autocomplete--noReadOnly': !readOnly },
-            { 'Autocomplete--searchDisabled': !searchOn }
+            { 'Autocomplete--searchDisabled': !searchOn },
           )}
           role="combobox"
           aria-expanded={isOpen}
@@ -534,7 +534,7 @@ export class Autocomplete extends Component {
               height: '1px',
               width: '1px',
               overflow: 'hidden',
-              padding: '0px'
+              padding: '0px',
             }}
           >
             {a11yStatusMessage}

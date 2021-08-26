@@ -11,7 +11,7 @@ export function Tabs({ children, className, defaultActiveIndex = 0 }) {
     <Context.Provider
       value={{
         activeIndex,
-        onSelectTab: setActiveIndex
+        onSelectTab: setActiveIndex,
       }}
     >
       <div className={tabClassName}>{children}</div>
@@ -23,7 +23,7 @@ Tabs.displayName = 'Tabs';
 Tabs.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  defaultActiveIndex: PropTypes.number
+  defaultActiveIndex: PropTypes.number,
 };
 
 export default Tabs;

@@ -17,7 +17,7 @@ export default () => {
     { label: 'Morocco', value: 'MOR' },
     { label: 'Spain', value: 'ES' },
     { label: 'United Kingdom', value: 'GB' },
-    { label: 'United States', value: 'US' }
+    { label: 'United States', value: 'US' },
   ];
 
   const countryTemplate = country => (

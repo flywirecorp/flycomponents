@@ -16,7 +16,7 @@ const WAIT_TIME = 200;
 const getA11yStatusMessage = ({
   isOpen,
   options = [],
-  selectedOption = {}
+  selectedOption = {},
 }) => {
   const isClosed = !isOpen;
   const { label: selectedLabel } = selectedOption;
@@ -41,7 +41,7 @@ export class Dropdown extends Component {
       selectedValue: this.props.defaultValue,
       isOpen: false,
       upward: this.props.upward,
-      lineUp: RIGHT
+      lineUp: RIGHT,
     };
 
     this.activatorRef = React.createRef();
@@ -116,7 +116,7 @@ export class Dropdown extends Component {
         onChange(value);
         this.focusActivator();
         this.updateA11yMessage();
-      }
+      },
     );
   };
 
@@ -130,12 +130,12 @@ export class Dropdown extends Component {
       this.setState(
         () => ({
           selectedValue: selectedOption.value,
-          selectedIndex: INITIAL_INDEX
+          selectedIndex: INITIAL_INDEX,
         }),
         () => {
           onChange(selectedOption.value);
           this.focusActivator();
-        }
+        },
       );
     }
 
@@ -159,7 +159,7 @@ export class Dropdown extends Component {
     };
 
     this.setState(prevState => ({
-      selectedIndex: normalize(prevState.selectedIndex + offset)
+      selectedIndex: normalize(prevState.selectedIndex + offset),
     }));
   }
 
@@ -223,7 +223,7 @@ export class Dropdown extends Component {
     const a11yStatusMessage = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      selectedOption
+      selectedOption,
     });
 
     this.setState({ a11yStatusMessage });
@@ -236,7 +236,7 @@ export class Dropdown extends Component {
       upward,
       lineUp,
       a11yStatusMessage,
-      selectedIndex
+      selectedIndex,
     } = this.state;
     const options = this.optionsExceptSelected;
 
@@ -267,7 +267,7 @@ export class Dropdown extends Component {
           aria-activedescendant={`${name}-option-${selectedIndex}`}
           className={classNames('Dropdown-options', {
             'Dropdown--upward': upward,
-            [`Dropdown-options--upward${lineUp}`]: upward
+            [`Dropdown-options--upward${lineUp}`]: upward,
           })}
           id={`${name}-options`}
           ref={this.optionsRef}
@@ -295,7 +295,7 @@ export class Dropdown extends Component {
             height: '1px',
             width: '1px',
             overflow: 'hidden',
-            padding: '0px'
+            padding: '0px',
           }}
         >
           {a11yStatusMessage}
@@ -310,7 +310,7 @@ Dropdown.defaultProps = {
   getA11yStatusMessage: getA11yStatusMessage,
   name: 'dropdown',
   onChange: () => {},
-  upward: false
+  upward: false,
 };
 
 Dropdown.propTypes = {
@@ -323,11 +323,11 @@ Dropdown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
+      value: PropTypes.string.isRequired,
+    }),
   ).isRequired,
   template: PropTypes.func,
-  upward: PropTypes.bool
+  upward: PropTypes.bool,
 };
 
 export default Dropdown;
