@@ -17,7 +17,7 @@ test-watch:
 	docker-compose run --rm dev npm run test:watch
 
 bash:
-	docker-compose exec dev bash
+	docker-compose exec dev sh
 
 watch:
 	docker-compose run --rm dev npm run test:watch
