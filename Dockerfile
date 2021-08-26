@@ -1,4 +1,4 @@
-FROM node:9.1.0
+FROM node:14-alpine
 
 ENV APP /docs
 RUN mkdir -p $APP
