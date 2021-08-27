@@ -67,8 +67,9 @@ export class Dropdown extends Component {
     ) {
       return;
     }
-
-    this.closeOptions();
+    if (this.state.isOpen) {
+      this.closeOptions();
+    }
   };
 
   get optionsExceptSelected() {

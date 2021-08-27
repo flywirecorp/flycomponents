@@ -176,7 +176,9 @@ export class Autocomplete extends Component {
       return;
     }
 
-    this.selectPreviousOption();
+    if (this.state.isOpen) {
+      this.selectPreviousOption();
+    }
   };
 
   handleFocus = () => {

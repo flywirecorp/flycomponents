@@ -22,7 +22,12 @@ describe('Dropdown', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = mount(<Dropdown {...props} />);
+      this.component = mount(
+        <div>
+          <span id="outside">outside</span>
+          <Dropdown {...props} />
+        </div>
+      );
     }
 
     selectedOption() {
@@ -68,6 +73,10 @@ describe('Dropdown', () => {
 
     isAlignedRight() {
       return this.component.find('.Dropdown-options--upwardRight').length === 1;
+    }
+
+    clickOutside() {
+      this.component.find('#outside').simulate('click');
     }
 
     get a11yStatusMessage() {
@@ -222,6 +231,25 @@ describe('Dropdown', () => {
     component.selectOption('Spanish');
 
     expect(onChange).toBeCalledWith('es');
+  });
+
+  test('click outside closes dropdown', () => {
+    const map = {};
+
+    document.addEventListener = jest.fn((event, cb) => {
+      map[event] = cb;
+    });
+
+    const component = setupDropdownWithDefaultValueTo('es');
+
+    expect(component.optionsAreVisible()).toBe(false);
+    component.openDropdown();
+    expect(component.optionsAreVisible()).toBe(true);
+
+    map.mousedown({ target: document.body });
+    component.clickOutside();
+
+    expect(component.optionsAreVisible()).toBe(false);
   });
 
   describe('getA11yStatusMessage', () => {

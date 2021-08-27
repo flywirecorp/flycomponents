@@ -145,6 +145,23 @@ describe('Autocomplete', () => {
     expect(component.optionsListIsVisible()).toBe(true);
   });
 
+  test('click outside closes autocomplete', () => {
+    const map = {};
+
+    document.addEventListener = jest.fn((event, cb) => {
+      map[event] = cb;
+    });
+
+    const component = new AutocompleteComponent();
+    expect(component.optionsListIsVisible()).toBe(false);
+    component.simulateClick();
+    expect(component.optionsListIsVisible()).toBe(true);
+
+    map.mousedown({ target: document.body });
+
+    expect(component.optionsListIsVisible()).toBe(false);
+  });
+
   test('closes options when Enter key pressed twice', () => {
     const component = new AutocompleteComponent();
 
@@ -348,7 +365,7 @@ describe('Autocomplete', () => {
     expect(component.selectedIndex()).toBe(2);
   });
 
-  test('focuss the search field when an option is selected', () => {
+  test('focus the search field when an option is selected', () => {
     const options = [
       { label: 'Spain', value: 'ES' },
       { label: 'United States', value: 'US' },
