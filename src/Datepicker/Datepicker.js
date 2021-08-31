@@ -316,6 +316,8 @@ class Datepicker extends Component {
               autoOpenPicker={autoOpenPicker}
               key={selectedDate}
               forwardRef={this.dateInputRef}
+              hint={hint}
+              label={label}
               {...otherProps}
             />
             <Calendar

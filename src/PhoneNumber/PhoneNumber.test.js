@@ -19,7 +19,7 @@ describe('PhoneNumber', () => {
     }
 
     input() {
-      return this.component.find('input');
+      return this.component.find('Input');
     }
 
     simulateBlur(name) {
