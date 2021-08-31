@@ -4,7 +4,7 @@ import PrefixSelector from './PrefixSelector';
 import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
 import FormGroup from '../FormGroup';
-import { getAriaDescribedBy } from '../utils/aria';
+import Input from '../Input';
 
 const NO_VALUE = '';
 const DEFAULT_PREFIX_LABEL = 'Phone country code';
@@ -113,7 +113,6 @@ class PhoneNumber extends Component {
 
   render() {
     const {
-      ariaDescribedBy,
       countries,
       disabled,
       error,
@@ -163,17 +162,14 @@ class PhoneNumber extends Component {
               getA11yStatusMessage={getA11yStatusMessage}
             />
             <div className="PhoneNumber-input">
-              <input
-                aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
-                aria-disabled={disabled}
-                aria-invalid={!!error}
-                aria-labelledby={`${name}-label`}
-                aria-readonly={readOnly}
-                autoComplete="off"
-                className="Input PhoneNumber-input-inner"
+              <Input
+                className="PhoneNumber-input-inner"
                 disabled={disabled}
                 id={name}
                 name={name}
+                label={label}
+                hint={hint}
+                error={error}
                 onBlur={this.handleBlur}
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}

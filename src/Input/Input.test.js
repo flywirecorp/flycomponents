@@ -55,26 +55,41 @@ describe('Input', () => {
     }
   });
 
-  describe('when property aria-describedby is sent', () => {
-    test('shows default properties if not sent', () => {
-      const component = new InputComponent({
+  describe('aria-describedby attribute', () => {
+    expect(
+      new InputComponent({
         name: 'name'
-      });
+      })
+        .input()
+        .prop('aria-describedby')
+    ).toBeUndefined();
 
-      expect(component.input().prop('aria-describedby')).toEqual(
-        'name-error-msg name-hint-msg'
-      );
-    });
-
-    test('merges the properties', () => {
-      const component = new InputComponent({
+    expect(
+      new InputComponent({
         name: 'name',
-        ariaDescribedBy: 'wadus'
-      });
+        error: 'ups'
+      })
+        .input()
+        .prop('aria-describedby')
+    ).toEqual('name-error-msg');
 
-      expect(component.input().prop('aria-describedby')).toEqual(
-        'wadus name-error-msg name-hint-msg'
-      );
-    });
+    expect(
+      new InputComponent({
+        name: 'name',
+        hint: 'hint'
+      })
+        .input()
+        .prop('aria-describedby')
+    ).toEqual('name-hint-msg');
+
+    expect(
+      new InputComponent({
+        name: 'name',
+        hint: 'hint',
+        ariaDescribedBy: 'wadus'
+      })
+        .input()
+        .prop('aria-describedby')
+    ).toEqual('name-hint-msg wadus');
   });
 });

@@ -4,6 +4,7 @@ import CalendarIcon from './CalendarIcon';
 import { format } from '../../utils/formatter';
 import { BACKSPACE, ENTER } from '../../utils/keycodes';
 import { DATE_FORMAT, DATE_PATTERN } from '../../utils/date';
+import Input from '../../Input';
 
 class DateInput extends Component {
   static propTypes = {
@@ -15,6 +16,8 @@ class DateInput extends Component {
     disabled: PropTypes.bool,
     error: PropTypes.string,
     forwardRef: PropTypes.object,
+    hint: PropTypes.string,
+    label: PropTypes.string,
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func,
     onCalendarIconClick: PropTypes.func,
@@ -80,6 +83,8 @@ class DateInput extends Component {
       readOnly,
       required,
       toggleCalendar,
+      hint,
+      label,
       ...otherProps
     } = this.props;
 
@@ -93,12 +98,8 @@ class DateInput extends Component {
 
     return (
       <div className="InputGroup" {...dateInputClickEvent}>
-        <input
-          aria-describedby={`${name}-error-msg ${name}-status`}
-          aria-disabled={disabled}
-          aria-invalid={!!error}
-          aria-labelledby={`${name}-label`}
-          aria-readonly={readOnly}
+        <Input
+          ariaDescribedBy={`${name}-status`}
           disabled={disabled}
           autoComplete="off"
           className="Input InputGroup-input"
@@ -116,6 +117,9 @@ class DateInput extends Component {
           value={value}
           pattern={datePattern}
           ref={forwardRef}
+          error={error}
+          hint={hint}
+          label={label}
           {...otherProps}
         />
         <span className="InputGroup-context">
