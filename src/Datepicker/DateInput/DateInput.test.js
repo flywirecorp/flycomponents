@@ -21,7 +21,7 @@ describe('DateInput', () => {
     }
 
     input() {
-      return this.component.find('input');
+      return this.component.find('Input');
     }
 
     simulateChange(value) {

@@ -70,6 +70,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "github-markdown-css": "^2.10.0",
     "jest": "^25.1.0",
+    "jest-watch-typeahead": "^0.6.4",
     "marked": "^0.4.0",
     "prettier": "^1.19.1",
     "raf": "^3.4.0",
@@ -88,6 +89,10 @@
     "testEnvironment": "jsdom",
     "setupFiles": [
       "<rootDir>/jest/setup.js"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
     ]
   }
 }

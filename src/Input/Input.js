@@ -1,39 +1,51 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getAriaDescribedBy } from '../utils/aria';
+import classNames from 'classnames';
+import { useTextField } from '../hooks';
 
 const Input = ({
+  ariaDescribedBy,
+  className,
   disabled,
   error,
+  forwardRef,
+  hint,
+  label,
   name,
   readOnly,
   required,
   type,
   value,
-  ariaDescribedBy,
-  forwardRef,
   ...other
-}) => (
-  <input
-    aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
-    aria-disabled={disabled}
-    aria-invalid={!!error}
-    aria-labelledby={`${name}-label`}
-    aria-readonly={readOnly}
-    aria-required={required}
-    autoComplete="off"
-    className="Input"
-    defaultValue={value}
-    disabled={disabled}
-    id={name}
-    name={name}
-    readOnly={readOnly}
-    ref={forwardRef}
-    required={required}
-    type={type}
-    {...other}
-  />
-);
+}) => {
+  const { inputAreaProps } = useTextField({
+    'aria-describedby': ariaDescribedBy,
+    disabled,
+    error,
+    hint,
+    label,
+    name,
+    readOnly,
+    required
+  });
+
+  return (
+    <input
+      autoComplete="off"
+      className={classNames('Input', className)}
+      defaultValue={value}
+      disabled={disabled}
+      id={name}
+      name={name}
+      readOnly={readOnly}
+      ref={forwardRef}
+      required={required}
+      type={type}
+      {...inputAreaProps}
+      {...other}
+    />
+  );
+};
 
 Input.displayName = 'Input';
 Input.defaultProps = {
@@ -46,9 +58,12 @@ Input.defaultProps = {
 
 Input.propTypes = {
   ariaDescribedBy: PropTypes.string,
+  className: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   forwardRef: PropTypes.object,
+  hint: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,

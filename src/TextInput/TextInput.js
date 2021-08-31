@@ -48,26 +48,12 @@ class TextInput extends Component {
     const {
       floatingLabel: _floatingLabel,
       multiline: _multiline,
-      hint: _hint,
-      label: _label,
       onBlur: _onBlur,
       onChange: _onChange,
-      type,
-      disabled,
-      error,
-      name,
-      readOnly,
-      required,
       ...other
     } = this.props;
 
     return {
-      type,
-      disabled,
-      error,
-      name,
-      readOnly,
-      required,
       value: this.fieldValue,
       ...other
     };
@@ -105,8 +91,6 @@ class TextInput extends Component {
     return (
       <Textarea
         {...inputAttrs}
-        aria-describedby={`${name}-error-msg`}
-        aria-labelledby={`${name}-label-msg`}
         name={name}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
