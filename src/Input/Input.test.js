@@ -86,7 +86,7 @@ describe('Input', () => {
       new InputComponent({
         name: 'name',
         hint: 'hint',
-        ariaDescribedBy: 'wadus',
+        ariaDescribedBy: 'wadus'
       })
         .input()
         .prop('aria-describedby')

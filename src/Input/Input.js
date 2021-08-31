@@ -63,7 +63,7 @@ Input.propTypes = {
   error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   forwardRef: PropTypes.object,
   hint: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   name: PropTypes.string.isRequired,
   readOnly: PropTypes.bool,
   required: PropTypes.bool,
