@@ -287,7 +287,7 @@ export class Dropdown extends Component {
           ))}
         </ul>
         <div
-          id="a11y-status-message"
+          id={`${name}-a11y-status-message`}
           role="status"
           aria-live="polite"
           aria-relevant="additions text"
