@@ -153,7 +153,7 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   floatingLabel: PropTypes.bool,
   hint: PropTypes.string,
   label: PropTypes.string,
