@@ -80,7 +80,7 @@ describe('Dropdown', () => {
     }
 
     get a11yStatusMessage() {
-      return this.component.find('#a11y-status-message').text();
+      return this.component.find('#dropdown-a11y-status-message').text();
     }
   }
 

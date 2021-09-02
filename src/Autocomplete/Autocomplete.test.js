@@ -40,7 +40,7 @@ describe('Autocomplete', () => {
     }
 
     get a11yStatusMessage() {
-      return this.component.find('#a11y-status-message').text();
+      return this.component.find('#autocomplete-a11y-status-message').text();
     }
 
     options() {
