@@ -37,5 +37,16 @@ describe('card', () => {
 
       expect(getCardType(jcbCardNumber)).toEqual('JCB');
     });
+
+    test('returns DISC if is a Discover card number', () => {
+      const discoverCardNumbers = [
+        '6011601160116611',
+        '6444111122223333',
+        '6570123412341234'
+      ];
+      discoverCardNumbers.forEach(discoverCardNumber => {
+        expect(getCardType(discoverCardNumber)).toEqual('DISC');
+      });
+    });
   });
 });
