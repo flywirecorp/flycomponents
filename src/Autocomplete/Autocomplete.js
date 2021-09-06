@@ -527,7 +527,7 @@ export class Autocomplete extends Component {
             {optionList}
           </Options>
           <div
-            id="a11y-status-message"
+            id={`${name}-a11y-status-message`}
             role="status"
             aria-live="polite"
             aria-relevant="additions text"

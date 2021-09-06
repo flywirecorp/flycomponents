@@ -18,6 +18,7 @@ describe('Dropdown', () => {
   class DropdownComponent {
     constructor(ownProps) {
       const defaultProps = {
+        name: 'language',
         options: [{ label: '', value: '' }]
       };
       const props = { ...defaultProps, ...ownProps };
@@ -80,7 +81,7 @@ describe('Dropdown', () => {
     }
 
     get a11yStatusMessage() {
-      return this.component.find('#a11y-status-message').text();
+      return this.component.find('#language-a11y-status-message').text();
     }
   }
 

@@ -190,6 +190,9 @@ class MoneyInput extends Component {
           onFocus={this.handleFocus}
           onMouseOut={this.handleOut}
           onKeyDown={this.handleKeyDown}
+          label={label}
+          hint={hint}
+          error={error}
           type="text"
         />
       </FormGroup>

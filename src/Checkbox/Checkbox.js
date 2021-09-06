@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
+import { useTextField } from '../hooks';
 
 class Checkbox extends Component {
   render() {
@@ -17,6 +18,14 @@ class Checkbox extends Component {
     } = this.props;
 
     const idOrName = id || name;
+    const { inputAreaProps } = useTextField({
+      disabled,
+      error: !isEmpty(error),
+      label: idOrName,
+      name: idOrName,
+      readOnly: disabled,
+      required
+    });
 
     return (
       <label
@@ -26,18 +35,13 @@ class Checkbox extends Component {
         })}
       >
         <input
-          aria-describedby={`${idOrName}-error-msg`}
-          aria-disabled={disabled}
-          aria-invalid={!isEmpty(error)}
-          aria-labelledby={`${idOrName}-label`}
-          aria-readonly={disabled}
-          aria-required={required}
           className="Checkbox-input"
           disabled={disabled}
           id={idOrName}
           name={name}
           required={required}
           type="checkbox"
+          {...inputAreaProps}
           {...otherProps}
         />
         <span className="Checkbox-label" id={`${idOrName}-label`}>

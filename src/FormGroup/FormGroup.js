@@ -42,9 +42,9 @@ const FormGroup = ({
       />
     )}
     {children}
-    {error && (
+    {error && typeof error === 'string' && (
       <p className="FormGroup-feedback" id={`${name}-error-msg`} role="alert">
-        {typeof error === 'string' ? error : null}
+        {error}
       </p>
     )}
     {hint && (
