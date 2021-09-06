@@ -60,12 +60,11 @@ describe('FormGroup', () => {
     expect(component.errorText()).toBe('must be greater or equal to 5000');
   });
 
-  test('renders an error message', () => {
+  test('does not render the error message', () => {
     const error = true;
     const component = new FormGroupComponent({ error });
 
-    expect(component.error.length).toBe(1);
-    expect(component.errorText()).toBe('');
+    expect(component.error.length).toBe(0);
   });
 
   test('renders a hint message', () => {

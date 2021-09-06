@@ -19,15 +19,26 @@ describe('useTextField', function() {
   });
 
   test('aria-invalid attribute', function() {
-    const { inputAreaProps } = useTextField({
-      name: 'fuu',
-      hint: 'this is the hint',
-      error: 'this is the error'
-    });
-
-    expect(inputAreaProps).toEqual({
+    expect(
+      useTextField({
+        name: 'fuu',
+        hint: 'this is the hint',
+        error: 'this is the error'
+      }).inputAreaProps
+    ).toEqual({
       'aria-invalid': true,
       'aria-describedby': 'fuu-hint-msg fuu-error-msg'
+    });
+
+    expect(
+      useTextField({
+        name: 'fuu',
+        hint: 'this is the hint',
+        error: true
+      }).inputAreaProps
+    ).toEqual({
+      'aria-invalid': true,
+      'aria-describedby': 'fuu-hint-msg'
     });
   });
 

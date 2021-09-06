@@ -14,7 +14,9 @@ function useTextField({
         ? {
             'aria-describedby': [
               ...(hint ? [`${name}-hint-msg`] : []),
-              ...(error ? [`${name}-error-msg`] : []),
+              ...(error && typeof error === 'string'
+                ? [`${name}-error-msg`]
+                : []),
               ...(ariaDescribedBy ? [ariaDescribedBy] : [])
             ].join(' ')
           }
