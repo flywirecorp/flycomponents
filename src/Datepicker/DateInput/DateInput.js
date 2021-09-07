@@ -116,7 +116,7 @@ class DateInput extends Component {
           type="text"
           value={value}
           pattern={datePattern}
-          ref={forwardRef}
+          forwardRef={forwardRef}
           error={error}
           hint={hint}
           label={label}
