@@ -8,9 +8,9 @@ export default () => (
     <Button
       className="Button Button--primary"
       onClick={() => alert('You clicked me!')}
+      onMouseDown={evt => console.log('onMouseDown', evt.target)}
+      onKeyDown={evt => console.log('onKeyDown', evt.keyCode)}
       children="Click Me!"
     />
-
-    <Button onClick={() => alert('You clicked me!')} children="Click Me!" />
   </Component>
 );

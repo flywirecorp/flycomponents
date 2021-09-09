@@ -1,24 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useButton } from '../hooks';
 
-const NOOP = () => {};
-export const Button = ({
-  children,
-  onClick = NOOP,
-  type = 'button',
-  forwardRef,
-  ...other
-}) => (
-  <button
-    className="Button"
-    onClick={onClick}
-    type={type}
-    ref={forwardRef}
-    {...other}
-  >
-    {children || 'Submit'}
-  </button>
-);
+export const Button = ({ children = 'Submit', forwardRef, ...rest }) => {
+  const { buttonProps } = useButton(rest);
+
+  return (
+    <button ref={forwardRef} {...buttonProps}>
+      {children}
+    </button>
+  );
+};
 
 Button.displayName = 'Button';
 Button.propTypes = {
@@ -27,9 +19,7 @@ Button.propTypes = {
     PropTypes.object,
     PropTypes.string
   ]),
-  forwardRef: PropTypes.object,
-  onClick: PropTypes.func,
-  type: PropTypes.string
+  forwardRef: PropTypes.object
 };
 
 export default Button;

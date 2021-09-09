@@ -48,6 +48,8 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@flywire/prettier-config": "^1.1.0",
+    "@testing-library/dom": "^8.3.0",
+    "@testing-library/react": "^12.0.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
@@ -93,6 +95,11 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
+    ],
+    "moduleDirectories": [
+      "src",
+      "node_modules",
+      "jest"
     ]
   }
 }
