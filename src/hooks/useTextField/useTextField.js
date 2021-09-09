@@ -9,7 +9,7 @@ function useTextField({
   required
 } = {}) {
   return {
-    inputAreaProps: {
+    inputAriaProps: {
       ...(hint || error || ariaDescribedBy
         ? {
             'aria-describedby': [

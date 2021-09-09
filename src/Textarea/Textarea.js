@@ -14,7 +14,7 @@ const Textarea = ({
   value,
   ...other
 }) => {
-  const { inputAreaProps } = useTextField({
+  const { inputAriaProps } = useTextField({
     disabled,
     error,
     hint,
@@ -35,7 +35,7 @@ const Textarea = ({
       ref={forwardRef}
       required={required}
       defaultValue={value}
-      {...inputAreaProps}
+      {...inputAriaProps}
       {...other}
     />
   );

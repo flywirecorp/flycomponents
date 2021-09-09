@@ -18,7 +18,7 @@ class Checkbox extends Component {
     } = this.props;
 
     const idOrName = id || name;
-    const { inputAreaProps } = useTextField({
+    const { inputAriaProps } = useTextField({
       disabled,
       error: !isEmpty(error),
       label: idOrName,
@@ -41,7 +41,7 @@ class Checkbox extends Component {
           name={name}
           required={required}
           type="checkbox"
-          {...inputAreaProps}
+          {...inputAriaProps}
           {...otherProps}
         />
         <span className="Checkbox-label" id={`${idOrName}-label`}>
