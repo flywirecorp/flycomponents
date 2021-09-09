@@ -18,7 +18,7 @@ const Input = ({
   value,
   ...other
 }) => {
-  const { inputAreaProps } = useTextField({
+  const { inputAriaProps } = useTextField({
     'aria-describedby': ariaDescribedBy,
     disabled,
     error,
@@ -41,7 +41,7 @@ const Input = ({
       ref={forwardRef}
       required={required}
       type={type}
-      {...inputAreaProps}
+      {...inputAriaProps}
       {...other}
     />
   );
