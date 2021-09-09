@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Portal from './Portal';
 import FocusTrap from 'focus-trap-react';
 import { ESC } from '../utils/keycodes';
+import Button from '../Button';
 
 class Modal extends Component {
   state = {
@@ -85,14 +86,14 @@ class Modal extends Component {
     const { allowClosing, children, className, size } = this.props;
     const modalClassName = `Modal Modal--${size} ${className}`;
     const closeButton = (
-      <button
+      <Button
         className="Modal-closeButton"
         type="button"
         onClick={this.handleClick}
         aria-label="Close"
       >
         <span className="Icon Icon--close Icon--xs margin-0" />
-      </button>
+      </Button>
     );
 
     if (this.isClosed) {

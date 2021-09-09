@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from '../Button';
 
 export class FileInput extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ export class FileInput extends Component {
           data-testid="hint"
         />
 
-        <button
+        <Button
           className={classNames('FileInput-submit', {
             'FileInput--uploading': uploading
           })}
@@ -49,7 +50,7 @@ export class FileInput extends Component {
           data-testid="submitButton"
         >
           {buttonText}
-        </button>
+        </Button>
       </div>
     );
   }

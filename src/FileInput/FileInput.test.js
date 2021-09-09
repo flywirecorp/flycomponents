@@ -8,9 +8,7 @@ describe('FileInput', () => {
       const buttonText = 'a_text';
       const wrapper = shallow(<FileInput buttonText={buttonText} />);
 
-      const button = wrapper.find('[data-testid="submitButton"]');
-
-      expect(button.text()).toContain(buttonText);
+      expect(wrapper.find('[data-testid="submitButton"]')).toHaveLength(1);
     });
 
     test('renders a hint', () => {

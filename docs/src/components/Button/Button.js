@@ -7,10 +7,13 @@ export default () => (
   <Component readme={README}>
     <Button
       className="Button Button--primary"
-      onClick={() => alert('You clicked me!')}
+      onClick={() => console.log('You clicked me!')}
       children="Click Me!"
     />
 
-    <Button onClick={() => alert('You clicked me!')} children="Click Me!" />
+    <Button
+      onClick={() => console.log('You clicked me!')}
+      children="Click Me!"
+    />
   </Component>
 );
