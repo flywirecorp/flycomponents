@@ -15,7 +15,7 @@ function useButton({
       ...rest,
       onMouseDown: callAll(onClick, onMouseDown),
       onKeyDown: function(evt) {
-        console.log('onKeyDown', evt.keyCode)
+        console.log('onKeyDown', evt.keyCode);
         callAll(
           [ENTER, SPACE].includes(evt.keyCode) ? onClick(evt) : NOOP,
           onKeyDown(evt)

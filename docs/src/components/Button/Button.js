@@ -12,6 +12,7 @@ export default () => (
     />
 
     <Button
+      className="Button Button--secondary"
       onClick={() => console.log('You clicked me!')}
       children="Click Me!"
     />
