@@ -4,7 +4,6 @@ import callAll from '../../utils/callAll';
 const NOOP = () => {};
 
 function useButton({
-  className = 'Button',
   onClick = NOOP,
   onKeyDown = NOOP,
   onMouseDown = NOOP,
@@ -14,7 +13,6 @@ function useButton({
   return {
     buttonProps: {
       ...rest,
-      className,
       onMouseDown: callAll(onClick, onMouseDown),
       onKeyDown: function(evt) {
         callAll(
