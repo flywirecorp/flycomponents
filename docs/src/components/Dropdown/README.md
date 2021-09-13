@@ -53,6 +53,8 @@ const template = ({ label, lang, ...restProps }) => {
 | ------------| --- | ---------| ---------------------------------------------------- | ----------------- |
 | className   | no  | string   | CSS class                                            | ""                |
 | getA11yStatusMessage| no  | func   | Default messages provided in English | "`x` options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel." or "`x` is selected" |
+| includeSelectedOption | no  | boolean  | Enable this option if you want the selected option to still be included in the list of options, otherwise it won't be shown in the list    | false    |
+| label       | no  | string  | Text of the button that opens the Dropdown, by default will show the selected option  | `selected option` |
 | name        | no | string | The name of the element                                             | `dropdown` |
 | onChange    | no  | function | Function to call on file change                      | {}                |
 | options     | yes | array    | List of childs                                       | []                |

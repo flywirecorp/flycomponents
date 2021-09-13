@@ -35,7 +35,7 @@ describe('Dropdown', () => {
       return this.component.find('.Dropdown-selectedOption');
     }
 
-    selectedOptionText() {
+    labelText() {
       return this.selectedOption().text();
     }
 
@@ -106,6 +106,15 @@ describe('Dropdown', () => {
     expect(wrapper.hasClass('ClassName')).toBe(true);
   });
 
+  test('displays a label on the button if passed', () => {
+    const component = new DropdownComponent({
+      label: 'a label',
+      defaultValue: 'en'
+    });
+
+    expect(component.labelText()).toBe('a label');
+  });
+
   test('adds the selected value as aria-label to the button', () => {
     const props = {
       defaultValue: 'fr',
@@ -119,13 +128,13 @@ describe('Dropdown', () => {
   test('pre-selects the default option', () => {
     const component = setupDropdownWithDefaultValueTo('es');
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(component.labelText()).toBe('Spanish');
   });
 
   test('if default value is not in the options list select the first option value', () => {
     const component = setupDropdownWithDefaultValueTo('fr');
 
-    expect(component.selectedOptionText()).toBe('English');
+    expect(component.labelText()).toBe('English');
   });
 
   test('if no options do not throw on pre-selecting value', () => {
@@ -135,7 +144,7 @@ describe('Dropdown', () => {
   test('is not case sensitive', () => {
     const component = setupDropdownWithDefaultValueTo('ES');
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(component.labelText()).toBe('Spanish');
   });
 
   test('renders options', () => {
@@ -199,7 +208,7 @@ describe('Dropdown', () => {
     const component = setupDropdownWithDefaultValueTo('en');
     component.selectOption('Spanish');
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(component.labelText()).toBe('Spanish');
   });
 
   test('hide the selected option', () => {
@@ -207,6 +216,21 @@ describe('Dropdown', () => {
     component.selectOption('Spanish');
 
     expect(component.isSelected('Spanish')).toHaveLength(0);
+  });
+
+  test('do not hide the selected option when excludeSelected is true', () => {
+    const options = [
+      { label: 'English', value: 'en' },
+      { label: 'Spanish', value: 'es' }
+    ];
+    const component = new DropdownComponent({
+      options,
+      includeSelectedOption: true,
+      defaultValue: 'en'
+    });
+    component.selectOption('Spanish');
+
+    expect(component.isSelected('Spanish')).toHaveLength(1);
   });
 
   test('hides the options after selecting one', () => {

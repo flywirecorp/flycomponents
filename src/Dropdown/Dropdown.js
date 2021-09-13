@@ -231,7 +231,13 @@ export class Dropdown extends Component {
   }, WAIT_TIME);
 
   render() {
-    const { name, className, template } = this.props;
+    const {
+      name,
+      className,
+      template,
+      label,
+      includeSelectedOption
+    } = this.props;
     const {
       isOpen,
       upward,
@@ -239,9 +245,13 @@ export class Dropdown extends Component {
       a11yStatusMessage,
       selectedIndex
     } = this.state;
-    const options = this.optionsExceptSelected;
+
+    const options = includeSelectedOption
+      ? this.props.options
+      : this.optionsExceptSelected;
 
     if (isOpen) this.optionsRef.current.focus();
+    const buttonLabel = label || this.selectedLabel;
 
     return (
       <div
@@ -249,7 +259,7 @@ export class Dropdown extends Component {
         ref={this.dropdownRef}
       >
         <button
-          aria-label={this.selectedLabel}
+          aria-label={buttonLabel}
           aria-haspopup="listbox"
           className="Dropdown-selectedOption"
           aria-expanded={isOpen}
@@ -260,7 +270,7 @@ export class Dropdown extends Component {
           onKeyDown={this.handleKeyDown}
           ref={this.activatorRef}
         >
-          {this.selectedLabel}
+          {buttonLabel}
         </button>
         <ul
           onKeyDown={this.handleKeyDown}
@@ -309,6 +319,7 @@ export class Dropdown extends Component {
 Dropdown.defaultProps = {
   className: '',
   getA11yStatusMessage: getA11yStatusMessage,
+  includeSelectedOption: false,
   name: 'dropdown',
   onChange: () => {},
   upward: false
@@ -318,6 +329,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
   defaultValue: PropTypes.string.isRequired,
   getA11yStatusMessage: PropTypes.func,
+  includeSelectedOption: PropTypes.bool,
   label: PropTypes.string,
   name: PropTypes.string,
   onChange: PropTypes.func,
