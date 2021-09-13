@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import isEmpty from '../utils/isEmpty';
-import { useTextField } from '../hooks';
+import { useInputField } from '../hooks';
 
 class Checkbox extends Component {
   render() {
@@ -18,7 +18,7 @@ class Checkbox extends Component {
     } = this.props;
 
     const idOrName = id || name;
-    const { inputAreaProps } = useTextField({
+    const { inputAriaProps } = useInputField({
       disabled,
       error: !isEmpty(error),
       label: idOrName,
@@ -41,18 +41,14 @@ class Checkbox extends Component {
           name={name}
           required={required}
           type="checkbox"
-          {...inputAreaProps}
+          {...inputAriaProps}
           {...otherProps}
         />
         <span className="Checkbox-label" id={`${idOrName}-label`}>
           {label}
         </span>
-        {error && (
-          <div
-            className="FormGroup-feedback"
-            id={`${idOrName}-error-msg`}
-            role="alert"
-          >
+        {error && typeof error === 'string' && (
+          <div className="FormGroup-feedback" id={`${idOrName}-error-msg`}>
             {error}
           </div>
         )}
@@ -64,7 +60,7 @@ class Checkbox extends Component {
 Checkbox.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   id: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string.isRequired,

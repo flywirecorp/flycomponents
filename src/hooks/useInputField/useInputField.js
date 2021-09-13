@@ -1,4 +1,4 @@
-function useTextField({
+function useInputField({
   'aria-describedby': ariaDescribedBy,
   disabled,
   error,
@@ -9,7 +9,7 @@ function useTextField({
   required
 } = {}) {
   return {
-    inputAreaProps: {
+    inputAriaProps: {
       ...(hint || error || ariaDescribedBy
         ? {
             'aria-describedby': [
@@ -30,4 +30,4 @@ function useTextField({
   };
 }
 
-export default useTextField;
+export default useInputField;

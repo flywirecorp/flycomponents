@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import classNames from 'classnames';
-import { useTextField } from '../hooks';
+import { useInputField } from '../hooks';
 
 const Input = ({
   ariaDescribedBy,
@@ -18,7 +18,7 @@ const Input = ({
   value,
   ...other
 }) => {
-  const { inputAreaProps } = useTextField({
+  const { inputAriaProps } = useInputField({
     'aria-describedby': ariaDescribedBy,
     disabled,
     error,
@@ -41,7 +41,7 @@ const Input = ({
       ref={forwardRef}
       required={required}
       type={type}
-      {...inputAreaProps}
+      {...inputAriaProps}
       {...other}
     />
   );

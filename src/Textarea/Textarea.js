@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useTextField } from '../hooks';
+import { useInputField } from '../hooks';
 
 const Textarea = ({
   disabled,
@@ -14,7 +14,7 @@ const Textarea = ({
   value,
   ...other
 }) => {
-  const { inputAreaProps } = useTextField({
+  const { inputAriaProps } = useInputField({
     disabled,
     error,
     hint,
@@ -35,7 +35,7 @@ const Textarea = ({
       ref={forwardRef}
       required={required}
       defaultValue={value}
-      {...inputAreaProps}
+      {...inputAriaProps}
       {...other}
     />
   );
