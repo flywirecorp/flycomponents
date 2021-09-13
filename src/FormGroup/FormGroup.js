@@ -43,7 +43,11 @@ const FormGroup = ({
     )}
     {children}
     {error && typeof error === 'string' && (
-      <p className="FormGroup-feedback" id={`${name}-error-msg`} role="alert">
+      <p
+        className="FormGroup-feedback"
+        id={`${name}-error-msg`}
+        aria-live="polite"
+      >
         {error}
       </p>
     )}
