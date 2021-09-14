@@ -10,17 +10,23 @@
     "standard",
     "standard-react",
     "prettier",
-    "prettier/react"
+    "prettier/react",
+    "plugin:jsx-a11y/recommended"
   ],
-  "plugins": [
-    "react",
-    "prettier"
-  ],
+  "plugins": ["react", "prettier", "jsx-a11y"],
   "rules": {
     "strict": 0,
     "no-unused-expressions": 0,
     "react/sort-comp": "error",
     "react/sort-prop-types": "error",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "jsx-a11y/click-events-have-key-events": "warn",
+    "jsx-a11y/no-noninteractive-element-interactions": "warn",
+    "jsx-a11y/no-noninteractive-element-to-interactive-role": "warn",
+    "jsx-a11y/no-onchange": "warn",
+    "jsx-a11y/no-static-element-interactions": "warn",
+    "jsx-a11y/role-has-required-aria-props": "warn",
+    "jsx-a11y/role-supports-aria-props": "warn",
     "prettier/prettier": [
       "error",
       {

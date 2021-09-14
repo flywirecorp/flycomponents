@@ -22,7 +22,7 @@ export default () => {
 
   const countryTemplate = country => (
     <div>
-      <img src="http://via.placeholder.com/30x30" /> {country.label}
+      <img src="http://via.placeholder.com/30x30" alt="" /> {country.label}
     </div>
   );
 
