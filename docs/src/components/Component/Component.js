@@ -9,7 +9,7 @@ const Component = ({ children, readme }) => (
       {readme && <Markdown source={readme} />}
     </div>
     <div className="Component-example">
-      <h4 className="Component-exampleTitle">Example</h4>
+      <h3 className="Component-exampleTitle">Example</h3>
       {children}
     </div>
   </section>
