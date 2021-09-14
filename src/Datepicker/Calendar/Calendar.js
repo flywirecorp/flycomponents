@@ -78,8 +78,7 @@ const Calendar = ({
         yearRef={yearRef}
       />
       <table
-        aria-activedescendant={`${selectedDate.month()}-${selectedDate.date()}`}
-        aria-labelledby="datepicker-month-date"
+        aria-activedescendant={`${name}-${selectedDate.month()}-${selectedDate.date()}`}
         aria-readonly="true"
         className="Calendar-table"
         id={`${name}-calendar`}
