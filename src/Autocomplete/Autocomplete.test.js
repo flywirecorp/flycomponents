@@ -454,5 +454,15 @@ describe('Autocomplete', () => {
 
       expect(component.a11yStatusMessage).toBe('You have selected China');
     });
+
+    test('selected index is set with default value', () => {
+      const options = [
+        { label: 'United States', value: 'US' },
+        { label: 'United States Minor Outlying Islands', value: 'UM' }
+      ];
+      const component = new AutocompleteComponent({ options, value: 'UM' });
+
+      expect(component.selectedIndex()).toBe(1);
+    });
   });
 });

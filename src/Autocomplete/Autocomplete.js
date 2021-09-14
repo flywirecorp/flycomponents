@@ -111,7 +111,9 @@ export class Autocomplete extends Component {
       isOpen: false,
       options: withSearchKey(options),
       searchQuery: this.getOptionLabelByValue(options, value),
-      selectedIndex: INITIAL_INDEX,
+      selectedIndex: value
+        ? this.getOptionIndexByValue(options, value)
+        : INITIAL_INDEX,
       selectedValue: value,
       hasValue: !!value
     };
