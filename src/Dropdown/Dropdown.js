@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import Option from './Option';
 import sameValue from '../utils/sameValue';
+import { getA11yStatusMessage } from '../utils/a11y';
 import debounce from '../utils/debounce';
 import { ENTER, ESC, ARROW_UP, ARROW_DOWN, SPACE } from '../utils/keycodes';
 
@@ -13,24 +14,6 @@ const LEFT = 'Left';
 const RIGHT = 'Right';
 const UP = 1;
 const WAIT_TIME = 200;
-const getA11yStatusMessage = ({
-  isOpen,
-  options = [],
-  selectedOption = {}
-}) => {
-  const isClosed = !isOpen;
-  const { label: selectedLabel } = selectedOption;
-
-  if (isClosed) {
-    return `${selectedLabel} is selected.`;
-  }
-
-  const resultCount = options.length;
-
-  return `${resultCount} ${
-    resultCount === 1 ? 'option is' : 'options are'
-  } available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.`;
-};
 
 export class Dropdown extends Component {
   constructor(props) {
@@ -224,7 +207,7 @@ export class Dropdown extends Component {
     const a11yStatusMessage = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      selectedOption
+      selectedOption: selectedOption.label
     });
 
     this.setState({ a11yStatusMessage });

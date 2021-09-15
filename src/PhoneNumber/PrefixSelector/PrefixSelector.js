@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
+import { getA11yStatusMessage } from '../../utils/a11y';
 import debounce from '../../utils/debounce';
 import { ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB } from '../../utils/keycodes';
 
