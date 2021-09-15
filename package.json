@@ -71,6 +71,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "github-markdown-css": "^2.10.0",
     "jest": "^25.1.0",
+    "jest-react-hooks-shallow": "^1.5.1",
     "jest-watch-typeahead": "^0.6.4",
     "marked": "^0.4.0",
     "prettier": "^1.19.1",
@@ -94,6 +95,9 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/enableHooks.js"
     ]
   }
 }

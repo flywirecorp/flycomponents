@@ -291,7 +291,7 @@ describe('Dropdown', () => {
       component.openDropdown();
       component.selectOption('Spanish');
 
-      expect(component.a11yStatusMessage).toBe('Spanish is selected.');
+      expect(component.a11yStatusMessage).toBe('You have selected Spanish');
     });
   });
 
