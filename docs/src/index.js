@@ -199,7 +199,7 @@ class NavBar extends Component {
 
   render() {
     return (
-      <div className="Docs-nav">
+      <nav className="Docs-nav" aria-label="Components navigation">
         <img className="Docs-icon" src={icon} onClick={this.handleClick} />
         <Title />
         <ul className="Docs-navMenu">
@@ -219,7 +219,7 @@ class NavBar extends Component {
             alt="Fork me on GitHub"
           />
         </a>
-      </div>
+      </nav>
     );
   }
 }
@@ -229,7 +229,7 @@ NavBar.propTypes = {
 };
 
 const Content = () => (
-  <div className="Docs-content">
+  <main className="Docs-content">
     <SwitchRouter>
       {routes.map((route, index) => (
         <Route
@@ -240,7 +240,7 @@ const Content = () => (
         />
       ))}
     </SwitchRouter>
-  </div>
+  </main>
 );
 
 class App extends Component {

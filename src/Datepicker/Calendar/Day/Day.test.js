@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Day from '../Day';
+import { Context } from '../../Datepicker';
 import { parseDate } from '../../../utils/date';
 
 describe('Day', () => {
@@ -15,7 +16,14 @@ describe('Day', () => {
       };
       const props = { ...defaultProps, ...ownProps };
 
-      this.component = shallow(<Day {...props} />);
+      this.component = mount(
+        <Context.Provider value={{ name: 'birthday' }}>
+          <Day {...props} />
+        </Context.Provider>,
+        {
+          attachTo: document.createElement('tr')
+        }
+      );
     }
 
     day() {

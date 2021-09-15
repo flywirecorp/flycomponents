@@ -4,8 +4,8 @@ import { daysOfWeek } from '../../../utils/date';
 
 const DayNames = () => (
   <Context.Consumer>
-    {({ locale }) => (
-      <thead role="presentation" aria-hidden="false">
+    {({ locale, name }) => (
+      <thead role="presentation">
         <tr role="row">
           {daysOfWeek(locale).map((day, index) => (
             <th
@@ -14,7 +14,7 @@ const DayNames = () => (
               aria-label={day}
               className="Calendar-weekday"
               key={day}
-              id={`header-day-${index}`}
+              id={`${name}-header-day-${index}`}
             >
               <abbr title={day}>{day}</abbr>
             </th>

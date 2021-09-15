@@ -53,7 +53,7 @@ export default () => (
     <Datepicker
       label="Test Date Picker with error"
       locale="ES"
-      name="test"
+      name="test-error"
       error="an error"
       required
       value="21/12/1979"

@@ -274,7 +274,7 @@ class Datepicker extends Component {
     } = this.props;
 
     return (
-      <Context.Provider value={{ locale }}>
+      <Context.Provider value={{ locale, name }}>
         <FormGroup
           disabled={disabled}
           error={error}
