@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
@@ -11,209 +11,164 @@ import { ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB } from '../../utils/keycodes';
 const INITIAL_INDEX = -1;
 const WAIT_TIME = 200;
 const EMPTY_STRING = '';
-const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
-  const optionsClosed = !isOpen;
 
-  if (optionsClosed) {
-    return selectedOption
-      ? `You have selected ${selectedOption}`
-      : EMPTY_STRING;
-  }
-
-  const resultCount = options.length;
-
-  if (resultCount === 0) {
-    return 'No results are available';
-  }
-
-  return `${resultCount} ${
-    resultCount === 1 ? 'result is' : 'results are'
-  } available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.`;
+const getOptionIndexByValue = (value, options) => {
+  return options.findIndex(option => option.value === value);
 };
 
-export class PrefixSelector extends Component {
-  static defaultProps = {
-    getA11yStatusMessage: getA11yStatusMessage
-  };
+const getDialingCodeByValue = (index, options) => {
+  const dialingCode = index === INITIAL_INDEX ? '' : options[index].dialingCode;
 
-  constructor(props) {
-    super(props);
+  return dialingCode;
+};
 
-    const { options, value } = this.props;
+export const PrefixSelector = ({
+  disabled,
+  getA11yStatusMessage,
+  label,
+  name,
+  onChange,
+  onFocus,
+  options,
+  readOnly,
+  value
+}) => {
+  const [a11yStatusMessage, setA11yStatusMessage] = useState(EMPTY_STRING);
+  const [selectedIndex, setSelectedIndex] = useState(
+    value ? getOptionIndexByValue(value, options) : INITIAL_INDEX
+  );
+  const [dialingCode, setDialingCode] = useState(
+    value ? getDialingCodeByValue(selectedIndex, options) : ''
+  );
+  const [isOpen, setIsOpen] = useState(false);
+  const [typedQuery, setTypedQuery] = useState('');
 
-    this.state = {
-      a11yStatusMessage: EMPTY_STRING,
-      dialingCode: value,
-      isOpen: false,
-      selectedIndex: INITIAL_INDEX,
-      typedQuery: ''
-    };
-
-    this.typedQueryTimer = 0;
-
-    this.optionListRef = React.createRef();
-    this.buttonRef = React.createRef();
-    this.optionRefs = Array.from({ length: options.length }, () =>
-      React.createRef()
-    );
-  }
-
-  componentDidMount() {
-    document.addEventListener('mousedown', this.clickOutsideHandler);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this.clickOutsideHandler);
-  }
-
-  getOptionIndexByValue(value) {
-    const { options } = this.props;
-
-    return options.findIndex(option => option.value === value);
-  }
-
-  getDialingCodeByValue(index) {
-    const { options } = this.props;
-    const dialingCode =
-      index === INITIAL_INDEX ? '' : options[index].dialingCode;
-
-    return dialingCode;
-  }
-
-  adjustOffet() {
-    const { selectedIndex } = this.state;
-    if (selectedIndex === INITIAL_INDEX) return;
-
-    const optionSelected = this.optionRefs[selectedIndex].current;
-    const optionList = this.optionListRef.current;
-
-    scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
-  }
-
-  clickOutsideHandler = event => {
+  const clickOutsideHandler = event => {
     if (
-      (this.optionListRef.current &&
-        this.optionListRef.current.contains(event.target)) ||
-      (this.buttonRef.current && this.buttonRef.current.contains(event.target))
+      (optionListRef.current && optionListRef.current.contains(event.target)) ||
+      (buttonRef.current && buttonRef.current.contains(event.target))
     ) {
       return;
     }
 
-    const { value } = this.props;
-    const selectedIndex = this.getOptionIndexByValue(value);
+    const selectedIndex = getOptionIndexByValue(value, options);
 
-    this.setState(() => {
-      return { isOpen: false, selectedIndex };
+    setIsOpen(false);
+    setSelectedIndex(selectedIndex);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOutsideHandler);
+    return () => {
+      document.removeEventListener('mousedown', clickOutsideHandler);
+    };
+  }, [clickOutsideHandler]);
+
+  const updateA11yMessage = debounce(() => {
+    const message = getA11yStatusMessage({
+      isOpen,
+      options,
+      selectedOption: dialingCode
     });
+
+    setA11yStatusMessage(message);
+  }, WAIT_TIME);
+
+  useEffect(() => {
+    updateA11yMessage();
+  }, [isOpen, dialingCode]);
+
+  let typedQueryTimer = 0;
+  const optionListRef = React.useRef();
+  const buttonRef = React.useRef();
+  const optionRefs = Array.from({ length: options.length }, () =>
+    React.useRef()
+  );
+
+  const adjustOffset = () => {
+    if (selectedIndex === INITIAL_INDEX) return;
+
+    const optionSelected = optionRefs[selectedIndex].current;
+    const optionList = optionListRef.current;
+
+    scrollIntoView(optionSelected, optionList, { onlyScrollIfNeeded: true });
   };
 
-  handleMenuClick = () => {
-    const { onFocus, readOnly } = this.props;
-
+  const handleMenuClick = () => {
     if (readOnly) return false;
-
-    this.setState(
-      prevState => {
-        return { isOpen: !prevState.isOpen };
-      },
-      () => {
-        onFocus();
-        this.updateA11yMessage();
-      }
-    );
+    setIsOpen(isOpen => !isOpen);
+    onFocus();
   };
 
-  handleMenuKeydown = e => {
+  const handleMenuKeydown = e => {
     let shouldOpenOptions = true;
 
     switch (e.keyCode) {
       case ARROW_DOWN: {
         e.preventDefault();
-        return this.moveIndexUp();
+        return moveIndex(1);
       }
       case ARROW_UP: {
         e.preventDefault();
-        return this.moveIndexDown();
+        return moveIndex(-1);
       }
       case ENTER: {
         e.preventDefault();
-        const { isOpen } = this.state;
         if (isOpen) {
           shouldOpenOptions = false;
         }
 
-        this.selectCurrentOption();
+        selectCurrentOption();
         break;
       }
       case TAB: {
         shouldOpenOptions = false;
-        this.selectCurrentOption();
-        this.hideOptions();
+        selectCurrentOption();
+        setIsOpen(false);
         break;
       }
       case ESC: {
         e.preventDefault();
         shouldOpenOptions = false;
-        return this.hideOptions();
+        setIsOpen(false);
+        break;
       }
       default: {
-        return this.handleTypedChar(e.keyCode);
+        return handleTypedChar(e.keyCode);
       }
     }
 
-    if (shouldOpenOptions) this.showOptions();
+    if (shouldOpenOptions && !readOnly) setIsOpen(true);
   };
 
-  handleOptionHover(value) {
-    const selectedIndex = this.getOptionIndexByValue(value);
-
-    return this.setState({ selectedIndex });
-  }
-
-  handleOptionSelected = value => {
-    const selectedIndex = this.getOptionIndexByValue(value);
-    const dialingCode = this.getDialingCodeByValue(selectedIndex);
-
-    this.hideOptions();
-    this.setState(
-      () => {
-        return {
-          isOpen: false,
-          selectedIndex,
-          dialingCode
-        };
-      },
-      () => {
-        this.sendChange(dialingCode);
-        this.updateA11yMessage();
-      }
-    );
+  const handleOptionHover = value => {
+    const selectedIndex = getOptionIndexByValue(value, options);
+    setSelectedIndex(selectedIndex);
   };
 
-  handleTypedChar(keyCode) {
+  const handleOptionSelected = value => {
+    const selectedIndex = getOptionIndexByValue(value, options);
+    const dialingCode = getDialingCodeByValue(selectedIndex, options);
+
+    setIsOpen(false);
+    setSelectedIndex(selectedIndex);
+    setDialingCode(dialingCode);
+    sendChange(dialingCode);
+  };
+
+  const handleTypedChar = keyCode => {
     const newChar = String.fromCharCode(keyCode).toLowerCase();
-    clearTimeout(this.typedQueryTimer);
+    clearTimeout(typedQueryTimer);
 
-    this.setState(prevState => {
-      return { typedQuery: prevState.typedQuery.concat(newChar) };
-    }, this.searchTypedCountry);
+    setTypedQuery(typedQuery.concat(newChar));
+    searchTypedCountry();
 
-    this.typedQueryTimer = setTimeout(() => {
-      this.setState({
-        typedQuery: ''
-      });
+    typedQueryTimer = setTimeout(() => {
+      setTypedQuery('');
     }, 2000);
-  }
+  };
 
-  hideOptions() {
-    this.setState(() => {
-      return { isOpen: false };
-    });
-  }
-
-  moveIndex(offset) {
-    const { options } = this.props;
-
+  const moveIndex = offset => {
     const optionsLength = options.length;
     const normalize = index => {
       if (index < 0) {
@@ -225,81 +180,36 @@ export class PrefixSelector extends Component {
       return index;
     };
 
-    this.setState(prevState => {
-      return { selectedIndex: normalize(prevState.selectedIndex + offset) };
-    }, this.adjustOffet);
-  }
+    setSelectedIndex(normalize(selectedIndex + offset));
+    adjustOffset();
+  };
 
-  updateA11yMessage = debounce(() => {
-    const { isOpen, dialingCode } = this.state;
-    const { options } = this.props;
-
-    const message = this.props.getA11yStatusMessage({
-      isOpen,
-      options,
-      selectedOption: dialingCode
-    });
-
-    this.setState({ a11yStatusMessage: message });
-  }, WAIT_TIME);
-
-  moveIndexDown() {
-    this.moveIndex(-1);
-  }
-
-  moveIndexUp() {
-    this.moveIndex(1);
-  }
-
-  searchTypedCountry() {
-    const { typedQuery } = this.state;
-    const { options } = this.props;
-
+  const searchTypedCountry = () => {
     const searchedOptionIndex = options.findIndex(option =>
       option.label.toLowerCase().startsWith(typedQuery)
     );
 
-    this.setState(
-      {
-        selectedIndex: searchedOptionIndex
-      },
-      this.adjustOffet
-    );
-  }
+    setSelectedIndex(searchedOptionIndex);
+    adjustOffset();
+  };
 
-  sendChange(value) {
-    const { name, onChange } = this.props;
-
+  const sendChange = value => {
     if (typeof onChange === 'function') {
       onChange(name, value);
     }
-  }
+  };
 
-  selectCurrentOption() {
-    const { selectedIndex } = this.state;
-    const { options } = this.props;
-
+  const selectCurrentOption = () => {
     if (selectedIndex === INITIAL_INDEX) {
-      return this.hideOptions();
+      setIsOpen(false);
     }
 
     const value = options[selectedIndex].value;
-    this.updateA11yMessage();
-    return this.handleOptionSelected(value);
-  }
+    return handleOptionSelected(value);
+  };
 
-  showOptions() {
-    const { readOnly } = this.props;
-    if (readOnly) return false;
-
-    this.setState({ isOpen: true }, this.updateA11yMessage);
-  }
-
-  renderOption = (option, index) => {
+  const renderOption = (option, index) => {
     const { label, value, dialingCode } = option;
-    const { name } = this.props;
-    const { selectedIndex } = this.state;
-
     const hasFocus = selectedIndex === index;
 
     return (
@@ -308,71 +218,70 @@ export class PrefixSelector extends Component {
         dialingCode={dialingCode}
         hasFocus={hasFocus}
         key={value}
-        onClick={value => this.handleOptionSelected(value)}
-        onMouseEnter={value => this.handleOptionHover(value)}
-        onMouseOver={value => this.handleOptionHover(value)}
-        forwardRef={this.optionRefs[index]}
+        onClick={value => handleOptionSelected(value)}
+        onMouseEnter={value => handleOptionHover(value)}
+        onMouseOver={value => handleOptionHover(value)}
+        forwardRef={optionRefs[index]}
         value={value}
         id={`${name}-option-${index}`}
       />
     );
   };
 
-  render() {
-    const { label, name, disabled, readOnly, options } = this.props;
-    const {
-      selectedIndex,
-      dialingCode,
-      isOpen,
-      a11yStatusMessage
-    } = this.state;
-    const optionList = options.map(this.renderOption);
+  const optionList = options.map(renderOption);
 
-    return (
-      <div
-        className={classNames(
-          'Autocomplete',
-          { 'is-searching': isOpen },
-          'PhoneNumber-menu'
-        )}
-        aria-label={label}
+  return (
+    <div
+      className={classNames(
+        'Autocomplete',
+        { 'is-searching': isOpen },
+        'PhoneNumber-menu'
+      )}
+      aria-label={label}
+    >
+      <button
+        disabled={disabled}
+        className="Autocomplete-search PhoneNumber-menu-input"
+        onKeyDown={handleMenuKeydown}
+        onClick={handleMenuClick}
+        readOnly={readOnly}
+        type="button"
+        role="listbox"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
+        aria-controls="phoneNumber-menu-options"
+        aria-activedescendant={
+          selectedIndex === INITIAL_INDEX
+            ? undefined
+            : `${name}-option-${selectedIndex}`
+        }
+        aria-label={dialingCode && `+${dialingCode}`}
+        ref={buttonRef}
       >
-        <button
-          disabled={disabled}
-          className="Autocomplete-search PhoneNumber-menu-input"
-          onKeyDown={this.handleMenuKeydown}
-          onClick={this.handleMenuClick}
-          readOnly={readOnly}
-          type="button"
-          role="listbox"
-          aria-expanded={isOpen}
-          aria-haspopup="listbox"
-          aria-controls="phoneNumber-menu-options"
-          aria-activedescendant={`${name}-option-${selectedIndex}`}
-          aria-label={dialingCode && `+${dialingCode}`}
-          ref={this.buttonRef}
-        >
-          {dialingCode && `+ ${dialingCode}`}
-        </button>
-        <Options forwardRef={this.optionListRef}>{optionList}</Options>
-        <div
-          role="status"
-          aria-live="polite"
-          aria-relevant="additions text"
-          style={{
-            border: '0px',
-            height: '1px',
-            width: '1px',
-            overflow: 'hidden',
-            padding: '0px'
-          }}
-        >
-          {a11yStatusMessage}
-        </div>
+        {dialingCode && `+ ${dialingCode}`}
+      </button>
+      <Options forwardRef={optionListRef}>{optionList}</Options>
+      <div
+        role="status"
+        aria-live="polite"
+        aria-relevant="additions text"
+        style={{
+          border: '0px',
+          height: '1px',
+          width: '1px',
+          overflow: 'hidden',
+          padding: '0px'
+        }}
+      >
+        {a11yStatusMessage}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+PrefixSelector.defaultProps = {
+  getA11yStatusMessage: getA11yStatusMessage
+};
 
 PrefixSelector.propTypes = {
   disabled: PropTypes.bool,

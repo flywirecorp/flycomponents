@@ -15,10 +15,14 @@ class PhoneNumber extends Component {
     this.numberInputRef = React.createRef();
 
     const { value: currentNumber = NO_VALUE } = this.props;
-    const prefix = this.getCountryFrom(currentNumber);
+    const {
+      dialingCode: prefix = NO_VALUE,
+      value: prefixCode = NO_VALUE
+    } = this.getCountryFrom(currentNumber);
 
     this.state = {
       prefix,
+      prefixCode,
       formattedNumber: this.getWithoutPrefix(currentNumber, prefix),
       phoneNumber: currentNumber,
       isFocused: false
@@ -56,9 +60,7 @@ class PhoneNumber extends Component {
       .filter(country => phoneNumber.startsWith(country.dialingCode))
       .sort(compareDialingCodeCountries);
 
-    return selectedCountries.length === 0
-      ? NO_VALUE
-      : selectedCountries[0].dialingCode;
+    return selectedCountries.length === 0 ? NO_VALUE : selectedCountries[0];
   }
 
   handleBlur = () => {
@@ -131,7 +133,7 @@ class PhoneNumber extends Component {
       ...otherProps
     } = this.props;
 
-    const { formattedNumber, isFocused, prefix } = this.state;
+    const { formattedNumber, isFocused, prefix, prefixCode } = this.state;
     const widthClassName = `width-${prefix.length}`;
 
     return (
@@ -157,7 +159,7 @@ class PhoneNumber extends Component {
               onFocus={onFocus}
               options={this.validOptions}
               readOnly={readOnly}
-              value={prefix}
+              value={prefixCode}
               label={prefixLabel}
               getA11yStatusMessage={getA11yStatusMessage}
             />

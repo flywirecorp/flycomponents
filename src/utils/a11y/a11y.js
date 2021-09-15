@@ -5,13 +5,13 @@ export const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
     return selectedOption ? `You have selected ${selectedOption}` : '';
   }
 
-  const resultCount = options.length;
+  const optionCount = options.length;
 
-  if (resultCount === 0) {
-    return 'No results are available';
+  if (optionCount === 0) {
+    return 'No options are available';
   }
 
-  return `${resultCount} ${
-    resultCount === 1 ? 'result is' : 'results are'
+  return `${optionCount} ${
+    optionCount === 1 ? 'option is' : 'options are'
   } available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.`;
 };
