@@ -42,13 +42,20 @@ const FormGroup = ({
       />
     )}
     {children}
-    {error && typeof error === 'string' && (
-      <p className="FormGroup-feedback" id={`${name}-error-msg`} role="alert">
-        {error}
-      </p>
-    )}
+    <p
+      className="FormGroup-feedback"
+      id={`${name}-error-msg`}
+      data-testid={`${name}-error-msg`}
+      aria-live="off"
+    >
+      {error && typeof error === 'string' ? error : null}
+    </p>
     {hint && (
-      <p className="FormGroup-hint" id={`${name}-hint-msg`}>
+      <p
+        className="FormGroup-hint"
+        id={`${name}-hint-msg`}
+        data-testid={`${name}-hint-msg`}
+      >
         {hint}
       </p>
     )}

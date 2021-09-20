@@ -49,11 +49,14 @@ class Radio extends Component {
         <span className="Radio-label" id={`${idOrName}-label`}>
           {label}
         </span>
-        {error && typeof error === 'string' && (
-          <div className="FormGroup-feedback" id={`${idOrName}-error-msg`}>
-            {error}
-          </div>
-        )}
+        <div
+          className="FormGroup-feedback"
+          id={`${idOrName}-error-msg`}
+          data-testid={`${idOrName}-error-msg`}
+          aria-live="off"
+        >
+          {typeof error === 'string' ? error : null}
+        </div>
       </label>
     );
   }
