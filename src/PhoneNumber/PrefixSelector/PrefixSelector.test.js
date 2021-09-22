@@ -274,7 +274,14 @@ describe('PrefixSelector', () => {
     });
 
     test('shows prefix when value is selected', () => {
-      const component = new PrefixSelectorComponent({ value: '34' });
+      const options = [
+        {
+          label: 'Spain',
+          value: 'ES',
+          dialingCode: '34'
+        }
+      ];
+      const component = new PrefixSelectorComponent({ options, value: 'ES' });
 
       expect(component.buttonAriaLabel).toEqual('+34');
     });

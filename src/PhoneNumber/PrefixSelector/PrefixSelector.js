@@ -38,7 +38,7 @@ export const PrefixSelector = ({
     value ? getOptionIndexByValue(value, options) : INITIAL_INDEX
   );
   const [dialingCode, setDialingCode] = useState(
-    value ? getDialingCodeByValue(selectedIndex, options) : ''
+    value ? getDialingCodeByValue(selectedIndex, options) : undefined
   );
   const [isOpen, setIsOpen] = useState(false);
   const [typedQuery, setTypedQuery] = useState('');

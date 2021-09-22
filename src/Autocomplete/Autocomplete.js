@@ -479,7 +479,11 @@ export class Autocomplete extends Component {
           aria-labelledby={`${name}-label`}
         >
           <input
-            aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+            aria-activedescendant={
+              this.state.selectedIndex === INITIAL_INDEX
+                ? undefined
+                : `${name}-option-${this.state.selectedIndex}`
+            }
             aria-autocomplete="list"
             aria-controls={`${name}-options`}
             aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}
