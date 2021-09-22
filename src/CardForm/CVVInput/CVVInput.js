@@ -1,45 +1,53 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
 import TextInput from '../TextInput';
 
-const CVVInput = ({ cvvTooltip, className, onFocus, onBlur, ...props }) => {
-  const [isTooltipVisible, showTooltip] = useState(false);
-  const textInputClassName = classNames('cvvInput', className);
+class CVVInput extends React.Component {
+  state = { showTooltip: false };
+  showTooltip = () => this.setState({ showTooltip: true });
+  hideTooltip = () => this.setState({ showTooltip: false });
 
-  const handleFocus = () => {
-    showTooltip(true);
-    onFocus();
+  handleFocus = () => {
+    this.showTooltip();
+    this.props.onFocus();
   };
 
-  const handleBlur = () => {
-    showTooltip(false);
-    onBlur();
+  handleBlur = () => {
+    this.hideTooltip();
+    this.props.onBlur();
   };
 
-  return (
-    <TextInput
-      className={textInputClassName}
-      ariaDescribedBy="cvvInput-Label-Tooltip"
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      {...props}
-    >
-      <span
-        className="cvvInput-Icon-Tooltip"
-        onMouseOver={() => showTooltip(true)}
-        onMouseOut={() => showTooltip(false)}
-      />
-      <span
-        id="cvvInput-Label-Tooltip"
-        className={`cvvInput-Label-Tooltip opacity-${isTooltipVisible ? 1 : 0}`}
-        role="tooltip"
+  render = () => {
+    const { cvvTooltip, className, onFocus, onBlur, ...props } = this.props;
+    const textInputClassName = classNames('cvvInput', className);
+
+    return (
+      <TextInput
+        className={textInputClassName}
+        ariaDescribedBy="cvvInput-Label-Tooltip"
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+        {...props}
       >
-        {cvvTooltip}
-      </span>
-    </TextInput>
-  );
-};
+        <span
+          className="cvvInput-Icon-Tooltip"
+          onMouseOver={() => this.showTooltip()}
+          onMouseOut={() => this.hideTooltip()}
+        />
+        <span
+          id="cvvInput-Label-Tooltip"
+          className={`cvvInput-Label-Tooltip opacity-${
+            this.state.showTooltip ? 1 : 0
+          }`}
+          role="tooltip"
+        >
+          {cvvTooltip}
+        </span>
+      </TextInput>
+    );
+  };
+}
 
 CVVInput.propTypes = {
   className: PropTypes.string,
