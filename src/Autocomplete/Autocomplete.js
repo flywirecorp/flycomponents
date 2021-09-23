@@ -6,6 +6,7 @@ import scrollIntoView from 'dom-scroll-into-view';
 import Option from './Option';
 import Options from './Options';
 import FormGroup from '../FormGroup';
+import { getA11yStatusMessage } from '../utils/a11y';
 import debounce from '../utils/debounce';
 import isEmpty from '../utils/isEmpty';
 import { getAriaDescribedBy } from '../utils/aria';
@@ -17,24 +18,6 @@ const WAIT_TIME = 200;
 const INITIAL_INDEX = -1;
 const KEYS = [13, 27, 38, 40, 9, 16];
 const [ENTER, ESC, ARROW_UP, ARROW_DOWN, TAB, SHIFT] = KEYS;
-const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
-  const optionsClosed = !isOpen;
-  const { label } = selectedOption;
-
-  if (optionsClosed) {
-    return label ? `You have selected ${label}` : EMPTY_STRING;
-  }
-
-  const resultCount = options.length;
-
-  if (resultCount === 0) {
-    return 'No results are available';
-  }
-
-  return `${resultCount} ${
-    resultCount === 1 ? 'result is' : 'results are'
-  } available, use up and down arrow keys to navigate. Press Enter key to select.`;
-};
 
 const removeSpecialCharacters = str => {
   try {
@@ -111,7 +94,9 @@ export class Autocomplete extends Component {
       isOpen: false,
       options: withSearchKey(options),
       searchQuery: this.getOptionLabelByValue(options, value),
-      selectedIndex: INITIAL_INDEX,
+      selectedIndex: value
+        ? this.getOptionIndexByValue(options, value)
+        : INITIAL_INDEX,
       selectedValue: value,
       hasValue: !!value
     };
@@ -285,7 +270,7 @@ export class Autocomplete extends Component {
     const message = this.props.getA11yStatusMessage({
       isOpen,
       options,
-      selectedOption
+      selectedOption: selectedOption.label
     });
 
     this.setState({ a11yStatusMessage: message });
@@ -494,7 +479,11 @@ export class Autocomplete extends Component {
           aria-labelledby={`${name}-label`}
         >
           <input
-            aria-activedescendant={`${name}-option-${this.state.selectedIndex}`}
+            aria-activedescendant={
+              this.state.selectedIndex === INITIAL_INDEX
+                ? undefined
+                : `${name}-option-${this.state.selectedIndex}`
+            }
             aria-autocomplete="list"
             aria-controls={`${name}-options`}
             aria-describedby={getAriaDescribedBy(name, ariaDescribedBy)}

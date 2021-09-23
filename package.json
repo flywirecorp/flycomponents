@@ -1,6 +1,6 @@
 {
   "name": "flycomponents",
-  "version": "5.0.1",
+  "version": "5.0.3",
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {
@@ -63,6 +63,7 @@
     "eslint-config-standard-react": "^9.2.0",
     "eslint-loader": "^3.0.3",
     "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
@@ -70,6 +71,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "github-markdown-css": "^2.10.0",
     "jest": "^25.1.0",
+    "jest-react-hooks-shallow": "^1.5.1",
     "jest-watch-typeahead": "^0.6.4",
     "marked": "^0.4.0",
     "prettier": "^1.19.1",
@@ -93,6 +95,9 @@
     "watchPlugins": [
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest/enableHooks.js"
     ]
   }
 }

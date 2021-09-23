@@ -1,5 +1,6 @@
 import React from 'react';
 import { Autocomplete } from '../../../../src';
+import { getA11yStatusMessage } from '../../../../src/utils/a11y';
 import Component from '../Component';
 import README from './README.md';
 
@@ -22,28 +23,9 @@ export default () => {
 
   const countryTemplate = country => (
     <div>
-      <img src="http://via.placeholder.com/30x30" /> {country.label}
+      <img src="http://via.placeholder.com/30x30" alt="" /> {country.label}
     </div>
   );
-
-  const getA11yStatusMessage = ({ isOpen, options, selectedOption }) => {
-    const optionsClosed = !isOpen;
-    const { label } = selectedOption;
-
-    if (optionsClosed) {
-      return label ? `You have selected ${label}` : '';
-    }
-
-    const resultCount = options.length;
-
-    if (resultCount === 0) {
-      return 'No results are available';
-    }
-
-    return `${resultCount} ${
-      resultCount === 1 ? 'result is' : 'results are'
-    } available, use up and down arrow keys to navigate. Press Enter key to select.`;
-  };
 
   return (
     <Component readme={README}>

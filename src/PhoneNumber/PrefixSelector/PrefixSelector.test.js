@@ -11,6 +11,10 @@ jest.mock('../../utils/debounce', () => {
   });
 });
 
+jest.mock('dom-scroll-into-view', () => {
+  return jest.fn();
+});
+
 afterAll(() => {
   debounce.mockReset();
 });
@@ -36,8 +40,8 @@ describe('PrefixSelector', () => {
       return this.component.find(Options).children();
     }
 
-    state(key) {
-      return this.component.state(key);
+    isOpen() {
+      return this.component.find('.Autocomplete').hasClass('is-searching');
     }
 
     selectedOption() {
@@ -87,16 +91,6 @@ describe('PrefixSelector', () => {
     }
   }
 
-  let adjustOffetStub;
-
-  beforeEach(() => {
-    adjustOffetStub = jest.spyOn(PrefixSelector.prototype, 'adjustOffet');
-  });
-
-  afterEach(() => {
-    adjustOffetStub.mockReset();
-  });
-
   test('has a list with options', () => {
     const options = [
       {
@@ -118,11 +112,11 @@ describe('PrefixSelector', () => {
   test('displays options when clicking the menu', () => {
     const component = new PrefixSelectorComponent();
 
-    expect(component.state('isOpen')).toBe(false);
+    expect(component.isOpen()).toBe(false);
 
     component.simulateMenuClick();
 
-    expect(component.state('isOpen')).toBe(true);
+    expect(component.isOpen()).toBe(true);
   });
 
   test('moves the focus to the next option when pressing key down', () => {
@@ -170,7 +164,7 @@ describe('PrefixSelector', () => {
     component.simulateMenuClick();
     component.pressEscKey();
 
-    expect(component.state('isOpen')).toBe(false);
+    expect(component.isOpen()).toBe(false);
   });
 
   test('selects current option when pressing the enter key', () => {
@@ -204,7 +198,7 @@ describe('PrefixSelector', () => {
     component.pressArrowDownKey();
     component.pressEnterKey();
 
-    expect(component.state('isOpen')).toBe(false);
+    expect(component.isOpen()).toBe(false);
   });
 
   test('focus the country when typing', () => {
@@ -245,7 +239,7 @@ describe('PrefixSelector', () => {
 
     component.simulateMenuClick();
 
-    expect(component.state('isOpen')).toBe(false);
+    expect(component.isOpen()).toBe(false);
   });
 
   describe('getA11yStatusMessage', () => {
@@ -265,10 +259,9 @@ describe('PrefixSelector', () => {
 
     test('reports that two result are available', () => {
       component.simulateMenuClick();
-      component.update();
 
       expect(component.a11yStatusMessage).toBe(
-        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
+        '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
   });
@@ -281,7 +274,14 @@ describe('PrefixSelector', () => {
     });
 
     test('shows prefix when value is selected', () => {
-      const component = new PrefixSelectorComponent({ value: '34' });
+      const options = [
+        {
+          label: 'Spain',
+          value: 'ES',
+          dialingCode: '34'
+        }
+      ];
+      const component = new PrefixSelectorComponent({ options, value: 'ES' });
 
       expect(component.buttonAriaLabel).toEqual('+34');
     });

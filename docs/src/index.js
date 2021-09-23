@@ -200,7 +200,12 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="Docs-nav" aria-label="Components navigation">
-        <img className="Docs-icon" src={icon} onClick={this.handleClick} />
+        <img
+          className="Docs-icon"
+          src={icon}
+          onClick={this.handleClick}
+          alt=""
+        />
         <Title />
         <ul className="Docs-navMenu">
           {routes.map((route, index) => (

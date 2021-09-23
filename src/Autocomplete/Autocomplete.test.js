@@ -426,25 +426,25 @@ describe('Autocomplete', () => {
     const component = new AutocompleteComponent({ options });
     component.simulateClick();
 
-    test('reports that no results are available', () => {
+    test('reports that no options are available', () => {
       component.filterOption('Andorra');
 
-      expect(component.a11yStatusMessage).toBe('No results are available');
+      expect(component.a11yStatusMessage).toBe('No options are available');
     });
 
-    test('reports that one result is available', () => {
+    test('reports that one option is available', () => {
       component.filterOption('Spain');
 
       expect(component.a11yStatusMessage).toBe(
-        '1 result is available, use up and down arrow keys to navigate. Press Enter key to select.'
+        '1 option is available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
 
-    test('reports that two results ara available', () => {
+    test('reports that two options ara available', () => {
       component.filterOption('in');
 
       expect(component.a11yStatusMessage).toBe(
-        '2 results are available, use up and down arrow keys to navigate. Press Enter key to select.'
+        '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
 
@@ -453,6 +453,16 @@ describe('Autocomplete', () => {
       component.pressEnterKey();
 
       expect(component.a11yStatusMessage).toBe('You have selected China');
+    });
+
+    test('selected index is set with default value', () => {
+      const options = [
+        { label: 'United States', value: 'US' },
+        { label: 'United States Minor Outlying Islands', value: 'UM' }
+      ];
+      const component = new AutocompleteComponent({ options, value: 'UM' });
+
+      expect(component.selectedIndex()).toBe(1);
     });
   });
 });
