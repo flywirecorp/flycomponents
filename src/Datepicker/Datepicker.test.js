@@ -138,49 +138,74 @@ describe('Datepicker', () => {
 
   test('moves calendar one month back', () => {
     const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+    const onChangeMock = jest.fn();
+    const component = new DatepickerComponent({
+      value,
+      onChange: onChangeMock
+    });
 
     component.simulatePrevMonthClick();
 
     expect(component.currentDate()).toBe('10/22/2016');
+    expect(onChangeMock).toHaveBeenCalledWith('birthday', '10/22/2016');
   });
 
   test('moves calendar one month ahead', () => {
     const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+    const onChangeMock = jest.fn();
+    const component = new DatepickerComponent({
+      value,
+      onChange: onChangeMock
+    });
 
     component.simulateNextMonthClick();
 
     expect(component.currentDate()).toBe('12/22/2016');
+    expect(onChangeMock).toHaveBeenCalledWith('birthday', '12/22/2016');
   });
 
   test('moves calendar to selected month', () => {
     const JANUARY = 0;
     const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+    const onChangeMock = jest.fn();
+    const component = new DatepickerComponent({
+      value,
+      onChange: onChangeMock
+    });
 
     component.simulateMonthChange(JANUARY);
 
     expect(component.currentDate()).toBe('01/22/2016');
+    expect(onChangeMock).toHaveBeenCalledWith('birthday', '01/22/2016');
   });
 
   test('moves calendar to selected year', () => {
     const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+    const onChangeMock = jest.fn();
+    const component = new DatepickerComponent({
+      value,
+      onChange: onChangeMock
+    });
 
     component.simulateYearChange(2017);
 
     expect(component.currentDate()).toBe('11/22/2017');
+    expect(onChangeMock).toHaveBeenCalledWith('birthday', '11/22/2017');
   });
 
   test('selects date clicking a day', () => {
     const value = '11/22/2016';
-    const component = new DatepickerComponent({ value });
+    const onChangeMock = jest.fn();
+    const component = new DatepickerComponent({
+      value,
+      onChange: onChangeMock
+    });
     const day = parseDate('04/21/1979');
 
     component.simulateDateClick(day);
 
     expect(component.selectedDate()).toBe(day);
+    expect(onChangeMock).toHaveBeenCalledWith('birthday', '04/21/1979');
   });
 
   describe('shows the calendar on the correct position', () => {
