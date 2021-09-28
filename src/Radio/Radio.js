@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { useInputField } from '../hooks';
 
 class Radio extends Component {
   render() {
@@ -17,6 +18,14 @@ class Radio extends Component {
     } = this.props;
 
     const idOrName = id || name;
+    const { inputAriaProps } = useInputField({
+      disabled,
+      error,
+      label: idOrName,
+      name: idOrName,
+      readOnly,
+      required
+    });
 
     return (
       <label
@@ -27,12 +36,6 @@ class Radio extends Component {
         })}
       >
         <input
-          aria-describedby={`${idOrName}-error-msg`}
-          aria-disabled={disabled}
-          aria-invalid={!!error}
-          aria-labelledby={`${idOrName}-label`}
-          aria-readonly={readOnly}
-          aria-required={required}
           className="Radio-input"
           disabled={disabled}
           id={idOrName}
@@ -40,20 +43,20 @@ class Radio extends Component {
           readOnly={readOnly}
           required={required}
           type="Radio"
+          {...inputAriaProps}
           {...otherProps}
         />
         <span className="Radio-label" id={`${idOrName}-label`}>
           {label}
         </span>
-        {error && (
-          <div
-            className="FormGroup-feedback"
-            id={`${idOrName}-error-msg`}
-            role="alert"
-          >
-            {error}
-          </div>
-        )}
+        <div
+          className="FormGroup-feedback"
+          id={`${idOrName}-error-msg`}
+          data-testid={`${idOrName}-error-msg`}
+          aria-live="off"
+        >
+          {typeof error === 'string' ? error : null}
+        </div>
       </label>
     );
   }
@@ -62,7 +65,7 @@ class Radio extends Component {
 Radio.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
-  error: PropTypes.string,
+  error: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   id: PropTypes.string,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   name: PropTypes.string.isRequired,
