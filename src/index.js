@@ -6,6 +6,7 @@ import CardForm from './CardForm';
 import CardFormInput from './CardForm/TextInput';
 import Checkbox from './Checkbox';
 import Datepicker from './Datepicker';
+import Drawer from './Drawer';
 import Dropdown from './Dropdown';
 import FileInput from './FileInput';
 import FormGroup from './FormGroup';
@@ -33,6 +34,7 @@ export {
   CardFormInput,
   Checkbox,
   Datepicker,
+  Drawer,
   Dropdown,
   FileInput,
   FormGroup,
