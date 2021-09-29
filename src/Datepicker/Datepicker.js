@@ -68,13 +68,18 @@ class Datepicker extends Component {
     window.removeEventListener('scroll', this.setStyles);
   }
 
-  setDate = date => {
+  handleOnChange() {
     const { name, onChange, dateFormat } = this.props;
-    const formattedDate = date.format(dateFormat);
+    const { selectedDate } = this.state;
 
+    const formattedDate = selectedDate.format(dateFormat);
+    onChange(name, formattedDate);
+  }
+
+  setDate = date => {
     this.setState({ selectedDate: date }, () => {
-      onChange(name, formattedDate);
       this.setFocus(this.calendarRef);
+      this.handleOnChange();
     });
   };
 
@@ -138,35 +143,59 @@ class Datepicker extends Component {
   };
 
   handleMonthChange = month => {
-    this.setState(prevState => {
-      return {
-        selectedDate: (prevState.selectedDate || today).set('month', month)
-      };
-    }, this.setFocus(this.monthRef));
+    this.setState(
+      prevState => {
+        return {
+          selectedDate: (prevState.selectedDate || today).set('month', month)
+        };
+      },
+      () => {
+        this.setFocus(this.monthRef);
+        this.handleOnChange();
+      }
+    );
   };
 
   handleNextMonthClick = () => {
-    this.setState(prevState => {
-      return {
-        selectedDate: (prevState.selectedDate || today).add(1, 'month')
-      };
-    }, this.setFocus(this.nextMonthRef));
+    this.setState(
+      prevState => {
+        return {
+          selectedDate: (prevState.selectedDate || today).add(1, 'month')
+        };
+      },
+      () => {
+        this.setFocus(this.nextMonthRef);
+        this.handleOnChange();
+      }
+    );
   };
 
   handlePrevMonthClick = () => {
-    this.setState(prevState => {
-      return {
-        selectedDate: (prevState.selectedDate || today).subtract(1, 'month')
-      };
-    }, this.setFocus(this.prevMonthRef));
+    this.setState(
+      prevState => {
+        return {
+          selectedDate: (prevState.selectedDate || today).subtract(1, 'month')
+        };
+      },
+      () => {
+        this.setFocus(this.prevMonthRef);
+        this.handleOnChange();
+      }
+    );
   };
 
   handleYearChange = year => {
-    this.setState(prevState => {
-      return {
-        selectedDate: (prevState.selectedDate || today).set('year', year)
-      };
-    }, this.setFocus(this.yearRef));
+    this.setState(
+      prevState => {
+        return {
+          selectedDate: (prevState.selectedDate || today).set('year', year)
+        };
+      },
+      () => {
+        this.setFocus(this.yearRef);
+        this.handleOnChange();
+      }
+    );
   };
 
   sendBlur() {
