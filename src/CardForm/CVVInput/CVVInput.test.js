@@ -27,9 +27,7 @@ describe('CVVInput', () => {
       const props = { name: 'a_name' };
       const wrapper = shallow(<CVVInput {...props} />);
 
-      expect(
-        wrapper.find('span[className="cvvInput-Icon-Tooltip"]')
-      ).toHaveLength(1);
+      expect(wrapper.find('#cvvInput-Label-Tooltip')).toHaveLength(1);
     });
 
     test('a span with the provided message', () => {
@@ -37,9 +35,24 @@ describe('CVVInput', () => {
       const props = { name: 'a_name', cvvTooltip };
       const wrapper = shallow(<CVVInput {...props} />);
 
-      expect(
-        wrapper.find('span[className="cvvInput-Label-Tooltip"]').text()
-      ).toEqual(cvvTooltip);
+      expect(wrapper.find('#cvvInput-Label-Tooltip').text()).toEqual(
+        cvvTooltip
+      );
+    });
+  });
+
+  describe('tooltip', () => {
+    test('shows the tooltip while the input is focused', () => {
+      const wrapper = shallow(<CVVInput name="a_name" />);
+      const textInput = wrapper.find(TextInput);
+
+      wrapper.find('#cvvInput-Label-Tooltip').hasClass('opacity-0');
+
+      textInput.simulate('focus');
+      wrapper.find('#cvvInput-Label-Tooltip').hasClass('opacity-1');
+
+      textInput.simulate('blur');
+      wrapper.find('#cvvInput-Label-Tooltip').hasClass('opacity-0');
     });
   });
 });
