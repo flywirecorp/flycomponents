@@ -61,7 +61,11 @@ const Calendar = ({
   };
 
   const calendar = (
-    <div className="Calendar Datepicker-calendar" onKeyDown={handleKeyDown}>
+    <div
+      className="Calendar Datepicker-calendar"
+      onKeyDown={handleKeyDown}
+      role="presentation"
+    >
       <Navigation
         selectedDate={selectedDate}
         monthRef={monthRef}

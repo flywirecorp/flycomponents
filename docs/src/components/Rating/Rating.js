@@ -26,6 +26,7 @@ class RatingExample extends React.Component {
             this.setState({ ...this.state, ratingWithErrors })
           }
           rating={ratingWithErrors}
+          name="satisfied"
         />
 
         <Rating
@@ -35,6 +36,7 @@ class RatingExample extends React.Component {
             this.setState({ ...this.state, ratingWithoutErrors })
           }
           rating={ratingWithoutErrors}
+          name="happiness"
         />
       </Component>
     );

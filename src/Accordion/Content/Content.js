@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Content = ({ children, ...props }) => (
-  <div className="Accordion-sectionContentWrapper">
+const Content = ({ children, isActive, ...props }) => (
+  <div className="Accordion-sectionContentWrapper" hidden={!isActive}>
     <div className="Accordion-sectionContent">
       {typeof children === 'function' ? children(props) : children}
     </div>
@@ -11,7 +11,8 @@ const Content = ({ children, ...props }) => (
 
 Content.displayName = 'Content';
 Content.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  isActive: PropTypes.bool
 };
 
 export default Content;

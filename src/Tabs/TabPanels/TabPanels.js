@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../Tabs';
 
 const TabPanels = ({ children }) => (
   <Context.Consumer>
-    {({ activeIndex }) => (
-      <div className="TabPanels">{children[activeIndex]}</div>
+    {({ activeIndex, id }) => (
+      <div className="TabPanels">
+        {Children.map(children, (child, index) =>
+          React.cloneElement(child, {
+            id: `${id}-panel-${index}`,
+            role: 'tabpanel',
+            'aria-labelledby': `${id}-tab-${index}`,
+            style: {
+              ...(index !== activeIndex && {
+                display: 'none'
+              })
+            },
+            'aria-hidden': index !== activeIndex
+          })
+        )}
+      </div>
     )}
   </Context.Consumer>
 );

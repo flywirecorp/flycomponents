@@ -28,5 +28,6 @@ Stars to provide a rating feedback
 | errorText        | no  | string   | Text to display when no star is selected             | ""                |
 | higherRatingText | no  | string   | Text to show next to the lower rating star           | ""                |
 | lowerRatingText  | no  | string   | Text to show next to the higher rating star          | ""                |
+| name             | no  | string   | Name                                                 | "stars"           |
 | onClick          | no  | function | Function to execute when clicking a star             |                   |
 | rating           | no  | number   | Selected star                                        | null              |
