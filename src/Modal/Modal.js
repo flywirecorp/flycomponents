@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Portal from './Portal';
+import Portal from '../Portal';
 import FocusTrap from 'focus-trap-react';
 import { ESC } from '../utils/keycodes';
 
