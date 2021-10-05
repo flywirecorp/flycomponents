@@ -148,7 +148,7 @@ class PhoneNumber extends Component {
           name={name}
           readOnly={readOnly}
           required={required}
-          hasValue={!!value}
+          hasValue={!!formattedNumber}
         >
           <div className="PhoneNumber-field">
             <PrefixSelector
