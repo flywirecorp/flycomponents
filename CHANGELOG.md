@@ -1,8 +1,12 @@
 # Changelog
 
-## 5.0.0 (2020-09-08)
+## 5.1.1 (2020-10-06)
 ### Changed
-- Updated React from v16.8.3 to v17.0.2
+- react and react-dom as peerDependencies
+
+## 5.1.0 (2020-09-08)
+### Added
+- New Drawer component
 
 ## 4.0.0 (2020-02-17)
 ### Removed
