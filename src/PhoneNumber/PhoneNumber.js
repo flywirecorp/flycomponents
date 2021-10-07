@@ -12,7 +12,6 @@ const DEFAULT_PREFIX_LABEL = 'Phone country code';
 class PhoneNumber extends Component {
   constructor(props) {
     super(props);
-    this.numberInputRef = React.createRef();
 
     const { value: currentNumber = NO_VALUE } = this.props;
     const {
@@ -149,7 +148,7 @@ class PhoneNumber extends Component {
           name={name}
           readOnly={readOnly}
           required={required}
-          hasValue={!!value}
+          hasValue={!!formattedNumber}
         >
           <div className="PhoneNumber-field">
             <PrefixSelector
@@ -175,7 +174,6 @@ class PhoneNumber extends Component {
                 onBlur={this.handleBlur}
                 onChange={this.handleChange}
                 onFocus={this.handleFocus}
-                ref={this.numberInputRef}
                 readOnly={readOnly}
                 type="text"
                 value={formattedNumber}

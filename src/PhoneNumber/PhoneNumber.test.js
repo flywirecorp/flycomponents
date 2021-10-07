@@ -14,8 +14,6 @@ describe('PhoneNumber', () => {
       const props = { ...defaultProps, ...ownProps };
 
       this.component = shallow(<PhoneNumber {...props} />);
-
-      this.mockRefs();
     }
 
     input() {
@@ -58,12 +56,6 @@ describe('PhoneNumber', () => {
 
     prefixSelector() {
       return this.component.find(PrefixSelector);
-    }
-
-    mockRefs(mock = () => {}) {
-      this.component.instance().numberInputRef.current = {
-        setSelectionRange: mock
-      };
     }
   }
 
