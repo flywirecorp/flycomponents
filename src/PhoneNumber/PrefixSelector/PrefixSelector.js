@@ -248,10 +248,9 @@ export const PrefixSelector = ({
         type="button"
         role="listbox"
         aria-expanded={isOpen}
-        aria-haspopup="listbox"
         aria-controls="phoneNumber-menu-options"
         aria-activedescendant={
-          selectedIndex === INITIAL_INDEX
+          selectedIndex === INITIAL_INDEX || disabled
             ? undefined
             : `${name}-option-${selectedIndex}`
         }
