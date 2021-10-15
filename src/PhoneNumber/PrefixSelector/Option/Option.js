@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
+import { ENTER } from '../../../utils/keycodes';
 
 class Option extends Component {
   render() {
@@ -21,6 +22,7 @@ class Option extends Component {
           'is-active': hasFocus
         })}
         onClick={() => onClick(isoCode)}
+        onKeyDown={evt => ENTER === evt.keyCode && onClick(isoCode)}
         onMouseEnter={() => onMouseEnter(isoCode)}
         value={isoCode}
         aria-label={`${country} +${dialingCode}`}

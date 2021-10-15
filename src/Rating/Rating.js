@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import FormGroup from '../FormGroup';
+import { ENTER, SPACE } from '../utils/keycodes';
 
 export class Rating extends Component {
   handleClick = e => this.selectStar(e);
@@ -33,12 +34,12 @@ export class Rating extends Component {
   };
 
   render() {
-    const { lowerRatingText, higherRatingText, errorText } = this.props;
+    const { lowerRatingText, higherRatingText, errorText, name } = this.props;
     const numberOfStars = 5;
     const stars = this.createMultipleStars(numberOfStars);
 
     return (
-      <FormGroup name="stars" error={errorText}>
+      <FormGroup name={name} error={errorText}>
         <div className="Rating">
           <span className="textAlign-center fontSize-sm">
             {lowerRatingText}
@@ -57,6 +58,7 @@ Rating.propTypes = {
   errorText: PropTypes.string,
   higherRatingText: PropTypes.string,
   lowerRatingText: PropTypes.string,
+  name: PropTypes.string,
   onClick: PropTypes.func,
   rating: PropTypes.string
 };
@@ -65,6 +67,7 @@ Rating.defaultProps = {
   errorText: '',
   higherRatingText: '',
   lowerRatingText: '',
+  name: 'stars',
   onClick: () => {},
   rating: null
 };
@@ -76,7 +79,14 @@ export const Star = ({ id, selected, error, onClick }) => {
   });
 
   return (
-    <span data-value={id} onClick={onClick} className={starClasses}>
+    <span
+      data-value={id}
+      onClick={onClick}
+      onKeyDown={evt => [ENTER, SPACE].includes(evt.keyCode) && onClick(evt)}
+      className={starClasses}
+      role="button"
+      tabIndex={0}
+    >
       &#9734;
     </span>
   );

@@ -107,18 +107,18 @@ class Modal extends Component {
               this.setState({ activeElement: document.activeElement })
           }}
         >
-          <div
-            aria-modal
-            className={modalClassName}
-            data-testid="Modal"
-            onMouseDown={this.handleMouseDown}
-            role="dialog"
-            tabIndex="-1"
-          >
-            <div className="Modal-dialog" ref={this.modalDialogRef}>
-              {allowClosing && closeButton}
-              <div className="Modal-content" role="document">
-                {children}
+          <div role="presentation" onMouseDown={this.handleMouseDown}>
+            <div
+              aria-modal
+              className={modalClassName}
+              data-testid="Modal"
+              role="dialog"
+            >
+              <div className="Modal-dialog" ref={this.modalDialogRef}>
+                {allowClosing && closeButton}
+                <div className="Modal-content" role="document">
+                  {children}
+                </div>
               </div>
             </div>
           </div>

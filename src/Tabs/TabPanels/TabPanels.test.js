@@ -13,7 +13,8 @@ describe('TabPanels', () => {
       <Context.Provider
         value={{
           activeIndex: 0,
-          onSelectTab: onSelect
+          onSelectTab: onSelect,
+          id: 'my-tabs'
         }}
       >
         <TabPanels>
@@ -25,7 +26,19 @@ describe('TabPanels', () => {
 
     const panel = wrapper.find(TabPanel);
 
-    expect(panel.length).toEqual(1);
-    expect(panel.props().children).toEqual(firstContent);
+    expect(panel.length).toEqual(2);
+    expect(panel.first().props()).toEqual({
+      'aria-labelledby': 'my-tabs-tab-0',
+      children: 'First content',
+      id: 'my-tabs-panel-0',
+      isActive: true
+    });
+
+    expect(panel.last().props()).toEqual({
+      'aria-labelledby': 'my-tabs-tab-1',
+      children: 'Second content',
+      id: 'my-tabs-panel-1',
+      isActive: false
+    });
   });
 });

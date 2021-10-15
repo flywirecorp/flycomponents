@@ -72,7 +72,7 @@ export default () => {
       />
       <Autocomplete
         label="Read only autocomplete"
-        name="country"
+        name="my-country"
         options={countries}
         placeholder="Select a country"
         value="US"

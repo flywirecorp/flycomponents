@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ENTER, SPACE } from '../../utils/keycodes';
 
 const NOOP = () => {};
 const Tab = ({
   children,
   isActive = false,
   isDisabled = false,
+  onClick = NOOP,
   onSelect = NOOP,
-  onClick = NOOP
+  ...rest
 }) => {
   const handleClick = e => {
     if (isDisabled) e.preventDefault();
@@ -17,8 +19,7 @@ const Tab = ({
   };
 
   return (
-    <a
-      href="#"
+    <div
       className={
         isDisabled
           ? 'Tab-link is-disabled'
@@ -26,10 +27,17 @@ const Tab = ({
           ? 'Tab-link is-active'
           : 'Tab-link'
       }
+      aria-disabled={isDisabled}
       onClick={handleClick}
+      onKeyDown={evt =>
+        [ENTER, SPACE].includes(evt.keyCode) && handleClick(evt)
+      }
+      role="tab"
+      tabIndex={0}
+      {...rest}
     >
       {children}
-    </a>
+    </div>
   );
 };
 

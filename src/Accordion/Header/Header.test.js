@@ -17,7 +17,7 @@ describe('Header', () => {
     const setActive = jest.fn();
     const wrapper = shallow(<Header setActive={setActive} />);
 
-    wrapper.find('header').simulate('click');
+    wrapper.find('div').simulate('click');
 
     expect(setActive).toBeCalled();
   });
