@@ -27,12 +27,14 @@ describe('TabList', () => {
   });
 
   test('sends context', () => {
-    const onSelect = jest.fn();
+    const onSelectTabMock = jest.fn();
+    const onChangeMock = jest.fn();
     const wrapper = mount(
       <Context.Provider
         value={{
           activeIndex: 1,
-          onSelectTab: onSelect
+          onSelectTab: onSelectTabMock,
+          onChange: onChangeMock
         }}
       >
         <TabList>
@@ -43,9 +45,11 @@ describe('TabList', () => {
     );
 
     const secondTab = wrapper.find(Tab).last();
-    const onSelectTab = secondTab.props().onSelect;
+
+    secondTab.simulate('click');
 
     expect(secondTab.props().isActive).toBe(true);
-    expect(typeof onSelectTab).toEqual('function');
+    expect(onSelectTabMock).toHaveBeenCalledWith(1);
+    expect(onChangeMock).toHaveBeenCalledWith({ index: 1 });
   });
 });

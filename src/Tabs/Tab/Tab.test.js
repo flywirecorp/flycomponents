@@ -8,7 +8,7 @@ describe('Tab', () => {
   test('renders link', () => {
     const wrapper = shallow(<Tab>{option}</Tab>);
 
-    const link = wrapper.find('a');
+    const link = wrapper.find('div');
 
     expect(wrapper.text()).toEqual(option);
     expect(link.length).toBe(1);
@@ -18,7 +18,7 @@ describe('Tab', () => {
     const isActiveClass = 'is-active';
     const wrapper = shallow(<Tab isActive>{option}</Tab>);
 
-    const link = wrapper.find('a');
+    const link = wrapper.find('div');
 
     expect(link.hasClass(isActiveClass)).toBe(true);
   });
@@ -27,7 +27,7 @@ describe('Tab', () => {
     const disabledClass = 'is-disabled';
     const wrapper = shallow(<Tab isDisabled>{option}</Tab>);
 
-    const link = wrapper.find('a');
+    const link = wrapper.find('div');
 
     expect(link.hasClass(disabledClass)).toBe(true);
   });
@@ -37,7 +37,7 @@ describe('Tab', () => {
 
     const wrapper = shallow(<Tab onSelect={onSelect}>{option}</Tab>);
 
-    const link = wrapper.find('a');
+    const link = wrapper.find('div');
     link.simulate('click');
 
     expect(onSelect).toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe('Tab', () => {
     const onClick = jest.fn();
     const wrapper = shallow(<Tab onClick={onClick}>{option}</Tab>);
 
-    const link = wrapper.find('a');
+    const link = wrapper.find('div');
     link.simulate('click');
 
     expect(onClick).toHaveBeenCalled();
