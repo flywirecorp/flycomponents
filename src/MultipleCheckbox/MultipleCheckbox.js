@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '../Checkbox';
 import FormGroup from '../FormGroup';
-import isEmpty from '../utils/isEmpty';
 
 class MultipleCheckbox extends Component {
   state = {
@@ -44,6 +43,7 @@ class MultipleCheckbox extends Component {
       <Checkbox
         checked={checked.includes(option.value)}
         disabled={disabled}
+        required={required}
         id={`${name}-${option.value}`}
         key={option.value}
         label={option.label}
@@ -62,14 +62,7 @@ class MultipleCheckbox extends Component {
         name={name}
         required={required}
       >
-        <div
-          role="group"
-          aria-labelledby={`${name}-label`}
-          aria-invalid={!isEmpty(error)}
-          aria-required={required}
-        >
-          {checkboxes}
-        </div>
+        <fieldset aria-labelledby={`${name}-label`}>{checkboxes}</fieldset>
       </FormGroup>
     );
   }
