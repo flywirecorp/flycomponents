@@ -477,10 +477,11 @@ export class Autocomplete extends Component {
           aria-haspopup="listbox"
           aria-owns={`${name}-options`}
           aria-labelledby={`${name}-label`}
+          aria-controls={name}
         >
           <input
             aria-activedescendant={
-              this.state.selectedIndex === INITIAL_INDEX
+              this.state.selectedIndex === INITIAL_INDEX || disabled
                 ? undefined
                 : `${name}-option-${this.state.selectedIndex}`
             }

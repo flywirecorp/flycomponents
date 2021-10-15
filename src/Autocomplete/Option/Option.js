@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import Highlighter from '../Highlighter';
+import { ENTER } from '../../utils/keycodes';
 
 class Option extends Component {
   render() {
@@ -32,6 +33,7 @@ class Option extends Component {
         className={classNames('Autocomplete-option', { 'is-active': hasFocus })}
         id={id}
         onClick={() => onClick(value)}
+        onKeyDown={evt => ENTER === evt.keyCode && onClick(value)}
         onMouseEnter={() => onMouseEnter(value)}
         role="option"
         tabIndex={-1}
