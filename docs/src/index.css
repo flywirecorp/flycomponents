@@ -21,9 +21,6 @@
   padding: 1rem 2rem 0 2rem;
   transition: var(--transition);
 }
-.is-open .Docs-nav {
-  padding-left: 190px;
-}
 
 .Docs-navMenu {
   margin: 0;
@@ -39,17 +36,6 @@
   transition: var(--transition);
 }
 
-.is-open .Docs-navMenu {
-  display: block;
-  transform: translateX(0);
-}
-
-.Docs-icon {
-  display: inline-block;
-  margin-right: 1rem;
-  cursor: pointer;
-}
-
 .Docs-navTitle {
   display: inline-block;
   font-size: 1rem;
@@ -59,9 +45,6 @@
 .Docs-content {
   width: 100%;
   transition: var(--transition);
-}
-.is-open .Docs-content {
-  padding-left: 160px;
 }
 
 .Docs-navVersion {

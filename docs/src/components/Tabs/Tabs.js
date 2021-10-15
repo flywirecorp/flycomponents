@@ -20,15 +20,15 @@ export default () => {
           <TabPanel>First option content</TabPanel>
           <TabPanel>Second option content</TabPanel>
           <TabPanel>
-            {({ selectTab }) => (
-              <Button
-                className="Button Button--primary"
-                onClick={() => {
-                  selectTab(0);
-                }}
-              >
-                Go to first
-              </Button>
+            {({ selectTab, ...rest }) => (
+              <div {...rest}>
+                <Button
+                  className="Button Button--primary"
+                  onClick={() => selectTab(0)}
+                >
+                  Go to first
+                </Button>
+              </div>
             )}
           </TabPanel>
           <TabPanel>Third option content</TabPanel>

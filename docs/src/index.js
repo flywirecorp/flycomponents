@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import {
   HashRouter as Router,
@@ -33,12 +33,11 @@ import Rating from './components/Rating';
 import Home from './components/Home';
 import Radio from './components/Radio';
 import Switch from './components/Switch';
-import icon from './images/hamburger-menu.svg';
 import forkme from './images/forkme.svg';
 
 import './index.css';
 
-const { bool, func, string } = PropTypes;
+const { bool, string } = PropTypes;
 
 const routes = [
   {
@@ -187,57 +186,30 @@ MenuLink.propTypes = {
   to: string
 };
 
-class NavBar extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { open: false };
-  }
-
-  handleClick = () => {
-    this.setState(
-      prevState => ({ open: !prevState.open }),
-      () => {
-        this.props.onChange(this.state.open);
-      }
-    );
-  };
-
-  render() {
-    return (
-      <nav className="Docs-nav" aria-label="Components navigation">
-        <img
-          className="Docs-icon"
-          src={icon}
-          onClick={this.handleClick}
-          alt=""
-        />
-        <Title />
-        <ul className="Docs-navMenu">
-          {routes.map((route, index) => (
-            <MenuLink
-              key={index}
-              activeOnlyWhenExact={route.exact}
-              to={route.path}
-              label={route.label}
-            />
-          ))}
-        </ul>
-        <a href="https://github.com/peertransfer/flycomponents">
-          <img
-            style={{ position: 'absolute', top: 0, right: 0, border: 0 }}
-            src={forkme}
-            alt="Fork me on GitHub"
+function NavBar() {
+  return (
+    <nav className="Docs-nav" aria-label="Components navigation">
+      <Title />
+      <ul className="Docs-navMenu">
+        {routes.map((route, index) => (
+          <MenuLink
+            key={index}
+            activeOnlyWhenExact={route.exact}
+            to={route.path}
+            label={route.label}
           />
-        </a>
-      </nav>
-    );
-  }
+        ))}
+      </ul>
+      <a href="https://github.com/peertransfer/flycomponents">
+        <img
+          style={{ position: 'absolute', top: 0, right: 0, border: 0 }}
+          src={forkme}
+          alt="Fork me on GitHub"
+        />
+      </a>
+    </nav>
+  );
 }
-
-NavBar.propTypes = {
-  onChange: func
-};
 
 const Content = () => (
   <main className="Docs-content">
@@ -254,29 +226,15 @@ const Content = () => (
   </main>
 );
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { open: false };
-  }
-
-  handleChange = open => {
-    this.setState({
-      open: open
-    });
-  };
-
-  render() {
-    return (
-      <Router hashType="noslash">
-        <div className={`Docs ${this.state.open ? 'is-open' : ''}`}>
-          <NavBar onChange={this.handleChange} />
-          <Content />
-        </div>
-      </Router>
-    );
-  }
+function App() {
+  return (
+    <Router hashType="noslash">
+      <div className="Docs">
+        <NavBar />
+        <Content />
+      </div>
+    </Router>
+  );
 }
 
 render(<App />, document.getElementById('app'));
