@@ -5,7 +5,7 @@ import Options from './Options';
 describe('Options', () => {
   test('renders children when passed in', () => {
     const component = shallow(
-      <Options>
+      <Options name="test">
         <h1>An option</h1>
       </Options>
     );

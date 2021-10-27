@@ -237,7 +237,6 @@ export const PrefixSelector = ({
         { 'is-searching': isOpen },
         'PhoneNumber-menu'
       )}
-      aria-label={label}
     >
       <button
         disabled={disabled}
@@ -248,18 +247,20 @@ export const PrefixSelector = ({
         type="button"
         role="listbox"
         aria-expanded={isOpen}
-        aria-controls="phoneNumber-menu-options"
+        aria-controls={`${name}-menu-options`}
         aria-activedescendant={
           selectedIndex === INITIAL_INDEX || disabled
             ? undefined
             : `${name}-option-${selectedIndex}`
         }
-        aria-label={dialingCode && `+${dialingCode}`}
+        aria-label={dialingCode ? `+${dialingCode}` : label}
         ref={buttonRef}
       >
         {dialingCode && `+ ${dialingCode}`}
       </button>
-      <Options forwardRef={optionListRef}>{optionList}</Options>
+      <Options forwardRef={optionListRef} name={name}>
+        {optionList}
+      </Options>
       <div
         role="status"
         aria-live="polite"
