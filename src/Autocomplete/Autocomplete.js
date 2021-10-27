@@ -481,7 +481,7 @@ export class Autocomplete extends Component {
         >
           <input
             aria-activedescendant={
-              this.state.selectedIndex === INITIAL_INDEX || disabled
+              this.state.selectedIndex === INITIAL_INDEX || disabled || !isOpen
                 ? undefined
                 : `${name}-option-${this.state.selectedIndex}`
             }

@@ -249,7 +249,7 @@ export const PrefixSelector = ({
         aria-expanded={isOpen}
         aria-controls={`${name}-menu-options`}
         aria-activedescendant={
-          selectedIndex === INITIAL_INDEX || disabled
+          selectedIndex === INITIAL_INDEX || disabled || !isOpen
             ? undefined
             : `${name}-option-${selectedIndex}`
         }
