@@ -245,7 +245,6 @@ export const PrefixSelector = ({
         onClick={handleMenuClick}
         readOnly={readOnly}
         type="button"
-        role="listbox"
         aria-expanded={isOpen}
         aria-controls={`${name}-menu-options`}
         aria-activedescendant={
