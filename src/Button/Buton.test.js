@@ -1,38 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Button from './Button';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('Button', () => {
-  class ButtonComponent {
-    constructor({ children, ...ownProps }) {
-      const defaultProps = {};
-      const props = { ...defaultProps, ...ownProps };
+  test('renders a button with "Submit" text by default', () => {
+    const { getByText } = render(<Button />);
 
-      this.component = shallow(
-        <Button {...props}>{children || 'a message'}</Button>
-      );
-    }
-
-    find(ele) {
-      return this.component.find(ele);
-    }
-
-    container() {
-      return this.component.find('.Button');
-    }
-  }
-
-  test('renders a button', () => {
-    const props = { type: 'button' };
-    const wrapper = shallow(<Button {...props} />);
-
-    expect(wrapper.length).toEqual(1);
+    expect(getByText(/submit/i)).toBeInTheDocument();
   });
 
-  test('renders children passed in', () => {
-    const children = <div className="unique" />;
-    const component = new ButtonComponent({ children });
+  test('renders children in Button', () => {
+    const children = 'Save';
 
-    expect(component.find('.unique')).toHaveLength(1);
+    const { getByText } = render(<Button>{children}</Button>);
+
+    expect(getByText(children)).toBeInTheDocument();
+  });
+
+  test('calls function onClick when click', () => {
+    const onClick = jest.fn();
+
+    const { getByText } = render(<Button onClick={onClick} />);
+    fireEvent.click(getByText(/submit/i));
+
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  test('accepts other properties', () => {
+    const { getByText } = render(<Button disabled />);
+
+    expect(getByText(/submit/i)).toBeDisabled();
   });
 });

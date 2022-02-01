@@ -56,7 +56,7 @@ describe('CardForm', () => {
       ${'name'}       | ${'a_name'}           | ${'invalid_name'}
       ${'surname'}    | ${'a_surname'}        | ${'invalid_surname'}
       ${'cardNumber'} | ${'4111111111111111'} | ${'invalid_card_number'}
-      ${'expiryDate'} | ${'12/21'}            | ${'invalid_expiry_date'}
+      ${'expiryDate'} | ${'12/99'}            | ${'invalid_expiry_date'}
       ${'cvv'}        | ${'555'}              | ${'invalid_cvv'}
     `('$fieldName is required', ({ fieldName, fieldValue, error }) => {
       const errors = {

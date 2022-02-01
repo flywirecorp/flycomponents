@@ -1,6 +1,6 @@
 {
   "name": "flycomponents",
-  "version": "5.2.5",
+  "version": "5.2.6",
   "description": "Flywire React components",
   "main": "./dist/flycomponents.js",
   "scripts": {
@@ -50,6 +50,8 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@flywire/prettier-config": "^1.1.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
@@ -101,7 +103,8 @@
       "jest-watch-typeahead/testname"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/jest/enableHooks.js"
+      "<rootDir>/jest/enableHooks.js",
+      "<rootDir>/jest/extendExpect.js"
     ]
   }
 }
