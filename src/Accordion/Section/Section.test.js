@@ -1,40 +1,38 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Section from './Section';
 
 describe('Section', () => {
   test('renders its children', () => {
-    const wrapper = shallow(
-      <Section>
-        <div className="unique" />
+    const { getByText } = render(
+      <Section>{() => <div>Some content</div>}</Section>
+    );
+
+    expect(getByText(/some content/i)).toBeInTheDocument();
+  });
+
+  test('drills props to children', () => {
+    const { getByText } = render(
+      <Section showComponent>
+        {({ showComponent }) =>
+          showComponent ? <div>Some content</div> : null
+        }
       </Section>
     );
+    const content = getByText(/some content/i);
 
-    expect(wrapper.contains(<div className="unique" success={false} />)).toBe(
-      true
-    );
+    expect(content).toBeInTheDocument();
   });
 
-  test('shares props with children', () => {
-    shallow(
-      <Section isActive>
-        {({ isActive }) => {
-          expect(isActive).toBe(true);
-          return null;
-        }}
-      </Section>
-    );
+  test('has is-active class', () => {
+    const { container } = render(<Section isActive />);
+
+    expect(container.firstChild).toHaveClass('is-active');
   });
 
-  test('has a is-active class', () => {
-    const wrapper = shallow(<Section isActive />);
+  test('has has-success class', () => {
+    const { container } = render(<Section success />);
 
-    expect(wrapper.find('section.is-active')).toHaveLength(1);
-  });
-
-  test('has a has-success class', () => {
-    const wrapper = shallow(<Section success />);
-
-    expect(wrapper.find('section.has-success')).toHaveLength(1);
+    expect(container.firstChild).toHaveClass('has-success');
   });
 });

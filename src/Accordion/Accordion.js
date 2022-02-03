@@ -1,49 +1,31 @@
-import React, { Children, Component, cloneElement } from 'react';
+import React, { Children, cloneElement, useState } from 'react';
 import PropTypes from 'prop-types';
 
-class Accordion extends Component {
-  static propTypes = {
-    activeChildIndex: PropTypes.number,
-    children: PropTypes.node
-  };
+function Accordion({ activeChildIndex = 0, children = [] }) {
+  const [activeChild, setActiveChild] = useState(activeChildIndex);
 
-  static defaultProps = {
-    activeChildIndex: 0,
-    children: []
-  };
+  const amountOfChildren = Children.count(children);
+  const elements = Children.map(
+    children,
+    (child, index) =>
+      child &&
+      cloneElement(child, {
+        isActive: index === activeChild,
+        setActive: () => setActiveChild(index),
+        setNextActive: () => {
+          const nextIndex = activeChild + 1;
+          const isLastChild = index === amountOfChildren - 1;
+          setActiveChild(isLastChild ? index : nextIndex);
+        }
+      })
+  );
 
-  constructor(props) {
-    super(props);
-
-    const { activeChildIndex } = this.props;
-    this.state = {
-      activeChildIndex
-    };
-  }
-
-  render() {
-    const { children } = this.props;
-    const { activeChildIndex } = this.state;
-    const numberOfChildren = Children.count(children);
-    const elements = Children.map(children, (child, index) => {
-      return (
-        child &&
-        cloneElement(child, {
-          isActive: index === activeChildIndex,
-          setActive: () => this.setState({ activeChildIndex: index }),
-          setNextActive: () => {
-            const nextIndex = activeChildIndex + 1;
-            const isLastChild = index === numberOfChildren - 1;
-            this.setState({
-              activeChildIndex: isLastChild ? index : nextIndex
-            });
-          }
-        })
-      );
-    });
-
-    return <div className="Accordion">{elements}</div>;
-  }
+  return <div className="Accordion">{elements}</div>;
 }
+
+Accordion.propTypes = {
+  activeChildIndex: PropTypes.number,
+  children: PropTypes.node
+};
 
 export default Accordion;
