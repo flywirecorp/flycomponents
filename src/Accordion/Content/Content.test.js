@@ -1,15 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Content from './Content';
 
 describe('Content', () => {
   it('renders its children', () => {
-    const wrapper = shallow(
-      <Content>
-        <div className="unique" />
-      </Content>
-    );
+    const { getByText } = render(<Content>some content</Content>);
 
-    expect(wrapper.contains(<div className="unique" />)).toBe(true);
+    expect(getByText(/some content/i)).toBeInTheDocument();
   });
 });

@@ -1,77 +1,103 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, fireEvent } from '@testing-library/react';
 import Accordion from './Accordion';
+import Header from './Header';
+import Section from './Section';
 
 describe('Accordion', () => {
-  const setup = (accordionProps = {}) => {
-    const Section = () => <section />;
-    const component = shallow(
-      <Accordion {...accordionProps}>
+  test('renders its children', () => {
+    const { getByText } = render(
+      <Accordion>
+        <Section>{() => <div>Some content</div>}</Section>
+      </Accordion>
+    );
+
+    expect(getByText(/some content/i)).toBeInTheDocument();
+  });
+
+  test('sets first child as active', () => {
+    const { container } = render(
+      <Accordion>
         <Section />
         <Section />
       </Accordion>
     );
+    const firstSection = container.getElementsByTagName('section')[0];
 
-    const firstSection = component.find(Section).first();
-    const secondSection = component.find(Section).last();
-
-    return { component, firstSection, secondSection };
-  };
-
-  test('renders its children', () => {
-    const { component } = setup();
-
-    expect(component.children()).toHaveLength(2);
+    expect(firstSection.className.includes('is-active')).toBe(true);
   });
 
-  test('sets first child as active', () => {
-    const { firstSection } = setup();
+  test('sets other children as no active', () => {
+    const { container } = render(
+      <Accordion>
+        <Section />
+        <Section />
+      </Accordion>
+    );
+    const secondSection = container.getElementsByTagName('section')[1];
 
-    expect(firstSection.prop('isActive')).toBe(true);
-  });
-
-  test('sets second child as no active', () => {
-    const { secondSection } = setup();
-
-    expect(secondSection.prop('isActive')).toBe(false);
+    expect(secondSection.className.includes('is-active')).toBe(false);
   });
 
   describe('activeChildIndex', () => {
-    test('sets second child as active', () => {
+    test('sets selected child as active', () => {
       const props = { activeChildIndex: 1 };
-      const { firstSection, secondSection } = setup(props);
 
-      expect(firstSection.prop('isActive')).toBe(false);
-      expect(secondSection.prop('isActive')).toBe(true);
+      const { container } = render(
+        <Accordion {...props}>
+          <Section />
+          <Section />
+        </Accordion>
+      );
+      const firstSection = container.getElementsByTagName('section')[0];
+      const secondSection = container.getElementsByTagName('section')[1];
+
+      expect(firstSection.className.includes('is-active')).toBe(false);
+      expect(secondSection.className.includes('is-active')).toBe(true);
     });
   });
 
   describe('setActive', () => {
-    test('sets second child as active', () => {
-      const { component, secondSection } = setup();
+    test('sets child as active', () => {
+      const { container, getByText } = render(
+        <Accordion>
+          <Section />
+          <Section>
+            <Header>Some header</Header>
+          </Section>
+        </Accordion>
+      );
+      const header = getByText(/some header/i);
+      fireEvent.click(header);
+      const firstSection = container.getElementsByTagName('section')[0];
+      const secondSection = container.getElementsByTagName('section')[1];
 
-      expect(component.state().activeChildIndex).toBe(0);
-      secondSection.prop('setActive')();
-      expect(component.state().activeChildIndex).toBe(1);
+      expect(firstSection.className.includes('is-active')).toBe(false);
+      expect(secondSection.className.includes('is-active')).toBe(true);
     });
   });
 
   describe('setNextActive', () => {
     test('sets second child as active', () => {
-      const { component, secondSection } = setup();
+      const { container, getByText } = render(
+        <Accordion>
+          <Section>
+            {({ setNextActive }) => (
+              <div>
+                <button onClick={setNextActive}>Next</button>
+              </div>
+            )}
+          </Section>
+          <Section />
+        </Accordion>
+      );
+      const nextButton = getByText(/next/i);
+      fireEvent.click(nextButton);
+      const firstSection = container.getElementsByTagName('section')[0];
+      const secondSection = container.getElementsByTagName('section')[1];
 
-      expect(component.state().activeChildIndex).toBe(0);
-      secondSection.prop('setNextActive')();
-      expect(component.state().activeChildIndex).toBe(1);
-    });
-
-    test('sets second child as active', () => {
-      const props = { activeChildIndex: 1 };
-      const { component, secondSection } = setup(props);
-
-      expect(component.state().activeChildIndex).toBe(1);
-      secondSection.prop('setNextActive')();
-      expect(component.state().activeChildIndex).toBe(1);
+      expect(firstSection.className.includes('is-active')).toBe(false);
+      expect(secondSection.className.includes('is-active')).toBe(true);
     });
   });
 });

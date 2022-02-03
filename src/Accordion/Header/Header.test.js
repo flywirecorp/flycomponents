@@ -1,24 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render } from '@testing-library/react';
 import Header from './Header';
 
 describe('Header', () => {
   it('renders its children', () => {
-    const wrapper = shallow(
-      <Header>
-        <div className="div" />
-      </Header>
-    );
+    const { getByText } = render(<Header>some content</Header>);
 
-    expect(wrapper.find('.div').length).toEqual(1);
+    expect(getByText(/some content/i)).toBeInTheDocument();
   });
 
-  it('executes setActive when click', () => {
-    const setActive = jest.fn();
-    const wrapper = shallow(<Header setActive={setActive} />);
+  describe('when clicked', () => {
+    it('sets the section as active', () => {
+      const setActive = jest.fn();
 
-    wrapper.find('div').simulate('click');
+      const { getByText } = render(
+        <Header setActive={setActive}>Some header</Header>
+      );
+      const header = getByText(/some header/i);
+      fireEvent.click(header);
 
-    expect(setActive).toBeCalled();
+      expect(setActive).toHaveBeenCalled();
+    });
   });
 });
