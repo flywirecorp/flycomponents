@@ -1,95 +1,101 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Input from './Input';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('Input', () => {
-  class InputComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        name: 'name',
-        type: 'text'
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Input {...props} />);
-    }
-
-    input() {
-      return this.component.find('input');
-    }
-  }
-
   test('renders an input', () => {
     const name = 'amount';
+    const id = 'input';
+
+    const { getByTestId } = render(<Input data-testid={id} name={name} />);
+
+    expect(getByTestId(id)).toBeInTheDocument();
+  });
+
+  test('renders an input and change its value', () => {
+    const name = 'amount';
     const type = 'number';
-    const component = new InputComponent({ name, type });
+    const id = 'input';
+    const value = '33.33';
 
-    expect(component.input()).toHaveLength(1);
+    const inputRenderer = render(
+      <Input data-testid={id} name={name} type={type} />
+    );
+    const { getByTestId } = inputRenderer;
+    const input = getByTestId(id);
+    userEvent.type(input, value);
 
-    expect(component.input().prop('name')).toBe('amount');
-
-    expect(component.input().prop('type')).toBe('number');
+    expect(input).toBeInTheDocument();
+    expect(input.value).toBe(value);
   });
 
-  test('renders a read-only input if the property is set', () => {
-    const component = new InputComponent({ readOnly: true });
+  test('renders a read-only input', () => {
+    const name = 'text';
+    const id = 'input';
+    const readOnly = true;
+    const value = 'Good Morning';
 
-    expect(component.input().prop('readOnly')).toBe(true);
+    const inputRenderer = render(
+      <Input data-testid={id} name={name} readOnly={readOnly} />
+    );
+    const { getByTestId } = inputRenderer;
+    const input = getByTestId(id);
+
+    expect(input.value).toBe('');
+    userEvent.type(input, value);
+
+    expect(input).toBeInTheDocument();
+    expect(input.value).toBe('');
   });
 
-  describe('when value property is given', () => {
-    test('sets default value', () => {
-      const component = componentWithValue('Something');
+  test('renders input with default Value', () => {
+    const name = 'text';
+    const id = 'input';
+    const value = 'Good Morning';
 
-      expect(component.input().prop('defaultValue')).toBe('Something');
-    });
+    const { getByTestId } = render(
+      <Input data-testid={id} name={name} value={value} />
+    );
+    const input = getByTestId(id);
 
-    test('never sets value property', () => {
-      const component = componentWithValue();
-
-      expect(component.input().prop('value')).toBeUndefined();
-    });
-
-    function componentWithValue(value = 'anything') {
-      return new InputComponent({ value });
-    }
+    expect(input).toBeInTheDocument();
+    expect(input.value).toBe(value);
   });
 
-  describe('aria-describedby attribute', () => {
-    expect(
-      new InputComponent({
-        name: 'name'
-      })
-        .input()
-        .prop('aria-describedby')
-    ).toBeUndefined();
+  test('renders a disabled input', () => {
+    const name = 'amount';
+    const id = 'input';
 
-    expect(
-      new InputComponent({
-        name: 'name',
-        error: 'ups'
-      })
-        .input()
-        .prop('aria-describedby')
-    ).toEqual('name-error-msg');
+    const { getByTestId } = render(
+      <Input data-testid={id} name={name} disabled />
+    );
 
-    expect(
-      new InputComponent({
-        name: 'name',
-        hint: 'hint'
-      })
-        .input()
-        .prop('aria-describedby')
-    ).toEqual('name-hint-msg');
+    expect(getByTestId(id)).toBeInTheDocument();
+    expect(getByTestId(id)).toBeDisabled();
+  });
 
-    expect(
-      new InputComponent({
-        name: 'name',
-        hint: 'hint',
-        ariaDescribedBy: 'wadus'
-      })
-        .input()
-        .prop('aria-describedby')
-    ).toEqual('name-hint-msg wadus');
+  test('renders a required input', () => {
+    const name = 'amount';
+    const id = 'input';
+
+    const { getByTestId } = render(
+      <Input data-testid={id} name={name} required />
+    );
+
+    expect(getByTestId(id)).toBeInTheDocument();
+    expect(getByTestId(id)).toBeRequired();
+  });
+
+  test('renders input with error', () => {
+    const name = 'amountname';
+    const id = 'input';
+    const error = 'ups';
+
+    const { getByTestId } = render(
+      <Input error={error} data-testid={id} name={name} />
+    );
+
+    expect(getByTestId(id)).toBeInvalid();
   });
 });
