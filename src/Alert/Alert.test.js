@@ -1,38 +1,40 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Alert from './Alert';
+import { render } from '@testing-library/react';
 
 describe('Alert', () => {
-  class AlertComponent {
-    constructor({ children, ...ownProps }) {
-      const defaultProps = {};
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(
-        <Alert {...props}>{children || 'a message'}</Alert>
-      );
-    }
-
-    find(ele) {
-      return this.component.find(ele);
-    }
-
-    container() {
-      return this.component.find('.Alert');
-    }
-  }
-
   test('renders children passed in', () => {
-    const children = <div className="unique" />;
-    const component = new AlertComponent({ children });
+    const testId = 'paragraph_test_id';
+    const paragraphString = 'Inner paragraph';
+    const children = <p data-testid={testId}>{paragraphString}</p>;
 
-    expect(component.find('.unique')).toHaveLength(1);
+    const { getByTestId, getByText } = render(<Alert>{children}</Alert>);
+
+    expect(getByTestId(testId)).toBeInTheDocument();
+    expect(getByText(paragraphString)).toBeInTheDocument();
+  });
+
+  test('renders Alert with custom role', () => {
+    const role = 'custom_role';
+    const children = <p>Inner paragraph</p>;
+
+    const { getByRole } = render(<Alert role={role}>{children}</Alert>);
+
+    expect(getByRole(role)).toBeInTheDocument();
   });
 
   test('renders diferent warning levels', () => {
-    const type = 'danger';
-    const component = new AlertComponent({ type });
+    const types = ['danger', 'warning', 'info', 'success'];
+    const children = <p>Inner paragraph</p>;
 
-    expect(component.container().hasClass('Alert--danger')).toBe(true);
+    for (let i = 0; i < types.length; i++) {
+      const { getByTestId } = render(
+        <Alert type={types[i]} data-testid={`id_${types[i]}`}>
+          {children}
+        </Alert>
+      );
+
+      expect(getByTestId(`id_${types[i]}`)).toHaveClass(`Alert--${types[i]}`);
+    }
   });
 });
