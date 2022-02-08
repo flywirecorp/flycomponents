@@ -1,39 +1,29 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Checkbox from './Checkbox';
+import { render } from '@testing-library/react';
 
 describe('Checkbox', () => {
-  class CheckboxComponent {
-    constructor(props) {
-      this.component = shallow(<Checkbox {...props} />);
-    }
-
-    label(name) {
-      return this.component.find(`label[htmlFor="${name}"]`).length;
-    }
-
-    errorMsg() {
-      return this.component.find(`.FormGroup-feedback`).length;
-    }
-  }
-  const props = { id: 'a_id', name: 'a_name' };
-
   test('renders a checkbox', () => {
-    const wrapper = shallow(<Checkbox {...props} />);
+    const props = { 'data-testid': 'a_id', name: 'a_name' };
 
-    expect(wrapper.length).toEqual(1);
+    const { getByTestId } = render(<Checkbox {...props} />);
+
+    expect(getByTestId(props['data-testid'])).toBeInTheDocument();
   });
 
   test('renders a checkbox label', () => {
-    const component = new CheckboxComponent(props);
+    const props = { label: 'a_label', name: 'a_name_labelled' };
 
-    expect(component.label('a_id')).toEqual(1);
+    const { getByText } = render(<Checkbox {...props} />);
+
+    expect(getByText(props.label)).toBeInTheDocument();
   });
 
   test('renders a checkbox with error', () => {
-    const props = { error: 'a_error', name: 'a_name' };
-    const component = new CheckboxComponent(props);
+    const props = { error: 'a_error', name: 'a_name', id: 'a_id' };
 
-    expect(component.errorMsg()).toEqual(1);
+    const { getByTestId } = render(<Checkbox {...props} />);
+
+    expect(getByTestId(`${props.id}-error-msg`)).toBeInTheDocument();
   });
 });
