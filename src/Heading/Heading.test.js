@@ -1,59 +1,77 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { Heading } from './Heading';
+import { render } from '@testing-library/react';
 
 describe('Heading', () => {
   describe('render', () => {
     test('show the default component', () => {
-      const wrapper = shallow(<Heading />);
+      const { container } = render(<Heading />);
 
-      expect(wrapper.find('h1.Heading').length).toEqual(1);
+      expect(container.querySelector('h1')).toBeInTheDocument();
+      expect(container.querySelector('h1')).toHaveClass(
+        'Heading Heading--huge'
+      );
     });
 
     test('shows the sent text to the component', () => {
       const text = 'a_text';
-      const wrapper = shallow(<Heading>{text}</Heading>);
-      const h1 = wrapper.find('h1.Heading');
 
-      expect(h1.text()).toEqual(text);
+      const { getByText } = render(<Heading>{text}</Heading>);
+
+      expect(getByText(text)).toBeInTheDocument();
     });
 
     test('shows a large component when type large is sent', () => {
-      const wrapper = shallow(<Heading size="large" />);
+      const size = 'large';
 
-      expect(wrapper.find('h1.Heading--large').length).toEqual(1);
-    });
+      const { container } = render(<Heading size={size} />);
 
-    test('shows custom class on heading component', () => {
-      const wrapper = shallow(<Heading size="large" />);
-
-      expect(wrapper.find('.Heading--large').length).toEqual(1);
+      expect(container.querySelector('h1')).toHaveClass(
+        'Heading Heading--large'
+      );
     });
 
     test('customizes heading tag', () => {
-      const wrapper = shallow(<Heading as="h5" />);
+      const tag = 'h5';
 
-      expect(wrapper.find('h5.Heading').length).toEqual(1);
+      const { container } = render(<Heading as={tag} />);
+
+      expect(container.querySelector('h5')).toBeInTheDocument();
     });
 
     test('shows error when invalid heading tag', () => {
-      expect(() => {
-        shallow(<Heading as="p" />);
-      }).toThrow('Unsupported type');
+      const invalidTag = 'p';
+      const err = console.error;
+      console.error = jest.fn();
+      let actual;
+
+      try {
+        render(<Heading as={invalidTag} />);
+      } catch (error) {
+        actual = error.message;
+      }
+
+      expect(actual).toEqual('Unsupported type');
+
+      console.error = err;
     });
 
     test('merges classNames sent with their default classes', () => {
-      const wrapper = shallow(<Heading className="customClass" />);
+      const customClass = 'custom-class';
 
-      expect(wrapper.find('.Heading.customClass').length).toEqual(1);
+      const { container } = render(<Heading className={customClass} />);
+
+      expect(container.querySelector('h1')).toHaveClass(
+        `Heading Heading--huge ${customClass}`
+      );
     });
 
     test('adds custom attributes', () => {
-      const wrapper = shallow(
-        <Heading className="customClass" data-testid="custom" />
-      );
+      const id = 'custom';
 
-      expect(wrapper.find('.Heading[data-testid="custom"]').length).toEqual(1);
+      const { getByTestId } = render(<Heading data-testid={id} />);
+
+      expect(getByTestId(id)).toBeInTheDocument();
     });
   });
 });
