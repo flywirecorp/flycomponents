@@ -1,71 +1,70 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { FileInput } from './FileInput';
+import { render } from '@testing-library/react';
+import { Simulate } from 'react-dom/test-utils';
 
 describe('FileInput', () => {
   describe('renders elements texts', () => {
     test('renders submit button text', () => {
       const buttonText = 'a_text';
-      const wrapper = shallow(<FileInput buttonText={buttonText} />);
+      const expectedTestId = 'submitButton';
+      const { getByTestId, getByText } = render(
+        <FileInput buttonText={buttonText} />
+      );
 
-      const button = wrapper.find('[data-testid="submitButton"]');
-
-      expect(button.text()).toContain(buttonText);
+      expect(getByTestId(expectedTestId)).toBeInTheDocument();
+      expect(getByText(buttonText)).toBeInTheDocument();
     });
 
     test('renders a hint', () => {
       const hint = 'a_hint';
-      const wrapper = shallow(<FileInput hint={hint} />);
+      const hintTestId = 'hint';
 
-      const hintParagraf = wrapper.find('[data-testid="hint"]');
+      const { getByTestId, getByText } = render(<FileInput hint={hint} />);
 
-      expect(hintParagraf.props().dangerouslySetInnerHTML.__html).toContain(
-        hint
-      );
+      expect(getByTestId(hintTestId)).toBeInTheDocument();
+      expect(getByText(hint)).toBeInTheDocument();
     });
   });
 
   test('handles on change events', () => {
+    const id = 'fileInput';
     const onChange = jest.fn();
-    const wrapper = shallow(<FileInput onChange={onChange} />);
-    const input = wrapper.find('[data-testid="fileInput"]');
 
-    input.simulate('change');
+    const { getByTestId } = render(<FileInput onChange={onChange} />);
+    Simulate.change(getByTestId(id), { target: { value: 'abcdef' } });
 
     expect(onChange).toBeCalled();
   });
 
-  test('accepts accepted extensions', () => {
+  test('accepts accepted extensions', async () => {
     const expectedExtension = '.jpg';
-    const wrapper = shallow(<FileInput accepts={expectedExtension} />);
 
-    const inputFile = wrapper.find('[data-testid="fileInput"]');
+    const { getByTestId } = render(<FileInput accepts={expectedExtension} />);
 
-    expect(inputFile.prop('accept')).toEqual(expectedExtension);
+    expect(getByTestId('fileInput')).toHaveProperty(
+      'accept',
+      expectedExtension
+    );
   });
 
   test('accepts multiple files', () => {
-    const wrapper = shallow(<FileInput multiple />);
+    const { getByTestId } = render(<FileInput multiple />);
 
-    const inputFile = wrapper.find('[data-testid="fileInput"]');
-
-    expect(inputFile.prop('multiple')).toBe(true);
+    expect(getByTestId('fileInput')).toHaveProperty('multiple');
   });
 
   test('renders a spinner animation while uploading', () => {
     const animationClass = 'FileInput--uploading';
-    const wrapper = shallow(<FileInput uploading />);
 
-    const button = wrapper.find('[data-testid="submitButton"]');
+    const { getByTestId } = render(<FileInput uploading />);
 
-    expect(button.hasClass(animationClass)).toBe(true);
+    expect(getByTestId('submitButton')).toHaveClass(animationClass);
   });
 
   test('renders disabled while uploading', () => {
-    const wrapper = shallow(<FileInput uploading />);
+    const { getByTestId } = render(<FileInput uploading />);
 
-    const button = wrapper.find('[data-testid="submitButton"]');
-
-    expect(button.prop('disabled')).toBe(true);
+    expect(getByTestId('submitButton')).toBeDisabled();
   });
 });
