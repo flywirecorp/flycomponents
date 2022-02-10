@@ -1,7 +1,6 @@
 import React from 'react';
 import { FileInput } from './FileInput';
-import { render } from '@testing-library/react';
-import { Simulate } from 'react-dom/test-utils';
+import { render, fireEvent } from '@testing-library/react';
 
 describe('FileInput', () => {
   describe('renders elements texts', () => {
@@ -29,23 +28,22 @@ describe('FileInput', () => {
 
   test('handles on change events', () => {
     const id = 'fileInput';
+    const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     const onChange = jest.fn();
 
     const { getByTestId } = render(<FileInput onChange={onChange} />);
-    Simulate.change(getByTestId(id), { target: { value: 'abcdef' } });
+    fireEvent.change(getByTestId(id), { target: { file: file } });
 
     expect(onChange).toBeCalled();
   });
 
   test('accepts accepted extensions', async () => {
+    const id = 'fileInput';
     const expectedExtension = '.jpg';
 
     const { getByTestId } = render(<FileInput accepts={expectedExtension} />);
 
-    expect(getByTestId('fileInput')).toHaveProperty(
-      'accept',
-      expectedExtension
-    );
+    expect(getByTestId(id)).toHaveProperty('accept', expectedExtension);
   });
 
   test('accepts multiple files', () => {
