@@ -1,7 +1,6 @@
 import React from 'react';
 import Input from './Input';
-import { render } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, fireEvent } from '@testing-library/react';
 
 describe('Input', () => {
   test('renders an input', () => {
@@ -16,7 +15,7 @@ describe('Input', () => {
   test('renders an input and change its value', () => {
     const name = 'amount';
     const type = 'number';
-    const id = 'input';
+    const id = 'input_id';
     const value = '33.33';
 
     const inputRenderer = render(
@@ -24,7 +23,7 @@ describe('Input', () => {
     );
     const { getByTestId } = inputRenderer;
     const input = getByTestId(id);
-    userEvent.type(input, value);
+    fireEvent.change(input, { target: { value: value } });
 
     expect(input).toBeInTheDocument();
     expect(input.value).toBe(value);
@@ -34,19 +33,12 @@ describe('Input', () => {
     const name = 'text';
     const id = 'input';
     const readOnly = true;
-    const value = 'Good Morning';
 
-    const inputRenderer = render(
+    const { getByTestId } = render(
       <Input data-testid={id} name={name} readOnly={readOnly} />
     );
-    const { getByTestId } = inputRenderer;
-    const input = getByTestId(id);
 
-    expect(input.value).toBe('');
-    userEvent.type(input, value);
-
-    expect(input).toBeInTheDocument();
-    expect(input.value).toBe('');
+    expect(getByTestId(id)).toHaveProperty('readOnly', true);
   });
 
   test('renders input with default Value', () => {
