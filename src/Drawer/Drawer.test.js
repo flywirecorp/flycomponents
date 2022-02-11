@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Drawer from './Drawer';
 import { render, fireEvent } from '@testing-library/react';
 
