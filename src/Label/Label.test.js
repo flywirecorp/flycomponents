@@ -1,34 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Label from './Label';
+import { render } from '@testing-library/react';
 
 describe('Label', () => {
-  class LabelComponent {
-    constructor(props) {
-      this.component = shallow(<Label {...props} />);
-    }
-
-    label(name) {
-      return this.component.find(`label[htmlFor="${name}"]`).text();
-    }
-  }
-
   test('renders a label', () => {
-    const props = { htmlFor: 'amount', value: 'Amount', id: 'amount' };
-    const component = new LabelComponent(props);
+    const props = { htmlFor: 'amount_for', value: 'Amount', id: 'amount_id' };
 
-    expect(component.label('amount')).toBe('Amount');
+    const { getByText } = render(<Label {...props} />);
+
+    expect(getByText(props.value)).toBeInTheDocument;
   });
 
   test('renders a required label', () => {
     const props = {
-      htmlFor: 'amount',
-      required: true,
+      htmlFor: 'amount_for',
       value: 'Amount',
-      id: 'amount'
+      id: 'amount_id',
+      required: true
     };
-    const component = new LabelComponent(props);
 
-    expect(component.label('amount')).toBe('Amount *');
+    const { getByText } = render(<Label {...props} />);
+
+    expect(getByText(props.value)).toBeInTheDocument();
+    expect(getByText('*')).toBeInTheDocument;
   });
 });
