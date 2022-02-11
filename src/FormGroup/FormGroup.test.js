@@ -1,77 +1,76 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import FormGroup from './FormGroup';
-import Label from '../Label';
+import { render } from '@testing-library/react';
 
 describe('FormGroup', () => {
-  class FormGroupComponent {
-    constructor({ children, ...ownProps } = {}) {
-      const defaultProps = { name: 'name' };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(
-        <FormGroup {...props}>{children || <span>children</span>}</FormGroup>
-      );
-    }
-
-    disabledText() {
-      return this.component.find('.is-disabled').text();
-    }
-
-    find(ele) {
-      return this.component.find(ele);
-    }
-
-    hintText() {
-      return this.component.find('.FormGroup-hint').text();
-    }
-
-    label() {
-      return this.component.find(Label);
-    }
-  }
+  const name = 'name';
+  const childrenTestId = 'children_id';
+  const children = <div data-testid={childrenTestId} />;
 
   test('renders children passed in', () => {
-    const children = <div className="unique" />;
-    const component = new FormGroupComponent({ children });
+    const { getByTestId } = render(
+      <FormGroup name={name}>{children}</FormGroup>
+    );
 
-    expect(component.find('.unique')).toHaveLength(1);
+    expect(getByTestId(childrenTestId)).toBeInTheDocument();
   });
 
   test('renders a label', () => {
     const label = 'A label';
-    const component = new FormGroupComponent({ label });
 
-    expect(component.label()).toHaveLength(1);
+    const { getByText } = render(
+      <FormGroup label={label} name={name}>
+        {children}
+      </FormGroup>
+    );
+
+    expect(getByText(label)).toBeInTheDocument();
+    expect(getByText(label)).toHaveClass('Label');
   });
 
   test('renders an error message', () => {
+    const errorTestId = `${name}-error-msg`;
     const error = 'must be greater or equal to 5000';
-    const component = new FormGroupComponent({ error });
 
-    expect(component.component.render().html()).toMatch(
-      'must be greater or equal to 5000'
+    const { getByTestId } = render(
+      <FormGroup error={error} name={name}>
+        {children}
+      </FormGroup>
     );
+
+    expect(getByTestId(errorTestId)).toContainHTML(error);
   });
 
   test('renders a hint message', () => {
+    const hintTestId = `${name}-hint-msg`;
     const hint = 'Amount you want to send in USD';
-    const component = new FormGroupComponent({ hint });
 
-    expect(component.hintText()).toBe('Amount you want to send in USD');
+    const { getByTestId } = render(
+      <FormGroup hint={hint} name={name}>
+        {children}
+      </FormGroup>
+    );
+
+    expect(getByTestId(hintTestId)).toContainHTML(hint);
   });
 
   test('can add disabled class to component', () => {
-    const children = <div className="wadus" />;
-    const component = new FormGroupComponent({ children, disabled: true });
+    const { container } = render(
+      <FormGroup name={name} disabled>
+        {children}
+      </FormGroup>
+    );
 
-    expect(component.find('.FormGroup.is-disabled')).toHaveLength(1);
+    expect(container.firstChild).toHaveClass('is-disabled');
   });
 
   test('can add read only class to component', () => {
-    const children = <div className="wadus" />;
-    const component = new FormGroupComponent({ children, readOnly: true });
+    const { container } = render(
+      <FormGroup name={name} readOnly>
+        {children}
+      </FormGroup>
+    );
 
-    expect(component.find('.FormGroup.is-readOnly')).toHaveLength(1);
+    expect(container.firstChild).toHaveClass('is-readOnly');
   });
 });
