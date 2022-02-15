@@ -1,7 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import MoneyInput from './MoneyInput';
-import InputGroup from '../InputGroup';
 import { fireEvent, render } from '@testing-library/react';
 
 describe('MoneyInput', () => {
@@ -15,54 +13,6 @@ describe('MoneyInput', () => {
     subunitToUnit: 100,
     thousandsSeparator: ','
   };
-  class MoneyInputComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        currencySymbol: '$',
-        decimalMark: '.',
-        maxLength: 10,
-        name: 'name',
-        onChange: () => {},
-        subunitToUnit: 100,
-        thousandsSeparator: ','
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<MoneyInput {...props} />);
-    }
-
-    input() {
-      return this.component.find(InputGroup);
-    }
-
-    simulateBlur(name, value) {
-      this.input().simulate('blur', {
-        target: { name, value }
-      });
-    }
-
-    simulateChange(name, value) {
-      this.input().simulate('change', {
-        target: { name, value }
-      });
-    }
-
-    simulateClick(callback = () => {}) {
-      this.input().simulate('click', {
-        target: { value: '', setSelectionRange: callback }
-      });
-    }
-
-    simulateKeyDown(e) {
-      this.input().simulate('keydown', e);
-    }
-
-    simulateMouseOut(name, value) {
-      this.input().simulate('mouseout', {
-        target: { name, value }
-      });
-    }
-  }
 
   test('formats the default value', () => {
     const value = 5025;
