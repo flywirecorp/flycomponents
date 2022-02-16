@@ -1,6 +1,6 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { Rating, Star } from './Rating';
+import { Rating } from './Rating';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('Rating', () => {
   const props = {
@@ -8,35 +8,32 @@ describe('Rating', () => {
   };
 
   test('renders the stars', () => {
-    const wrapper = shallow(<Rating {...props} />);
-    const stars = wrapper.find(Star);
+    const { queryAllByText } = render(<Rating {...props} />);
 
-    expect(stars.length).toEqual(5);
+    expect(queryAllByText('☆')).toHaveLength(5);
   });
 
   test('displays received errors', () => {
     const ownProps = { ...props, errorText: 'An error' };
-    const wrapper = mount(<Rating {...ownProps} />);
-    const firstStar = wrapper.find(Star).first();
 
-    expect(firstStar.find('.error').length).toEqual(1);
+    const { queryAllByText } = render(<Rating {...ownProps} />);
+
+    expect(queryAllByText('☆')[0]).toHaveClass('error');
   });
 
   test('doest not display an error if no error received', () => {
-    const wrapper = shallow(<Rating {...props} />);
-    const firstStar = wrapper.find(Star).first();
+    const { queryAllByText } = render(<Rating {...props} />);
 
-    expect(firstStar.hasClass('error')).toEqual(false);
+    expect(queryAllByText('☆')[0]).not.toHaveClass('error');
   });
 
   test('calls onclick with the star value', async () => {
-    const starStub = { target: { getAttribute: () => 4 } };
     const onClick = jest.fn();
     const ownProps = { ...props, onClick };
-    const wrapper = shallow(<Rating {...ownProps} />);
-    const star = wrapper.find(Star).first();
-    star.simulate('click', starStub);
 
-    expect(onClick).toHaveBeenCalledWith(4);
+    const { queryAllByText } = render(<Rating {...ownProps} />);
+    fireEvent.click(queryAllByText('☆')[1]);
+
+    expect(onClick).toHaveBeenCalledWith('4');
   });
 });
