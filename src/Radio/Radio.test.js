@@ -1,39 +1,32 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Radio from './Radio';
+import { render } from '@testing-library/react';
 
 describe('Radio', () => {
-  class RadioComponent {
-    constructor(props) {
-      this.component = shallow(<Radio {...props} />);
-    }
-
-    label(name) {
-      return this.component.find(`label[htmlFor="${name}"]`).length;
-    }
-
-    errorMsg() {
-      return this.component.find(`.FormGroup-feedback`).length;
-    }
-  }
-  const props = { id: 'a_id', name: 'a_name' };
+  const props = { 'data-testid': 'a_test_id', id: 'a_id', name: 'a_name' };
 
   test('renders a radio', () => {
-    const wrapper = shallow(<Radio {...props} />);
+    const { getByTestId } = render(<Radio {...props} />);
 
-    expect(wrapper.length).toEqual(1);
+    expect(getByTestId(props['data-testid'])).toBeInTheDocument();
   });
 
   test('renders a radio label', () => {
-    const component = new RadioComponent(props);
+    const label = 'a_label';
 
-    expect(component.label('a_id')).toEqual(1);
+    const { getByText } = render(<Radio {...props} label={label} />);
+
+    expect(getByText(label)).toBeInTheDocument();
   });
 
   test('renders a radio with error', () => {
-    const props = { error: 'a_error', name: 'a_name' };
-    const component = new RadioComponent(props);
+    const error = 'a_error';
 
-    expect(component.errorMsg()).toEqual(1);
+    const { getByText, getByTestId } = render(
+      <Radio {...props} error={error} />
+    );
+
+    expect(getByTestId(`${props.id}-error-msg`)).toBeInTheDocument();
+    expect(getByText(error)).toBeInTheDocument();
   });
 });
