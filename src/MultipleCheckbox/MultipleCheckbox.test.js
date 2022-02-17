@@ -1,65 +1,57 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import MultipleCheckbox from './MultipleCheckbox';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('MultipleCheckbox', () => {
-  class MultipleCheckboxComponent {
-    constructor(ownProps) {
-      const defaultProps = { name: 'name' };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<MultipleCheckbox {...props} />);
-    }
-
-    get checkboxes() {
-      return this.component.find('Checkbox');
-    }
-  }
-
-  test('renders as many checkboxes as options we have', () => {
-    const options = [
+  const defaultProps = {
+    name: 'name',
+    options: [
       { label: 'Foo', value: 'foo' },
       { label: 'Bar', value: 'bar' }
-    ];
+    ]
+  };
 
-    const component = new MultipleCheckboxComponent({ options });
+  test('renders as many checkboxes as options we have', () => {
+    const { getByText } = render(<MultipleCheckbox {...defaultProps} />);
 
-    expect(component.checkboxes).toHaveLength(2);
+    defaultProps.options.forEach(option => {
+      expect(getByText(option.label)).toBeInTheDocument();
+    });
   });
 
   test('sets checked attributes of checkboxes', () => {
-    const options = [
-      { label: 'Foo', value: 'foo' },
-      { label: 'Bar', value: 'bar' }
-    ];
-
     const checked = ['foo'];
-    const component = new MultipleCheckboxComponent({ checked, options });
-    const checkboxes = component.checkboxes;
-    const firstCheckbox = checkboxes.first();
-    const secondCheckbox = checkboxes.last();
 
-    expect(firstCheckbox.prop('checked')).toBe(true);
-    expect(secondCheckbox.prop('checked')).toBe(false);
+    const { getByText } = render(
+      <MultipleCheckbox {...defaultProps} checked={checked} />
+    );
+
+    defaultProps.options.forEach(option => {
+      option.label === checked[0]
+        ? expect(getByText(option.label)).toBeChecked()
+        : expect(getByText(option.label)).not.toBeChecked();
+    });
   });
 
   test('executes a callback when checkbox changes', () => {
-    const name = 'name';
-    const options = [
-      { label: 'Foo', value: 'foo' },
-      { label: 'Bar', value: 'bar' }
-    ];
-
     const onChange = jest.fn();
-    const component = new MultipleCheckboxComponent({ options, onChange });
-    const firstCheckbox = component.checkboxes.first();
 
-    firstCheckbox.simulate('change');
+    const { getByText } = render(
+      <MultipleCheckbox {...defaultProps} onChange={onChange} />
+    );
 
-    expect(onChange).toBeCalledWith({ name, checked: ['foo'] });
+    fireEvent.click(getByText(defaultProps.options[0].label));
 
-    firstCheckbox.simulate('change');
+    expect(onChange).toBeCalledWith({
+      name: defaultProps.name,
+      checked: [defaultProps.options[0].value]
+    });
 
-    expect(onChange).toBeCalledWith({ name, checked: [] });
+    fireEvent.click(getByText(defaultProps.options[0].label));
+
+    expect(onChange).toBeCalledWith({
+      name: defaultProps.name,
+      checked: []
+    });
   });
 });
