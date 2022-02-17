@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import Modal from './Modal';
 import { fireEvent, render } from '@testing-library/react';
 
