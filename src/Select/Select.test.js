@@ -1,94 +1,88 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Select from './Select';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('Select', () => {
+  const onChange = jest.fn();
   const values = [
     { label: 'first', value: 'first_value' },
     { label: 'second', value: 'second_value' }
   ];
 
   test('renders a select node', () => {
-    const wrapper = shallow(<Select values={values} />);
-    const select = wrapper.find('select');
+    const { container } = render(<Select values={values} />);
 
-    expect(select.length).toEqual(1);
+    expect(container.firstChild).toHaveClass('Select');
   });
 
   test('adds a name to the select node', () => {
     const name = 'a_name';
-    const wrapper = shallow(<Select values={values} name={name} />);
 
-    const select = wrapper.find('select');
+    const { container } = render(<Select values={values} name={name} />);
 
-    expect(select.props().name).toContain(name);
+    expect(container.firstChild).toHaveProperty('name', name);
   });
 
   test('adds a class to the select node', () => {
     const aClass = 'a_class';
-    const wrapper = shallow(<Select values={values} className={aClass} />);
 
-    const select = wrapper.find('select');
+    const { container } = render(<Select values={values} className={aClass} />);
 
-    expect(select.props().className).toContain(aClass);
+    expect(container.firstChild).toHaveClass(aClass);
   });
 
   test('selects a default value', () => {
     const selectedValue = 'second_value';
-    const wrapper = shallow(
-      <Select values={values} selectedValue={selectedValue} />
+
+    const { container } = render(
+      <Select
+        values={values}
+        selectedValue={selectedValue}
+        onChange={onChange}
+      />
     );
 
-    const select = wrapper.find('select');
-
-    expect(select.props().value).toBe(selectedValue);
+    expect(container.firstChild).toHaveValue(selectedValue);
   });
 
   test('can be disabled', () => {
-    const wrapper = shallow(<Select values={values} disabled />);
+    const { container } = render(<Select values={values} disabled />);
 
-    const select = wrapper.find('select');
-
-    expect(select.props().disabled).toBe(true);
+    expect(container.firstChild).toBeDisabled();
   });
 
   test('calls function on change', () => {
-    const onChange = jest.fn();
-    const wrapper = shallow(<Select values={values} onChange={onChange} />);
-    const select = wrapper.find('select');
-
-    select.simulate('change');
+    const { container } = render(
+      <Select values={values} onChange={onChange} />
+    );
+    fireEvent.change(container.firstChild);
 
     expect(onChange).toHaveBeenCalled();
   });
 
   test('calls function on click', () => {
     const onClick = jest.fn();
-    const wrapper = shallow(<Select values={values} onClick={onClick} />);
-    const select = wrapper.find('select');
+    const { container } = render(<Select values={values} onClick={onClick} />);
 
-    select.simulate('click');
+    fireEvent.click(container.firstChild);
 
     expect(onClick).toHaveBeenCalled();
   });
 
   describe('other properties', () => {
     test('can be passed', () => {
-      const wrapper = shallow(<Select values={values} aria-required />);
+      const { container } = render(<Select values={values} aria-required />);
 
-      const select = wrapper.find('select');
-
-      expect(select.prop('aria-required')).toBe(true);
+      expect(container.firstChild).toBeRequired();
     });
 
     test('can override previous ones', () => {
-      const wrapper = shallow(
+      const { container } = render(
         <Select values={values} required={false} aria-required />
       );
 
-      const select = wrapper.find('select');
-
-      expect(select.prop('aria-required')).toBe(true);
+      expect(container.firstChild).toBeRequired();
     });
   });
 });
