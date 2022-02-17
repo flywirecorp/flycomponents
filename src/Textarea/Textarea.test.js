@@ -1,41 +1,43 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Textarea from './Textarea';
+import { render } from '@testing-library/react';
 
 describe('Textarea', () => {
-  class TextareaComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        name: 'name'
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Textarea {...props} />);
-    }
-
-    textarea() {
-      return this.component.find('textarea');
-    }
-  }
+  const defaultProps = {
+    name: 'a_name',
+    'data-testid': 'a_test_id'
+  };
 
   test('renders a textarea', () => {
-    const name = 'address';
-    const component = new TextareaComponent({ name });
+    const { getByTestId } = render(<Textarea {...defaultProps} />);
 
-    expect(component.textarea()).toHaveLength(1);
-
-    expect(component.textarea().prop('name')).toBe('address');
+    expect(getByTestId(defaultProps['data-testid'])).toBeInTheDocument();
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'name',
+      defaultProps.name
+    );
   });
 
   test('renders a read-only textarea if the property is set', () => {
-    const component = new TextareaComponent({ readOnly: true });
+    const { getByTestId } = render(<Textarea {...defaultProps} readOnly />);
 
-    expect(component.textarea().prop('readOnly')).toBe(true);
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'readOnly',
+      true
+    );
   });
 
   test('when value property is given sets it as default value', () => {
-    const component = new TextareaComponent({ value: 'a_value' });
+    const value = 'a_value';
 
-    expect(component.textarea().prop('defaultValue')).toBe('a_value');
+    const { getByTestId } = render(
+      <Textarea {...defaultProps} value={value} />
+    );
+
+    expect(getByTestId(defaultProps['data-testid'])).toHaveValue(value);
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'defaultValue',
+      value
+    );
   });
 });
