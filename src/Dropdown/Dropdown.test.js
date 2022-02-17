@@ -1,7 +1,7 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Dropdown } from './Dropdown';
 import debounce from '../utils/debounce';
+import { fireEvent, render } from '@testing-library/react';
 
 jest.mock('../utils/debounce', () => {
   return jest.fn(fn => {
@@ -15,76 +15,6 @@ afterAll(() => {
 });
 
 describe('Dropdown', () => {
-  class DropdownComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        name: 'language',
-        options: [{ label: '', value: '' }]
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = mount(
-        <div>
-          <span id="outside">outside</span>
-          <Dropdown {...props} />
-        </div>
-      );
-    }
-
-    selectedOption() {
-      return this.component.find('.Dropdown-selectedOption');
-    }
-
-    selectedOptionText() {
-      return this.selectedOption().text();
-    }
-
-    options() {
-      return this.component.find('Option');
-    }
-
-    optionsAreVisible() {
-      return this.component.find('.Dropdown').hasClass('is-open');
-    }
-
-    openDropdown() {
-      this.selectedOption().simulate('click', { preventDefault: () => {} });
-    }
-
-    findOption(label) {
-      return this.component.find(`li[data-label="${label}"]`);
-    }
-
-    selectOption(label) {
-      this.openDropdown();
-      return this.findOption(label).simulate('click');
-    }
-
-    isSelected(label) {
-      return this.findOption(label);
-    }
-
-    showsOptionsUpwards() {
-      return this.component.find('.Dropdown--upward').length === 1;
-    }
-
-    isAlignedLeft() {
-      return this.component.find('.Dropdown-options--upwardLeft').length === 1;
-    }
-
-    isAlignedRight() {
-      return this.component.find('.Dropdown-options--upwardRight').length === 1;
-    }
-
-    clickOutside() {
-      this.component.find('#outside').simulate('click');
-    }
-
-    get a11yStatusMessage() {
-      return this.component.find('#language-a11y-status-message').text();
-    }
-  }
-
   let focusActivatorStub;
 
   beforeEach(() => {
@@ -101,9 +31,9 @@ describe('Dropdown', () => {
       defaultValue: '',
       options: [{ label: '', value: '' }]
     };
-    const wrapper = mount(<Dropdown {...props} />);
+    const { container } = render(<Dropdown {...props} />);
 
-    expect(wrapper.hasClass('ClassName')).toBe(true);
+    expect(container.firstChild).toHaveClass(props.className);
   });
 
   test('adds the selected value as aria-label to the button', () => {
@@ -111,49 +41,57 @@ describe('Dropdown', () => {
       defaultValue: 'fr',
       options: [{ label: 'a_label', value: 'fr' }]
     };
-    const wrapper = mount(<Dropdown {...props} />);
+    const { getByLabelText } = render(<Dropdown {...props} />);
 
-    expect(wrapper.find('button').prop('aria-label')).toEqual('a_label');
+    expect(getByLabelText(props.options[0].label)).toBeInTheDocument();
   });
 
   test('pre-selects the default option', () => {
-    const component = setupDropdownWithDefaultValueTo('es');
+    const { getByLabelText } = setupDropdownWithDefaultValueTo('es');
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(getByLabelText('Spanish')).toBeInTheDocument();
   });
 
   test('if default value is not in the options list select the first option value', () => {
-    const component = setupDropdownWithDefaultValueTo('fr');
+    const { container, getAllByLabelText } = setupDropdownWithDefaultValueTo(
+      'fr'
+    );
 
-    expect(component.selectedOptionText()).toBe('English');
+    expect(container.firstChild.firstChild).toHaveTextContent('English');
+    expect(getAllByLabelText('English')).toHaveLength(2);
   });
 
-  test('if no options do not throw on pre-selecting value', () => {
-    expect(() => new DropdownComponent({ defaultValue: 'en' })).not.toThrow();
+  test('with an option do not throw on pre-selecting value', () => {
+    expect(() =>
+      render(
+        <Dropdown options={[{ label: '', value: '' }]} defaultValue="en" />
+      )
+    ).not.toThrow();
   });
 
   test('is not case sensitive', () => {
-    const component = setupDropdownWithDefaultValueTo('ES');
+    const { getByLabelText } = setupDropdownWithDefaultValueTo('ES');
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(getByLabelText('Spanish')).toBeInTheDocument();
   });
 
   test('renders options', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
+    const { getAllByRole } = setupDropdownWithDefaultValueTo('en');
 
-    expect(component.options()).toHaveLength(1);
+    expect(getAllByRole('option')).toHaveLength(1);
   });
 
   describe('renders options upwards', () => {
     test('aligns options to the right', () => {
       Element.prototype.getBoundingClientRect = () => ({ right: 0 });
 
-      const component = setupUpwardDropdown();
+      const { container, getByRole } = setupUpwardDropdown();
+      fireEvent.click(container.firstChild.firstChild);
 
-      component.openDropdown();
-
-      expect(component.showsOptionsUpwards()).toBe(true);
-      expect(component.isAlignedRight()).toBe(true);
+      expect(container.firstChild).toHaveClass('is-open');
+      expect(getByRole('listbox')).toHaveClass(
+        'Dropdown--upward Dropdown-options--upwardRight'
+      );
     });
 
     test('aligns options to the left if there is no space at its right', () => {
@@ -162,12 +100,13 @@ describe('Dropdown', () => {
         documentElement: { clientWidth: 320 }
       });
 
-      const component = setupUpwardDropdown();
+      const { container, getByRole } = setupUpwardDropdown();
+      fireEvent.click(container.firstChild.firstChild);
 
-      component.openDropdown();
-
-      expect(component.showsOptionsUpwards()).toBe(true);
-      expect(component.isAlignedLeft()).toBe(true);
+      expect(container.firstChild).toHaveClass('is-open');
+      expect(getByRole('listbox')).toHaveClass(
+        'Dropdown--upward Dropdown-options--upwardLeft'
+      );
     });
 
     const setupUpwardDropdown = () => {
@@ -178,42 +117,57 @@ describe('Dropdown', () => {
         { label: 'Spanish', value: 'es' }
       ];
 
-      return new DropdownComponent({ options, defaultValue, upward });
+      return render(
+        <Dropdown
+          options={options}
+          defaultValue={defaultValue}
+          upward={upward}
+        />
+      );
     };
   });
 
   test('hides the options by default', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
+    const { container } = setupDropdownWithDefaultValueTo('en');
 
-    expect(component.optionsAreVisible()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-open');
   });
 
   test('shows the options when clicking', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
-    component.openDropdown();
+    const { container } = setupDropdownWithDefaultValueTo('en');
+    fireEvent.click(container.firstChild.firstChild);
 
-    expect(component.optionsAreVisible()).toBe(true);
+    expect(container.firstChild).toHaveClass('is-open');
   });
 
   test('selects an option', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
-    component.selectOption('Spanish');
+    const { container, getByLabelText } = setupDropdownWithDefaultValueTo('en');
+    fireEvent.click(container.firstChild.firstChild);
+    fireEvent.click(getByLabelText('Spanish'));
 
-    expect(component.selectedOptionText()).toBe('Spanish');
+    expect(container.firstChild.firstChild).toHaveTextContent('Spanish');
   });
 
   test('hide the selected option', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
-    component.selectOption('Spanish');
+    const {
+      container,
+      getByLabelText,
+      getAllByRole,
+      getByRole
+    } = setupDropdownWithDefaultValueTo('en');
+    fireEvent.click(container.firstChild.firstChild);
+    fireEvent.click(getByLabelText('Spanish'));
 
-    expect(component.isSelected('Spanish')).toHaveLength(0);
+    expect(getAllByRole('option')).toHaveLength(1);
+    expect(getByRole('option')).toHaveTextContent('English');
   });
 
   test('hides the options after selecting one', () => {
-    const component = setupDropdownWithDefaultValueTo('en');
-    component.selectOption('Spanish');
+    const { container, getByLabelText } = setupDropdownWithDefaultValueTo('en');
+    fireEvent.click(container.firstChild.firstChild);
+    fireEvent.click(getByLabelText('Spanish'));
 
-    expect(component.optionsAreVisible()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-open');
   });
 
   test('executes on change callback', () => {
@@ -223,13 +177,15 @@ describe('Dropdown', () => {
     ];
     const defaultValue = 'en';
     const onChange = jest.fn();
-    const component = new DropdownComponent({
-      options,
-      defaultValue,
-      onChange
-    });
-
-    component.selectOption('Spanish');
+    const { container, getByLabelText } = render(
+      <Dropdown
+        options={options}
+        defaultValue={defaultValue}
+        onChange={onChange}
+      />
+    );
+    fireEvent.click(container.firstChild.firstChild);
+    fireEvent.click(getByLabelText('Spanish'));
 
     expect(onChange).toBeCalledWith('es');
   });
@@ -241,57 +197,66 @@ describe('Dropdown', () => {
       map[event] = cb;
     });
 
-    const component = setupDropdownWithDefaultValueTo('es');
+    const { container } = setupDropdownWithDefaultValueTo('es');
 
-    expect(component.optionsAreVisible()).toBe(false);
-    component.openDropdown();
-    expect(component.optionsAreVisible()).toBe(true);
+    expect(container.firstChild).not.toHaveClass('is-open');
+
+    fireEvent.click(container.firstChild.firstChild);
+
+    expect(container.firstChild).toHaveClass('is-open');
 
     map.mousedown({ target: document.body });
-    component.clickOutside();
+    fireEvent.click(document);
 
-    expect(component.optionsAreVisible()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-open');
   });
 
   describe('getA11yStatusMessage', () => {
     test('reports that one result is available', () => {
-      const options = [
-        { label: 'English', value: 'en' },
-        { label: 'Spanish', value: 'es' }
-      ];
-      const component = new DropdownComponent({ options, defaultValue: 'en' });
-      component.openDropdown();
+      const { container, getByRole } = setupDropdownWithDefaultValueTo('en');
+      fireEvent.click(container.firstChild.firstChild);
 
-      expect(component.a11yStatusMessage).toBe(
+      expect(container.firstChild).toHaveClass('is-open');
+      expect(getByRole('status')).toHaveTextContent(
         '1 option is available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
 
     test('reports that two results ara available', () => {
+      const defaultValue = 'en';
       const options = [
         { label: 'English', value: 'en' },
         { label: 'Spanish', value: 'es' },
         { label: 'French', value: 'fr' }
       ];
-      const component = new DropdownComponent({ options, defaultValue: 'en' });
-      component.openDropdown();
 
-      expect(component.a11yStatusMessage).toBe(
+      const { container, getByRole } = render(
+        <Dropdown options={options} defaultValue={defaultValue} />
+      );
+      fireEvent.click(container.firstChild.firstChild);
+
+      expect(getByRole('status')).toHaveTextContent(
         '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
 
     test('reports selected option', () => {
+      const defaultValue = 'en';
       const options = [
         { label: 'English', value: 'en' },
         { label: 'Spanish', value: 'es' },
         { label: 'French', value: 'fr' }
       ];
-      const component = new DropdownComponent({ options, defaultValue: 'en' });
-      component.openDropdown();
-      component.selectOption('Spanish');
 
-      expect(component.a11yStatusMessage).toBe('You have selected Spanish');
+      const { container, getByRole, getByLabelText } = render(
+        <Dropdown options={options} defaultValue={defaultValue} />
+      );
+      fireEvent.click(container.firstChild.firstChild);
+      fireEvent.click(getByLabelText('Spanish'));
+
+      expect(getByRole('status')).toHaveTextContent(
+        'You have selected Spanish'
+      );
     });
   });
 
@@ -301,6 +266,6 @@ describe('Dropdown', () => {
       { label: 'Spanish', value: 'es' }
     ];
 
-    return new DropdownComponent({ options, defaultValue });
+    return render(<Dropdown options={options} defaultValue={defaultValue} />);
   };
 });

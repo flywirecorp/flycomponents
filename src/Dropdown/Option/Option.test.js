@@ -1,38 +1,26 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Option from './Option';
+import { render } from '@testing-library/react';
 
 describe('Option', () => {
-  class OptionComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        id: 'id',
-        label: 'Option',
-        value: 'val',
-        onClick: () => {}
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Option {...props} />);
-    }
-
-    option() {
-      return this.component.find('li');
-    }
-  }
+  const defaultProps = {
+    id: 'id',
+    label: 'Option',
+    value: 'val',
+    onClick: jest.fn()
+  };
 
   test('renders an option', () => {
-    const component = new OptionComponent();
+    const { getByLabelText, getByText } = render(<Option {...defaultProps} />);
 
-    expect(component.option()).toHaveLength(1);
+    expect(getByLabelText(defaultProps.label)).toBeInTheDocument();
+    expect(getByText(defaultProps.label)).toBeInTheDocument();
   });
 
   test('renders custom templates', () => {
-    const customTemplate = jest.fn();
-    // eslint-disable-next-line
-    new OptionComponent({
-      template: customTemplate
-    });
+    const customTemplate = jest.fn(() => <div />);
+
+    render(<Option {...defaultProps} template={customTemplate} />);
 
     expect(customTemplate).toBeCalledWith({
       'aria-label': 'Option',
