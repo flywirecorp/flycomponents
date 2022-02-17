@@ -1,13 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { TabPanel } from './TabPanel';
 import { Context } from '../Tabs';
 import { ENTER, SPACE } from '../../utils/keycodes';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('TabPanel', () => {
   test('receives select tab function', () => {
     const onSelectTab = jest.fn();
-    const wrapper = mount(
+    const { container } = render(
       <Context.Provider value={{ onSelectTab }}>
         <TabPanel>
           {({ selectTab }) => (
@@ -23,11 +23,8 @@ describe('TabPanel', () => {
         </TabPanel>
       </Context.Provider>
     );
-
-    wrapper
-      .find('div')
-      .last()
-      .simulate('click');
+    const button = container.firstChild.firstChild;
+    fireEvent.click(button);
 
     expect(onSelectTab).toHaveBeenCalled();
   });
