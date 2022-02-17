@@ -1,120 +1,111 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import TextInput from './TextInput';
-import InputGroup from '../InputGroup';
-import Textarea from '../Textarea';
-import Input from '../Input';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('TextInput', () => {
-  class TextInputComponent {
-    constructor(ownProps) {
-      const defaultProps = { name: 'name' };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<TextInput {...props} />);
-    }
-
-    inputGroup() {
-      return this.component.find(InputGroup);
-    }
-
-    textarea() {
-      return this.component.find(Textarea);
-    }
-
-    input() {
-      return this.component.find(Input);
-    }
-
-    simulateBlur(name) {
-      this.input().simulate('blur', {
-        target: { name }
-      });
-    }
-
-    simulateFocus() {
-      this.input().simulate('focus', {
-        target: { name }
-      });
-    }
-
-    simulateChange(name, value) {
-      this.input().simulate('change', {
-        target: { name, value }
-      });
-    }
-  }
+  const defaultProps = {
+    name: 'a_name',
+    'data-testid': 'a_test_id'
+  };
 
   test('renders an input text', () => {
-    const component = new TextInputComponent();
+    const { getByTestId } = render(<TextInput {...defaultProps} />);
 
-    expect(component.input()).toHaveLength(1);
-    expect(component.input().prop('type')).toEqual('text');
+    expect(getByTestId(defaultProps['data-testid'])).toBeInTheDocument();
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'type',
+      'text'
+    );
   });
 
   test('renders a textarea', () => {
-    const component = new TextInputComponent({ multiline: true });
+    const { getByTestId } = render(<TextInput {...defaultProps} multiline />);
 
-    expect(component.textarea()).toHaveLength(1);
+    expect(getByTestId(defaultProps['data-testid'])).toHaveClass('Textarea');
   });
 
   test('renders a input group with prefix', () => {
-    const component = new TextInputComponent({ prefix: 'PREFIX' });
-    const inputGroup = component.inputGroup();
+    const prefix = 'PREFIX';
+    const props = { ...defaultProps, prefix };
 
-    expect(inputGroup).toHaveLength(1);
-    expect(inputGroup.prop('prefix')).toEqual('PREFIX');
+    const { getByText, container } = render(<TextInput {...props} />);
+
+    expect(getByText(prefix)).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('FormGroup--hasPrefix');
   });
 
   test('renders a input group with suffix', () => {
-    const component = new TextInputComponent({ suffix: 'suffix' });
-    const inputGroup = component.inputGroup();
+    const suffix = 'SUFFIX';
+    const props = { ...defaultProps, suffix };
 
-    expect(inputGroup).toHaveLength(1);
-    expect(inputGroup.prop('suffix')).toEqual('suffix');
+    const { getByText, container } = render(<TextInput {...props} />);
+
+    expect(getByText(suffix)).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('FormGroup--hasSuffix');
   });
 
   test('handles on change events in input', () => {
     const onChange = jest.fn();
-    const props = { onChange };
+    const props = { ...defaultProps, onChange };
 
-    const component = new TextInputComponent(props);
+    const { getByTestId } = render(<TextInput {...props} />);
 
-    component.simulateChange('name', 'Dolores');
+    fireEvent.change(getByTestId(defaultProps['data-testid']), {
+      target: { name: 'name', value: 'Dolores' }
+    });
 
     expect(onChange).toBeCalledWith('name', 'Dolores');
   });
 
   test('handles on blur events in input', () => {
     const onBlur = jest.fn();
-    const component = new TextInputComponent({ onBlur });
+    const props = { ...defaultProps, onBlur };
 
-    component.simulateBlur('name');
+    const { getByTestId } = render(<TextInput {...props} />);
+
+    fireEvent.blur(getByTestId(defaultProps['data-testid']), {
+      target: { name: 'name' }
+    });
 
     expect(onBlur).toBeCalled();
   });
 
   test('handles on focus events', () => {
-    const onFocusMock = jest.fn();
-    const component = new TextInputComponent({ onFocus: onFocusMock });
+    const onFocus = jest.fn();
+    const props = { ...defaultProps, onFocus };
 
-    component.simulateFocus();
+    const { getByTestId } = render(<TextInput {...props} />);
+    fireEvent.focusIn(getByTestId(defaultProps['data-testid']));
 
-    expect(onFocusMock).toBeCalled();
+    expect(onFocus).toBeCalled();
   });
 
   test('renders an input with type password', () => {
     const type = 'password';
-    const component = new TextInputComponent({ type });
+    const props = { ...defaultProps, type };
 
-    expect(component.input().prop('type')).toEqual('password');
+    const { getByTestId } = render(<TextInput {...props} />);
+
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'type',
+      'password'
+    );
   });
 
   test('renders an input group with type password', () => {
     const type = 'password';
     const suffix = 'suffix';
-    const component = new TextInputComponent({ type, suffix });
+    const props = { ...defaultProps, type, suffix };
 
-    expect(component.inputGroup().prop('type')).toEqual('password');
+    const { getByTestId, getByText, container } = render(
+      <TextInput {...props} />
+    );
+
+    expect(getByText(suffix)).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('FormGroup--hasSuffix');
+    expect(getByTestId(defaultProps['data-testid'])).toHaveProperty(
+      'type',
+      'password'
+    );
   });
 });
