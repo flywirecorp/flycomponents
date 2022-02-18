@@ -1,13 +1,13 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Tabs from './Tabs';
 import Tab from './Tab';
 import TabList from './TabList';
 import TabPanels from './TabPanels';
 import TabPanel from './TabPanel';
+import { render } from '@testing-library/react';
 
 describe('Tabs', () => {
-  const wrapper = mount(
+  const { container } = render(
     <Tabs>
       <TabList>
         <Tab>First</Tab>
@@ -19,24 +19,30 @@ describe('Tabs', () => {
       </TabPanels>
     </Tabs>
   );
+  const tabs = container.firstChild;
+  const tabList = tabs.childNodes.item(0);
+  const tabPanels = tabs.childNodes.item(1);
 
   test('renders children', () => {
-    const tabList = wrapper.find(TabList);
-    const tabPanel = wrapper.find(TabPanels);
+    expect(tabList).toHaveClass('TabList');
+    expect(tabList.childNodes.length).toBe(2);
+    expect(tabList.childNodes.item(0)).toHaveProperty('id', 'tabs-tab-0');
+    expect(tabList.childNodes.item(1)).toHaveProperty('id', 'tabs-tab-1');
 
-    expect(tabList.length).toBe(1);
-    expect(tabPanel.length).toBe(1);
+    expect(tabPanels).toHaveClass('TabPanels');
+    expect(tabPanels.childNodes.length).toBe(2);
+    expect(tabPanels.childNodes.item(0)).toHaveProperty('id', 'tabs-panel-0');
+    expect(tabPanels.childNodes.item(1)).toHaveProperty('id', 'tabs-panel-1');
   });
 
   test('defaults to first tab active', () => {
-    const firstTab = wrapper.find(Tab).first();
-
-    expect(firstTab.prop('isActive')).toBe(true);
+    expect(tabList.childNodes.item(0)).toHaveClass('is-active');
   });
 
   test('merges classNames sent with their default classes', () => {
-    const wrapper = mount(
-      <Tabs className="customClass">
+    const className = 'customClass';
+    const { container } = render(
+      <Tabs className={className}>
         <TabList />
         <TabPanels>
           <TabPanel>First option content</TabPanel>
@@ -44,6 +50,6 @@ describe('Tabs', () => {
       </Tabs>
     );
 
-    expect(wrapper.find('.Tabs.customClass').length).toEqual(1);
+    expect(container.firstChild).toHaveClass(className);
   });
 });
