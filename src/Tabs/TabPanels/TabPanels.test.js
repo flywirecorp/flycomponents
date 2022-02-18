@@ -1,15 +1,15 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import TabPanels from './TabPanels';
 import TabPanel from '../TabPanel';
 import { Context } from '../Tabs';
+import { render } from '@testing-library/react';
 
 describe('TabPanels', () => {
   test('sends context', () => {
     const firstContent = 'First content';
     const secondContent = 'Second content';
     const onSelect = jest.fn();
-    const wrapper = mount(
+    const { container } = render(
       <Context.Provider
         value={{
           activeIndex: 0,
@@ -23,22 +23,16 @@ describe('TabPanels', () => {
         </TabPanels>
       </Context.Provider>
     );
+    const content = container.firstChild.childNodes;
 
-    const panel = wrapper.find(TabPanel);
+    expect(content.length).toEqual(2);
 
-    expect(panel.length).toEqual(2);
-    expect(panel.first().props()).toEqual({
-      'aria-labelledby': 'my-tabs-tab-0',
-      children: 'First content',
-      id: 'my-tabs-panel-0',
-      isActive: true
-    });
+    expect(content.item(0)).toHaveTextContent('First content');
+    expect(content.item(0)).toHaveProperty('id', 'my-tabs-panel-0');
+    expect(content.item(0)).not.toHaveStyle('display: none;');
 
-    expect(panel.last().props()).toEqual({
-      'aria-labelledby': 'my-tabs-tab-1',
-      children: 'Second content',
-      id: 'my-tabs-panel-1',
-      isActive: false
-    });
+    expect(content.item(1)).toHaveTextContent('Second content');
+    expect(content.item(1)).toHaveProperty('id', 'my-tabs-panel-1');
+    expect(content.item(1)).toHaveStyle('display: none;');
   });
 });
