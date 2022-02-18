@@ -1,14 +1,14 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Tab from '../Tab';
 import TabList from './TabList';
 import { Context } from '../Tabs';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('TabList', () => {
   const option = 'Tab option';
 
   test('renders link', () => {
-    const wrapper = mount(
+    const { getByRole, container } = render(
       <Context.Provider
         value={{
           activeIndex: 0,
@@ -21,20 +21,22 @@ describe('TabList', () => {
       </Context.Provider>
     );
 
-    const tab = wrapper.find(Tab);
-
-    expect(tab.length).toBe(1);
+    expect(container.firstChild.firstChild).toHaveTextContent(option);
+    expect(container.firstChild.firstChild).toHaveClass('Tab-link');
+    expect(getByRole('tab')).toBeInTheDocument();
   });
 
   test('sends context', () => {
-    const onSelectTabMock = jest.fn();
-    const onChangeMock = jest.fn();
-    const wrapper = mount(
+    const onSelectTab = jest.fn();
+    const onChange = jest.fn();
+    const isActiveClass = 'is-active';
+
+    const { container } = render(
       <Context.Provider
         value={{
           activeIndex: 1,
-          onSelectTab: onSelectTabMock,
-          onChange: onChangeMock
+          onSelectTab,
+          onChange
         }}
       >
         <TabList>
@@ -44,12 +46,12 @@ describe('TabList', () => {
       </Context.Provider>
     );
 
-    const secondTab = wrapper.find(Tab).last();
+    const secondTab = container.firstChild.lastChild;
 
-    secondTab.simulate('click');
+    fireEvent.click(secondTab);
 
-    expect(secondTab.props().isActive).toBe(true);
-    expect(onSelectTabMock).toHaveBeenCalledWith(1);
-    expect(onChangeMock).toHaveBeenCalledWith({ index: 1 });
+    expect(secondTab).toHaveClass(isActiveClass);
+    expect(onSelectTab).toHaveBeenCalledWith(1);
+    expect(onChange).toHaveBeenCalledWith({ index: 1 });
   });
 });

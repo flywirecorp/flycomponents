@@ -1,54 +1,48 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Tab from './Tab';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('Tab', () => {
   const option = 'Tab option';
 
   test('renders link', () => {
-    const wrapper = shallow(<Tab>{option}</Tab>);
+    const { container, getByRole } = render(<Tab>{option}</Tab>);
 
-    const link = wrapper.find('div');
-
-    expect(wrapper.text()).toEqual(option);
-    expect(link.length).toBe(1);
+    expect(container.firstChild).toHaveTextContent(option);
+    expect(container.firstChild).toHaveClass('Tab-link');
+    expect(getByRole('tab')).toBeInTheDocument();
   });
 
   test('activates link', () => {
     const isActiveClass = 'is-active';
-    const wrapper = shallow(<Tab isActive>{option}</Tab>);
 
-    const link = wrapper.find('div');
+    const { container } = render(<Tab isActive>{option}</Tab>);
 
-    expect(link.hasClass(isActiveClass)).toBe(true);
+    expect(container.firstChild).toHaveClass(isActiveClass);
   });
 
   test('disables link', () => {
     const disabledClass = 'is-disabled';
-    const wrapper = shallow(<Tab isDisabled>{option}</Tab>);
 
-    const link = wrapper.find('div');
+    const { container } = render(<Tab isDisabled>{option}</Tab>);
 
-    expect(link.hasClass(disabledClass)).toBe(true);
+    expect(container.firstChild).toHaveClass(disabledClass);
   });
 
   test('calls function on select', () => {
     const onSelect = jest.fn();
 
-    const wrapper = shallow(<Tab onSelect={onSelect}>{option}</Tab>);
-
-    const link = wrapper.find('div');
-    link.simulate('click');
+    const { container } = render(<Tab onSelect={onSelect}>{option}</Tab>);
+    fireEvent.click(container.firstChild);
 
     expect(onSelect).toHaveBeenCalled();
   });
 
   test('calls function on click', () => {
     const onClick = jest.fn();
-    const wrapper = shallow(<Tab onClick={onClick}>{option}</Tab>);
 
-    const link = wrapper.find('div');
-    link.simulate('click');
+    const { container } = render(<Tab onClick={onClick}>{option}</Tab>);
+    fireEvent.click(container.firstChild);
 
     expect(onClick).toHaveBeenCalled();
   });
