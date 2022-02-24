@@ -8,7 +8,7 @@ class Option extends Component {
   render() {
     const {
       hasFocus,
-      highlighText,
+      highlightText,
       id,
       onClick,
       onMouseEnter,
@@ -20,7 +20,7 @@ class Option extends Component {
     } = this.props;
 
     const text = label.toString();
-    const highlighedText = highlighText ? (
+    const highlightedText = highlightText ? (
       <Highlighter text={text} subString={searchQuery} />
     ) : (
       text
@@ -39,10 +39,11 @@ class Option extends Component {
         tabIndex={-1}
         value={value}
         ref={forwardRef}
+        data-testid="option"
       >
         {typeof template === 'function'
-          ? template({ ...option, label: highlighedText })
-          : highlighedText}
+          ? template({ ...option, label: highlightedText })
+          : highlightedText}
       </li>
     );
   }
@@ -51,7 +52,7 @@ class Option extends Component {
 Option.propTypes = {
   forwardRef: PropTypes.object,
   hasFocus: PropTypes.bool.isRequired,
-  highlighText: PropTypes.bool,
+  highlightText: PropTypes.bool,
   id: PropTypes.string,
   onClick: PropTypes.func.isRequired,
   onMouseEnter: PropTypes.func.isRequired,
@@ -64,7 +65,7 @@ Option.propTypes = {
 };
 
 Option.defaultProps = {
-  highlighText: true
+  highlightText: true
 };
 
 export default Option;

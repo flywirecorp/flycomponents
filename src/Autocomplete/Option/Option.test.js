@@ -1,99 +1,84 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Highlighter from '../Highlighter';
+import { fireEvent, render } from '@testing-library/react';
 import Option from './Option';
 
 describe('Option', () => {
-  class OptionComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        hasFocus: false,
-        highlighText: true,
-        onClick: () => {},
-        onMouseEnter: () => {},
-        option: { label: 'Option', value: 'opt' },
-        searchQuery: null
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Option {...props} />);
-    }
-
-    option() {
-      return this.component.find('li');
-    }
-
-    simulateClick() {
-      this.component.simulate('click');
-    }
-
-    doMouseEnter() {
-      this.option().simulate('mouseEnter');
-    }
-
-    highlighText() {
-      return this.option().find(Highlighter);
-    }
-  }
+  const defaultProps = {
+    hasFocus: false,
+    onClick: () => {},
+    onMouseEnter: () => {},
+    option: { label: 'Option', value: 'opt' }
+  };
 
   test('renders an option', () => {
-    const component = new OptionComponent();
+    const { getByText } = render(<Option {...defaultProps} />);
 
-    expect(component.option()).toHaveLength(1);
+    expect(getByText(/option/i)).toBeTruthy();
   });
 
-  test('has an active status when focus', () => {
+  describe('when has focus', () => {
     const hasFocus = true;
-    const component = new OptionComponent({ hasFocus });
 
-    expect(component.option().prop('className')).toContain('is-active');
+    test('has an active status', () => {
+      const ownProps = { ...defaultProps, hasFocus };
+
+      const { getByTestId } = render(<Option {...ownProps} />);
+      const option = getByTestId(/option/i);
+
+      expect(option).toHaveClass('is-active');
+    });
   });
 
   test('simulates click events', () => {
     const onClick = jest.fn();
-    const option = { label: 'Option', value: 'opt' };
-    const component = new OptionComponent({ onClick, option });
+    const ownProps = { ...defaultProps, onClick };
 
-    component.simulateClick();
+    const { getByTestId } = render(<Option {...ownProps} />);
+    const option = getByTestId(/option/i);
+    fireEvent.click(option);
 
-    expect(onClick).toBeCalledWith('opt');
+    expect(onClick).toHaveBeenCalledWith('opt');
   });
 
   test('simulates mouse enter events', () => {
     const onMouseEnter = jest.fn();
-    const option = { label: 'Option', value: 'opt' };
-    const component = new OptionComponent({ onMouseEnter, option });
+    const ownProps = { ...defaultProps, onMouseEnter };
 
-    component.doMouseEnter();
+    const { getByTestId } = render(<Option {...ownProps} />);
+    const option = getByTestId(/option/i);
+    fireEvent.mouseEnter(option);
 
-    expect(onMouseEnter).toBeCalledWith('opt');
+    expect(onMouseEnter).toHaveBeenCalledWith('opt');
   });
 
-  test('highlighs texts', () => {
+  test('highlight text is activated by default', () => {
     const option = { label: 'Hello World!', value: 'hw' };
     const searchQuery = 'World';
-    const component = new OptionComponent({ option, searchQuery });
-    const highlighText = component.highlighText();
+    const ownProps = { ...defaultProps, option, searchQuery };
 
-    expect(highlighText).toHaveLength(1);
-    expect(highlighText.prop('text')).toBe(option.label);
-    expect(highlighText.prop('subString')).toBe(searchQuery);
+    const { getByTestId } = render(<Option {...ownProps} />);
+    const highlightedText = getByTestId('highlightedText');
+
+    expect(highlightedText).toBeTruthy();
   });
 
-  test('disables highligh text', () => {
-    const highlighText = false;
-    const component = new OptionComponent({ highlighText });
+  test('highlight text can be deactivated', () => {
+    const highlightText = false;
+    const option = { label: 'Hello World!', value: 'hw' };
+    const searchQuery = 'World';
+    const ownProps = { ...defaultProps, highlightText, option, searchQuery };
 
-    expect(component.highlighText()).toHaveLength(0);
+    const { queryByTestId } = render(<Option {...ownProps} />);
+
+    expect(queryByTestId('highlightedText')).toBeFalsy();
   });
 
   test('renders custom templates', () => {
     const customTemplate = jest.fn();
-    // eslint-disable-next-line
-    new OptionComponent({
-      template: customTemplate
-    });
+    const ownProps = { ...defaultProps, template: customTemplate };
 
-    expect(customTemplate).toBeCalled();
+    render(<Option {...ownProps} />);
+
+    expect(customTemplate).toHaveBeenCalled();
   });
 });

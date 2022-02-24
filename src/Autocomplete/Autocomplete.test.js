@@ -1,4 +1,5 @@
 import React from 'react';
+import { fireEvent, render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 import { Autocomplete } from './Autocomplete';
 import Options from './Options';
@@ -16,6 +17,16 @@ afterAll(() => {
 });
 
 describe('Autocomplete', () => {
+  const options = [
+    { label: 'Spain', value: 'ES' },
+    { label: 'United States', value: 'US' },
+    { label: 'China', value: 'CN' }
+  ];
+  const defaultProps = {
+    name: 'country',
+    options
+  };
+
   class AutocompleteComponent {
     constructor(ownProps) {
       const defaultProps = {
@@ -120,104 +131,112 @@ describe('Autocomplete', () => {
     focusSearchInputStub.mockReset();
   });
 
-  test('has a search input', () => {
-    const component = new AutocompleteComponent();
+  test('renders a search input', () => {
+    const { getByTestId } = render(<Autocomplete {...defaultProps} />);
 
-    expect(component.searchField()).toHaveLength(1);
+    expect(getByTestId('searchInput')).toBeTruthy();
   });
 
-  test('has a list with options', () => {
-    const options = [
-      { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
-    ];
-    const component = new AutocompleteComponent({ options });
+  test('renders an options list', () => {
+    const { getByText } = render(<Autocomplete {...defaultProps} />);
 
-    expect(component.options()).toHaveLength(3);
+    options.map(option => {
+      expect(getByText(option.label)).toBeTruthy();
+    });
   });
 
   test('shows options when clicking the search input', () => {
-    const component = new AutocompleteComponent();
+    const { getByTestId } = render(<Autocomplete {...defaultProps} />);
+    const autocomplete = getByTestId('autocomplete');
 
-    component.simulateClick();
+    expect(autocomplete).not.toHaveClass('is-searching');
 
-    expect(component.optionsListIsVisible()).toBe(true);
+    const searchInput = getByTestId('searchInput');
+    fireEvent.click(searchInput);
+
+    expect(autocomplete).toHaveClass('is-searching');
   });
 
   test('click outside closes autocomplete', () => {
     const map = {};
-
     document.addEventListener = jest.fn((event, cb) => {
       map[event] = cb;
     });
 
-    const component = new AutocompleteComponent();
-    expect(component.optionsListIsVisible()).toBe(false);
-    component.simulateClick();
-    expect(component.optionsListIsVisible()).toBe(true);
+    const { getByTestId } = render(<Autocomplete {...defaultProps} />);
+    const autocomplete = getByTestId('autocomplete');
+    const searchInput = getByTestId('searchInput');
+    fireEvent.click(searchInput);
+
+    expect(autocomplete).toHaveClass('is-searching');
 
     map.mousedown({ target: document.body });
 
-    expect(component.optionsListIsVisible()).toBe(false);
+    expect(autocomplete).not.toHaveClass('is-searching');
   });
 
-  test('closes options when Enter key pressed twice', () => {
-    const component = new AutocompleteComponent();
+  test('pressing Enter twice closes options', () => {
+    const { getByTestId } = render(<Autocomplete {...defaultProps} />);
+    const searchInput = getByTestId('searchInput');
+    const autocomplete = getByTestId('autocomplete');
+    fireEvent.keyDown(searchInput, { keyCode: 13 });
 
-    component.simulateFocus();
+    expect(autocomplete).toHaveClass('is-searching');
 
-    component.pressEnterKey();
-    expect(component.optionsListIsVisible()).toBe(true);
+    fireEvent.keyDown(searchInput, { keyCode: 13 });
 
-    component.pressEnterKey();
-    expect(component.optionsListIsVisible()).toBe(false);
+    expect(autocomplete).not.toHaveClass('is-searching');
   });
 
   test('filters options based on the search value', () => {
-    const options = [
-      { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' },
-      { label: 'China', value: 'CN' }
-    ];
-    const component = new AutocompleteComponent({ options });
+    const { getByTestId, queryByText } = render(
+      <Autocomplete {...defaultProps} />
+    );
+    const searchInput = getByTestId('searchInput');
+    fireEvent.change(searchInput, { target: { value: 'st united' } });
 
-    component.filterOption('st united');
-
-    expect(component.options()).toHaveLength(1);
-
-    expect(component.options().prop('option').label).toBe('United States');
+    expect(queryByText(/united states/i)).toBeInTheDocument();
+    expect(queryByText(/spain/i)).not.toBeInTheDocument();
+    expect(queryByText(/china/i)).not.toBeInTheDocument();
   });
 
   test('filters options ignoring special characters', () => {
     const options = [
-      { label: 'Spain', value: 'ES' },
-      { label: 'United States', value: 'US' },
-      { label: 'Japán', value: 'CN' }
+      { label: 'España', value: 'ES' },
+      { label: 'Estados Unidos', value: 'US' },
+      { label: 'Japón', value: 'JP' }
     ];
-    const component = new AutocompleteComponent({ options });
+    const ownProps = { ...defaultProps, options };
 
-    component.filterOption('Japan');
-    expect(component.options()).toHaveLength(1);
-    expect(component.options().prop('option').label).toBe('Japán');
+    const { getByTestId, queryByText } = render(<Autocomplete {...ownProps} />);
+    const searchInput = getByTestId('searchInput');
+    fireEvent.change(searchInput, { target: { value: 'Japón' } });
 
-    component.filterOption('Japán');
-    expect(component.options()).toHaveLength(1);
-    expect(component.options().prop('option').label).toBe('Japán');
+    expect(queryByText(/japón/i)).toBeInTheDocument();
+    expect(queryByText(/estados unidos/i)).not.toBeInTheDocument();
+    expect(queryByText(/españa/i)).not.toBeInTheDocument();
+
+    fireEvent.change(searchInput, { target: { value: 'Japon' } });
+
+    expect(queryByText(/japón/i)).toBeInTheDocument();
+    expect(queryByText(/estados unidos/i)).not.toBeInTheDocument();
+    expect(queryByText(/españa/i)).not.toBeInTheDocument();
   });
 
   test('sorts options', () => {
-    const options = [
-      { label: 'Spain', value: 'ES' },
-      { label: 'China', value: 'CN' }
-    ];
+    const shouldSort = true;
+    const ownProps = { ...defaultProps, shouldSort };
 
-    const component = new AutocompleteComponent({ options, shouldSort: true });
-    const renderedOptions = component
-      .options()
-      .map(o => o.prop('option').label);
+    const { getByTestId, queryAllByTestId } = render(
+      <Autocomplete {...ownProps} />
+    );
+    const searchInput = getByTestId('searchInput');
+    fireEvent.focus(searchInput);
+    const optionsList = queryAllByTestId('option');
 
-    expect(renderedOptions).toEqual(['China', 'Spain']);
+    expect(optionsList[0]).toHaveTextContent('China')
+    expect(optionsList[1]).toHaveTextContent('Spain')
+    expect(optionsList[2]).toHaveTextContent('United States')
   });
 
   test('moves the focus to the next option when pressing key down', () => {

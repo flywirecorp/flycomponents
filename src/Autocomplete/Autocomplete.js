@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Fuse from 'fuse.js';
 import scrollIntoView from 'dom-scroll-into-view';
@@ -478,6 +478,7 @@ export class Autocomplete extends Component {
           aria-owns={`${name}-options`}
           aria-labelledby={`${name}-label`}
           aria-controls={name}
+          data-testid="autocomplete"
         >
           <input
             aria-activedescendant={
@@ -508,11 +509,13 @@ export class Autocomplete extends Component {
             required={required}
             type="search"
             value={searchQuery}
+            data-testid="searchInput"
           />
           <Options
             aria-labelledby={`${name}-label`}
             id={`${name}-options`}
             forwardRef={this.optionListRef}
+            data-testid="optionsList"
           >
             {optionList}
           </Options>
