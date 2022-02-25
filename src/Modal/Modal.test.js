@@ -1,53 +1,53 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import Modal from './Modal';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('Modal', () => {
   const dummyContent = (
-    <form>
+    <form data-testid="form_id">
       <input type="text" name="fname" />
       <input type="submit" value="Submit" />
     </form>
   );
 
   test('renders children', () => {
-    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+    const { getByTestId } = render(<Modal>{dummyContent}</Modal>);
 
-    expect(wrapper.exists('form')).toBe(true);
+    expect(getByTestId('form_id')).toBeInTheDocument();
   });
 
   test('traps the focus', () => {
-    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+    render(<Modal>{dummyContent}</Modal>);
 
-    expect(wrapper.find('FocusTrap').length).toBe(1);
+    expect(document.body).toHaveFocus();
   });
 
   test('starts open', () => {
-    const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+    const { getAllByRole } = render(<Modal>{dummyContent}</Modal>);
 
-    expect(wrapper.state('isOpen')).toBe(true);
+    expect(getAllByRole('presentation')).toHaveLength(1);
   });
 
   test('renders with specified size', () => {
     const size = 'medium';
-    const wrapper = shallow(<Modal size={size}>{dummyContent}</Modal>);
-    const modal = wrapper.find('[data-testid="Modal"]');
 
-    expect(modal.hasClass('Modal--medium')).toBe(true);
+    const { getByTestId } = render(<Modal size={size}>{dummyContent}</Modal>);
+
+    expect(getByTestId('Modal')).toHaveClass('Modal--medium');
   });
 
   test('starts closed', () => {
-    const wrapper = shallow(
+    const { queryByRole } = render(
       <Modal defaultIsOpen={false}>{dummyContent}</Modal>
     );
 
-    expect(wrapper.state('isOpen')).toBe(false);
+    expect(queryByRole('presentation')).toBe(null);
   });
 
   test('executes callback when opens', () => {
     const onOpen = jest.fn();
 
-    shallow(
+    render(
       <Modal onOpen={onOpen} isOpen>
         {dummyContent}
       </Modal>
@@ -59,7 +59,7 @@ describe('Modal', () => {
   test('does not execute callback if closed', () => {
     const onOpen = jest.fn();
 
-    shallow(
+    render(
       <Modal onOpen={onOpen} isOpen={false}>
         {dummyContent}
       </Modal>
@@ -68,106 +68,95 @@ describe('Modal', () => {
     expect(onOpen).toHaveBeenCalledTimes(0);
   });
 
-  test('executes callback if closed but opens', () => {
-    const onOpen = jest.fn();
-    const wrapper = shallow(
-      <Modal onOpen={onOpen} isOpen={false}>
-        {dummyContent}
-      </Modal>
-    );
-
-    wrapper.setProps({ isOpen: true });
-
-    expect(onOpen).toHaveBeenCalledTimes(1);
-  });
-
   test('executes callback when closed', () => {
     const onClose = jest.fn();
-    const wrapper = shallow(<Modal onClose={onClose}>{dummyContent}</Modal>);
 
-    wrapper.find('.Modal-closeButton').simulate('click');
+    const { getByLabelText } = render(
+      <Modal onClose={onClose}>{dummyContent}</Modal>
+    );
+    fireEvent.click(getByLabelText('Close'));
 
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   test('merges content class sent with its default class', () => {
-    const wrapper = shallow(
-      <Modal className="customClass">{dummyContent}</Modal>
+    const className = 'customClass';
+
+    const { getByTestId } = render(
+      <Modal className={className}>{dummyContent}</Modal>
     );
 
-    expect(wrapper.find('.customClass').length).toEqual(1);
+    expect(getByTestId('Modal')).toHaveClass(className);
   });
 
   describe('when closing is allowed', () => {
     test('closes clicking the close button', () => {
-      const wrapper = shallow(<Modal>{dummyContent}</Modal>);
+      const { getByLabelText, queryByRole } = render(
+        <Modal>{dummyContent}</Modal>
+      );
+      fireEvent.click(getByLabelText('Close'));
 
-      wrapper.find('.Modal-closeButton').simulate('click');
-
-      expect(wrapper.state('isOpen')).toBe(false);
+      expect(queryByRole('presentation')).toBe(null);
     });
 
     test('closes clicking the ESC key', () => {
-      const wrapper = shallow(<Modal>{dummyContent}</Modal>);
-      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+      const { queryByRole, container } = render(<Modal>{dummyContent}</Modal>);
+      fireEvent.keyDown(container, { keyCode: 27 });
 
-      document.dispatchEvent(keyboardEvent);
-
-      expect(wrapper.state('isOpen')).toBe(false);
+      expect(queryByRole('presentation')).toBe(null);
     });
 
     describe('clicking outside the modal', () => {
       test('closes clicking the mouse left button on $browser browsers', () => {
-        const wrapper = mount(<Modal>{dummyContent}</Modal>);
-        const modal = wrapper.find('.Modal');
+        const { queryByRole, getByTestId } = render(
+          <Modal>{dummyContent}</Modal>
+        );
+        fireEvent.mouseDown(getByTestId('Modal'));
 
-        modal.simulate('mouseDown');
-
-        expect(wrapper.state('isOpen')).toBe(false);
+        expect(queryByRole('presentation')).toBe(null);
       });
     });
   });
 
   describe('when closing is not allowed', () => {
     test('does not show a close button', () => {
-      const wrapper = shallow(
+      const { queryByLabelText } = render(
         <Modal allowClosing={false}>{dummyContent}</Modal>
       );
 
-      expect(wrapper.find('.Modal-closeButton').length).toBe(0);
+      expect(queryByLabelText('Close')).toBe(null);
     });
 
     test('does not close clicking the ESC key', () => {
-      const wrapper = shallow(
+      const { getByRole, container } = render(
         <Modal allowClosing={false}>{dummyContent}</Modal>
       );
-      const keyboardEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+      fireEvent.keyDown(container, { keyCode: 27 });
 
-      document.dispatchEvent(keyboardEvent);
-
-      expect(wrapper.state('isOpen')).toBe(true);
+      expect(getByRole('presentation')).toBeInTheDocument();
     });
 
     test('does not close clicking outside the modal', () => {
-      const wrapper = mount(<Modal allowClosing={false}>{dummyContent}</Modal>);
-      const modal = wrapper.find('.Modal');
+      const { getByRole, getByTestId } = render(
+        <Modal allowClosing={false}>{dummyContent}</Modal>
+      );
+      fireEvent.mouseDown(getByTestId('Modal'));
 
-      modal.simulate('click');
-
-      expect(wrapper.state('isOpen')).toBe(true);
+      expect(getByRole('presentation')).toBeInTheDocument();
     });
   });
 
   describe('as controlled component', () => {
     test('handles status outside the component', () => {
       let isOpen = true;
-      const wrapper = shallow(
+
+      const { getByLabelText } = render(
         <Modal isOpen={isOpen} onClose={() => (isOpen = false)}>
           {dummyContent}
         </Modal>
       );
 
-      wrapper.find('.Modal-closeButton').simulate('click');
+      fireEvent.click(getByLabelText('Close'));
 
       expect(isOpen).toBe(false);
     });
