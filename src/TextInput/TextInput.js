@@ -40,7 +40,10 @@ class TextInput extends Component {
     const { disabled, readOnly, onFocus } = this.props;
     if (disabled || readOnly) return false;
 
-    onFocus();
+    const { name, value } = e.target;
+
+    onFocus(name, value || null);
+
     this.setState({ isFocused: true });
   };
 
