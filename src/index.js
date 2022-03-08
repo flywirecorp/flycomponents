@@ -4,7 +4,9 @@ import Autocomplete from './Autocomplete';
 import Button from './Button';
 import CardForm from './CardForm';
 import CardFormInput from './CardForm/TextInput';
+import CardNumberInput from './CardForm/CardNumberInput';
 import Checkbox from './Checkbox';
+import CVVInput from './CardForm/CVVInput';
 import Datepicker from './Datepicker';
 import Drawer from './Drawer';
 import Dropdown from './Dropdown';
@@ -32,7 +34,9 @@ export {
   Button,
   CardForm,
   CardFormInput,
+  CardNumberInput,
   Checkbox,
+  CVVInput,
   Datepicker,
   Drawer,
   Dropdown,

@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.3.0 (2022-03-07)
+### Added
+- Add name and value to onFocus callback in `TextInput` component
+- Expose CVVInput component
+- Expose CardNumberInput
 ## 5.1.1 (2020-10-06)
 ### Changed
 - react and react-dom as peerDependencies

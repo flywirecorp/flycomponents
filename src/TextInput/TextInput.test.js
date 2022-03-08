@@ -70,14 +70,28 @@ describe('TextInput', () => {
     expect(onBlur).toBeCalled();
   });
 
-  test('handles on focus events', () => {
-    const onFocus = jest.fn();
-    const props = { ...defaultProps, onFocus };
+  describe('when input has value', () => {
+    test('handles on focus events with its name and value', () => {
+      const onFocus = jest.fn();
+      const props = { ...defaultProps, onFocus, value: 'Dolores' };
 
-    const { getByTestId } = render(<TextInput {...props} />);
-    fireEvent.focusIn(getByTestId(defaultProps['data-testid']));
+      const { getByTestId } = render(<TextInput {...props} />);
+      fireEvent.focusIn(getByTestId(defaultProps['data-testid']));
 
-    expect(onFocus).toBeCalled();
+      expect(onFocus).toBeCalledWith('a_name', 'Dolores');
+    });
+  });
+
+  describe('when input DOES NOT have value', () => {
+    test('handles on focus events with its name', () => {
+      const onFocus = jest.fn();
+      const props = { ...defaultProps, onFocus };
+
+      const { getByTestId } = render(<TextInput {...props} />);
+      fireEvent.focusIn(getByTestId(defaultProps['data-testid']));
+
+      expect(onFocus).toBeCalledWith('a_name', null);
+    });
   });
 
   test('renders an input with type password', () => {

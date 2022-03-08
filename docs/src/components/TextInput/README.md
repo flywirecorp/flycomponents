@@ -61,6 +61,15 @@ Specifies an input field where the user can enter data.
   label="With suffix read only input"
   readOnly
 />
+
+<TextInput
+  name="focusable"
+  label="Focusable Input"
+  value="this is a focusable input"
+  onFocus={(name, value) =>
+  console.log(`${name} focused with value: ${value}`)
+  }
+/>
 ```
 
 ## Properties
