@@ -1,86 +1,84 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { screen, fireEvent, render } from '@testing-library/react';
 import CardForm from './CardForm';
-import Button from '../Button';
 
 describe('CardForm', () => {
   test('renders a form', () => {
-    const wrapper = shallow(<CardForm />);
+    const { getByText } = render(<CardForm />);
 
-    expect(wrapper.find('form')).toHaveLength(1);
+    expect(getByText('Submit')).toBeInTheDocument();
   });
 
   test('renders a compressed form', () => {
-    const wrapper = shallow(<CardForm isCompressed />);
+    const { container } = render(<CardForm isCompressed />);
 
-    expect(wrapper.find('form')).toHaveLength(1);
-    expect(wrapper.find('.CardForm-Input--Compressed')).toHaveLength(5);
+    expect(
+      container.getElementsByClassName('CardForm--Compressed').length
+    ).toBe(1);
   });
 
   test('renders the passed children', () => {
-    const ChildrenComponent = () => <div />;
+    const ChildrenComponent = () => <div data-testid="children_component_id" />;
 
-    const wrapper = shallow(
+    const { getByTestId } = render(
       <CardForm>
         <ChildrenComponent />
       </CardForm>
     );
 
-    expect(wrapper.find(ChildrenComponent)).toHaveLength(1);
+    expect(getByTestId('children_component_id')).toBeInTheDocument();
   });
 
   describe('onFocus', () => {
     const inputs = [
-      ['name'],
-      ['surname'],
-      ['cardNumber'],
-      ['expiryDate'],
-      ['cvv']
+      ["Cardholder's name"],
+      ["Cardholder's surname"],
+      ['Card number'],
+      ['Expiry date (MM/YY)'],
+      ['CVV']
     ];
 
-    test.each(inputs)('removes the field errors from %s', name => {
-      const wrapper = shallow(<CardForm />);
-      const input = wrapper.find(`[name="${name}"]`);
-      input.simulate('blur', name, '');
+    test.each(inputs)('removes the field errors from %s', label => {
+      const { getByLabelText } = render(<CardForm />);
 
-      input.simulate('focus', name);
+      const input = getByLabelText(label);
+      fireEvent.change(input, { target: { value: '' } });
+      input.blur();
+      input.focus();
 
-      expect(wrapper.find(`[name="${name}"]`).prop('error')).toBeUndefined();
+      const errorMessage = screen.queryByText('error');
+      expect(errorMessage).toBeNull();
     });
   });
 
   describe('validations', () => {
     /* eslint-disable */
     describe.each`
-      fieldName       | fieldValue            | error
-      ${'name'}       | ${'a_name'}           | ${'invalid_name'}
-      ${'surname'}    | ${'a_surname'}        | ${'invalid_surname'}
-      ${'cardNumber'} | ${'4111111111111111'} | ${'invalid_card_number'}
-      ${'expiryDate'} | ${'12/99'}            | ${'invalid_expiry_date'}
-      ${'cvv'}        | ${'555'}              | ${'invalid_cvv'}
-    `('$fieldName is required', ({ fieldName, fieldValue, error }) => {
+      fieldName       | fieldLabel                | fieldValue            | error
+      ${'name'}       | ${"Cardholder's name"}    | ${'a_name'}           | ${'invalid_name'}
+      ${'surname'}    | ${"Cardholder's surname"} | ${'a_surname'}        | ${'invalid_surname'}
+      ${'cardNumber'} | ${'Card number'}          | ${'4111111111111111'} | ${'invalid_card_number'}
+      ${'expiryDate'} | ${'Expiry date (MM/YY)'}  | ${'12/99'}            | ${'invalid_expiry_date'}
+      ${'cvv'}        | ${'CVV'}                  | ${'555'}              | ${'invalid_cvv'}
+    `('$fieldName is required', ({ fieldName, fieldLabel, fieldValue, error }) => {
       const errors = {
         [fieldName]: error
       };
 
       test('has an error when is empty', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByText, getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, fieldName, '');
+        blurField(getByLabelText, fieldLabel, '');
 
-        expect(wrapper.find(`[name="${fieldName}"]`).prop('error')).toEqual(
-          error
-        );
+        expect(getByText(error)).toBeInTheDocument();
       });
 
       test('has no error when is not empty', () => {
-        const wrapper = shallow(<CardForm />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, fieldName, fieldValue);
+        blurField(getByLabelText, fieldLabel, fieldValue);
 
-        expect(
-          wrapper.find(`[name="${fieldName}"]`).prop('error')
-        ).toBeUndefined();
+        expect(screen.queryByText(error)).toBeNull();
       });
     });
 
@@ -101,33 +99,28 @@ describe('CardForm', () => {
       });
 
       test('has no error if is a valid future date', () => {
-        const wrapper = shallow(<CardForm />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'expiryDate', '12/30');
+        blurField(getByLabelText, 'Expiry date (MM/YY)', '12/30');
 
-        expect(
-          wrapper.find(`[name="expiryDate"]`).prop('error')
-        ).toBeUndefined();
+        expect(screen.queryByText('invalid_expiry_date')).toBeNull();
+
       });
 
       test('has error if is an invalid date', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'expiryDate', '12/');
+        blurField(getByLabelText, 'Expiry date (MM/YY)', '12/');
 
-        expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
-          'invalid_expiry_date'
-        );
+        expect(screen.queryByText('invalid_expiry_date')).toBeInTheDocument();
       });
 
       test('has error if is a past date', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'expiryDate', '12/12');
+        blurField(getByLabelText, 'Expiry date (MM/YY)', '12/12');
 
-        expect(wrapper.find(`[name="expiryDate"]`).prop('error')).toEqual(
-          'invalid_expiry_date'
-        );
+        expect(screen.queryByText('invalid_expiry_date')).toBeInTheDocument();
       });
     });
 
@@ -142,33 +135,27 @@ describe('CardForm', () => {
       const validAMEXCardNumber = '373968333653142';
 
       test('has no error if is a valid accepted card', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'cardNumber', validVisaCardNumber);
+        blurField(getByLabelText, 'Card number', validVisaCardNumber);
 
-        expect(
-          wrapper.find(`[name="cardNumber"]`).prop('error')
-        ).toBeUndefined();
+        expect(screen.queryByText('invalid_card_number')).not.toBeInTheDocument();
       });
 
       test('has error if has an invalid value', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'cardNumber', invalidCardNumber);
+        blurField(getByLabelText, 'Card number', invalidCardNumber);
 
-        expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
-          'invalid_card_number'
-        );
+        expect(screen.queryByText('invalid_card_number')).toBeInTheDocument();
       });
 
       test('has error if has an unnacepted card type', () => {
-        const wrapper = shallow(<CardForm errors={errors} />);
+        const { getByLabelText } = render(<CardForm errors={errors} />);
 
-        blurField(wrapper, 'cardNumber', validAMEXCardNumber);
+        blurField(getByLabelText, 'Card number', validAMEXCardNumber);
 
-        expect(wrapper.find(`[name="cardNumber"]`).prop('error')).toBe(
-          'invalid_card_type'
-        );
+        expect(screen.queryByText('invalid_card_type')).toBeInTheDocument();
       });
     });
 
@@ -177,38 +164,36 @@ describe('CardForm', () => {
 
       describe('when there is no card number', () => {
         test('has no error when the cvv is invalid', () => {
-          const wrapper = shallow(<CardForm errors={errors} />);
+          const { getByLabelText } = render(<CardForm errors={errors} />);
           const invalidCvv = 1;
 
-          blurField(wrapper, 'cvv', invalidCvv);
+          blurField(getByLabelText, 'CVV', invalidCvv);
 
-          expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
+          expect(screen.queryByText('invalid_cvv')).not.toBeInTheDocument();
         });
       });
 
       describe('when there is a card number', () => {
         test('has no error when the cvv is valid', () => {
-          const wrapper = shallow(<CardForm errors={errors} />);
+          const { getByLabelText } = render(<CardForm errors={errors} />);
           const validCvv = 111;
           const validCardNumber = '4111111111111111';
-          fillField(wrapper, 'cardNumber', validCardNumber);
+          fillField(getByLabelText, 'Card number', validCardNumber);
 
-          blurField(wrapper, 'cvv', validCvv);
+          blurField(getByLabelText, 'CVV', validCvv);
 
-          expect(wrapper.find(`[name="cvv"]`).prop('error')).toBeUndefined();
+          expect(screen.queryByText('invalid_cvv')).not.toBeInTheDocument();
         });
 
         test('has error when the cvv is invalid', () => {
-          const wrapper = shallow(<CardForm errors={errors} />);
+          const { getByLabelText } = render(<CardForm errors={errors} />);
           const invalidCvv = 11;
           const validCardNumber = '4111111111111111';
-          fillField(wrapper, 'cardNumber', validCardNumber);
 
-          blurField(wrapper, 'cvv', invalidCvv);
+          fillField(getByLabelText, 'Card number', validCardNumber);
+          blurField(getByLabelText, 'CVV', invalidCvv);
 
-          expect(wrapper.find(`[name="cvv"]`).prop('error')).toBe(
-            'invalid_cvv'
-          );
+          expect(screen.queryByText('invalid_cvv')).toBeInTheDocument();
         });
       });
     });
@@ -220,24 +205,22 @@ describe('CardForm', () => {
       const onSubmit = jest.fn();
 
       const formValues = {
-        name: 'a_name',
-        surname: 'a_surname',
-        cardNumber: '4111111111111111',
+        name: 'aname',
+        surname: 'asurname',
+        cardNumber: '4111-1111-1111-1111',
         expiryDate: '12/23',
         cvv: '555',
         cardType: 'VISA'
       };
-      const wrapper = shallow(
-        <CardForm onSubmit={onSubmit} onValidate={onValidate} />
-      );
-      fillField(wrapper, 'name', formValues.name);
-      fillField(wrapper, 'surname', formValues.surname);
-      fillField(wrapper, 'cardNumber', formValues.cardNumber);
-      fillField(wrapper, 'expiryDate', formValues.expiryDate);
-      fillField(wrapper, 'cvv', formValues.cvv);
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      const { getByLabelText } = render(<CardForm onSubmit={onSubmit} onValidate={onValidate} />);
+      fillField(getByLabelText, "Cardholder's name", formValues.name);
+      fillField(getByLabelText, "Cardholder's surname", formValues.surname);
+      fillField(getByLabelText, 'Card number', formValues.cardNumber);
+      fillField(getByLabelText, 'Expiry date (MM/YY)', formValues.expiryDate);
+      fillField(getByLabelText, 'CVV', formValues.cvv);
+
+      submitForm();
 
       expect(onValidate).toHaveBeenCalledTimes(1);
       expect(onSubmit).toHaveBeenCalledWith(formValues);
@@ -252,16 +235,13 @@ describe('CardForm', () => {
         expiryDate: '12/23',
         cvv: '555'
       };
-      const wrapper = shallow(
-        <CardForm onSubmit={onSubmit} onValidate={onValidate} />
-      );
-      fillField(wrapper, 'name', formValues.name);
-      fillField(wrapper, 'surname', formValues.surname);
-      fillField(wrapper, 'expiryDate', formValues.expiryDate);
-      fillField(wrapper, 'cvv', formValues.cvv);
+      const { getByLabelText } = render(<CardForm onSubmit={onSubmit} onValidate={onValidate} />);
+      fillField(getByLabelText, "Cardholder's name", formValues.name);
+      fillField(getByLabelText, "Cardholder's surname", formValues.surname);
+      fillField(getByLabelText, 'Expiry date (MM/YY)', formValues.expiryDate);
+      fillField(getByLabelText, 'CVV', formValues.cvv);
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      submitForm();
 
       expect(onValidate).toHaveBeenCalledTimes(1);
       expect(onSubmit).not.toHaveBeenCalled();
@@ -270,30 +250,30 @@ describe('CardForm', () => {
 
   describe('onSubmit', () => {
     test('renders a submit button', () => {
-      const wrapper = shallow(<CardForm />);
+      render(<CardForm />);
 
-      expect(wrapper.find(Button)).toHaveLength(1);
+      const submitButton = screen.getAllByRole("button");
+      expect(submitButton).toHaveLength(1);
     });
 
     test('executes onSubmit callback with form values when clicking on submit button', () => {
       const onSubmit = jest.fn();
       const formValues = {
-        name: 'a_name',
-        surname: 'a_surname',
-        cardNumber: '4111111111111111',
+        name: 'a name',
+        surname: 'a surname',
+        cardNumber: '4111-1111-1111-1111',
         expiryDate: '12/23',
         cvv: '555',
         cardType: 'VISA'
       };
-      const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      fillField(wrapper, 'name', formValues.name);
-      fillField(wrapper, 'surname', formValues.surname);
-      fillField(wrapper, 'cardNumber', formValues.cardNumber);
-      fillField(wrapper, 'expiryDate', formValues.expiryDate);
-      fillField(wrapper, 'cvv', formValues.cvv);
+      const { getByLabelText } = render(<CardForm onSubmit={onSubmit} />);
+      fillField(getByLabelText, "Cardholder's name", formValues.name);
+      fillField(getByLabelText, "Cardholder's surname", formValues.surname);
+      fillField(getByLabelText, 'Card number', formValues.cardNumber);
+      fillField(getByLabelText, 'Expiry date (MM/YY)', formValues.expiryDate);
+      fillField(getByLabelText, 'CVV', formValues.cvv);
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      submitForm();
 
       expect(onSubmit).toHaveBeenCalledWith(formValues);
     });
@@ -306,14 +286,13 @@ describe('CardForm', () => {
         expiryDate: '12/23',
         cvv: '555'
       };
-      const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      fillField(wrapper, 'name', formValues.name);
-      fillField(wrapper, 'surname', formValues.surname);
-      fillField(wrapper, 'expiryDate', formValues.expiryDate);
-      fillField(wrapper, 'cvv', formValues.cvv);
+      const { getByLabelText } = render(<CardForm onSubmit={onSubmit} />);
+      fillField(getByLabelText, "Cardholder's name", formValues.name);
+      fillField(getByLabelText, "Cardholder's surname", formValues.surname);
+      fillField(getByLabelText, 'Expiry date (MM/YY)', formValues.expiryDate);
+      fillField(getByLabelText, 'CVV', formValues.cvv);
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      submitForm();
 
       expect(onSubmit).not.toHaveBeenCalled();
     });
@@ -327,15 +306,14 @@ describe('CardForm', () => {
         expiryDate: '12/23',
         cvv: '55'
       };
-      const wrapper = shallow(<CardForm onSubmit={onSubmit} />);
-      fillField(wrapper, 'name', formValues.name);
-      fillField(wrapper, 'surname', formValues.surname);
-      fillField(wrapper, 'cardNumber', formValues.cardNumber);
-      fillField(wrapper, 'expiryDate', formValues.expiryDate);
-      fillField(wrapper, 'cvv', formValues.cvv);
+      const { getByLabelText } = render(<CardForm onSubmit={onSubmit} />);
+      fillField(getByLabelText, "Cardholder's name", formValues.name);
+      fillField(getByLabelText, "Cardholder's surname", formValues.surname);
+      fillField(getByLabelText, 'Card number', formValues.cardNumber);
+      fillField(getByLabelText, 'Expiry date (MM/YY)', formValues.expiryDate);
+      fillField(getByLabelText, 'CVV', formValues.cvv);
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      submitForm();
 
       expect(onSubmit).not.toHaveBeenCalled();
     });
@@ -343,24 +321,26 @@ describe('CardForm', () => {
 
   describe('onCancel', () => {
     test('does not render a cancel button if onCancel is not provided', () => {
-      const wrapper = shallow(<CardForm />);
+      render(<CardForm />);
 
-      expect(wrapper.find('Button [type="button"]')).toHaveLength(0);
+      const buttons = screen.queryAllByText('Cancel');
+      expect(buttons).toHaveLength(0);
     });
 
     test('renders a cancel button if onCancel is provided', () => {
       const onCancel = () => {};
-      const wrapper = shallow(<CardForm onCancel={onCancel} />);
+      render(<CardForm onCancel={onCancel} />);
 
-      expect(wrapper.find('Button[type="button"]')).toHaveLength(1);
+      const buttons = screen.queryAllByText('Cancel');
+      expect(buttons).toHaveLength(1);
     });
 
     test('calls onCancel when clicking on cancel button', () => {
       const onCancel = jest.fn();
-      const wrapper = shallow(<CardForm onCancel={onCancel} />);
+      render(<CardForm onCancel={onCancel} />);
 
-      const cancelButton = wrapper.find('Button[type="button"]');
-      cancelButton.simulate('click');
+      const cancelButton = screen.getByText('Cancel');
+      cancelButton.click();
 
       expect(onCancel).toHaveBeenCalled();
     });
@@ -369,11 +349,12 @@ describe('CardForm', () => {
   describe('onChange', () => {
     test('executes onChange callback when changing any form value', () => {
       const onChange = jest.fn();
-      const fieldName = 'name';
-      const fieldValue = 'a_name';
-      const wrapper = shallow(<CardForm onChange={onChange} />);
+      const fieldLabel = "Cardholder's name";
+      const fieldName = "name";
+      const fieldValue = 'a name';
+      const { getByLabelText } = render(<CardForm onChange={onChange} />);
 
-      fillField(wrapper, fieldName, fieldValue);
+      fillField(getByLabelText, fieldLabel, fieldValue);
 
       expect(onChange).toHaveBeenCalledWith(fieldName, fieldValue);
     });
@@ -382,42 +363,42 @@ describe('CardForm', () => {
   describe('card number format', () => {
     test('format allows up to 19 digits if accepted card types include UnionPay', () => {
       const acceptedCards = ['VISA', 'MC', 'UNIONPAY'];
-      const expectedFormat = {
-        pattern: '....-....-....-....-...',
-        shouldAddSeparatorBeforeTyping: false,
-        allowedCharacters: /[0-9]*/g
-      }
+      const numberWithSymbolsAndExtraDigits = '1111B2222a3333$4444#555/6666';
 
-      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+      const { getByLabelText } = render(<CardForm acceptedCards={acceptedCards} />);
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      fillField(getByLabelText, 'Card number', numberWithSymbolsAndExtraDigits);
+
+      expect(getByLabelText('Card number').value).toEqual('1111-2222-3333-4444-555');
     });
 
     test('format allows up to 16 digits if accepted cards do not include UnionPay', () => {
       const acceptedCards = ['VISA', 'MC'];
-      const expectedFormat = {
-        pattern: '....-....-....-....',
-        shouldAddSeparatorBeforeTyping: true,
-        allowedCharacters: /[0-9]*/g
-      }
+      const numberWithSymbolsAndExtraDigits = '1111B2222a3333$4444#555/6666';
 
-      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
+      const { getByLabelText } = render(<CardForm acceptedCards={acceptedCards} />);
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      fillField(getByLabelText, 'Card number', numberWithSymbolsAndExtraDigits);
+
+      expect(getByLabelText('Card number').value).toEqual('1111-2222-3333-4444');
     });
 
     test('updates card number format if acceptedCards prop changes', () => {
-      const acceptedCards = ['VISA', 'MC'];
-      const expectedFormat = {
-        pattern: '....-....-....-....-...',
-        shouldAddSeparatorBeforeTyping: false,
-        allowedCharacters: /[0-9]*/g
-      }
+      const acceptedCards = ['VISA', 'MC', 'UNIONPAY'];
+      const numberWithSymbolsAndExtraDigits = '1111B2222a3333$4444#555/6666';
 
-      const wrapper = shallow(<CardForm acceptedCards={acceptedCards} />);
-      wrapper.setProps({ acceptedCards: ['VISA', 'UNIONPAY']});
+      const { getByLabelText, rerender } = render(<CardForm acceptedCards={acceptedCards} />);
 
-      expect(wrapper.find(`[name="cardNumber"]`).prop('format')).toEqual(expectedFormat);
+      fillField(getByLabelText, 'Card number', numberWithSymbolsAndExtraDigits);
+
+      expect(getByLabelText('Card number').value).toEqual('1111-2222-3333-4444-555');
+
+      const updatedCcceptedCards = ['VISA', 'MC'];
+      rerender(<CardForm acceptedCards={updatedCcceptedCards} />)
+
+      fillField(getByLabelText, 'Card number', numberWithSymbolsAndExtraDigits);
+
+      expect(getByLabelText('Card number').value).toEqual('1111-2222-3333-4444');
     });
   });
 
@@ -425,45 +406,49 @@ describe('CardForm', () => {
     test('does not render optional fields', () => {
       const optionalFields = ['expiryDate', 'cvv'];
 
-      const wrapper = shallow(<CardForm optionalFields={optionalFields}/>);
+      render(<CardForm optionalFields={optionalFields} />);
 
-      expect(wrapper.find(`[name="expiryDate"]`)).toHaveLength(0);
-      expect(wrapper.find(`[name="cvv"]`)).toHaveLength(0);
+      expect(screen.queryAllByLabelText('Expiry date (MM/YY)')).toHaveLength(0);
+      expect(screen.queryAllByLabelText('CVV')).toHaveLength(0);
     });
 
     test('does not validate optinal fields on submit', () => {
       const optionalFields = ['expiryDate', 'cvv'];
       const onSubmit = jest.fn();
-      const props = { onSubmit, optionalFields}
+      const props = { onSubmit, optionalFields };
       const expectedSubmittedValues = {
-        name: 'a_name',
-        surname: 'a_surname',
-        cardNumber:'4111111111111111',
+        name: 'a name',
+        surname: 'a surname',
+        cardNumber: '4111-1111-1111-1111',
         cardType: 'VISA'
       };
 
-      const wrapper = shallow(<CardForm {...props}/>);
+      const { getByLabelText } = render(<CardForm {...props} />);
 
-      fillField(wrapper, 'name', 'a_name');
-      fillField(wrapper, 'surname', 'a_surname');
-      fillField(wrapper, 'cardNumber', '4111111111111111');
+      fillField(getByLabelText, "Cardholder's name", 'a name');
+      fillField(getByLabelText, "Cardholder's surname", 'a surname');
+      fillField(getByLabelText, 'Card number', '4111-1111-1111-1111');
 
-      const form = wrapper.find('form');
-      form.simulate('submit', { preventDefault: () => {} });
+      submitForm();
 
       expect(onSubmit).toHaveBeenCalledWith(expectedSubmittedValues);
     });
   });
 });
 
-const fillField = (wrapper, name, value) => {
-  wrapper
-  .find(`[name="${name}"]`)
-  .simulate('change', name, value);
+const fillField = (getByLabelText, label, value) => {
+  const input = getByLabelText(label);
+  fireEvent.change(input, { target: { value: value } });
 };
 
-const blurField = (wrapper, name, value) => {
-  wrapper
-  .find(`[name="${name}"]`)
-  .simulate('blur', name, value);
+const submitForm = () => {
+  const submitButton = screen.getByRole("button");
+  submitButton.click();
+}
+
+const blurField = (getByLabelText, label, value) => {
+  const input = getByLabelText(label);
+  fireEvent.change(input, { target: { value: value } });
+  input.blur();
+  submitForm();
 };

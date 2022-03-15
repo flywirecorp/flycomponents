@@ -1,42 +1,44 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { fireEvent, render, screen } from '@testing-library/react';
 import CardNumberInput from './CardNumberInput';
-import TextInput from '../TextInput';
-import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('CardNumberInput', () => {
+  userEvent.setup();
+
   describe('renders', () => {
     test('a TextInput with all the passed props', () => {
-      const props = { name: 'a_name', propA: 'propA', propB: 'propB' };
-      const wrapper = shallow(<CardNumberInput {...props} />);
+      const props = { name: 'a_name', prop_a: 'propA', prop_b: 'propB' };
+      const { getByRole } = render(<CardNumberInput {...props} />);
 
-      const textInput = wrapper.find(TextInput);
+      const input = getByRole('textbox');
 
-      expect(textInput.props()).toEqual(expect.objectContaining(props));
+      expect(input).toHaveAttribute('name', 'a_name');
+      expect(input).toHaveAttribute('prop_a', 'propA');
+      expect(input).toHaveAttribute('prop_b', 'propB');
     });
 
     test('a TextInput witht the provided className', () => {
       const props = { name: 'a_name', className: 'a_className' };
-      const wrapper = shallow(<CardNumberInput {...props} />);
+      const { container } = render(<CardNumberInput {...props} />);
 
-      expect(wrapper.find(TextInput).hasClass('a_className')).toEqual(true);
+      expect(container.firstChild.classList.contains('a_className')).toBe(true);
     });
   });
 
   describe('when no format prop is passed', () => {
-    it('defaults to ....-....-....-.... only allowing numbers', () => {
+    it('defaults to ....-....-....-.... only allowing numbers', async () => {
       render(<CardNumberInput name="cardInput" label="Card Input" />);
 
       const cardInput = screen.getByRole('textbox', { name: /Card input/i });
-      userEvent.type(cardInput, '1111-vvvv-aaaa-bbbb');
+      await userEvent.type(cardInput, '1111-vvvv-aaaa-bbbb');
 
       expect(cardInput).toHaveValue('1111-');
     });
   });
 
   describe('when format prop is passed', () => {
-    it('adapts to it', () => {
+    it('adapts to it', async () => {
       const format = {
         pattern: '...',
         allowedCharacters: /[0-9]*/g
@@ -46,22 +48,23 @@ describe('CardNumberInput', () => {
       );
 
       const cardInput = screen.getByRole('textbox', { name: /Card input/i });
-      userEvent.type(cardInput, '111');
+      await userEvent.type(cardInput, '111');
 
       expect(cardInput).toHaveValue('111');
     });
   });
 
   describe('onChange', () => {
-    test('calls the passed onChange callback when on change', () => {
+    test('calls the passed onChange callback when on change', async () => {
       const onChange = jest.fn();
       const name = 'a_name';
-      const value = 'a_value';
-      const wrapper = shallow(
+      const value = '123';
+      const { getByRole } = render(
         <CardNumberInput name={name} onChange={onChange} />
       );
 
-      wrapper.simulate('change', name, value);
+      const input = getByRole('textbox');
+      fireEvent.change(input, { target: { value: value } });
 
       expect(onChange).toHaveBeenCalledWith(name, value);
     });
@@ -77,12 +80,14 @@ describe('CardNumberInput', () => {
         'to identify the card type %s',
         (cardType, cardNumber) => {
           const name = 'a_name';
-          const wrapper = shallow(<CardNumberInput name={name} />);
+          const { container, getByRole } = render(
+            <CardNumberInput name={name} />
+          );
 
-          const textInput = wrapper.find(TextInput);
-          textInput.simulate('change', name, cardNumber);
+          const input = getByRole('textbox');
+          fireEvent.change(input, { target: { value: cardNumber } });
 
-          expect(wrapper.find(TextInput).hasClass(cardType)).toEqual(true);
+          expect(container.firstChild.classList.contains(cardType)).toBe(true);
         }
       );
 
@@ -91,15 +96,15 @@ describe('CardNumberInput', () => {
         const cardNumber = '4111111111111111';
         const cardType = 'visa';
         const className = 'a_className';
-        const wrapper = shallow(
+        const { container, getByRole } = render(
           <CardNumberInput name={name} className={className} />
         );
 
-        const textInput = wrapper.find(TextInput);
-        textInput.simulate('change', name, cardNumber);
+        const input = getByRole('textbox');
+        fireEvent.change(input, { target: { value: cardNumber } });
 
-        expect(wrapper.find(TextInput).hasClass(className)).toEqual(true);
-        expect(wrapper.find(TextInput).hasClass(cardType)).toEqual(true);
+        expect(container.firstChild.classList.contains(className)).toBe(true);
+        expect(container.firstChild.classList.contains(cardType)).toBe(true);
       });
 
       test('cleans className when value is invalid', () => {
@@ -107,13 +112,15 @@ describe('CardNumberInput', () => {
         const validCardNumber = '4111111111111111';
         const cardType = 'visa';
         const invalidCardNumber = '4';
-        const wrapper = shallow(<CardNumberInput name={name} />);
+        const { container, getByRole } = render(
+          <CardNumberInput name={name} />
+        );
 
-        const textInput = wrapper.find(TextInput);
-        textInput.simulate('change', name, validCardNumber);
-        textInput.simulate('change', name, invalidCardNumber);
+        const input = getByRole('textbox');
+        fireEvent.change(input, { target: { value: validCardNumber } });
+        fireEvent.change(input, { target: { value: invalidCardNumber } });
 
-        expect(wrapper.find(TextInput).hasClass(cardType)).not.toEqual(true);
+        expect(container.firstChild.classList.contains(cardType)).toBe(false);
       });
     });
   });
