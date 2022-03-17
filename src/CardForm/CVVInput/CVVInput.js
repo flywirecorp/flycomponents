@@ -3,6 +3,13 @@ import classNames from 'classnames';
 import React from 'react';
 import TextInput from '../TextInput';
 
+const NUMBERS_REGEX = /[0-9]*/g;
+
+const FORMAT = {
+  pattern: '....',
+  allowedCharacters: NUMBERS_REGEX
+};
+
 class CVVInput extends React.Component {
   state = { showTooltip: false };
   showTooltip = () => this.setState({ showTooltip: true });
@@ -10,16 +17,16 @@ class CVVInput extends React.Component {
 
   handleFocus = () => {
     this.showTooltip();
-    this.props.onFocus();
+    this.props.onFocus(this.props.name);
   };
 
   handleBlur = () => {
     this.hideTooltip();
-    this.props.onBlur();
+    this.props.onBlur(this.props.name);
   };
 
   render = () => {
-    const { cvvTooltip, className, onFocus, onBlur, ...props } = this.props;
+    const { cvvTooltip, className, ...props } = this.props;
     const textInputClassName = classNames('cvvInput', className);
 
     return (
@@ -28,6 +35,7 @@ class CVVInput extends React.Component {
         ariaDescribedBy="cvvInput-Label-Tooltip"
         onFocus={this.handleFocus}
         onBlur={this.handleBlur}
+        format={FORMAT}
         {...props}
       >
         {/* eslint-disable-next-line */}

@@ -34,6 +34,8 @@ import Home from './components/Home';
 import Radio from './components/Radio';
 import Switch from './components/Switch';
 import forkme from './images/forkme.svg';
+import CVVInput from './components/CVVInput';
+import CardNumberInput from './components/CardNumberInput';
 
 import './index.css';
 
@@ -70,6 +72,16 @@ const routes = [
     path: '/cardForm',
     label: 'CardForm',
     component: CardForm
+  },
+  {
+    path: '/cardNumberInput',
+    label: 'CardNumberInput',
+    component: CardNumberInput
+  },
+  {
+    path: '/cvv-input',
+    label: 'CVVInput',
+    component: CVVInput
   },
   {
     path: '/datepicker',

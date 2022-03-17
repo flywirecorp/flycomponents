@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import CardNumberInput from './CardNumberInput';
 import TextInput from '../TextInput';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('CardNumberInput', () => {
   describe('renders', () => {
@@ -19,6 +21,34 @@ describe('CardNumberInput', () => {
       const wrapper = shallow(<CardNumberInput {...props} />);
 
       expect(wrapper.find(TextInput).hasClass('a_className')).toEqual(true);
+    });
+  });
+
+  describe('when no format prop is passed', () => {
+    it('defaults to ....-....-....-.... only allowing numbers', () => {
+      render(<CardNumberInput name="cardInput" label="Card Input" />);
+
+      const cardInput = screen.getByRole('textbox', { name: /Card input/i });
+      userEvent.type(cardInput, '1111-vvvv-aaaa-bbbb');
+
+      expect(cardInput).toHaveValue('1111-');
+    });
+  });
+
+  describe('when format prop is passed', () => {
+    it('adapts to it', () => {
+      const format = {
+        pattern: '...',
+        allowedCharacters: /[0-9]*/g
+      };
+      render(
+        <CardNumberInput name="cardInput" label="Card Input" format={format} />
+      );
+
+      const cardInput = screen.getByRole('textbox', { name: /Card input/i });
+      userEvent.type(cardInput, '111');
+
+      expect(cardInput).toHaveValue('111');
     });
   });
 

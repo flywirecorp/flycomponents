@@ -3,6 +3,8 @@ import { shallow } from 'enzyme';
 import { Autocomplete } from './Autocomplete';
 import Options from './Options';
 import debounce from '../utils/debounce';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 jest.mock('../utils/debounce', () => {
   return jest.fn(fn => {
@@ -414,6 +416,25 @@ describe('Autocomplete', () => {
       component.simulateClick();
       expect(component.optionsListIsVisible()).toBe(false);
     });
+  });
+
+  test('when focused triggers the prop with the name of the field', async () => {
+    const onFocus = jest.fn();
+    const props = {
+      name: 'country',
+      options: [
+        { label: 'Spain', value: 'ES' },
+        { label: 'United States', value: 'US' },
+        { label: 'China', value: 'CN' }
+      ],
+      onFocus
+    };
+
+    render(<Autocomplete {...props} />);
+
+    userEvent.tab();
+
+    expect(onFocus).toHaveBeenCalledWith('country');
   });
 
   describe('getA11yStatusMessage', () => {
