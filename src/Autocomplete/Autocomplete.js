@@ -169,7 +169,7 @@ export class Autocomplete extends Component {
   handleFocus = () => {
     const { onFocus } = this.props;
 
-    onFocus();
+    onFocus(this.props.name);
   };
 
   handleOptionHover(value) {

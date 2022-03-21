@@ -4,6 +4,12 @@ import classNames from 'classnames';
 import TextInput from '../TextInput';
 import { getCardType } from '../../utils/card';
 
+const FORMAT = {
+  pattern: '....-....-....-....',
+  shouldAddSeparatorBeforeTyping: true,
+  allowedCharacters: /[0-9]*/g
+};
+
 class CardNumberInput extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -42,6 +48,7 @@ class CardNumberInput extends Component {
       <TextInput
         onChange={this.handleChange}
         className={textInputClassName}
+        format={FORMAT}
         {...otherProps}
       />
     );
