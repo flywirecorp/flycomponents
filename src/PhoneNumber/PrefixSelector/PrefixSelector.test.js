@@ -1,8 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import { PrefixSelector } from './PrefixSelector';
-import Options from './Options';
 import debounce from '../../utils/debounce';
+import { fireEvent, render } from '@testing-library/react';
 
 jest.mock('../../utils/debounce', () => {
   return jest.fn(fn => {
@@ -20,76 +19,11 @@ afterAll(() => {
 });
 
 describe('PrefixSelector', () => {
-  class PrefixSelectorComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        name: 'country',
-        options: [],
-        onFocus: () => {}
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<PrefixSelector {...props} />);
-    }
-
-    menu() {
-      return this.component.find('.PhoneNumber-menu-input');
-    }
-
-    options() {
-      return this.component.find(Options).children();
-    }
-
-    isOpen() {
-      return this.component.find('.Autocomplete').hasClass('is-searching');
-    }
-
-    selectedOption() {
-      return this.options().filterWhere(option => option.prop('hasFocus'));
-    }
-
-    simulateKeyPress(keyCode) {
-      this.menu().simulate('keyDown', { keyCode, preventDefault: () => {} });
-    }
-
-    simulateMenuClick() {
-      this.menu().simulate('click');
-    }
-
-    pressArrowDownKey() {
-      this.simulateKeyPress(40);
-    }
-
-    pressArrowUpKey() {
-      this.simulateKeyPress(38);
-    }
-
-    pressEscKey() {
-      this.simulateKeyPress(27);
-    }
-
-    pressEnterKey() {
-      this.simulateKeyPress(13);
-    }
-
-    typeSpa() {
-      this.simulateKeyPress(83);
-      this.simulateKeyPress(80);
-      this.simulateKeyPress(65);
-    }
-
-    update() {
-      this.component.update();
-    }
-
-    get a11yStatusMessage() {
-      return this.component.find('div[role="status"]').text();
-    }
-
-    get buttonAriaLabel() {
-      return this.component.find('button').prop('aria-label');
-    }
-  }
+  const defaultProps = {
+    name: 'country',
+    options: [],
+    onFocus: () => {}
+  };
 
   test('has a list with options', () => {
     const options = [
@@ -104,19 +38,23 @@ describe('PrefixSelector', () => {
         dialingCode: '1'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    expect(component.options()).toHaveLength(2);
+    const { queryAllByRole } = render(<PrefixSelector {...props} />);
+
+    expect(queryAllByRole('option')).toHaveLength(2);
   });
 
   test('displays options when clicking the menu', () => {
-    const component = new PrefixSelectorComponent();
+    const { container, getByRole } = render(
+      <PrefixSelector {...defaultProps} />
+    );
 
-    expect(component.isOpen()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-searching');
 
-    component.simulateMenuClick();
+    fireEvent.click(getByRole('button'));
 
-    expect(component.isOpen()).toBe(true);
+    expect(container.firstChild).toHaveClass('is-searching');
   });
 
   test('moves the focus to the next option when pressing key down', () => {
@@ -127,12 +65,13 @@ describe('PrefixSelector', () => {
         dialingCode: '34'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    component.simulateMenuClick();
-    component.pressArrowDownKey();
+    const { getByRole, getByLabelText } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
+    fireEvent.keyDown(getByRole('button'), { keyCode: 40 });
 
-    expect(component.selectedOption().prop('value')).toBe('ES');
+    expect(getByLabelText('Spain +34')).toHaveClass('is-active');
   });
 
   test('moves the focus to the previous option when pressing key up', () => {
@@ -148,23 +87,28 @@ describe('PrefixSelector', () => {
         dialingCode: '1'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    component.simulateMenuClick();
-    component.pressArrowDownKey();
-    component.pressArrowDownKey();
-    component.pressArrowUpKey();
+    const { getByRole, getByLabelText } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
+    fireEvent.keyDown(getByRole('button'), { keyCode: 40 });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 40 });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 38 });
 
-    expect(component.selectedOption().prop('value')).toBe('ES');
+    expect(getByLabelText('Spain +34')).toHaveClass('is-active');
   });
 
   test('hides options when pressing the esc key', () => {
-    const component = new PrefixSelectorComponent();
+    const { getByRole, container } = render(
+      <PrefixSelector {...defaultProps} />
+    );
+    fireEvent.click(getByRole('button'));
 
-    component.simulateMenuClick();
-    component.pressEscKey();
+    expect(container.firstChild).toHaveClass('is-searching');
 
-    expect(component.isOpen()).toBe(false);
+    fireEvent.keyDown(getByRole('button'), { keyCode: 27 });
+
+    expect(container.firstChild).not.toHaveClass('is-searching');
   });
 
   test('selects current option when pressing the enter key', () => {
@@ -175,13 +119,14 @@ describe('PrefixSelector', () => {
         dialingCode: '34'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    component.simulateMenuClick();
-    component.pressArrowDownKey();
-    component.pressEnterKey();
+    const { getByRole, getByLabelText } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
+    fireEvent.keyDown(getByRole('button'), { keyCode: 40 });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 13 });
 
-    expect(component.selectedOption().prop('value')).toBe('ES');
+    expect(getByLabelText('+34')).toBeInTheDocument();
   });
 
   test('hides options when pressing the enter key', () => {
@@ -192,13 +137,14 @@ describe('PrefixSelector', () => {
         dialingCode: '34'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    component.simulateMenuClick();
-    component.pressArrowDownKey();
-    component.pressEnterKey();
+    const { getByRole, container } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
+    fireEvent.keyDown(getByRole('button'), { keyCode: 40 });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 13 });
 
-    expect(component.isOpen()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-searching');
   });
 
   test('focus the country when typing', () => {
@@ -214,12 +160,15 @@ describe('PrefixSelector', () => {
         dialingCode: '1'
       }
     ];
-    const component = new PrefixSelectorComponent({ options });
+    const props = { ...defaultProps, ...{ options } };
 
-    component.simulateMenuClick();
-    component.typeSpa();
+    const { getByRole, getByLabelText } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
+    fireEvent.keyDown(getByRole('button'), { keyCode: 83, code: 'KeyS' });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 80, code: 'KeyP' });
+    fireEvent.keyDown(getByRole('button'), { keyCode: 65, code: 'KeyA' });
 
-    expect(component.selectedOption().prop('value')).toBe('ES');
+    expect(getByLabelText('Spain +34')).toHaveClass('is-active');
   });
 
   test('does not open the menu when read-only param is received', () => {
@@ -235,32 +184,34 @@ describe('PrefixSelector', () => {
         dialingCode: '1'
       }
     ];
-    const component = new PrefixSelectorComponent({ options, readOnly: true });
+    const props = { ...defaultProps, ...{ options }, readOnly: true };
 
-    component.simulateMenuClick();
+    const { getByRole, container } = render(<PrefixSelector {...props} />);
+    fireEvent.click(getByRole('button'));
 
-    expect(component.isOpen()).toBe(false);
+    expect(container.firstChild).not.toHaveClass('is-searching');
   });
 
   describe('getA11yStatusMessage', () => {
-    const options = [
-      {
-        label: 'Spain',
-        value: 'ES',
-        dialingCode: '34'
-      },
-      {
-        label: 'United States',
-        value: 'US',
-        dialingCode: '1'
-      }
-    ];
-    const component = new PrefixSelectorComponent({ options });
-
     test('reports that two result are available', () => {
-      component.simulateMenuClick();
+      const options = [
+        {
+          label: 'Spain',
+          value: 'ES',
+          dialingCode: '34'
+        },
+        {
+          label: 'United States',
+          value: 'US',
+          dialingCode: '1'
+        }
+      ];
+      const props = { ...defaultProps, ...{ options } };
 
-      expect(component.a11yStatusMessage).toBe(
+      const { getByRole } = render(<PrefixSelector {...props} />);
+      fireEvent.click(getByRole('button'));
+
+      expect(getByRole('status')).toHaveTextContent(
         '2 options are available, use up and down arrow keys to navigate. Press Enter key to select or Escape key to cancel.'
       );
     });
@@ -268,9 +219,11 @@ describe('PrefixSelector', () => {
 
   describe('button aria label', () => {
     test('does not show the prefix when a value is not selected', () => {
-      const component = new PrefixSelectorComponent();
+      const { queryAllByLabelText } = render(
+        <PrefixSelector {...defaultProps} />
+      );
 
-      expect(component.buttonAriaLabel).toEqual(undefined);
+      expect(queryAllByLabelText('+34')).toHaveLength(0);
     });
 
     test('shows prefix when value is selected', () => {
@@ -281,9 +234,11 @@ describe('PrefixSelector', () => {
           dialingCode: '34'
         }
       ];
-      const component = new PrefixSelectorComponent({ options, value: 'ES' });
+      const props = { ...defaultProps, ...{ options }, value: 'ES' };
 
-      expect(component.buttonAriaLabel).toEqual('+34');
+      const { getByLabelText } = render(<PrefixSelector {...props} />);
+
+      expect(getByLabelText('+34')).toBeInTheDocument();
     });
   });
 });
