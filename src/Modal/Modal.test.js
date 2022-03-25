@@ -2,6 +2,10 @@ import React from 'react';
 import Modal from './Modal';
 import { fireEvent, render } from '@testing-library/react';
 
+jest.mock('focus-trap-react', () => ({ children }) => (
+  <div data-testid="FocusTrap">{children}</div>
+));
+
 describe('Modal', () => {
   const dummyContent = (
     <form data-testid="form_id">
@@ -17,9 +21,9 @@ describe('Modal', () => {
   });
 
   test('traps the focus', () => {
-    render(<Modal>{dummyContent}</Modal>);
+    const { getByTestId } = render(<Modal>{dummyContent}</Modal>);
 
-    expect(document.body).toHaveFocus();
+    expect(getByTestId('FocusTrap')).toBeInTheDocument();
   });
 
   test('starts open', () => {
