@@ -1,73 +1,52 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import Day from '../Day';
 import { Context } from '../../Datepicker';
 import { parseDate } from '../../../utils/date';
+import { render } from '@testing-library/react';
 
 describe('Day', () => {
-  class DayComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        current: false,
-        date: parseDate('04/21/1979'),
-        disabled: false,
-        onDateClick: () => {},
-        selected: false
-      };
-      const props = { ...defaultProps, ...ownProps };
+  const dayComponent = ownProps => {
+    const defaultProps = {
+      current: false,
+      date: parseDate('04/21/1979'),
+      disabled: false,
+      onDateClick: () => {},
+      selected: false
+    };
+    const props = { ...defaultProps, ...ownProps };
 
-      this.component = mount(
-        <Context.Provider value={{ name: 'birthday' }}>
-          <Day {...props} />
-        </Context.Provider>,
-        {
-          attachTo: document.createElement('tr')
-        }
-      );
-    }
-
-    day() {
-      return this.component.find('.Calendar-day');
-    }
-
-    dayOfMonth() {
-      return this.day().text();
-    }
-
-    isDisabled() {
-      return this.day().hasClass('is-disabled');
-    }
-
-    isSelected() {
-      return this.day().hasClass('is-selected');
-    }
-
-    isCurrent() {
-      return this.day().hasClass('is-current');
-    }
-  }
+    const tableRow = document.createElement('tr');
+    return render(
+      <Context.Provider value={{ name: 'birthday' }}>
+        <Day {...props} />
+      </Context.Provider>,
+      {
+        container: document.body.appendChild(tableRow)
+      }
+    );
+  };
 
   test('renders a day', () => {
-    const component = new DayComponent();
+    const { getByText } = dayComponent();
 
-    expect(component.dayOfMonth()).toBe('21');
+    expect(getByText('21')).toBeInTheDocument();
   });
 
   test('sets day as current', () => {
-    const component = new DayComponent({ current: true });
+    const { getByRole } = dayComponent({ current: true });
 
-    expect(component.isCurrent()).toBe(true);
+    expect(getByRole('button')).toHaveClass('is-current');
   });
 
   test('sets day as disabled', () => {
-    const component = new DayComponent({ disabled: true });
+    const { getByRole } = dayComponent({ disabled: true });
 
-    expect(component.isDisabled()).toBe(true);
+    expect(getByRole('button')).toHaveClass('is-disabled');
   });
 
   test('sets day as selected', () => {
-    const component = new DayComponent({ selected: true });
+    const { getByRole } = dayComponent({ selected: true });
 
-    expect(component.isSelected()).toBe(true);
+    expect(getByRole('button')).toHaveClass('is-selected');
   });
 });
