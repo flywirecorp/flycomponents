@@ -1,21 +1,25 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { Context } from '../../Datepicker';
 import DayNames from './DayNames';
+import { render } from '@testing-library/react';
 
 describe('DayNames', () => {
   test('renders the days of the week', () => {
     const locale = 'en';
-    const component = mount(
+
+    const tableRow = document.createElement('table');
+    const { queryAllByRole } = render(
       <Context.Provider value={{ locale }}>
         <DayNames />
       </Context.Provider>,
       {
-        attachTo: document.createElement('table')
+        container: document.body.appendChild(tableRow)
       }
     );
 
-    const days = component.find('.Calendar-weekday').map(d => d.text());
+    const days = queryAllByRole('columnheader').map(
+      header => header.firstChild.textContent
+    );
     const expectedDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     expect(days).toEqual(expectedDays);
