@@ -1,58 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import DateInput from './DateInput';
 import { parseDate } from '../../utils/date';
-import { ENTER, BACKSPACE } from '../../utils/keycodes';
+import { fireEvent, render } from '@testing-library/react';
 
 describe('DateInput', () => {
-  class DateInputComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        name: 'name',
-        onCalendarIconClick: () => {},
-        onFocus: () => {},
-        onClick: () => {},
-        onKeyDown: () => {},
-        toggleCalendar: () => {}
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<DateInput {...props} />);
-    }
-
-    input() {
-      return this.component.find('Input');
-    }
-
-    simulateChange(value) {
-      this.component.setState({ value });
-      this.input().simulate('change');
-    }
-
-    state() {
-      return this.component.state();
-    }
-
-    setState(state) {
-      this.component.setState(state);
-    }
-
-    pressKey(k) {
-      const keys = {
-        0: { which: 48 },
-        delete: { which: BACKSPACE },
-        enter: { which: ENTER }
-      };
-
-      this.input().simulate('keyDown', keys[k]);
-    }
-  }
+  const defaultProps = {
+    name: 'name',
+    onCalendarIconClick: () => {},
+    onFocus: () => {},
+    onClick: () => {},
+    onKeyDown: () => {},
+    toggleCalendar: () => {}
+  };
 
   test('sets the state value while writing', () => {
     const onKeyDown = jest.fn();
-    const component = new DateInputComponent({ onKeyDown });
+    const props = { ...defaultProps, onKeyDown };
 
-    component.pressKey(0);
+    const { getByRole } = render(<DateInput {...props} />);
+    fireEvent.keyDown(getByRole('textbox'), {
+      key: '0',
+      keyCode: 48
+    });
 
     expect(onKeyDown).toBeCalledWith('0');
   });
@@ -60,39 +29,48 @@ describe('DateInput', () => {
   test('removes the last character when pressing delete key', () => {
     const onKeyDown = jest.fn();
     const defaultValue = parseDate('05/12/2016');
-    const component = new DateInputComponent({ defaultValue, onKeyDown });
+    const props = { ...defaultProps, defaultValue, onKeyDown };
 
-    component.pressKey('delete');
+    const { getByRole } = render(<DateInput {...props} />);
+    fireEvent.keyDown(getByRole('textbox'), {
+      key: 'Backspace',
+      keyCode: 8
+    });
 
     expect(onKeyDown).toBeCalledWith('05/12/201');
   });
 
   test('does not change input field if readOnly prop is passed in', () => {
     const onKeyDown = jest.fn();
-    const component = new DateInputComponent({
-      onKeyDown,
-      readOnly: true
-    });
+    const props = { ...defaultProps, onKeyDown, readOnly: true };
 
-    component.pressKey(0);
+    const { getByRole } = render(<DateInput {...props} />);
+    fireEvent.keyDown(getByRole('textbox'), {
+      key: '0',
+      keyCode: 48
+    });
 
     expect(onKeyDown).not.toBeCalled();
   });
 
   test('toggles calendar when Enter key pressed', () => {
     const toggleCalendar = jest.fn();
-    const component = new DateInputComponent({ toggleCalendar });
+    const props = { ...defaultProps, toggleCalendar };
 
-    component.pressKey('enter');
+    const { getByRole } = render(<DateInput {...props} />);
+    fireEvent.keyDown(getByRole('textbox'), {
+      key: 'Enter',
+      keyCode: 13
+    });
 
     expect(toggleCalendar).toBeCalledWith();
   });
 
   test('pass other properties to the inner input field', () => {
-    const component = new DateInputComponent({ 'aria-required': true });
+    const props = { ...defaultProps, 'data-testid': 'dateinput_id' };
 
-    const input = component.input();
+    const { getByTestId } = render(<DateInput {...props} />);
 
-    expect(input.prop('aria-required')).toBe(true);
+    expect(getByTestId('dateinput_id')).toBeInTheDocument();
   });
 });
