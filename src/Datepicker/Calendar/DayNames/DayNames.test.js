@@ -7,13 +7,13 @@ describe('DayNames', () => {
   test('renders the days of the week', () => {
     const locale = 'en';
 
-    const tableRow = document.createElement('table');
+    const table = document.createElement('table');
     const { queryAllByRole } = render(
       <Context.Provider value={{ locale }}>
         <DayNames />
       </Context.Provider>,
       {
-        container: document.body.appendChild(tableRow)
+        container: document.body.appendChild(table)
       }
     );
 
