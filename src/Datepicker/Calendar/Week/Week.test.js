@@ -1,10 +1,8 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Week from '../Week';
-import Day from '../Day';
 import { Context } from '../../Datepicker';
 import { parseDate, LONG_DATE_FORMAT } from '../../../utils/date';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 describe('Week', () => {
   const weekComponent = ownProps => {
@@ -26,25 +24,6 @@ describe('Week', () => {
       }
     );
   };
-
-  class WeekComponent {
-    constructor(ownProps) {
-      const NOVEMBER = 10;
-      const defaultProps = {
-        startingDate: parseDate('11/13/2016'),
-        month: NOVEMBER,
-        onDateClick: () => {},
-        selectedDate: parseDate('11/18/2016')
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Week {...props} />);
-    }
-
-    days() {
-      return this.component.find(Day);
-    }
-  }
 
   test('has 7 days', () => {
     const startingDate = parseDate('11/20/2016');
