@@ -1,72 +1,76 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Week from '../Week';
-import Day from '../Day';
-import { parseDate } from '../../../utils/date';
+import { Context } from '../../Datepicker';
+import { parseDate, LONG_DATE_FORMAT } from '../../../utils/date';
+import { render } from '@testing-library/react';
 
 describe('Week', () => {
-  class WeekComponent {
-    constructor(ownProps) {
-      const NOVEMBER = 10;
-      const defaultProps = {
-        startingDate: parseDate('11/13/2016'),
-        month: NOVEMBER,
-        onDateClick: () => {},
-        selectedDate: parseDate('11/18/2016')
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Week {...props} />);
-    }
-
-    days() {
-      return this.component.find(Day);
-    }
+  function WeekComponent(ownProps) {
+    const NOVEMBER = 10;
+    const defaultProps = {
+      startingDate: parseDate('11/13/2016'),
+      month: NOVEMBER,
+      onDateClick: () => {},
+      selectedDate: parseDate('11/18/2016')
+    };
+    const props = { ...defaultProps, ...ownProps };
+    const tableBody = document.createElement('tbody');
+    return render(
+      <Context.Provider value={{ name: 'birthday' }}>
+        <Week {...props} />
+      </Context.Provider>,
+      {
+        container: document.body.appendChild(tableBody)
+      }
+    );
   }
 
   test('has 7 days', () => {
     const startingDate = parseDate('11/20/2016');
-    const component = new WeekComponent({ startingDate });
-    const days = component.days();
-    expect(days).toHaveLength(7);
 
-    expect(
-      days
-        .first()
-        .prop('date')
-        .isSame(startingDate, 'day')
-    ).toBe(true);
+    const { queryAllByRole, getByLabelText } = WeekComponent({
+      startingDate
+    });
+    const dayNodes = queryAllByRole('button');
 
-    expect(
-      days
-        .last()
-        .prop('date')
-        .isSame(startingDate.add(6, 'day'), 'day')
-    ).toBe(true);
+    expect(dayNodes).toHaveLength(7);
+
+    dayNodes.forEach(dayNode => {
+      expect(dayNode).toHaveClass('Calendar-day');
+    });
+
+    const formattedFirstDate = startingDate.format(LONG_DATE_FORMAT);
+    expect(getByLabelText(formattedFirstDate)).toBe(dayNodes[0]);
+
+    const formattedLastDate = startingDate
+      .add(6, 'day')
+      .format(LONG_DATE_FORMAT);
+    expect(getByLabelText(formattedLastDate)).toBe(dayNodes[6]);
   });
 
   test('sets current day', () => {
     const startingDate = parseDate('11/20/2016');
-    const selectedDate = parseDate('11/20/2016');
-    const component = new WeekComponent({ startingDate, selectedDate });
+    const selectedDate = parseDate('11/22/2016');
 
-    expect(
-      component
-        .days()
-        .first()
-        .prop('selected')
-    ).toBe(true);
+    const { queryAllByRole, getByLabelText } = WeekComponent({
+      startingDate,
+      selectedDate
+    });
+    const dayNodes = queryAllByRole('button');
+
+    const formattedSelectedDate = selectedDate.format(LONG_DATE_FORMAT);
+    expect(getByLabelText(formattedSelectedDate)).toBe(dayNodes[2]);
+    expect(dayNodes[2]).toHaveClass('is-selected');
   });
 
   test('sets other month days as disabled', () => {
     const startingDate = parseDate('12/01/2019');
-    const component = new WeekComponent({ startingDate });
 
-    expect(
-      component
-        .days()
-        .first()
-        .prop('disabled')
-    ).toBe(true);
+    const { queryAllByRole } = WeekComponent({
+      startingDate
+    });
+    const dayNodes = queryAllByRole('button');
+
+    expect(dayNodes[0]).toHaveClass('is-disabled');
   });
 });

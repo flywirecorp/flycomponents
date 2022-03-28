@@ -208,7 +208,7 @@ class Datepicker extends Component {
     const { target } = e;
     const parentElement = this.formGroupRef.current;
 
-    if (parentElement.contains(target)) {
+    if (parentElement?.contains(target)) {
       return;
     }
 

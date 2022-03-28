@@ -2,6 +2,10 @@ import React from 'react';
 import Drawer from './Drawer';
 import { render, fireEvent } from '@testing-library/react';
 
+jest.mock('focus-trap-react', () => ({ children }) => (
+  <div data-testid="FocusTrap">{children}</div>
+));
+
 describe('Drawer', () => {
   const dummyContent = (
     <form>
@@ -19,9 +23,9 @@ describe('Drawer', () => {
   });
 
   test('trap the focus when open', () => {
-    render(<Drawer isOpen>{dummyContent}</Drawer>);
+    const { getByTestId } = render(<Drawer isOpen>{dummyContent}</Drawer>);
 
-    expect(document.body).toHaveFocus();
+    expect(getByTestId('FocusTrap')).toBeInTheDocument();
   });
 
   test('close drawer using the X button', () => {
