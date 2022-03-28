@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 import { fireEvent, render } from '@testing-library/react';
 
 describe('Navigation', () => {
-  const navigationComponent = ownProps => {
+  function NavigationComponent(ownProps) {
     const FAKE_CALLBACK = () => {};
     const defaultProps = {
       onMonthChange: FAKE_CALLBACK,
@@ -21,11 +21,11 @@ describe('Navigation', () => {
         <Navigation {...props} />
       </Context.Provider>
     );
-  };
+  }
 
   test('handles a previous month button click', () => {
     const onPrevMonthClick = jest.fn();
-    const { getByLabelText } = navigationComponent({ onPrevMonthClick });
+    const { getByLabelText } = NavigationComponent({ onPrevMonthClick });
 
     fireEvent.click(getByLabelText('Go to previous month'));
 
@@ -34,7 +34,7 @@ describe('Navigation', () => {
 
   test('handles a next month button click', () => {
     const onNextMonthClick = jest.fn();
-    const { getByLabelText } = navigationComponent({ onNextMonthClick });
+    const { getByLabelText } = NavigationComponent({ onNextMonthClick });
 
     fireEvent.click(getByLabelText('Go to next month'));
 
@@ -43,7 +43,7 @@ describe('Navigation', () => {
 
   test('handles the onChange event', () => {
     const onMonthChange = jest.fn();
-    const { getByLabelText } = navigationComponent({ onMonthChange });
+    const { getByLabelText } = NavigationComponent({ onMonthChange });
     fireEvent.change(getByLabelText('Select month'), {
       target: { value: 3 }
     });
@@ -52,7 +52,7 @@ describe('Navigation', () => {
 
   describe('month selector', () => {
     test('exists', () => {
-      const { getByLabelText } = navigationComponent();
+      const { getByLabelText } = NavigationComponent();
 
       expect(getByLabelText('Select month')).toBeInTheDocument();
       expect(getByLabelText('Select month').childNodes).toHaveLength(12);
@@ -61,7 +61,7 @@ describe('Navigation', () => {
 
   describe('year selector', () => {
     test('exists', () => {
-      const { getByLabelText } = navigationComponent();
+      const { getByLabelText } = NavigationComponent();
 
       expect(getByLabelText('Select year')).toBeInTheDocument();
     });
@@ -69,7 +69,7 @@ describe('Navigation', () => {
     test('has a hundred of years', () => {
       const selectedDate = moment('2000-01-01');
 
-      const { getByLabelText } = navigationComponent({ selectedDate });
+      const { getByLabelText } = NavigationComponent({ selectedDate });
       const years = getByLabelText('Select year').childNodes;
       const firstYear = years[0];
       const lastYear = years[199];

@@ -9,7 +9,7 @@ jest.mock('focus-trap-react', () => ({ children }) => (
 ));
 
 describe('Calendar', () => {
-  function calendarComponent(ownProps) {
+  function CalendarComponent(ownProps) {
     const FAKE_CALLBACK = () => {};
     const defaultProps = {
       closeCalendar: FAKE_CALLBACK,
@@ -32,13 +32,13 @@ describe('Calendar', () => {
   }
 
   test('has a navigation bar', () => {
-    const { getByRole } = calendarComponent();
+    const { getByRole } = CalendarComponent();
 
     expect(getByRole('navigation')).toBeInTheDocument();
   });
 
   test('has a day names header', () => {
-    const { getByRole } = calendarComponent();
+    const { getByRole } = CalendarComponent();
 
     expect(
       getByRole('row', { name: 'Sun Mon Tue Wed Thu Fri Sat' })
@@ -46,13 +46,13 @@ describe('Calendar', () => {
   });
 
   test('has a day month table', () => {
-    const { queryAllByRole } = calendarComponent();
+    const { queryAllByRole } = CalendarComponent();
 
     expect(queryAllByRole('presentation')[2]).toBeInTheDocument();
   });
 
   test('traps the focus when open', () => {
-    const { getByTestId } = calendarComponent({ isOpen: true });
+    const { getByTestId } = CalendarComponent({ isOpen: true });
 
     expect(getByTestId('FocusTrap')).toBeInTheDocument();
   });
@@ -60,7 +60,7 @@ describe('Calendar', () => {
   test('closes the calendar when ESC or ENTER key pressed', () => {
     const closeCalendar = jest.fn();
 
-    const { container } = calendarComponent({ closeCalendar });
+    const { container } = CalendarComponent({ closeCalendar });
     fireEvent.keyDown(container.firstChild, { keyCode: 27 });
 
     expect(closeCalendar).toBeCalled();
@@ -70,7 +70,7 @@ describe('Calendar', () => {
     const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
 
-    const { container } = calendarComponent({ selectedDate, setDate });
+    const { container } = CalendarComponent({ selectedDate, setDate });
     fireEvent.keyDown(container.firstChild, { keyCode: 38 });
 
     expect(setDate).toBeCalledWith(selectedDate.subtract(1, 'week'));
@@ -80,7 +80,7 @@ describe('Calendar', () => {
     const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
 
-    const { container } = calendarComponent({ selectedDate, setDate });
+    const { container } = CalendarComponent({ selectedDate, setDate });
     fireEvent.keyDown(container.firstChild, { keyCode: 40 });
 
     expect(setDate).toBeCalledWith(selectedDate.add(1, 'week'));
@@ -90,7 +90,7 @@ describe('Calendar', () => {
     const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
 
-    const { container } = calendarComponent({ selectedDate, setDate });
+    const { container } = CalendarComponent({ selectedDate, setDate });
     fireEvent.keyDown(container.firstChild, { keyCode: 39 });
 
     expect(setDate).toBeCalledWith(selectedDate.add(1, 'day'));
@@ -100,7 +100,7 @@ describe('Calendar', () => {
     const selectedDate = moment('2016-11-13');
     const setDate = jest.fn();
 
-    const { container } = calendarComponent({ selectedDate, setDate });
+    const { container } = CalendarComponent({ selectedDate, setDate });
     fireEvent.keyDown(container.firstChild, { keyCode: 37 });
 
     expect(setDate).toBeCalledWith(selectedDate.subtract(1, 'day'));

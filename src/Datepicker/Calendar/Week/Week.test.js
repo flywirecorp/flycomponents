@@ -5,7 +5,7 @@ import { parseDate, LONG_DATE_FORMAT } from '../../../utils/date';
 import { render } from '@testing-library/react';
 
 describe('Week', () => {
-  const weekComponent = ownProps => {
+  function WeekComponent(ownProps) {
     const NOVEMBER = 10;
     const defaultProps = {
       startingDate: parseDate('11/13/2016'),
@@ -23,12 +23,12 @@ describe('Week', () => {
         container: document.body.appendChild(tableBody)
       }
     );
-  };
+  }
 
   test('has 7 days', () => {
     const startingDate = parseDate('11/20/2016');
 
-    const { queryAllByRole, getByLabelText } = weekComponent({
+    const { queryAllByRole, getByLabelText } = WeekComponent({
       startingDate
     });
     const dayNodes = queryAllByRole('button');
@@ -52,7 +52,7 @@ describe('Week', () => {
     const startingDate = parseDate('11/20/2016');
     const selectedDate = parseDate('11/22/2016');
 
-    const { queryAllByRole, getByLabelText } = weekComponent({
+    const { queryAllByRole, getByLabelText } = WeekComponent({
       startingDate,
       selectedDate
     });
@@ -66,7 +66,7 @@ describe('Week', () => {
   test('sets other month days as disabled', () => {
     const startingDate = parseDate('12/01/2019');
 
-    const { queryAllByRole } = weekComponent({
+    const { queryAllByRole } = WeekComponent({
       startingDate
     });
     const dayNodes = queryAllByRole('button');
