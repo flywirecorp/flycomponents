@@ -1,298 +1,222 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import Datepicker from './Datepicker';
-import Calendar from './Calendar';
-import DateInput from './DateInput';
-import { parseDate } from '../utils/date';
+import { fireEvent, render } from '@testing-library/react';
+
+jest.mock('focus-trap-react', () => ({ children }) => (
+  <div data-testid="FocusTrap">{children}</div>
+));
 
 describe('Datepicker', () => {
-  class DatepickerComponent {
-    constructor(ownProps) {
-      const defaultProps = {
-        error: '',
-        label: 'Your birthday',
-        name: 'birthday',
-        onBlur: () => {},
-        onChange: () => {},
-        required: false,
-        value: '04/21/1979'
-      };
-      const props = { ...defaultProps, ...ownProps };
-
-      this.component = shallow(<Datepicker {...props} />);
-    }
-
-    datepicker() {
-      return this.component;
-    }
-
-    currentDate() {
-      const state = this.datepicker().state();
-      return state.selectedDate.format('MM/DD/YYYY');
-    }
-
-    selectedDate() {
-      const state = this.datepicker().state();
-      return state.selectedDate;
-    }
-
-    dateInput() {
-      return this.component.find(DateInput);
-    }
-
-    calendar() {
-      return this.component.find(Calendar);
-    }
-
-    calendarIsVisible() {
-      return this.component.state('isOpen');
-    }
-
-    calendarIsBelow() {
-      return !this.component.find('.Datepicker').hasClass('is-reverse');
-    }
-
-    simulateCalendarIconClick() {
-      this.dateInput().simulate('calendarIconClick', {
-        preventDefault: () => {}
-      });
-    }
-
-    simulateDateInputClick() {
-      this.dateInput().simulate('calendarIconClick', {
-        preventDefault: () => {}
-      });
-    }
-
-    simulateDateInputBlur() {
-      this.dateInput().simulate('blur');
-    }
-
-    simulatePrevMonthClick() {
-      this.calendar().simulate('prevMonthClick');
-    }
-
-    simulateNextMonthClick() {
-      this.calendar().simulate('nextMonthClick');
-    }
-
-    simulateMonthChange(month) {
-      this.calendar().simulate('monthChange', month);
-    }
-
-    simulateYearChange(year) {
-      this.calendar().simulate('yearChange', year);
-    }
-
-    simulateDateClick(date) {
-      this.calendar().simulate('dateClick', date);
-    }
-  }
+  const defaultProps = {
+    error: '',
+    label: 'Your birthday',
+    name: 'birthday',
+    onBlur: () => {},
+    onChange: () => {},
+    required: false,
+    value: '04/21/1979'
+  };
 
   test('has a date input', () => {
-    const component = new DatepickerComponent();
+    const { getByRole } = render(<Datepicker {...defaultProps} />);
 
-    expect(component.dateInput()).toHaveLength(1);
+    expect(getByRole('textbox')).toBeInTheDocument();
+    expect(getByRole('textbox')).toHaveClass('Input Input InputGroup-input');
   });
 
   test('has a calendar', () => {
-    const component = new DatepickerComponent();
+    const { container } = render(<Datepicker {...defaultProps} />);
 
-    expect(component.calendar()).toHaveLength(1);
+    expect(container.firstChild.childNodes[1].lastChild).toHaveClass(
+      'Calendar Datepicker-calendar'
+    );
   });
 
   test('hiddes the calendar by default', () => {
-    const component = new DatepickerComponent();
+    const { container, queryAllByTestId } = render(
+      <Datepicker {...defaultProps} />
+    );
 
-    expect(component.calendarIsVisible()).toBe(false);
+    expect(queryAllByTestId('FocusTrap')).toHaveLength(0);
+    expect(container.firstChild).not.toHaveClass('is-focused');
   });
 
   test('shows the calendar when clicking the calendar icon', () => {
-    const component = new DatepickerComponent();
-    component.simulateCalendarIconClick();
+    const { container, getByTestId, getByLabelText } = render(
+      <Datepicker {...defaultProps} />
+    );
+    fireEvent.click(getByLabelText('Show calendar'));
 
-    expect(component.calendarIsVisible()).toBe(true);
+    expect(getByTestId('FocusTrap')).toBeInTheDocument();
+    expect(container.firstChild).toHaveClass('is-focused');
   });
 
-  test('shows the calendar when clicking the date icon', () => {
-    const component = new DatepickerComponent();
+  test('hides the calendar when click outside the component', () => {
+    const { container, queryAllByTestId, getByLabelText } = render(
+      <Datepicker {...defaultProps} />
+    );
+    fireEvent.click(getByLabelText('Show calendar'));
+    fireEvent.click(document.body);
 
-    component.simulateDateInputClick();
-
-    expect(component.calendarIsVisible()).toBe(true);
-  });
-
-  test('hides the calendar when date input blurs', () => {
-    jest.useFakeTimers();
-
-    const CLOSE_DELAY_TIME = 150;
-    const component = new DatepickerComponent();
-
-    component.simulateDateInputClick();
-    component.simulateDateInputBlur();
-
-    setTimeout(() => {
-      expect(component.calendarIsVisible()).toBe(false);
-    }, CLOSE_DELAY_TIME + 1);
+    expect(queryAllByTestId('FocusTrap')).toHaveLength(0);
+    expect(container.firstChild).not.toHaveClass('is-focused');
   });
 
   test('moves calendar one month back', () => {
     const value = '11/22/2016';
-    const onChangeMock = jest.fn();
-    const component = new DatepickerComponent({
-      value,
-      onChange: onChangeMock
-    });
+    const onChange = jest.fn();
+    const props = { ...defaultProps, value, onChange };
 
-    component.simulatePrevMonthClick();
+    const { getByRole, getByLabelText } = render(<Datepicker {...props} />);
+    fireEvent.click(getByLabelText('Go to previous month'));
 
-    expect(component.currentDate()).toBe('10/22/2016');
-    expect(onChangeMock).toHaveBeenCalledWith('birthday', '10/22/2016');
+    expect(getByRole('textbox')).toHaveProperty('value', '10/22/2016');
+    expect(onChange).toHaveBeenCalledWith('birthday', '10/22/2016');
   });
 
   test('moves calendar one month ahead', () => {
     const value = '11/22/2016';
-    const onChangeMock = jest.fn();
-    const component = new DatepickerComponent({
-      value,
-      onChange: onChangeMock
-    });
+    const onChange = jest.fn();
+    const props = { ...defaultProps, value, onChange };
 
-    component.simulateNextMonthClick();
+    const { getByRole, getByLabelText } = render(<Datepicker {...props} />);
+    fireEvent.click(getByLabelText('Go to next month'));
 
-    expect(component.currentDate()).toBe('12/22/2016');
-    expect(onChangeMock).toHaveBeenCalledWith('birthday', '12/22/2016');
+    expect(getByRole('textbox')).toHaveProperty('value', '12/22/2016');
+    expect(onChange).toHaveBeenCalledWith('birthday', '12/22/2016');
   });
 
   test('moves calendar to selected month', () => {
     const JANUARY = 0;
     const value = '11/22/2016';
-    const onChangeMock = jest.fn();
-    const component = new DatepickerComponent({
-      value,
-      onChange: onChangeMock
+    const onChange = jest.fn();
+    const props = { ...defaultProps, value, onChange };
+
+    const { getByLabelText, getByRole } = render(<Datepicker {...props} />);
+    fireEvent.change(getByLabelText('Select month'), {
+      target: { value: JANUARY }
     });
 
-    component.simulateMonthChange(JANUARY);
-
-    expect(component.currentDate()).toBe('01/22/2016');
-    expect(onChangeMock).toHaveBeenCalledWith('birthday', '01/22/2016');
+    expect(getByRole('textbox')).toHaveProperty('value', '01/22/2016');
+    expect(onChange).toHaveBeenCalledWith('birthday', '01/22/2016');
   });
 
   test('moves calendar to selected year', () => {
     const value = '11/22/2016';
-    const onChangeMock = jest.fn();
-    const component = new DatepickerComponent({
-      value,
-      onChange: onChangeMock
+    const onChange = jest.fn();
+    const props = { ...defaultProps, value, onChange };
+
+    const { getByLabelText, getByRole } = render(<Datepicker {...props} />);
+    fireEvent.change(getByLabelText('Select year'), {
+      target: { value: 2017 }
     });
 
-    component.simulateYearChange(2017);
-
-    expect(component.currentDate()).toBe('11/22/2017');
-    expect(onChangeMock).toHaveBeenCalledWith('birthday', '11/22/2017');
+    expect(getByRole('textbox')).toHaveProperty('value', '11/22/2017');
+    expect(onChange).toHaveBeenCalledWith('birthday', '11/22/2017');
   });
 
   test('selects date clicking a day', () => {
     const value = '11/22/2016';
-    const onChangeMock = jest.fn();
-    const component = new DatepickerComponent({
-      value,
-      onChange: onChangeMock
-    });
-    const day = parseDate('04/21/1979');
+    const onChange = jest.fn();
+    const props = { ...defaultProps, value, onChange };
 
-    component.simulateDateClick(day);
+    const { getByRole, getByText } = render(<Datepicker {...props} />);
+    fireEvent.click(getByText('4'));
 
-    expect(component.selectedDate()).toBe(day);
-    expect(onChangeMock).toHaveBeenCalledWith('birthday', '04/21/1979');
+    expect(getByRole('textbox')).toHaveProperty('value', '11/04/2016');
+    expect(onChange).toHaveBeenCalledWith('birthday', '11/04/2016');
   });
 
   describe('shows the calendar on the correct position', () => {
     test('shows the calendar below', () => {
-      const component = new DatepickerComponent();
+      const { getByLabelText, container } = render(
+        <Datepicker {...defaultProps} />
+      );
+      fireEvent.click(getByLabelText('Show calendar'));
 
-      component.simulateCalendarIconClick();
-
-      expect(component.calendarIsBelow()).toBe(true);
+      expect(container.firstChild.childNodes[1]).not.toHaveClass('is-reverse');
     });
 
     test('shows the calendar above when it does not fit below', () => {
-      const getBoundingClientRect = () => ({ top: 1200 });
-      jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
-        current: { getBoundingClientRect }
-      }));
-      const component = new DatepickerComponent();
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          top: 1200
+        };
+      });
 
-      component.simulateCalendarIconClick();
+      const { getByLabelText, container } = render(
+        <Datepicker {...defaultProps} />
+      );
+      fireEvent.click(getByLabelText('Show calendar'));
 
-      expect(component.calendarIsBelow()).toBe(false);
+      expect(container.firstChild.childNodes[1]).toHaveClass('is-reverse');
     });
 
     test('shows the calendar below when it does not fit above', () => {
-      const getBoundingClientRect = () => ({ top: 100 });
-      jest.spyOn(React, 'createRef').mockImplementationOnce(() => ({
-        current: { getBoundingClientRect }
-      }));
-      const component = new DatepickerComponent();
+      Element.prototype.getBoundingClientRect = jest.fn(() => {
+        return {
+          top: 100
+        };
+      });
 
-      component.simulateCalendarIconClick();
+      const { getByLabelText, container } = render(
+        <Datepicker {...defaultProps} />
+      );
+      fireEvent.click(getByLabelText('Show calendar'));
 
-      expect(component.calendarIsBelow()).toBe(true);
+      expect(container.firstChild.childNodes[1]).not.toHaveClass('is-reverse');
     });
-  });
-
-  test('opens the calendar when clicking the calendar icon', () => {
-    const component = new DatepickerComponent();
-    component.simulateCalendarIconClick();
-
-    expect(component.calendarIsVisible()).toBe(true);
   });
 
   test('passes other properties to the inner DateInput component', () => {
-    const component = new DatepickerComponent({ 'aria-required': true });
-    const dateInput = component.dateInput();
+    const ownProps = { 'data-testid': 'datapicker_id' };
+    const props = { ...defaultProps, ...ownProps };
 
-    expect(dateInput.prop('aria-required')).toBe(true);
+    const { getByTestId } = render(<Datepicker {...props} />);
+
+    expect(getByTestId('datapicker_id')).toBeInTheDocument();
+    expect(getByTestId('datapicker_id')).toHaveClass('Input');
   });
 
   describe('having read-only property', () => {
-    const component = new DatepickerComponent({ readOnly: true });
+    const ownProps = { readOnly: true };
+    const props = { ...defaultProps, ...ownProps };
 
     test('renders a read-only input', () => {
-      expect(component.dateInput().prop('readOnly')).toBe(true);
-    });
+      const { getByRole } = render(<Datepicker {...props} />);
 
-    test('does not open the calendar clicking the date input', () => {
-      component.simulateDateInputClick();
-
-      expect(component.calendarIsVisible()).toBe(false);
+      expect(getByRole('textbox')).toHaveProperty('readOnly', true);
     });
 
     test('does not open the calendar clicking the calendar icon', () => {
-      component.simulateCalendarIconClick();
+      const { getByLabelText, queryAllByTestId, container } = render(
+        <Datepicker {...props} />
+      );
+      fireEvent.click(getByLabelText('Show calendar'));
 
-      expect(component.calendarIsVisible()).toBe(false);
+      expect(queryAllByTestId('FocusTrap')).toHaveLength(0);
+      expect(container.firstChild).not.toHaveClass('is-focused');
     });
   });
 
   describe('having disabled property', () => {
-    const component = new DatepickerComponent({ disabled: true });
+    const ownProps = { disabled: true };
+    const props = { ...defaultProps, ...ownProps };
 
-    test('renders a read-only input', () => {
-      expect(component.dateInput().prop('disabled')).toBe(true);
-    });
+    test('renders a diisabled input', () => {
+      const { getByRole } = render(<Datepicker {...props} />);
 
-    test('does not open the calendar clicking the date input', () => {
-      component.simulateDateInputClick();
-
-      expect(component.calendarIsVisible()).toBe(false);
+      expect(getByRole('textbox')).toBeDisabled();
     });
 
     test('does not open the calendar clicking the calendar icon', () => {
-      component.simulateCalendarIconClick();
+      const { getByLabelText, queryAllByTestId, container } = render(
+        <Datepicker {...props} />
+      );
+      fireEvent.click(getByLabelText('Show calendar'));
 
-      expect(component.calendarIsVisible()).toBe(false);
+      expect(queryAllByTestId('FocusTrap')).toHaveLength(0);
+      expect(container.firstChild).not.toHaveClass('is-focused');
     });
   });
 });
